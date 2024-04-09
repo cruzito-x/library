@@ -20,12 +20,12 @@ Para ejecutar este sistema localmente, asegúrese de tener instalado lo siguient
 ## Instalación
 Clona este repositorio:
 ```
-git clone https://github.com/tu_usuario/repo.git
+git clone https://github.com/cruzito-rar/library.git
 ```
 
 Navega hasta el directorio del proyecto:
 ```
-cd nombre_del_proyecto
+cd library
 ```
 
 Instala las dependencias del frontend y del backend:
