@@ -5,7 +5,7 @@ const Logo = () => {
   return (
     <div className='logo'>
       <div className="logo-icon">
-      <FireFilled/>
+      <img src="../../logo512.png" className='logo-img' alt="logo" />
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import { Button, Layout, theme } from 'antd';
 import Logo from '../logo/Logo';
 import MenuList from '../menuList/MenuList';
 import ToggleThemeButton from '../toggleThemeButton/ToggleThemeButton';
-import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import './Sidebar.css';
 
 const { Header, Sider } = Layout;
@@ -27,7 +27,7 @@ const Sidebar = () => {
         </Sider>
         <Layout>
           <Header style={{ padding: 0, background : colorBgContainer }}>
-            <Button type='text' className='toggle' icon={ collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined /> } onClick={() => setCollapsed(!collapsed)} />
+            <Button type='text' className='toggle' icon={ collapsed ? <RightOutlined /> : <LeftOutlined /> } onClick={() => setCollapsed(!collapsed)} />
           </Header>
         </Layout>
       </Layout>

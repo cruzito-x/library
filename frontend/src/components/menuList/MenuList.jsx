@@ -37,7 +37,6 @@ const MenuList = ({ darkTheme }) => {
       <Menu.Item key='exit' icon={<PoweroffOutlined />}>
         Salir
       </Menu.Item>
-
     </Menu>
   );
 }
