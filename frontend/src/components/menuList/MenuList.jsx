@@ -34,7 +34,7 @@ const MenuList = ({ darkTheme }) => {
       <Menu.Item key='users' icon={<UserOutlined />}>
         Usuarios
       </Menu.Item>
-      <Menu.Item key='exit' icon={<PoweroffOutlined />}>
+      <Menu.Item key='sign-out' icon={<PoweroffOutlined />}>
         Salir
       </Menu.Item>
     </Menu>
