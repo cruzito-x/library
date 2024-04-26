@@ -3,17 +3,18 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Sidebar from "./components/sidebar/Sidebar";
 import Home from "./views/home/Home";
 import About from "./views/about/About";
+import Dashboard from "./views/dashboard/Dashboard";
 
 const App = () => {
   return (
-    // <Router>
+    <Router>
       <Sidebar />
-      /* <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/about" element={<About />} />
+      <Routes>
+        <Route exact path="/dashboard" element={<Dashboard />} />
+        <Route path="/products" element={<Dashboard/>} />
+        <Route path="/sign-out" element={<About />} />
       </Routes>
-    </Router> */
+    </Router>
   );
 };
 

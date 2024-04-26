@@ -1,10 +1,17 @@
 import React from 'react';
 import { Menu } from 'antd';
 import { AreaChartOutlined, ProductOutlined, GoldOutlined, FileTextOutlined, ExportOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined} from '@ant-design/icons';
+import { Navigate as navigate } from 'react-router-dom';
 
 const MenuList = ({ darkTheme }) => {
   return (
-    <Menu theme={ darkTheme ? 'dark' : 'light'} mode='inline' className='menu-bar'>
+    <Menu theme={ darkTheme ? 'dark' : 'light'} mode='inline' className='menu-bar' onClick={({key}) => {
+      if (key == '/sign-out') {
+        window.location.href = '/';
+      } else {
+        navigate(key);
+      }
+    }}>
       <Menu.Item key='home' icon={<ProductOutlined />}>
         Summary
       </Menu.Item>
