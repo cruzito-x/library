@@ -1,32 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   DesktopOutlined,
   FileOutlined,
-  PieChartOutlined,
+  AreaChartOutlined,
   TeamOutlined,
   UserOutlined,
-} from '@ant-design/icons';
-import { Breadcrumb, Layout, Content, Menu, theme } from 'antd';
+} from "@ant-design/icons";
+import { Breadcrumb, Layout, Content, Menu, Space, Select, theme } from "antd";
+
+const handleChange = (value) => {
+  console.log(`selected ${value}`);
+};
 
 const Dashboard = () => {
   const { Content } = Layout;
   const {
-    token : { colorBgContainer, borderRadiusLG }
+    token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
   return (
-    <>
-      <Content style={{ margin: '0 16px' }} >
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item> username </Breadcrumb.Item>
-            <Breadcrumb.Item> Dashboard </Breadcrumb.Item>
-          </Breadcrumb>
-          <div style={{ padding: 24, minHeight: 764, background: colorBgContainer, borderRadius: borderRadiusLG }} >
-            Bill is a cat.
-          </div>
-        </Content>
-    </>
-  )
-}
+      <Content style={{ margin: "0 16px" }}>
+        <Breadcrumb style={{ margin: "16px 0" }}>
+          <Breadcrumb.Item> <UserOutlined /> username </Breadcrumb.Item>
+          <Breadcrumb.Item> Dashboard </Breadcrumb.Item>
+        </Breadcrumb>
+        <div
+          style={{
+            padding: 24,
+            minHeight: 764,
+            background: colorBgContainer,
+            borderRadius: borderRadiusLG,
+          }}
+        >
+          <Space wrap>
+            Progreso de ventas
+            <Select
+              defaultValue="7"
+              style={{
+                width: 120,
+              }}
+              onChange={handleChange}
+              options={[
+                {
+                  value: "7",
+                  label: "7 días",
+                },
+                {
+                  value: "14",
+                  label: "14 días",
+                },
+                {
+                  value: "30",
+                  label: "1 mes",
+                },
+                {
+                  value: "90",
+                  label: "3 meses",
+                },
+                {
+                  value: "180",
+                  label: "6 meses",
+                },
+                {
+                  value: "365",
+                  label: "1 año",
+                },
+              ]}
+            />
+          </Space>
+        </div>
+      </Content>
+  );
+};
 
 export default Dashboard;

@@ -1,28 +1,30 @@
 import React from 'react';
 import { Menu } from 'antd';
 import { AreaChartOutlined, ProductOutlined, GoldOutlined, FileTextOutlined, ExportOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined} from '@ant-design/icons';
-import { Navigate as navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 
 const MenuList = ({ darkTheme }) => {
+  const navigate = useNavigate();
+
   return (
-    <Menu theme={ darkTheme ? 'dark' : 'light'} mode='inline' className='menu-bar' onClick={({key}) => {
-      if (key == '/sign-out') {
+    <Menu theme={darkTheme ? 'dark' : 'light'} mode='inline' className='menu-bar' onClick={({ key }) => {
+      if (key === '/sign-out') {
         window.location.href = '/';
       } else {
         navigate(key);
       }
     }}>
-      <Menu.Item key='home' icon={<ProductOutlined />}>
-        Summary
+      <Menu.Item key='/dashboard' icon={<AreaChartOutlined />}>
+        Dashboard
       </Menu.Item>
-      <Menu.Item key='products' icon={<GoldOutlined />}>
+      <Menu.Item key='/products' icon={<GoldOutlined />}>
         Productos
       </Menu.Item>
-      <Menu.Item key='bill' icon={<PrinterOutlined />}>
+      <Menu.Item key='/bill' icon={<PrinterOutlined />}>
         Generar factura
       </Menu.Item>
-      <Menu.SubMenu key='sales' title='Ventas' icon={<FileTextOutlined />}>
-      <Menu.Item key='7-days'>
+      <Menu.SubMenu key='/sales' title='Ventas' icon={<FileTextOutlined />}>
+        <Menu.Item key='7-days'>
           Últimos 7 días
         </Menu.Item>
         <Menu.Item key='14-days'>
@@ -38,10 +40,10 @@ const MenuList = ({ darkTheme }) => {
           Último año
         </Menu.Item>
       </Menu.SubMenu>
-      <Menu.Item key='users' icon={<UserOutlined />}>
+      <Menu.Item key='/users' icon={<UserOutlined />}>
         Usuarios
       </Menu.Item>
-      <Menu.Item key='sign-out' icon={<PoweroffOutlined />}>
+      <Menu.Item key='/sign-out' icon={<PoweroffOutlined />}>
         Salir
       </Menu.Item>
     </Menu>
