@@ -6,7 +6,7 @@ import ToggleThemeButton from '../toggleThemeButton/ToggleThemeButton';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import './Sidebar.css';
 
-const { Header, Sider } = Layout;
+const { Header, Sider, Footer } = Layout;
 
 const Sidebar = () => {
   const [darkTheme, setDarkTheme] = useState(true);
@@ -27,8 +27,13 @@ const Sidebar = () => {
         </Sider>
         <Layout>
           <Header style={{ padding: 0, background : colorBgContainer }}>
+            {/* <h2> Bienvenido(a) de vuelta, username </h2> */}
             <Button type='text' className='toggle' icon={ collapsed ? <RightOutlined /> : <LeftOutlined /> } onClick={() => setCollapsed(!collapsed)} />
           </Header>
+          
+          <Footer style={{ textAlign: 'center' }}>
+            cruzito's Design ©{ new Date().getFullYear() } - Created by David Cruz
+          </Footer>
         </Layout>
       </Layout>
     </>
