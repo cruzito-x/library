@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { Form, Input, Button, message } from "antd";
 import $ from 'jquery';
 import Sidebar from "../../components/sidebar/Sidebar";
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const onFinish = async (values) => {
     setLoading(true);
@@ -25,6 +27,7 @@ const Login = () => {
       if (response.status === 200) {
         message.success(data.message);
         localStorage.setItem("username", ($("#username").val()));
+        navigate('/dashboard');
       } else {
         message.error(data.message);
       }
