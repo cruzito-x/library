@@ -1,59 +1,89 @@
-import React, { useState } from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
+import React, { useState } from "react";
+import { Form, Input, Button, message } from "antd";
+import $ from 'jquery';
+import Sidebar from "../../components/sidebar/Sidebar";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
 
-  const onFinish = (values) => {
-    console.log('Received values:', values);
+  const onFinish = async (values) => {
     setLoading(true);
+    try {
+      const response = await fetch(
+        "https://570b-190-150-105-30.ngrok-free.app/srvr/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      );
 
-    // Aquí puedes enviar una solicitud HTTP para autenticar al usuario
-    // Por ejemplo, utilizando fetch o axios
+      const data = await response.json();
 
-    // Simulación de una solicitud asíncrona (reemplázala con tu lógica real)
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+      if (response.status === 200) {
+        message.success(data.message);
+        localStorage.setItem("username", ($("#username").val()));
+      } else {
+        message.error(data.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      message.error("Hubo un problema al iniciar sesión");
+    }
+    setLoading(false);
   };
 
   return (
-    <Form
-      name="basic"
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
     >
-      <Form.Item
-        label="Username"
-        name="username"
-        rules={[{ required: true, message: 'Please input your username!' }]}
+      <Form
+        name="loginForm"
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+        style={{ width: 300 }}
       >
-        <Input />
-      </Form.Item>
+        <Form.Item
+          name="username"
+          id="username"
+          rules={[
+            {
+              required: true,
+              message: "Por favor ingresa tu nombre de usuario",
+            },
+          ]}
+        >
+          <Input placeholder="Nombre de Usuario" />
+        </Form.Item>
 
-      <Form.Item
-        label="Password"
-        name="password"
-        rules={[{ required: true, message: 'Please input your password!' }]}
-      >
-        <Input.Password />
-      </Form.Item>
+        <Form.Item
+          name="password"
+          rules={[
+            { required: true, message: "Por favor ingresa tu contraseña" },
+          ]}
+        >
+          <Input.Password placeholder="Contraseña" />
+        </Form.Item>
 
-      <Form.Item name="remember" valuePropName="checked">
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
-
-      <Form.Item>
-        <Button type="primary" htmlType="submit" loading={loading}>
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            loading={loading}
+            style={{ width: "100%" }}
+          >
+            Iniciar Sesión
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
   );
 };
 

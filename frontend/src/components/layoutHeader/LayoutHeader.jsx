@@ -1,5 +1,6 @@
 import React from 'react';
 import { Layout, Typography, theme } from 'antd';
+import $ from 'jquery';
 
 const LayoutHeader = () => {
   const { Header } = Layout;
@@ -11,7 +12,7 @@ const LayoutHeader = () => {
 
   return (
     <Header style={{ padding: 0, background : colorBgContainer, marginTop: "-10px" }}>
-      <Title level={4} style={{ marginLeft: "15px" }}> Bienvenido(a) de nuevo, username </Title>
+      <Title level={4} style={{ marginLeft: "15px" }}> Bienvenido(a) de nuevo, {$(localStorage.getItem('username'))} </Title>
     </Header>
   )
 }
