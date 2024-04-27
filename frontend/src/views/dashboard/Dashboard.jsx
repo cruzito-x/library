@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import {
-  DesktopOutlined,
-  FileOutlined,
-  AreaChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Content, Menu, Space, Select, theme } from "antd";
+import DashboardGraphs from "../../components/dashboardGraphs/DashboardGraphs";
 
 const handleChange = (value) => {
   console.log(`selected ${value}`);
@@ -36,6 +31,7 @@ const Dashboard = () => {
             Progreso de ventas
             <Select
               defaultValue="7"
+              id="date"
               style={{
                 width: 120,
               }}
@@ -68,6 +64,9 @@ const Dashboard = () => {
               ]}
             />
           </Space>
+          <Content>
+              <DashboardGraphs/>
+            </Content>
         </div>
       </Content>
   );

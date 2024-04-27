@@ -25,19 +25,18 @@ const Sidebar = () => {
         <Sider theme={ darkTheme? 'dark' : 'light' } collapsed={ collapsed } collapsible trigger={ null } className='sidebar'>
           <Logo/>
           <Routes>
-            <Route path='/*' element={<MenuList darkTheme={ darkTheme } />} />
+            <Route path='/*' element={<MenuList darkTheme={darkTheme} collapsed={collapsed} setCollapsed={setCollapsed} />} />
           </Routes>
           <ToggleThemeButton darkTheme={ darkTheme } toggleTheme={toggleTheme}/>
         </Sider>
         <Layout>
           <Header style={{ padding: 0, background : colorBgContainer }}>
-            {/* <h2> Bienvenido(a) de vuelta, username </h2> */}
-            <Button type='text' className='toggle' icon={ collapsed? <RightOutlined /> : <LeftOutlined /> } onClick={() => setCollapsed(!collapsed)} />
           </Header>
           <Content>
             <Routes>
               <Route exact path='/dashboard' element={<Dashboard />} />
               <Route path='/products' element={<Products />} />
+              <Route path='/*' element={<MenuList darkTheme={darkTheme} collapsed={collapsed} setCollapsed={setCollapsed} />} />
             </Routes>
           </Content>
           <Footer style={{ textAlign: 'center' }}>

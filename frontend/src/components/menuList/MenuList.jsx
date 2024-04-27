@@ -1,10 +1,14 @@
-import React from 'react';
-import { Menu } from 'antd';
-import { AreaChartOutlined, ProductOutlined, GoldOutlined, FileTextOutlined, ExportOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined} from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import { React, useState } from 'react';
+import { Menu, theme } from 'antd';
+import { AreaChartOutlined, ProductOutlined, GoldOutlined, FileTextOutlined, ExportOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined, LeftOutlined, RightOutlined} from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
-const MenuList = ({ darkTheme }) => {
+const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
   const navigate = useNavigate();
+
+  const {
+    token : { colorBgContainer }
+  } = theme.useToken();
 
   return (
     <Menu theme={darkTheme ? 'dark' : 'light'} mode='inline' className='menu-bar' onClick={({ key }) => {
@@ -45,6 +49,14 @@ const MenuList = ({ darkTheme }) => {
       </Menu.Item>
       <Menu.Item key='/sign-out' icon={<PoweroffOutlined />}>
         Salir
+      </Menu.Item>
+      <Menu.Item
+        key={"#"}
+        icon={collapsed ? <RightOutlined /> : <LeftOutlined />}
+        onClick={() => setCollapsed(!collapsed)}
+        className='toggle'
+      >
+        Colapsar
       </Menu.Item>
     </Menu>
   );
