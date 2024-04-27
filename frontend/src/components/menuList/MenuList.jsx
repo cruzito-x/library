@@ -24,8 +24,8 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
       <Menu.Item key='/books' icon={<GoldOutlined />}>
         Libros
       </Menu.Item>
-      <Menu.Item key='/bill' icon={<PrinterOutlined />}>
-        Generar factura
+      <Menu.Item key='/bills' icon={<PrinterOutlined />}>
+        Facturar
       </Menu.Item>
       <Menu.SubMenu key='/sales' title='Ventas' icon={<FileTextOutlined />}>
         <Menu.Item key='7-days'>

@@ -5,6 +5,7 @@ import LayoutHeader from '../layoutHeader/LayoutHeader';
 import MenuList from '../menuList/MenuList';
 import Dashboard from '../../views/dashboard/Dashboard';
 import Products from '../../views/products/Products';
+import Bills from '../../views/bills/Bills';
 import Users from '../../views/users/Users';
 import ToggleThemeButton from '../toggleThemeButton/ToggleThemeButton';
 import './Sidebar.css';
@@ -46,8 +47,8 @@ const Sidebar = () => {
           <Routes>
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/books' element={<Products />} />
+            <Route path='/bills' element={<Bills />} />
             <Route path='/users' element={<Users />} />
-            {/* Agrega otras rutas aquí si es necesario */}
           </Routes>
         </Content>
         <Footer style={{ textAlign: 'center' }}>

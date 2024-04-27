@@ -99,8 +99,8 @@ const DashboardGraphs = () => {
           label: "Ventas del mes",
           data: [20, 30, 40, 50, 60, 70, 80, 50, 80, 102],
           backgroundColor: [
-            "#3cba9f",
             "#05b0ff",
+            "#3cba9f",
             "#34495e",
             "#e74c3c",
             "#f4d03f",
@@ -292,8 +292,7 @@ const DashboardGraphs = () => {
         <Col span={24}>
           <Card style={{ marginTop: "20px" }}>
             <Title level={5} style={{ marginTop: "0" }}>
-              {" "}
-              Progreso de ventas{" "}
+              Progreso de ventas
             </Title>
             <div>
               <canvas ref={lineChartRef} width="100" height="20"></canvas>
@@ -306,8 +305,7 @@ const DashboardGraphs = () => {
           <Col span={17}>
             <Card style={{ marginTop: "20px" }}>
               <Title level={5} style={{ marginTop: "0" }}>
-                {" "}
-                Resumen del mes{" "}
+                Resumen del mes
               </Title>
               <div>
                 <canvas ref={barChartRef} width="100" height="38"></canvas>
@@ -317,8 +315,7 @@ const DashboardGraphs = () => {
           <Col span={7}>
             <Card style={{ marginTop: "20px" }}>
               <Title level={5} style={{ marginTop: "0" }}>
-                {" "}
-                Libros más vendidos{" "}
+                Libros más vendidos
               </Title>
               <div>
                 <canvas ref={doughnutChartRef} width="100" height="10"></canvas>
@@ -332,8 +329,7 @@ const DashboardGraphs = () => {
           <Col span={24}>
             <Card style={{ marginTop: "20px" }}>
               <Title level={5} style={{ marginTop: "0" }}>
-                {" "}
-                Recientemente añadido{" "}
+                Añadido recientemente
               </Title>
               <Table
                 columns={columns}
