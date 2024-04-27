@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import { Menu, theme } from 'antd';
-import { AreaChartOutlined, ProductOutlined, GoldOutlined, FileTextOutlined, ExportOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined, LeftOutlined, RightOutlined} from '@ant-design/icons';
+import { AreaChartOutlined, ProductOutlined, GoldOutlined, FileTextOutlined, DownloadOutlined, ExportOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined, LeftOutlined, RightOutlined} from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
@@ -27,7 +27,7 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
       <Menu.Item key='/bills' icon={<PrinterOutlined />}>
         Facturar
       </Menu.Item>
-      <Menu.SubMenu key='/sales' title='Ventas' icon={<FileTextOutlined />}>
+      <Menu.SubMenu key='/reports' title='Reportes' icon={<DownloadOutlined />}>
         <Menu.Item key='7-days'>
           Últimos 7 días
         </Menu.Item>

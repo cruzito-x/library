@@ -12,7 +12,7 @@ const Login = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "https://570b-190-150-105-30.ngrok-free.app/srvr/login",
+        "https://b41a-190-150-105-30.ngrok-free.app/srvr/login",
         {
           method: "POST",
           headers: {

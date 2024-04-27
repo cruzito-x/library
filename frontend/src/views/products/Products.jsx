@@ -1,16 +1,20 @@
 import React, { useState } from "react";
-import { PlusCircleOutlined, PlusCircleFilled, UserOutlined } from "@ant-design/icons";
-import { Breadcrumb, Layout, Input, InputNumber, Space, Button, Modal, Form, Radio, Row, Col, Table, theme, Popconfirm, message } from "antd";
+import { PlusCircleOutlined, PlusCircleFilled, UserOutlined, UploadOutlined } from "@ant-design/icons";
+import { Breadcrumb, Layout, Input, InputNumber, Tag, Button, Modal, Form, Row, Col, Table, theme, Popconfirm, Image, Upload, message } from "antd";
+import Uploader from "../../components/uploader/Uploader";
 
 const Products = () => {
   const { Content } = Layout;
   const { Search } = Input;
+  const { Dragger } = Upload;
   const onSearch = (value, _e, info) => console.log(info?.source, value);
   const [size, setSize] = useState("medium");
   const { confirm } = Modal;
   const { TextArea } = Input;
   const [form] = Form.useForm();
   const [formLayout, setFormLayout] = useState('horizontal');
+  const [modal1Open, setModal1Open] = useState(false);
+  const [selectedRowData, setSelectedRowData] = useState(null);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -20,6 +24,7 @@ const Products = () => {
     console.log(e);
     message.success("Click on Yes");
   };
+
   const cancelDelete = (e) => {
     console.log(e);
     message.error("Click on No");
@@ -27,6 +32,7 @@ const Products = () => {
 
   const showPromiseConfirm = () => {
     confirm({
+      width: "35%",
       title: "Añadir libro",
       icon: <PlusCircleFilled />,
       content: (
@@ -53,13 +59,16 @@ const Products = () => {
             <Input placeholder="ej. Horror, Fantasía, Romance, etc." />
           </Form.Item>
           <Form.Item label="Ingreso:">
-          <InputNumber min={1} max={100} defaultValue={1}/>
+            <InputNumber min={1} max={100} defaultValue={1}/>
           </Form.Item>
           <Form.Item label="Descripción:">
             <TextArea rows={6} placeholder="Descripción del libro" showCount  maxLength={255} style={{ height: 120, resize: 'none' }}/>
           </Form.Item>
           <br />
-          <Form.Item label="Registrado el:">
+          <Form.Item label="Portada:">
+            <Uploader />
+          </Form.Item>
+          <Form.Item label="Registrado el:" style={{ display: 'none' }}>
             <Input value={ new Date().getDate()+'/'+(new Date().getMonth() + 1)+'/'+new Date().getFullYear() } disabled/>
           </Form.Item>
         </Form>
@@ -75,6 +84,10 @@ const Products = () => {
     });
   };
   
+  const handleRowClick = (record) => {
+    setSelectedRowData(record);
+    setModal1Open(true);
+  }
 
   const columns = [
     {
@@ -297,15 +310,7 @@ const Products = () => {
       >
         <Row gutter={16}>
           <Col span={18}>
-            <Button
-              type="primary"
-              icon={<PlusCircleOutlined />}
-              size={size}
-              onClick={showPromiseConfirm}
-            >
-              {" "}
-              Añadir nuevo{" "}
-            </Button>
+            <Button type="primary" icon={<PlusCircleOutlined />} size={size} onClick={showPromiseConfirm}> Añadir nuevo </Button>
           </Col>
           <Col span={6}>
             <Search
@@ -323,18 +328,34 @@ const Products = () => {
                 columns={columns}
                 expandable={{
                   expandedRowRender: (record) => (
-                    <p
-                      style={{
-                        margin: 0,
-                      }}
-                    >
+                    <p style={{ margin: 0 }}>
                       {record.description}
                     </p>
                   ),
                   rowExpandable: (record) => record.name !== "Not Expandable",
                 }}
                 dataSource={data}
+                onRow={(record, rowIndex) => {
+                  return {
+                    onClick: () => handleRowClick(record),
+                  };
+                }}
               />
+              <Modal title="Detalles del libro" visible={modal1Open} onCancel={() => setModal1Open(false)}
+              footer={[ <Button key="back" danger onClick={() => setModal1Open(false)}> Cerrar </Button> ]}>
+                {selectedRowData && (
+                <>
+                <div style={{ width: "100%", justifyContent: "center", display: "flex" }}>
+                  <Image src={"logo512.png"} style={{ width: "300px", height: "350px" }} alt="Product photo" />
+                  </div>
+                  <p> <strong> Existencia: </strong> <br /> <Tag bordered={false} color="error"> Agotado </Tag> </p>
+                  <p> <strong> Nombre del libro: </strong> <br /> {selectedRowData.name}</p>
+                  <p> <strong> Autor: </strong> <br /> {selectedRowData.author}</p>
+                  <p> <strong> Precio: </strong> <br /> {selectedRowData.price}</p>
+                  <p> <strong> Descripción: </strong> <br /> {selectedRowData.description}</p>
+                </>
+                )}
+              </Modal>
             </Col>
           </Row>
         </div>
