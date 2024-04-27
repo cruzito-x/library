@@ -1,12 +1,11 @@
 import { React, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Button, Layout, theme } from 'antd';
+import { Layout, theme } from 'antd';
 import Logo from '../logo/Logo';
 import MenuList from '../menuList/MenuList';
 import Dashboard from '../../views/dashboard/Dashboard';
 import Products from '../../views/products/Products';
 import ToggleThemeButton from '../toggleThemeButton/ToggleThemeButton';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import './Sidebar.css';
 const { Sider, Header, Content, Footer } = Layout;
 
@@ -21,18 +20,25 @@ const Sidebar = () => {
 
   return (
     <Router>
-      <Layout>
-        <Sider theme={ darkTheme? 'dark' : 'light' } collapsed={ collapsed } collapsible trigger={ null } className='sidebar'>
+      <Layout hasSider>
+        <Sider theme={ darkTheme? 'dark' : 'light' } collapsed={ collapsed } collapsible trigger={ null } className='sidebar' style={{
+          overflow: 'auto',
+          height: '100vh',
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          bottom: 0
+        }}>
           <Logo/>
           <Routes>
             <Route path='/*' element={<MenuList darkTheme={darkTheme} collapsed={collapsed} setCollapsed={setCollapsed} />} />
           </Routes>
           <ToggleThemeButton darkTheme={ darkTheme } toggleTheme={toggleTheme}/>
         </Sider>
-        <Layout>
+        <Layout style={{ marginLeft: 200 }}>
           <Header style={{ padding: 0, background : colorBgContainer }}>
           </Header>
-          <Content>
+          <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
             <Routes>
               <Route exact path='/dashboard' element={<Dashboard />} />
               <Route path='/products' element={<Products />} />

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { UserOutlined } from "@ant-design/icons";
-import { Breadcrumb, Layout, Content, Menu, Space, Select, theme } from "antd";
+import { Breadcrumb, Layout, Divider, Space, Select, theme } from "antd";
 import DashboardGraphs from "../../components/dashboardGraphs/DashboardGraphs";
 
 const handleChange = (value) => {
@@ -14,8 +14,8 @@ const Dashboard = () => {
   } = theme.useToken();
 
   return (
-      <Content style={{ margin: "0 16px" }}>
-        <Breadcrumb style={{ margin: "16px 0" }}>
+      <Content>
+        <Breadcrumb style={{ margin: "0 0 16px 0" }}>
           <Breadcrumb.Item> <UserOutlined /> username </Breadcrumb.Item>
           <Breadcrumb.Item> Dashboard </Breadcrumb.Item>
         </Breadcrumb>
@@ -28,7 +28,7 @@ const Dashboard = () => {
           }}
         >
           <Space wrap>
-            Progreso de ventas
+            Fecha
             <Select
               defaultValue="7"
               id="date"
