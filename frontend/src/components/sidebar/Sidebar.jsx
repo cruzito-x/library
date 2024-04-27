@@ -45,7 +45,7 @@ const Sidebar = () => {
         <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
           <Routes>
             <Route path='/dashboard' element={<Dashboard />} />
-            <Route path='/products' element={<Products />} />
+            <Route path='/books' element={<Products />} />
             <Route path='/users' element={<Users />} />
             {/* Agrega otras rutas aquí si es necesario */}
           </Routes>

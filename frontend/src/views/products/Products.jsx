@@ -19,9 +19,9 @@ const Products = () => {
 
   return (
       <Content style={{ margin: "0 16px" }}>
-        <Breadcrumb style={{ margin: "16px 0" }}>
-          <Breadcrumb.Item> <UserOutlined /> username </Breadcrumb.Item>
-          <Breadcrumb.Item> Products </Breadcrumb.Item>
+        <Breadcrumb style={{ margin: "0 0 16px 0" }}>
+          <Breadcrumb.Item> <UserOutlined /> { localStorage.getItem('username') } </Breadcrumb.Item>
+          <Breadcrumb.Item> Libros </Breadcrumb.Item>
         </Breadcrumb>
         <div
           style={{

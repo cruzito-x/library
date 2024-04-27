@@ -21,8 +21,8 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
       <Menu.Item key='/dashboard' icon={<AreaChartOutlined />}>
         Dashboard
       </Menu.Item>
-      <Menu.Item key='/products' icon={<GoldOutlined />}>
-        Productos
+      <Menu.Item key='/books' icon={<GoldOutlined />}>
+        Libros
       </Menu.Item>
       <Menu.Item key='/bill' icon={<PrinterOutlined />}>
         Generar factura
