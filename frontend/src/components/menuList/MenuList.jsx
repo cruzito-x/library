@@ -51,7 +51,7 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
         Salir
       </Menu.Item>
       <Menu.Item
-        key={"#"}
+        key={"/collapsed"}
         icon={collapsed ? <RightOutlined /> : <LeftOutlined />}
         onClick={() => setCollapsed(!collapsed)}
         className='toggle'

@@ -14,8 +14,8 @@ const Dashboard = () => {
   } = theme.useToken();
 
   return (
-      <Content>
-        <Breadcrumb style={{ margin: "0 0 16px 0" }}>
+      <Content style={{ margin: "0 16px" }}>
+        <Breadcrumb style={{ margin: "16px 0" }}>
           <Breadcrumb.Item> <UserOutlined /> username </Breadcrumb.Item>
           <Breadcrumb.Item> Dashboard </Breadcrumb.Item>
         </Breadcrumb>
