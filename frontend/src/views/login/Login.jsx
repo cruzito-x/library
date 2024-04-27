@@ -26,7 +26,7 @@ const Login = () => {
 
       if (response.status === 200) {
         message.success(data.message);
-        localStorage.setItem("username", ($("#username").val()));
+        localStorage.setItem("username", values.username);
         navigate('/dashboard');
       } else {
         message.error(data.message);
@@ -55,7 +55,6 @@ const Login = () => {
       >
         <Form.Item
           name="username"
-          id="username"
           rules={[
             {
               required: true,

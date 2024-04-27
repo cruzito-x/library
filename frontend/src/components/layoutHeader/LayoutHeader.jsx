@@ -12,9 +12,9 @@ const LayoutHeader = () => {
 
   return (
     <Header style={{ padding: 0, background : colorBgContainer, marginTop: "-10px" }}>
-      <Title level={4} style={{ marginLeft: "15px" }}> Bienvenido(a) de nuevo, {$(localStorage.getItem('username'))} </Title>
+      <Title level={4} style={{ marginLeft: "15px" }}> Bienvenido(a) de nuevo, {localStorage.getItem('username')} </Title>
     </Header>
-  )
+  );
 }
 
 export default LayoutHeader;
