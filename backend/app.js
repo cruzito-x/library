@@ -5,7 +5,10 @@ const cors = require("cors");
 
 const app = express();
 const port = 3001;
-app.use(cors());
+
+// Middleware para parsear el body de las solicitudes como JSON
+app.use(bodyParser.json());
+app.use(cors({ origin: "*" }));
 
 // Configuración de la conexión a la base de datos MySQL
 const connection = mysql.createConnection({
@@ -20,15 +23,12 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-// Middleware para parsear el body de las solicitudes como JSON
-app.use(bodyParser.json());
-
 // Endpoint para manejar el inicio de sesión
 app.post("/srvr/login", (req, res) => {
   const { username, password } = req.body;
 
   // Consulta a la base de datos para verificar las credenciales del usuario
-  const query = `SELECT * FROM usuarios WHERE nombreUsuario = ? AND password = ?`;
+  const query = `select * from usuarios where nombreUsuario = ? and password = ?`;
   connection.query(query, [username, password], (err, results) => {
     if (err) {
       console.error("Error al ejecutar la consulta:", err);
@@ -55,7 +55,7 @@ connection.connect((error) => {
   console.log("Conexión a la base de datos MySQL exitosa");
 });
 
-// Iniciar el servidor
+// Levantar el servidor
 app.listen(port, () => {
   console.log(`Servidor Express escuchando en el puerto ${port}`);
 });
