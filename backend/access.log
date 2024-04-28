@@ -1,0 +1,14 @@
+::1 - - [28/Apr/2024:16:53:55 +0000] "GET /dashboard HTTP/1.1" 401 59 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+::1 - - [28/Apr/2024:16:53:55 +0000] "GET /favicon.ico HTTP/1.1" 401 59 "https://e043-190-150-105-30.ngrok-free.app/dashboard" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+::1 - - [28/Apr/2024:16:54:07 +0000] "OPTIONS /login HTTP/1.1" 204 0 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+::1 - - [28/Apr/2024:16:54:07 +0000] "POST /login HTTP/1.1" 401 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+::1 - - [28/Apr/2024:17:02:19 +0000] "GET /dashboard HTTP/1.1" 401 59 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+::1 - - [28/Apr/2024:17:02:19 +0000] "GET /favicon.ico HTTP/1.1" 401 59 "https://e043-190-150-105-30.ngrok-free.app/dashboard" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+Servidor Express escuchando en el puerto 3001
+Conexión a la base de datos MySQL exitosa
+::1 - - [28/Apr/2024:17:02:41 +0000] "GET /dashboard HTTP/1.1" 401 59 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+::1 - - [28/Apr/2024:17:02:41 +0000] "GET /favicon.ico HTTP/1.1" 401 59 "https://e043-190-150-105-30.ngrok-free.app/dashboard" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+Servidor Express escuchando en el puerto 3001
+Conexión a la base de datos MySQL exitosa
+::1 - - [28/Apr/2024:17:05:15 +0000] "GET /dashboard HTTP/1.1" 401 59 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+::1 - - [28/Apr/2024:17:05:15 +0000] "GET /favicon.ico HTTP/1.1" 401 59 "https://e043-190-150-105-30.ngrok-free.app/dashboard" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
