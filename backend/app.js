@@ -1,7 +1,7 @@
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
+const crypto = require("crypto"); // Agrega el módulo crypto
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const cors = require("cors");
@@ -35,8 +35,11 @@ app.get("/", (req, res) => {
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
 
+  // Encripta la contraseña proporcionada por el frontend con MD5
+  const hashedPassword = crypto.createHash('md5').update(password).digest('hex');
+
   const query = `select * from usuarios where nombreUsuario = ? and password = ?`;
-  connection.query(query, [username, password], (err, results) => {
+  connection.query(query, [username, hashedPassword], (err, results) => {
     if (err) {
       console.error("Error al ejecutar la consulta:", err);
       res.status(500).json({ message: "Error interno del servidor" });
