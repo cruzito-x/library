@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { PlusCircleOutlined, PlusCircleFilled, UserOutlined } from "@ant-design/icons";
-import { Breadcrumb, Card, Layout, Input, InputNumber, Tag, Button, Modal, Form, Row, Col, theme } from "antd";
+import { Breadcrumb, Card, Layout, Input, InputNumber, Tag, Button, Modal, Form, Row, Col, Select, theme } from "antd";
 import Uploader from "../../components/uploader/Uploader";
 import ProductsTable from "../../components/productsTable/ProductsTable";
 
@@ -17,6 +17,10 @@ const Products = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const handleChange = (value) => {
+    console.log(`selected ${value}`);
+  };
 
   const showPromiseConfirm = () => {
     confirm({
@@ -44,10 +48,35 @@ const Products = () => {
             <Input prefix="$" placeholder="0.00" />
           </Form.Item>
           <Form.Item label="Género:">
-            <Input placeholder="ej. Horror, Fantasía, Romance, etc." />
+          <Select defaultValue="Educativo" id="gender" onChange={handleChange} options={[
+            {
+              value: "Educativo",
+              label: "Educativo"
+            },
+            {
+              value: "Fantasía",
+              label: "Fantasía"
+            },
+            {
+              value: "14",
+              label: "Novela"
+            },
+            {
+              value: "Romance",
+              label: "Romance"
+            },
+            {
+              value: "Sci-Fi",
+              label: "Sci-Fi"
+            },
+            {
+              value: "Terror",
+              label: "Terror"
+            }
+          ]} />
           </Form.Item>
           <Form.Item label="Ingreso:">
-            <InputNumber min={1} max={100} defaultValue={1}/>
+            <InputNumber min={1} max={100} defaultValue={1} />
           </Form.Item>
           <Form.Item label="Descripción:">
             <TextArea rows={6} placeholder="Descripción del libro" showCount  maxLength={255} style={{ height: 120, resize: 'none' }}/>
