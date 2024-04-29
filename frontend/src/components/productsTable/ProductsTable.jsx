@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { Tag, Button, Modal, Row, Col, Table, Image, Popconfirm, message } from "antd";
+import { Tag, Button, Modal, Row, Col, Table, Image, Popconfirm, Spin, message } from "antd";
 
 const ProductsTable = () => {
   const [modal1Open, setModal1Open] = useState(false);
@@ -12,11 +12,13 @@ const ProductsTable = () => {
 
   const confirmDelete = (e) => {
     console.log(e);
+    <Spin size='large' />
     message.success("Producto eliminado");
   };
 
   const cancelDelete = (e) => {
     console.log(e);
+    message.error("Eliminación cancelada");
   };
 
   const columns = [
@@ -64,162 +66,49 @@ const ProductsTable = () => {
       key: 1,
       name: "Cien años de soledad",
       author: "Gabriel García Márquez",
+      gender: "Novela",
       price: "$20.99",
       description:
         "Cien años de soledad es una novela del escritor colombiano Gabriel García Márquez, ganador del Premio Nobel de Literatura en 1982.",
+        stock: 30
     },
     {
       key: 2,
       name: "Don Quijote de la Mancha",
       author: "Miguel de Cervantes",
+      gender: "Novela",
       price: "$18.50",
       description:
         "Don Quijote de la Mancha es una novela escrita por el español Miguel de Cervantes Saavedra. Publicada su primera parte con el título de El ingenioso hidalgo don Quijote de la Mancha a comienzos de 1605.",
+        stock: 50
     },
     {
       key: 3,
       name: "La sombra del viento",
       author: "Carlos Ruiz Zafón",
+      gender: "Novela",
       price: "$15.75",
-      description:
-        "La sombra del viento es una novela del escritor español Carlos Ruiz Zafón, publicada en 2001. Es la primera parte de la serie de cuatro libros El Cementerio de los Libros Olvidados.",
+      description:"La sombra del viento es una novela del escritor español Carlos Ruiz Zafón, publicada en 2001. Es la primera parte de la serie de cuatro libros El Cementerio de los Libros Olvidados.",
+      stock: 10
     },
     {
       key: 4,
       name: "Rayuela",
       author: "Julio Cortázar",
+      gender: "Novela",
       price: "$22.25",
-      description:
-        "Rayuela es una novela del escritor argentino Julio Cortázar, publicada en 1963. Es considerada una de las obras cumbre de la literatura del siglo XX.",
+      description: "Rayuela es una novela del escritor argentino Julio Cortázar, publicada en 1963. Es considerada una de las obras cumbre de la literatura del siglo XX.",
+      stock: 0
     },
     {
       key: 5,
-      name: "Cien años de soledad",
-      author: "Gabriel García Márquez",
-      price: "$20.99",
-      description:
-        "Cien años de soledad es una novela del escritor colombiano Gabriel García Márquez, ganador del Premio Nobel de Literatura en 1982.",
-    },
-    {
-      key: 6,
-      name: "Don Quijote de la Mancha",
-      author: "Miguel de Cervantes",
-      price: "$18.50",
-      description:
-        "Don Quijote de la Mancha es una novela escrita por el español Miguel de Cervantes Saavedra. Publicada su primera parte con el título de El ingenioso hidalgo don Quijote de la Mancha a comienzos de 1605.",
-    },
-    {
-      key: 7,
-      name: "La sombra del viento",
-      author: "Carlos Ruiz Zafón",
-      price: "$15.75",
-      description:
-        "La sombra del viento es una novela del escritor español Carlos Ruiz Zafón, publicada en 2001. Es la primera parte de la serie de cuatro libros El Cementerio de los Libros Olvidados.",
-    },
-    {
-      key: 8,
-      name: "Rayuela",
-      author: "Julio Cortázar",
+      name: "Lazarillo de Tormes",
+      author: "fray Juan de Ortega",
+      gender: "Novela",
       price: "$22.25",
-      description:
-        "Rayuela es una novela del escritor argentino Julio Cortázar, publicada en 1963. Es considerada una de las obras cumbre de la literatura del siglo XX.",
-    },
-    {
-      key: 9,
-      name: "Cien años de soledad",
-      author: "Gabriel García Márquez",
-      price: "$20.99",
-      description:
-        "Cien años de soledad es una novela del escritor colombiano Gabriel García Márquez, ganador del Premio Nobel de Literatura en 1982.",
-    },
-    {
-      key: 10,
-      name: "Don Quijote de la Mancha",
-      author: "Miguel de Cervantes",
-      price: "$18.50",
-      description:
-        "Don Quijote de la Mancha es una novela escrita por el español Miguel de Cervantes Saavedra. Publicada su primera parte con el título de El ingenioso hidalgo don Quijote de la Mancha a comienzos de 1605.",
-    },
-    {
-      key: 11,
-      name: "La sombra del viento",
-      author: "Carlos Ruiz Zafón",
-      price: "$15.75",
-      description:
-        "La sombra del viento es una novela del escritor español Carlos Ruiz Zafón, publicada en 2001. Es la primera parte de la serie de cuatro libros El Cementerio de los Libros Olvidados.",
-    },
-    {
-      key: 12,
-      name: "Rayuela",
-      author: "Julio Cortázar",
-      price: "$22.25",
-      description:
-        "Rayuela es una novela del escritor argentino Julio Cortázar, publicada en 1963. Es considerada una de las obras cumbre de la literatura del siglo XX.",
-    },
-    {
-      key: 13,
-      name: "Cien años de soledad",
-      author: "Gabriel García Márquez",
-      price: "$20.99",
-      description:
-        "Cien años de soledad es una novela del escritor colombiano Gabriel García Márquez, ganador del Premio Nobel de Literatura en 1982.",
-    },
-    {
-      key: 14,
-      name: "Don Quijote de la Mancha",
-      author: "Miguel de Cervantes",
-      price: "$18.50",
-      description:
-        "Don Quijote de la Mancha es una novela escrita por el español Miguel de Cervantes Saavedra. Publicada su primera parte con el título de El ingenioso hidalgo don Quijote de la Mancha a comienzos de 1605.",
-    },
-    {
-      key: 15,
-      name: "La sombra del viento",
-      author: "Carlos Ruiz Zafón",
-      price: "$15.75",
-      description:
-        "La sombra del viento es una novela del escritor español Carlos Ruiz Zafón, publicada en 2001. Es la primera parte de la serie de cuatro libros El Cementerio de los Libros Olvidados.",
-    },
-    {
-      key: 16,
-      name: "Rayuela",
-      author: "Julio Cortázar",
-      price: "$22.25",
-      description:
-        "Rayuela es una novela del escritor argentino Julio Cortázar, publicada en 1963. Es considerada una de las obras cumbre de la literatura del siglo XX.",
-    },
-    {
-      key: 17,
-      name: "Cien años de soledad",
-      author: "Gabriel García Márquez",
-      price: "$20.99",
-      description:
-        "Cien años de soledad es una novela del escritor colombiano Gabriel García Márquez, ganador del Premio Nobel de Literatura en 1982.",
-    },
-    {
-      key: 18,
-      name: "Don Quijote de la Mancha",
-      author: "Miguel de Cervantes",
-      price: "$18.50",
-      description:
-        "Don Quijote de la Mancha es una novela escrita por el español Miguel de Cervantes Saavedra. Publicada su primera parte con el título de El ingenioso hidalgo don Quijote de la Mancha a comienzos de 1605.",
-    },
-    {
-      key: 19,
-      name: "La sombra del viento",
-      author: "Carlos Ruiz Zafón",
-      price: "$15.75",
-      description:
-        "La sombra del viento es una novela del escritor español Carlos Ruiz Zafón, publicada en 2001. Es la primera parte de la serie de cuatro libros El Cementerio de los Libros Olvidados.",
-    },
-    {
-      key: 20,
-      name: "Rayuela",
-      author: "Julio Cortázar",
-      price: "$22.25",
-      description:
-        "Rayuela es una novela del escritor argentino Julio Cortázar, publicada en 1963. Es considerada una de las obras cumbre de la literatura del siglo XX.",
-    },
+      description: "Cuenta la vida de un niño llamado Lázaro que al principio era inocente, pero se convirtió en pícaro para poder sobrevivir",
+      stock: 20
+    }
   ];
 
   return (
@@ -240,8 +129,7 @@ const ProductsTable = () => {
             onRow={(record, rowIndex) => {
               return {
                 onClick: (event) => {
-                  // Verificar si el clic ocurrió en la última columna
-                  if (event.target.closest('.ant-table-cell:last-child')) {
+                  if (event.target.closest('.ant-table-cell:last-child')) { // Verificar si el clic ocurrió en la última columna
                     return; // No hacer nada si el clic fue en la última columna
                   }
                   handleRowClick(record); // Ejecutar handleRowClick en cualquier otro caso
@@ -249,15 +137,15 @@ const ProductsTable = () => {
               };
             }}
           />
-          <Modal title="Detalles del libro" visible={modal1Open} onCancel={() => setModal1Open(false)}
-            footer={[<Button key="back" danger onClick={() => setModal1Open(false)}> Cerrar </Button>]}>
+          <Modal title="Detalles del libro" open={modal1Open} onCancel={() => setModal1Open(false)}
+            footer={[<Button key="back" primary onClick={() => setModal1Open(false)}> Cerrar </Button>]}>
             {selectedRowData && (
               <>
                 <div style={{ width: "100%", justifyContent: "center", display: "flex" }}>
                   <Image src={"logo512.png"} style={{ width: "300px", height: "350px" }} alt="Product photo" />
                 </div>
-                <p> <strong> Existencia: </strong> <br /> <Tag bordered={false} color="error"> Agotado </Tag> </p>
-                <p> <strong> Nombre del libro: </strong> <br /> {selectedRowData.name}</p>
+                <p> <strong> Nombre del libro: </strong> <br /> {selectedRowData.name} <Tag bordered={false} color='blue'> {selectedRowData.gender} </Tag> </p>
+                <p> <strong> Existencia: </strong> <br /> <Tag bordered={false} color={selectedRowData.stock === 0 ? "error" : selectedRowData.stock < 20 ? "orange" : "success"}> {selectedRowData.stock === 0 ? "Agotado" : selectedRowData.stock < 20 ? "Últimas unidades" : "En Existencia"} </Tag> </p>
                 <p> <strong> Autor: </strong> <br /> {selectedRowData.author}</p>
                 <p> <strong> Precio: </strong> <br /> {selectedRowData.price}</p>
                 <p> <strong> Descripción: </strong> <br /> {selectedRowData.description}</p>

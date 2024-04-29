@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import { Menu, theme } from 'antd';
-import { AreaChartOutlined, ProductOutlined, GoldOutlined, FileTextOutlined, DownloadOutlined, ExportOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined, LeftOutlined, RightOutlined} from '@ant-design/icons';
+import { ProductOutlined, BookOutlined, DownloadOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined, LeftOutlined, RightOutlined} from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
@@ -18,10 +18,10 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
         navigate(key);
       }
     }}>
-      <Menu.Item key='/dashboard' icon={<AreaChartOutlined />}>
+      <Menu.Item key='/dashboard' icon={<ProductOutlined />}>
         Dashboard
       </Menu.Item>
-      <Menu.Item key='/books' icon={<GoldOutlined />}>
+      <Menu.Item key='/books' icon={<BookOutlined />}>
         Libros
       </Menu.Item>
       <Menu.Item key='/bills' icon={<PrinterOutlined />}>
