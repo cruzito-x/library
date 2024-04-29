@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { Card, Form, Input, Button, message } from "antd";
+import { Card, Form, Input, Checkbox, Button, message } from "antd";
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
 
@@ -22,7 +22,7 @@ const Login = () => {
           body: JSON.stringify(values),
         }
       );
-  
+
       if (response.status === 200) {
         const data = await response.json();
 
@@ -39,7 +39,6 @@ const Login = () => {
     }
     setLoading(false);
   };
-  
 
   return (
     <div
@@ -48,12 +47,23 @@ const Login = () => {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
-        backgroundColor: "#f5f5f5"
+        backgroundColor: "#f5f5f5",
       }}
     >
       <Card>
-        <div style={{ width: "100%", display: "flex", justifyContent: "center", marginBottom: "15px" }}>
-        <img src={"logo512.png"} style={{ width: "75px", height: "75px", borderRadius: "50%" }} alt="Product photo" />
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: "15px",
+          }}
+        >
+          <img
+            src={"logo512.png"}
+            style={{ width: "75px", height: "75px", borderRadius: "50%" }}
+            alt="Product photo"
+          />
         </div>
         <Form
           name="loginForm"
@@ -80,6 +90,17 @@ const Login = () => {
             ]}
           >
             <Input.Password placeholder="Contraseña" />
+          </Form.Item>
+
+          <Form.Item
+            name="remember"
+            valuePropName="checked"
+            wrapperCol={{
+              offset: 0,
+              span: 24,
+            }}
+          >
+            <Checkbox>Recuérdame</Checkbox>
           </Form.Item>
 
           <Form.Item>
