@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { PlusCircleOutlined, PlusCircleFilled, UserOutlined } from "@ant-design/icons";
-import { Breadcrumb, Layout, Input, InputNumber, Tag, Button, Modal, Form, Row, Col, theme } from "antd";
+import { Breadcrumb, Card, Layout, Input, InputNumber, Tag, Button, Modal, Form, Row, Col, theme } from "antd";
 import Uploader from "../../components/uploader/Uploader";
 import ProductsTable from "../../components/productsTable/ProductsTable";
 
@@ -83,9 +83,9 @@ const Products = () => {
       <div
         style={{
           padding: 24,
-          minHeight: 764,
+          minHeight: "86vh",
           background: colorBgContainer,
-          borderRadius: borderRadiusLG,
+          borderRadius: borderRadiusLG
         }}
       >
         <Row gutter={16}>
@@ -100,47 +100,7 @@ const Products = () => {
             />
           </Col>
         </Row>
-
         <ProductsTable />
-
-        {/* <div style={{ marginTop: "20px" }}>
-          <Row gutter={16}>
-            <Col span={24}>
-              <Table
-                columns={columns}
-                expandable={{
-                  expandedRowRender: (record) => (
-                    <p style={{ margin: 0 }}>
-                      {record.description}
-                    </p>
-                  ),
-                  rowExpandable: (record) => record.name !== "Not Expandable",
-                }}
-                dataSource={data}
-                onRow={(record, rowIndex) => {
-                  return {
-                    onClick: () => handleRowClick(record),
-                  };
-                }}
-              />
-              <Modal title="Detalles del libro" visible={modal1Open} onCancel={() => setModal1Open(false)}
-              footer={[ <Button key="back" danger onClick={() => setModal1Open(false)}> Cerrar </Button> ]}>
-                {selectedRowData && (
-                <>
-                <div style={{ width: "100%", justifyContent: "center", display: "flex" }}>
-                  <Image src={"logo512.png"} style={{ width: "300px", height: "350px" }} alt="Product photo" />
-                  </div>
-                  <p> <strong> Existencia: </strong> <br /> <Tag bordered={false} color="error"> Agotado </Tag> </p>
-                  <p> <strong> Nombre del libro: </strong> <br /> {selectedRowData.name}</p>
-                  <p> <strong> Autor: </strong> <br /> {selectedRowData.author}</p>
-                  <p> <strong> Precio: </strong> <br /> {selectedRowData.price}</p>
-                  <p> <strong> Descripción: </strong> <br /> {selectedRowData.description}</p>
-                </>
-                )}
-              </Modal>
-            </Col>
-          </Row>
-        </div> */}
       </div>
     </Content>
   );
