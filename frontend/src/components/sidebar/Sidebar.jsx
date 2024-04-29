@@ -9,7 +9,6 @@ import Products from '../../views/products/Products';
 import Bills from '../../views/bills/Bills';
 import Users from '../../views/users/Users';
 import ToggleThemeButton from '../toggleThemeButton/ToggleThemeButton';
-import Report from '../reports/Report';
 import './Sidebar.css';
 
 const { Sider, Content, Footer } = Layout;
@@ -60,7 +59,7 @@ const Sidebar = () => {
             <Route path='/users' element={<Users />} />
           </Routes>
           <Routes>{routes.map((route, index) => (
-          <Route key={index} path={route} element={<Report />} />
+          <Route key={index} path={route} element={''} />
           ))}
           </Routes>
         </Content>

@@ -2,19 +2,11 @@ import { React, useState } from 'react';
 import { Menu, theme } from 'antd';
 import { ProductOutlined, BookOutlined, DownloadOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined, LeftOutlined, RightOutlined} from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import Report from '../reports/Template';
 
 const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
   const navigate = useNavigate();
   const [showPDF, setShowPDF] = useState(false);
   const [reportData, setReportData] = useState([]);
-
-  const generatePDF = (title, data) => {
-    setReportData(data);
-    const pdfContent = <Report title={title} data={data} />;
-    const pdfBlob = new Blob([pdfContent], { type: 'application/pdf' });
-    const pdfUrl = URL.createObjectURL(pdfBlob);
-  };
   
 
   const handleClosePDF = () => {
@@ -32,9 +24,6 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
         window.location.href = '/';
       } else {
         navigate(key);
-        if (['7-days', '14-days', '1-month', '6-months', '1-year'].includes(key)) {
-          generatePDF('Reporte', ['Datos del reporte']); // Aquí debes reemplazar 'Datos del reporte' con los datos reales del reporte
-        }
       }
     }}>
       <Menu.Item key='/dashboard' icon={<ProductOutlined />}>
