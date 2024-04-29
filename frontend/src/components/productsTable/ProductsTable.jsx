@@ -1,5 +1,6 @@
-import {React, useState } from 'react';
-import {Tag, Button, Modal, Row, Col, Table, Image, Popconfirm} from "antd";
+import { React, useState } from 'react';
+import { Tag, Button, Modal, Row, Col, Table, Image, Popconfirm, message } from "antd";
+
 const ProductsTable = () => {
   const [modal1Open, setModal1Open] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
@@ -8,6 +9,15 @@ const ProductsTable = () => {
     setSelectedRowData(record);
     setModal1Open(true);
   }
+
+  const confirmDelete = (e) => {
+    console.log(e);
+    message.success("Producto eliminado");
+  };
+
+  const cancelDelete = (e) => {
+    console.log(e);
+  };
 
   const columns = [
     {
@@ -212,55 +222,51 @@ const ProductsTable = () => {
     },
   ];
 
-  const confirmDelete = (e) => {
-    console.log(e);
-    message.success("Click on Yes");
-  };
-
-  const cancelDelete = (e) => {
-    console.log(e);
-    message.error("Click on No");
-  };
-
   return (
     <div style={{ marginTop: "20px" }}>
-          <Row gutter={16}>
-            <Col span={24}>
-              <Table
-                columns={columns}
-                expandable={{
-                  expandedRowRender: (record) => (
-                    <p style={{ margin: 0 }}>
-                      {record.description}
-                    </p>
-                  ),
-                  rowExpandable: (record) => record.name !== "Not Expandable",
-                }}
-                dataSource={data}
-                onRow={(record, rowIndex) => {
-                  return {
-                    onClick: () => handleRowClick(record),
-                  };
-                }}
-              />
-              <Modal title="Detalles del libro" visible={modal1Open} onCancel={() => setModal1Open(false)}
-              footer={[ <Button key="back" danger onClick={() => setModal1Open(false)}> Cerrar </Button> ]}>
-                {selectedRowData && (
-                <>
+      <Row gutter={16}>
+        <Col span={24}>
+          <Table
+            columns={columns}
+            expandable={{
+              expandedRowRender: (record) => (
+                <p style={{ margin: 0 }}>
+                  {record.description}
+                </p>
+              ),
+              rowExpandable: (record) => record.name !== "Not Expandable",
+            }}
+            dataSource={data}
+            onRow={(record, rowIndex) => {
+              return {
+                onClick: (event) => {
+                  // Verificar si el clic ocurrió en la última columna
+                  if (event.target.closest('.ant-table-cell:last-child')) {
+                    return; // No hacer nada si el clic fue en la última columna
+                  }
+                  handleRowClick(record); // Ejecutar handleRowClick en cualquier otro caso
+                },
+              };
+            }}
+          />
+          <Modal title="Detalles del libro" visible={modal1Open} onCancel={() => setModal1Open(false)}
+            footer={[<Button key="back" danger onClick={() => setModal1Open(false)}> Cerrar </Button>]}>
+            {selectedRowData && (
+              <>
                 <div style={{ width: "100%", justifyContent: "center", display: "flex" }}>
                   <Image src={"logo512.png"} style={{ width: "300px", height: "350px" }} alt="Product photo" />
-                  </div>
-                  <p> <strong> Existencia: </strong> <br /> <Tag bordered={false} color="error"> Agotado </Tag> </p>
-                  <p> <strong> Nombre del libro: </strong> <br /> {selectedRowData.name}</p>
-                  <p> <strong> Autor: </strong> <br /> {selectedRowData.author}</p>
-                  <p> <strong> Precio: </strong> <br /> {selectedRowData.price}</p>
-                  <p> <strong> Descripción: </strong> <br /> {selectedRowData.description}</p>
-                </>
-                )}
-              </Modal>
-            </Col>
-          </Row>
-        </div>
+                </div>
+                <p> <strong> Existencia: </strong> <br /> <Tag bordered={false} color="error"> Agotado </Tag> </p>
+                <p> <strong> Nombre del libro: </strong> <br /> {selectedRowData.name}</p>
+                <p> <strong> Autor: </strong> <br /> {selectedRowData.author}</p>
+                <p> <strong> Precio: </strong> <br /> {selectedRowData.price}</p>
+                <p> <strong> Descripción: </strong> <br /> {selectedRowData.description}</p>
+              </>
+            )}
+          </Modal>
+        </Col>
+      </Row>
+    </div>
   )
 }
 
