@@ -1,18 +1,19 @@
-import React, { useState } from "react";
-import { Form, Input, Button, message } from "antd";
-import $ from 'jquery';
-import Sidebar from "../../components/sidebar/Sidebar";
-import { useNavigate } from 'react-router-dom';
+import { React, useState } from "react";
+import { Card, Form, Input, Button, message } from "antd";
+import $ from "jquery";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  localStorage.clear();
+
   const onFinish = async (values) => {
     setLoading(true);
     try {
       const response = await fetch(
-        "https://b41a-190-150-105-30.ngrok-free.app/srvr/login",
+        "https://a46a-190-150-105-30.ngrok-free.app/login",
         {
           method: "POST",
           headers: {
@@ -21,22 +22,24 @@ const Login = () => {
           body: JSON.stringify(values),
         }
       );
-
-      const data = await response.json();
-
+  
       if (response.status === 200) {
+        const data = await response.json();
+
         message.success(data.message);
         localStorage.setItem("username", values.username);
-        navigate('/dashboard');
+        navigate("/dashboard");
+      } else if (response.status === 401) {
+        message.error("Nombre de usuario o contraseña incorrectos");
       } else {
-        message.error(data.message);
+        message.error("Hubo un problema al iniciar sesión");
       }
     } catch (error) {
-      console.error("Error:", error);
       message.error("Hubo un problema al iniciar sesión");
     }
     setLoading(false);
   };
+  
 
   return (
     <div
@@ -45,46 +48,52 @@ const Login = () => {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
+        backgroundColor: "#f5f5f5"
       }}
     >
-      <Form
-        name="loginForm"
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        style={{ width: 300 }}
-      >
-        <Form.Item
-          name="username"
-          rules={[
-            {
-              required: true,
-              message: "Por favor ingresa tu nombre de usuario",
-            },
-          ]}
+      <Card>
+        <div style={{ width: "100%", display: "flex", justifyContent: "center", marginBottom: "15px" }}>
+        <img src={"logo512.png"} style={{ width: "75px", height: "75px", borderRadius: "50%" }} alt="Product photo" />
+        </div>
+        <Form
+          name="loginForm"
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          style={{ width: 300 }}
         >
-          <Input placeholder="Nombre de Usuario" />
-        </Form.Item>
-
-        <Form.Item
-          name="password"
-          rules={[
-            { required: true, message: "Por favor ingresa tu contraseña" },
-          ]}
-        >
-          <Input.Password placeholder="Contraseña" />
-        </Form.Item>
-
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            loading={loading}
-            style={{ width: "100%" }}
+          <Form.Item
+            name="username"
+            rules={[
+              {
+                required: true,
+                message: "Por favor ingrese su usuario",
+              },
+            ]}
           >
-            Iniciar Sesión
-          </Button>
-        </Form.Item>
-      </Form>
+            <Input placeholder="Usuario" />
+          </Form.Item>
+
+          <Form.Item
+            name="password"
+            rules={[
+              { required: true, message: "Por favor ingrese su contraseña" },
+            ]}
+          >
+            <Input.Password placeholder="Contraseña" />
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={loading}
+              style={{ width: "100%" }}
+            >
+              Iniciar Sesión
+            </Button>
+          </Form.Item>
+        </Form>
+      </Card>
     </div>
   );
 };

@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { PlusCircleOutlined, PlusCircleFilled, UserOutlined, UploadOutlined } from "@ant-design/icons";
-import { Breadcrumb, Layout, Input, InputNumber, Tag, Button, Modal, Form, Row, Col, Table, theme, Popconfirm, Image, Upload, message } from "antd";
+import { PlusCircleOutlined, PlusCircleFilled, UserOutlined } from "@ant-design/icons";
+import { Breadcrumb, Layout, Input, InputNumber, Tag, Button, Modal, Form, Row, Col, Table, theme, Popconfirm, Image, message } from "antd";
 import Uploader from "../../components/uploader/Uploader";
 
 const Products = () => {
   const { Content } = Layout;
   const { Search } = Input;
-  const { Dragger } = Upload;
   const onSearch = (value, _e, info) => console.log(info?.source, value);
   const [size, setSize] = useState("medium");
   const { confirm } = Modal;
