@@ -11,6 +11,8 @@
 # production
 /build
 
+/backend/access.log
+
 # misc
 .DS_Store
 .env.local
