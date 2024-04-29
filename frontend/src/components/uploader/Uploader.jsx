@@ -15,11 +15,11 @@ const Uploader = () => {
     beforeUpload: (file) => {
       const isImage = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/jpg';
       if (!isImage) {
-        message.error(`${file.name} is not an image file`);
+        message.error(`${file.name} no es un archivo de imagen`);
         return Upload.LIST_IGNORE;
       }
       if (imageUploaded) {
-        message.error('Ya se ha cargado una imagen. No se puede cargar otra.');
+        message.error('Ya se ha cargado una imagen. No se puede cargar otra');
         return Upload.LIST_IGNORE;
       }
       return true;
@@ -40,7 +40,7 @@ const Uploader = () => {
   return (
     <Dragger {...props}>
       <p className="ant-upload-drag-icon">
-        <InboxOutlined />
+        <InboxOutlined style={{ height: "10px" }} />
       </p>
       <p level={5}> Selecciona o suelta aquí la imagen a subir </p>
       <p className="ant-upload-hint" level={2}>
