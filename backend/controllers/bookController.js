@@ -1,7 +1,7 @@
 const db = require("../config/db");
 
 exports.getAllBooks = (req, res) => {
-  db.query("select * from libros", (err, results) => {
+  db.query("select *, e.existencia as stock from libros l inner join existencias e on e.idLibro = l.idLibro ", (err, results) => {
     if (err) {
       console.error("Error al obtener los libros:", err);
       res.status(500).json({ message: "Error interno del servidor" });
@@ -10,6 +10,17 @@ exports.getAllBooks = (req, res) => {
     res.status(200).json(results);
   });
 };
+
+exports.getLastFiveBooks = (req, res) => {
+  db.query("select *, e.existencia as stock from libros l inner join existencias e on e.idLibro = l.idLibro order by l.id desc limit 5", (err, results) => {
+    if (err) {
+      console.error("Error al obtener los libros:", err);
+      res.status(500).json({ message: "Error interno del servidor" });
+      return;
+    }
+    res.status(200).json(results);
+  });
+}
 
 exports.saveBook = (req, res) => {
   const {
