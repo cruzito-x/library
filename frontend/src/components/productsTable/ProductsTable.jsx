@@ -109,7 +109,7 @@ const ProductsTable = () => {
             {selectedRowData && (
               <>
                 <div style={{ width: "100%", justifyContent: "center", display: "flex" }}>
-                  <Image src={selectedRowData.portada === null ? "logo512.png" : selectedRowData.portada } style={{ width: "300px", height: "350px" }} alt="Product photo" />
+                  <Image src={selectedRowData.portada === null ? "logo512.png" : `data:image/png;base64,${selectedRowData.portada}`} style={{ width: "300px", height: "350px" }} alt="Product photo" />
                 </div>
                 <p> <strong> Nombre del libro: </strong> <br /> {selectedRowData.titulo} <Tag bordered={false} color='blue'> {selectedRowData.gender} </Tag> </p>
                 <p> <strong> Existencia: </strong> <br /> <Tag bordered={false} color={selectedRowData.stock === 0 ? "error" : selectedRowData.stock < 20 ? "orange" : "success"}> {selectedRowData.stock === 0 ? "Agotado" : selectedRowData.stock < 20 ? "Últimas unidades" : "En Existencia"} </Tag> </p>

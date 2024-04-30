@@ -13,7 +13,7 @@ const Login = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "https://adb9-190-150-170-239.ngrok-free.app/auth/login",
+        "http://localhost:3001/auth/login",
         {
           method: "POST",
           headers: {

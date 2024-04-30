@@ -1,15 +1,18 @@
-import React, { useEffect, useRef } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
-import { Card, Divider, Typography, Row, Col, Table } from "antd";
+import { Card, Spin, Typography, Row, Col, Table } from "antd";
 
 const DashboardGraphs = () => {
+  const { Title } = Typography;
   const lineChartRef = useRef(null);
   const barChartRef = useRef(null);
   const doughnutChartRef = useRef(null);
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   let lineChartInstance = useRef(null);
   let barChartInstance = useRef(null);
   let doughnutChartInstance = useRef(null);
-  const { Title } = Typography;
 
   useEffect(() => {
     // Line Chart
@@ -23,22 +26,22 @@ const DashboardGraphs = () => {
         "Jueves",
         "Viernes",
         "Sábado",
-        "Domingo",
+        "Domingo"
       ],
       datasets: [
         {
           label: "Aumento",
-          data: [65, 69, 80, 81, 56, 85, 70],
+          data: [],
           borderColor: "#05b0ff",
-          backgroundColor: "#a8e3ff",
-          borderWidth: 2.5,
+          backgroundColor: "#05b0ff",
+          borderWidth: 2.5
         },
         {
           label: "Decremento",
-          data: [40, 55, 56, 12, 20, 39, 35],
+          data: [],
           borderColor: "#ff4040",
-          backgroundColor: "#ffb3b3",
-          borderWidth: 2.5,
+          backgroundColor: "#ff4040",
+          borderWidth: 2.5
         },
       ],
     };
@@ -83,21 +86,12 @@ const DashboardGraphs = () => {
 
     const barData = {
       labels: [
-        "Libro 1",
-        "Libro 2",
-        "Libro 3",
-        "Libro 4",
-        "Libro 5",
-        "Libro 6",
-        "Libro 7",
-        "Libro 8",
-        "Libro 9",
-        "Libro 10",
+        
       ],
       datasets: [
         {
           label: "Ventas del mes",
-          data: [20, 30, 40, 50, 60, 70, 80, 50, 80, 102],
+          data: [],
           backgroundColor: [
             "#05b0ff",
             "#3cba9f",
@@ -170,11 +164,11 @@ const DashboardGraphs = () => {
     const doughnutCtx = doughnutChartRef.current.getContext("2d");
 
     const doughnutData = {
-      labels: ["Libro 1", "Libro 2", "Libro 3", "Libro 4", "Libro 5"],
+      labels: [],
       datasets: [
         {
           label: ["Cantidad vendida"],
-          data: [150, 100, 80, 70, 60],
+          data: [],
           backgroundColor: [
             "#ff6384",
             "#36a2Eb",
@@ -230,61 +224,41 @@ const DashboardGraphs = () => {
   const columns = [
     {
       title: "Nombre del libro",
-      dataIndex: "name",
+      dataIndex: "titulo",
       key: "name",
     },
     {
       title: "Autor",
-      dataIndex: "author",
+      dataIndex: "autor",
       key: "author",
     },
     {
       title: "Precio",
-      dataIndex: "price",
+      dataIndex: "precio",
       key: "price",
     },
-    // {
-    //   title: 'Action',
-    //   dataIndex: '',
-    //   key: 'x',
-    //   render: () => <a>Delete</a>,
-    // },
   ];
 
-  const data = [
-    {
-      key: 1,
-      name: "Cien años de soledad",
-      author: "Gabriel García Márquez",
-      price: "$20.99",
-      description:
-        "Cien años de soledad es una novela del escritor colombiano Gabriel García Márquez, ganador del Premio Nobel de Literatura en 1982.",
-    },
-    {
-      key: 2,
-      name: "Don Quijote de la Mancha",
-      author: "Miguel de Cervantes",
-      price: "$18.50",
-      description:
-        "Don Quijote de la Mancha es una novela escrita por el español Miguel de Cervantes Saavedra. Publicada su primera parte con el título de El ingenioso hidalgo don Quijote de la Mancha a comienzos de 1605.",
-    },
-    {
-      key: 3,
-      name: "La sombra del viento",
-      author: "Carlos Ruiz Zafón",
-      price: "$15.75",
-      description:
-        "La sombra del viento es una novela del escritor español Carlos Ruiz Zafón, publicada en 2001. Es la primera parte de la serie de cuatro libros El Cementerio de los Libros Olvidados.",
-    },
-    {
-      key: 4,
-      name: "Rayuela",
-      author: "Julio Cortázar",
-      price: "$22.25",
-      description:
-        "Rayuela es una novela del escritor argentino Julio Cortázar, publicada en 1963. Es considerada una de las obras cumbre de la literatura del siglo XX.",
-    },
-  ];
+  useEffect(() => {
+    fetch("http://localhost:3001/books/latest")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Error al obtener la lista de libros");
+        }
+        return response.json();
+      })
+      .then(data => {
+        setBooks(data);
+        setLoading(false);
+        console.log(data);
+      })
+      .catch(error => {
+        console.error("Error al obtener la lista de libros:", error);
+        setLoading(false);
+        message.error("Error al obtener la lista de libros");
+      });
+  }, []);
+
 
   return (
     <>
@@ -331,6 +305,7 @@ const DashboardGraphs = () => {
               <Title level={5} style={{ marginTop: "0" }}>
                 Añadido recientemente
               </Title>
+              <Spin spinning={loading} size='large' tip='Cargando...'>
               <Table
                 columns={columns}
                 expandable={{
@@ -340,13 +315,14 @@ const DashboardGraphs = () => {
                         margin: 0,
                       }}
                     >
-                      {record.description}
+                      {record.sinopsis}
                     </p>
                   ),
                   rowExpandable: (record) => record.name !== "Not Expandable",
                 }}
-                dataSource={data}
+                dataSource={books}
               />
+              </Spin>
             </Card>
           </Col>
         </Row>
