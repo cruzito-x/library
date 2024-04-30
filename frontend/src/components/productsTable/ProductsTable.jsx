@@ -1,9 +1,11 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { Card, Tag, Button, Modal, Row, Col, Table, Image, Popconfirm, Spin, message } from "antd";
 
 const ProductsTable = () => {
   const [modal1Open, setModal1Open] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const handleRowClick = (record) => {
     setSelectedRowData(record);
@@ -62,60 +64,25 @@ const ProductsTable = () => {
     },
   ];
 
-  const data = [
-    {
-      key: 1,
-      name: "Cien años de soledad",
-      author: "Gabriel García Márquez",
-      gender: "Novela",
-      price: 20.99,
-      description:
-        "Cien años de soledad es una novela del escritor colombiano Gabriel García Márquez, ganador del Premio Nobel de Literatura en 1982.",
-        stock: 30
-    },
-    {
-      key: 2,
-      name: "Don Quijote de la Mancha",
-      author: "Miguel de Cervantes",
-      gender: "Novela",
-      price: 18.50,
-      description:
-        "Don Quijote de la Mancha es una novela escrita por el español Miguel de Cervantes Saavedra. Publicada su primera parte con el título de El ingenioso hidalgo don Quijote de la Mancha a comienzos de 1605.",
-        stock: 50
-    },
-    {
-      key: 3,
-      name: "La sombra del viento",
-      author: "Carlos Ruiz Zafón",
-      gender: "Novela",
-      price: 15.75,
-      description:"La sombra del viento es una novela del escritor español Carlos Ruiz Zafón, publicada en 2001. Es la primera parte de la serie de cuatro libros El Cementerio de los Libros Olvidados.",
-      stock: 10
-    },
-    {
-      key: 4,
-      name: "Rayuela",
-      author: "Julio Cortázar",
-      gender: "Novela",
-      price: 22.25,
-      description: "Rayuela es una novela del escritor argentino Julio Cortázar, publicada en 1963. Es considerada una de las obras cumbre de la literatura del siglo XX.",
-      stock: 0
-    },
-    {
-      key: 5,
-      name: "Lazarillo de Tormes",
-      author: "fray Juan de Ortega",
-      gender: "Novela",
-      price: 22.25,
-      description: "Cuenta la vida de un niño llamado Lázaro que al principio era inocente, pero se convirtió en pícaro para poder sobrevivir",
-      stock: 20
-    }
-  ];
+  useEffect(() => {
+    fetch("https://adb9-190-150-170-239.ngrok-free.app/books/")
+      .then(response => response.json())
+      .then(data => {
+        setBooks(data);
+        setLoading(false);
+        console.log(data);
+      })
+      .catch(error => {
+        console.error("Error al obtener la lista de libros:", error);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <Card style={{ marginTop: "20px" }}>
       <Row gutter={16}>
         <Col span={24}>
+        <Spin spinning={loading} size='large' tip='Cargando...'>
           <Table
             columns={columns}
             expandable={{
@@ -126,7 +93,7 @@ const ProductsTable = () => {
               ),
               rowExpandable: (record) => record.name !== "Not Expandable",
             }}
-            dataSource={data}
+            dataSource={books}
             onRow={(record, rowIndex) => {
               return {
                 onClick: (event) => {
@@ -138,6 +105,8 @@ const ProductsTable = () => {
               };
             }}
           />
+          </Spin>
+
           <Modal title="Detalles del libro" open={modal1Open} onCancel={() => setModal1Open(false)}
             footer={[<Button key="back" primary onClick={() => setModal1Open(false)}> Cerrar </Button>]}>
             {selectedRowData && (

@@ -13,7 +13,7 @@ const Login = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "https://a46a-190-150-105-30.ngrok-free.app/login",
+        "https://adb9-190-150-170-239.ngrok-free.app/auth/login",
         {
           method: "POST",
           headers: {
@@ -32,7 +32,7 @@ const Login = () => {
       } else if (response.status === 401) {
         message.error("Nombre de usuario o contraseña incorrectos");
       } else {
-        message.error("Hubo un problema al iniciar sesión");
+        message.error(response.status);
       }
     } catch (error) {
       message.error("Hubo un problema al iniciar sesión");
