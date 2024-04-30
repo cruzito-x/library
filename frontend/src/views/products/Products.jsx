@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { PlusCircleOutlined, PlusCircleFilled, UserOutlined } from "@ant-design/icons";
-import { Breadcrumb, Card, Layout, Input, InputNumber, Tag, Button, Modal, Form, Row, Col, Select, theme } from "antd";
+import { Breadcrumb, Card, Layout, Input, InputNumber, Tag, Button, Modal, Form, Row, Col, Select, theme, message } from "antd";
 import Uploader from "../../components/uploader/Uploader";
 import ProductsTable from "../../components/productsTable/ProductsTable";
 
@@ -27,12 +27,13 @@ const Products = () => {
       width: "35%",
       title: "Añadir libro",
       icon: <PlusCircleFilled />,
+      style: { top: "5%" },
       content: (
         <Form
           layout={formLayout}
           form={form}
           initialValues={{
-            layout: formLayout,
+            layout: formLayout
           }}
         >
           <Form.Item label="Libro:">
@@ -75,6 +76,9 @@ const Products = () => {
             }
           ]} />
           </Form.Item>
+          <Form.Item label="ISBN:">
+          <Input placeholder="978-8484050421" />
+          </Form.Item>
           <Form.Item label="Ingreso:">
             <InputNumber min={1} max={100} defaultValue={1} />
           </Form.Item>
@@ -93,9 +97,32 @@ const Products = () => {
       cancelText: "Cancelar",
       okText: "Guardar",
       onOk() {
-        return new Promise((resolve, reject) => {
-          setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-        }).catch(() => console.log("¡Oops, ocurrió un error!"));
+        form
+          .validateFields()
+          .then((values) => {
+            console.log("Valores del formulario:", values);
+            // Enviar los datos al backend
+            fetch("https://adb9-190-150-170-239.ngrok-free.app/books", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(values),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log("Respuesta del servidor:", data);
+                message.success(data.message);
+                // Puedes hacer otras acciones, como cerrar el modal o actualizar la lista de libros
+              })
+              .catch((error) => {
+                console.error("Error al enviar los datos:", error);
+                message.error("Error al crear el libro");
+              });
+          })
+          .catch((errorInfo) => {
+            console.error("Error en el formulario:", errorInfo);
+          });
       },
       onCancel() {},
     });
