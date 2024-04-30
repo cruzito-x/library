@@ -102,7 +102,7 @@ const Products = () => {
           .then((values) => {
             console.log("Valores del formulario:", values);
             // Enviar los datos al backend
-            fetch("https://adb9-190-150-170-239.ngrok-free.app/books", {
+            fetch("http://localhost:3001/books", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
