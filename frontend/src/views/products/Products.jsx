@@ -55,19 +55,19 @@ const Products = () => {
             layout: formLayout,
           }}
         >
-          <Form.Item label="Libro:">
+          <Form.Item label="Libro:" name="titulo">
             <Input placeholder="ej. Jícaras tristes" name="titulo" />
           </Form.Item>
-          <Form.Item label="Autor:">
+          <Form.Item label="Autor:" name="autor">
             <Input placeholder="ej. Alfredo Espino" name="autor" />
           </Form.Item>
-          <Form.Item label="F. Publicación:">
+          <Form.Item label="F. Publicación:" name="fechaPublicacion">
             <Input placeholder="23-07-2016" name="fechaPublicacion" />
           </Form.Item>
-          <Form.Item label="Precio:">
+          <Form.Item label="Precio:" name="precio">
             <Input prefix="$" placeholder="0.00" name="precio" />
           </Form.Item>
-          <Form.Item label="Género:">
+          <Form.Item label="Género:" name="genero">
             <Select
               defaultValue="Educativo"
               name="genero"
@@ -100,13 +100,13 @@ const Products = () => {
               ]}
             />
           </Form.Item>
-          <Form.Item label="ISBN:">
+          <Form.Item label="ISBN:" name="isbn">
             <Input placeholder="978-8484050421" name="isbn" />
           </Form.Item>
-          <Form.Item label="Ingreso:">
+          <Form.Item label="Ingreso:" name="ingreso">
             <InputNumber min={1} max={100} defaultValue={1} name="ingreso" />
           </Form.Item>
-          <Form.Item label="Descripción:">
+          <Form.Item label="Descripción:" name="sinopsis">
             <TextArea
               rows={6}
               placeholder="Descripción del libro"
@@ -117,7 +117,7 @@ const Products = () => {
             />
           </Form.Item>
           <br />
-          <Form.Item label="Portada:">
+          <Form.Item label="Portada:" name="portada">
             <Uploader />
           </Form.Item>
         </Form>
@@ -127,7 +127,7 @@ const Products = () => {
       onOk() {
         const formData = new FormData();
         const formValues = form.getFieldsValue(); // Obtener los valores del formulario
-        
+
         formData.append("titulo", formValues.titulo);
         formData.append("autor", formValues.autor);
         formData.append("fechaPublicacion", formValues.fechaPublicacion);
@@ -136,25 +136,21 @@ const Products = () => {
         formData.append("isbn", formValues.isbn);
         formData.append("ingreso", formValues.ingreso);
         formData.append("sinopsis", formValues.sinopsis);
-        
-        // Verificar si 'portada' está definido y contiene un archivo
-        if (formValues.portada && formValues.portada.file) {
+
+        if (formValues.portada && formValues.portada.file) { // Verificar si 'portada' está definido y contiene un archivo
           formData.append("portada", formValues.portada.file); // Agregar la imagen al FormData
         }
-
         console.log(formData);
-        
+
         fetch("http://localhost:3001/books", {
           method: "POST",
-          body: formData
+          body: formData,
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log("Respuesta del servidor:", data);
             message.success(data.message);
           })
           .catch((error) => {
-            console.error("Error al enviar los datos:", error);
             message.error("Error al crear el libro");
           });
       },

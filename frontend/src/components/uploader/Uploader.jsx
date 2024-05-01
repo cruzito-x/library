@@ -8,7 +8,6 @@ const Uploader = () => {
 
   const props = {
     name: 'file',
-    action: '/images/upload',
     headers: {
       authorization: 'authorization-text',
     },
