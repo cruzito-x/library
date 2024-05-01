@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from "react";
+import axios from "axios";
 import {
   PlusCircleOutlined,
   PlusCircleFilled,
@@ -14,6 +15,7 @@ import {
   Modal,
   Form,
   Row,
+  Spin,
   Upload,
   Col,
   Space,
@@ -34,6 +36,7 @@ const Products = () => {
   const [formLayout, setFormLayout] = useState("horizontal");
   const [genres, setGenres] = useState([]);
   const [defaultValue, setDefaultValue] = useState("");
+  const [files, setFiles] = useState({});
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -42,6 +45,30 @@ const Products = () => {
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
+
+  const handleFileUpload = ({ file }) => {
+    console.log(file);
+    setFiles(pre => {
+      return { ...pre, [file.uid]: file }
+    });
+
+    const getFileObject = (progress) => {
+      return {
+        uid: file.uid,
+        name: file.name,
+        progress: progress
+      }
+    }
+
+    axios.post('http://localhost:3001/books/upload', file, {
+      onUploadProgress: (event) => {
+        console.log(event);
+        setFiles((pre) => {
+          return { ...pre, [file.uid]: getFileObject(event.progress) }
+        });
+      }
+    });
+  }
 
   useEffect(() => {
     fetch("http://localhost:3001/books/genres")
@@ -118,16 +145,20 @@ const Products = () => {
               size="large"
             >
               <Upload
-                name="portada" // Nombre del campo que recibirá el servidor
-                action="http://localhost:3001/books/upload" // URL del endpoint para manejar la carga de archivos
-                listType="picture"
-                maxCount={1}
-                beforeUpload={() => false} // Evita que la carga se realice automáticamente
+              name="portada" // Nombre del campo que recibirá el servidor
+              customRequest={handleFileUpload}
+              listType="picture"
+              accept=".png, .jpg, .jpeg"
+              maxCount={1}
+              iconRender={() => {
+                return <Spin></Spin>
+              }}
               >
-                <Button icon={<UploadOutlined />}>
-                  Seleccionar imagen (Máx. 1)
-                </Button>
+                <Button icon={<UploadOutlined />}> Seleccionar imagen (Máx. 1) </Button>
               </Upload>
+              {Object.values(files).map((file, index) => {
+                return <Space></Space>
+              })}
             </Space>
           </Form.Item>
         </Form>
