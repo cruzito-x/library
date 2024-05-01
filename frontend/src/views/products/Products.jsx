@@ -1,16 +1,10 @@
-import React, { useState } from "react";
-import {
-  PlusCircleOutlined,
-  PlusCircleFilled,
-  UserOutlined,
-} from "@ant-design/icons";
+import { React, useState } from "react";
+import { PlusCircleOutlined, PlusCircleFilled, UserOutlined } from "@ant-design/icons";
 import {
   Breadcrumb,
-  Card,
   Layout,
   Input,
   InputNumber,
-  Tag,
   Button,
   Modal,
   Form,
@@ -41,7 +35,7 @@ const Products = () => {
     console.log(`selected ${value}`);
   };
 
-  const showPromiseConfirm = () => {
+  const showAddModal = () => {
     confirm({
       width: "35%",
       title: "Añadir libro",
@@ -140,9 +134,8 @@ const Products = () => {
         if (formValues.portada && formValues.portada.file) { // Verificar si 'portada' está definido y contiene un archivo
           formData.append("portada", formValues.portada.file); // Agregar la imagen al FormData
         }
-        console.log(formData);
 
-        fetch("http://localhost:3001/books", {
+        fetch("http://localhost:3001/books/save", {
           method: "POST",
           body: formData,
         })
@@ -180,7 +173,7 @@ const Products = () => {
               type="primary"
               icon={<PlusCircleOutlined />}
               size={size}
-              onClick={showPromiseConfirm}
+              onClick={showAddModal}
             >
               {" "}
               Añadir nuevo{" "}
