@@ -1,5 +1,10 @@
 import { React, useState, useEffect } from "react";
-import { PlusCircleOutlined, PlusCircleFilled, UserOutlined } from "@ant-design/icons";
+import {
+  PlusCircleOutlined,
+  PlusCircleFilled,
+  UserOutlined,
+  UploadOutlined,
+} from "@ant-design/icons";
 import {
   Breadcrumb,
   Layout,
@@ -9,12 +14,13 @@ import {
   Modal,
   Form,
   Row,
+  Upload,
   Col,
+  Space,
   Select,
   theme,
   message,
 } from "antd";
-import Uploader from "../../components/uploader/Uploader";
 import ProductsTable from "../../components/productsTable/ProductsTable";
 
 const Products = () => {
@@ -78,7 +84,14 @@ const Products = () => {
             <Input prefix="$" placeholder="0.00" name="precio" />
           </Form.Item>
           <Form.Item label="Género:" name="genero">
-            <Select defaultValue={defaultValue} onChange={handleChange} options={genres.map(genre => ({ value: genre.value, label: genre.label }))} />
+            <Select
+              defaultValue={defaultValue}
+              onChange={handleChange}
+              options={genres.map((genre) => ({
+                value: genre.value,
+                label: genre.label,
+              }))}
+            />
           </Form.Item>
           <Form.Item label="ISBN:" name="isbn">
             <Input placeholder="978-8484050421" name="isbn" />
@@ -96,9 +109,26 @@ const Products = () => {
               style={{ height: 120, resize: "none" }}
             />
           </Form.Item>
-          <br />
           <Form.Item label="Portada:" name="portada">
-            <Uploader />
+            <Space
+              direction="vertical"
+              style={{
+                width: "100%",
+              }}
+              size="large"
+            >
+              <Upload
+                name="portada" // Nombre del campo que recibirá el servidor
+                action="http://localhost:3001/books/upload" // URL del endpoint para manejar la carga de archivos
+                listType="picture"
+                maxCount={1}
+                beforeUpload={() => false} // Evita que la carga se realice automáticamente
+              >
+                <Button icon={<UploadOutlined />}>
+                  Seleccionar imagen (Máx. 1)
+                </Button>
+              </Upload>
+            </Space>
           </Form.Item>
         </Form>
       ),
