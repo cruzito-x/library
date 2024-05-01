@@ -24,18 +24,12 @@ const ProductsTable = () => {
       })
       .then(data => {
         message.success("Libro eliminado exitosamente");
-        // Actualizar la tabla después de la eliminación
-        setBooks(books.filter(book => book.idLibro !== record.idLibro));
+        setBooks(books.filter(book => book.idLibro !== record.idLibro)); // Actualizar la tabla después de la eliminación
       })
       .catch(error => {
         console.error("Error al eliminar el libro:", error);
         message.error("Error al eliminar el libro");
       });
-  };
-
-  const cancelDelete = (e) => {
-    console.log(e);
-    message.error("Eliminación cancelada");
   };
 
   const columns = [
@@ -68,7 +62,7 @@ const ProductsTable = () => {
             title="Eliminar registro"
             description="¿Está seguro de eliminar este registro?"
             onConfirm={() => confirmDelete(record)}
-            onCancel={cancelDelete}
+            onCancel={() => { }}
             okText="Sí"
             cancelText="No"
           >
