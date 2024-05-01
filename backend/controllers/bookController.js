@@ -1,61 +1,71 @@
 const db = require("../config/db");
 const fs = require("fs");
-const crypto = require('crypto');
+const crypto = require("crypto");
 
 exports.getAllBooks = (req, res) => {
-  db.query("select *, e.existencia as stock from libros l inner join existencias e on e.idLibro = l.idLibro where (l.deleted_at is null and e.deleted_at is null)", (err, results) => {
-    if (err) {
-      console.error("Error al obtener los libros:", err);
-      res.status(500).json({ message: "Error interno del servidor" });
-      return;
+  db.query(
+    "select *, e.existencia as stock from libros l inner join existencias e on e.idLibro = l.idLibro where (l.deleted_at is null and e.deleted_at is null)",
+    (err, results) => {
+      if (err) {
+        console.error("Error al obtener los libros:", err);
+        res.status(500).json({ message: "Error interno del servidor" });
+        return;
+      }
+      res.status(200).json(results);
     }
-    res.status(200).json(results);
-  });
+  );
 };
 
 exports.getLastFiveBooks = (req, res) => {
-  db.query("select *, e.existencia as stock from libros l inner join existencias e on e.idLibro = l.idLibro where (l.deleted_at is null and e.deleted_at is null) order by l.id desc limit 5", (err, results) => {
-    if (err) {
-      console.error("Error al obtener los libros:", err);
-      res.status(500).json({ message: "Error interno del servidor" });
-      return;
+  db.query(
+    "select *, e.existencia as stock from libros l inner join existencias e on e.idLibro = l.idLibro where (l.deleted_at is null and e.deleted_at is null) order by l.id desc limit 5",
+    (err, results) => {
+      if (err) {
+        console.error("Error al obtener los libros:", err);
+        res.status(500).json({ message: "Error interno del servidor" });
+        return;
+      }
+      res.status(200).json(results);
     }
-    res.status(200).json(results);
-  });
-}
-
+  );
+};
 
 exports.saveBook = (req, res) => {
-  const idLibro = crypto.createHash('md5').update(`${Date.now()}`).digest("hex");
   const {
     titulo,
     autor,
+    isbn,
     fechaPublicacion,
     genero,
     precio,
     sinopsis,
-    ingreso
+    ingreso,
   } = req.body;
   const portada = req.file ? req.file.path : null; // Ruta temporal de la imagen cargada
+  const idLibro = crypto
+    .createHash("md5")
+    .update(`${Date.now()}`)
+    .digest("hex");
 
-  const insertLibros = `insert into libros (idLibro, titulo, autor, fechaPublicacion, genero, precio, sinopsis, portada, created_at) values (?, ?, ?, ?, ?, ?, ?, ?, curdate())`;
+  const insertLibros = `insert into libros (idLibro, titulo, autor, isbn, fechaPublicacion, genero, precio, sinopsis, portada, created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, curdate())`;
 
   const librosValues = [
     idLibro,
     titulo,
     autor,
+    isbn,
     fechaPublicacion,
     genero,
     precio,
     sinopsis,
-    portada
+    portada || null,
   ];
 
   const insertExistencias = `insert into existencias (idLibro, existencia, created_at) values (?, ?, now())`;
 
   const existenciasValues = [
     idLibro,
-    ingreso // Valor obtenido del frontend
+    ingreso, // Valor obtenido del frontend
   ];
 
   // Realizar ambas inserciones en una transacción
@@ -65,7 +75,7 @@ exports.saveBook = (req, res) => {
       res.status(500).json({ message: "Error interno del servidor" });
       return;
     }
-    
+
     // Insertar en la tabla libros
     db.query(insertLibros, librosValues, (err, result) => {
       if (err) {
@@ -75,7 +85,7 @@ exports.saveBook = (req, res) => {
         });
         return;
       }
-      
+
       // Insertar en la tabla existencias
       db.query(insertExistencias, existenciasValues, (err, _result) => {
         if (err) {
@@ -85,7 +95,7 @@ exports.saveBook = (req, res) => {
           });
           return;
         }
-        
+
         // Commit la transacción si ambas inserciones son exitosas
         db.commit((err) => {
           if (err) {
@@ -95,7 +105,12 @@ exports.saveBook = (req, res) => {
             });
             return;
           }
-          res.status(200).json({ message: "Libro guardado exitosamente", id: result.insertId });
+          res
+            .status(200)
+            .json({
+              message: "Libro guardado exitosamente",
+              id: result.insertId,
+            });
         });
       });
     });
@@ -116,4 +131,3 @@ exports.deleteBookUpdatedDeletedAt = (req, res) => {
     res.status(200).json({ message: "Libro eliminado exitosamente" });
   });
 };
-

@@ -2,12 +2,16 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require('morgan');
+const multer = require('multer');
 
 const app = express();
 const port = 3001;
 
 // Middleware para parsear el body de las solicitudes como JSON
 app.use(bodyParser.json());
+
+// Middleware para manejar formularios multipart
+app.use(multer().none());
 
 // Aceptar CORS de diferentes endpoints fuera del servidor
 app.use(cors({ origin: "*" }));
