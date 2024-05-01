@@ -4,7 +4,7 @@ const crypto = require("crypto");
 
 exports.getAllBooks = (req, res) => {
   db.query(
-    "select *, e.existencia as stock from libros l inner join existencias e on e.idLibro = l.idLibro where (l.deleted_at is null and e.deleted_at is null)",
+    "select *, e.existencia as stock, g.nombreGenero as genero from libros l inner join existencias e on e.idLibro = l.idLibro inner join genero g on g.idGenero = l.genero where (l.deleted_at is null and e.deleted_at is null)",
     (err, results) => {
       if (err) {
         console.error("Error al obtener los libros:", err);
@@ -28,6 +28,17 @@ exports.getLastFiveBooks = (req, res) => {
       res.status(200).json(results);
     }
   );
+};
+
+exports.getAllGenres = (req, res) => {
+  db.query("select idGenero as value, nombreGenero as label from genero where deleted_at is null order by nombreGenero asc", (err, results) => {
+    if (err) {
+      console.error("Error al obtener los géneros:", err);
+      res.status(500).json({ message: "Error interno del servidor" });
+      return;
+    }
+    res.status(200).json(results);
+  });
 };
 
 exports.saveBook = (req, res) => {

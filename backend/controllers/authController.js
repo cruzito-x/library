@@ -6,10 +6,9 @@ exports.login = (req, res) => {
 
   const hashedPassword = crypto.createHash('md5').update(password).digest('hex');
 
-  const query = `SELECT * FROM Usuarios WHERE nombreUsuario = ? AND password = ?`;
+  const query = `select * from usuarios where nombreUsuario = ? and password = ? and deleted_at is null`;
   db.query(query, [username, hashedPassword], (err, results) => {
     if (err) {
-      console.error("Error al ejecutar la consulta:", err);
       res.status(500).json({ message: "Error interno del servidor" });
       return;
     }
