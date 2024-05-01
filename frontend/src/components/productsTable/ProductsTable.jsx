@@ -13,8 +13,24 @@ const ProductsTable = () => {
   }
 
   const confirmDelete = (record) => {
-    console.log(record);
-    message.success("Libro eliminado exitosamente");
+    fetch(`http://localhost:3001/books/deleteBookUpdatedDeletedAt/${record.idLibro}`, {
+      method: 'DELETE',
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Error al eliminar el libro");
+        }
+        return response.json();
+      })
+      .then(data => {
+        message.success("Libro eliminado exitosamente");
+        // Actualizar la tabla después de la eliminación
+        setBooks(books.filter(book => book.idLibro !== record.idLibro));
+      })
+      .catch(error => {
+        console.error("Error al eliminar el libro:", error);
+        message.error("Error al eliminar el libro");
+      });
   };
 
   const cancelDelete = (e) => {
