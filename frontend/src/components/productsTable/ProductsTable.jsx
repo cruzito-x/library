@@ -3,13 +3,27 @@ import { Card, Tag, Button, Modal, Row, Col, Table, Image, Popconfirm, Spin, mes
 
 const ProductsTable = () => {
   const [modal1Open, setModal1Open] = useState(false);
+  const [modal2Open, setModal2Open] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [editedBook, setEditedBook] = useState(null);
 
   const handleRowClick = (record) => {
     setSelectedRowData(record);
     setModal1Open(true);
+  }
+
+  const handleEdit = (record) => {
+    setSelectedRowData(record);
+    setEditedBook(record);
+    setModal2Open(true);
+  }
+
+  const saveChanges = () => {
+    // Aquí iría la lógica para guardar los cambios del libro editado
+    // Por ejemplo, puedes hacer una solicitud PUT a tu API
+    setModal2Open(false);
   }
 
   const confirmDelete = (record) => {
@@ -55,7 +69,7 @@ const ProductsTable = () => {
       key: "x",
       render: (text, record) => (
         <>
-          <Button primary style={{ marginRight: "20px" }}>
+          <Button primary style={{ marginRight: "20px" }} onClick={() => handleEdit(record)}>
             Editar
           </Button>
           <Popconfirm
@@ -127,6 +141,17 @@ const ProductsTable = () => {
                 <p> <strong> Precio: </strong> <br /> {'$'+selectedRowData.precio}</p>
                 <p> <strong> Descripción: </strong> <br /> {selectedRowData.sinopsis}</p>
               </>
+            )}
+          </Modal>
+
+          <Modal title="Editar Libro" open={modal2Open} onCancel={() => setModal2Open(false)}
+            footer={[
+              <Button key="back" onClick={() => setModal2Open(false)}>Cancelar</Button>,
+              <Button key="submit" type="primary" onClick={saveChanges}>Guardar Cambios</Button>,
+            ]}>
+            {editedBook && (
+              <p>Aquí puedes editar el libro {editedBook.titulo}</p>
+              // Agrega aquí los campos de edición necesarios
             )}
           </Modal>
         </Col>
