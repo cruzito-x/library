@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import {
   Card,
   Tag,
@@ -24,6 +24,8 @@ const ProductsTable = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editedBook, setEditedBook] = useState(null);
+  const [genres, setGenres] = useState([]);
+  const [defaultValue, setDefaultValue] = useState("");
   const [form] = Form.useForm();
   const { TextArea } = Input;
 
@@ -31,6 +33,24 @@ const ProductsTable = () => {
     setSelectedRowData(record);
     setModal1Open(true);
   };
+
+  const handleChange = (value) => {
+    console.log(`selected ${value}`);
+  };
+
+  useEffect(() => {
+    fetch("http://localhost:3001/books/genres")
+      .then((response) => response.json())
+      .then((data) => {
+        setGenres(data);
+        if (data.length > 0) {
+          setDefaultValue(genres[0].value);
+        }
+      })
+      .catch((error) => {
+        console.error("Error al cargar los géneros:", error);
+      });
+  }, []);
 
   const handleEdit = (record) => {
     setSelectedRowData(record);
@@ -64,7 +84,7 @@ const ProductsTable = () => {
                 ? { ...book, ...values }
                 : book
             )
-          ); // Actualizar la tabla después de la actualización
+          );
         })
         .catch((error) => {
           console.error("Error al actualizar el libro:", error);
@@ -190,9 +210,8 @@ const ProductsTable = () => {
             onCancel={() => setModal1Open(false)}
             footer={[
               <Button key="back" primary onClick={() => setModal1Open(false)}>
-                
                 Cerrar
-              </Button>,
+              </Button>
             ]}
           >
             {selectedRowData && (
@@ -240,7 +259,7 @@ const ProductsTable = () => {
               </Button>,
               <Button key="submit" type="primary" onClick={saveChanges}>
                 Guardar Cambios
-              </Button>,
+              </Button>
             ]}
           >
             <Form form={form}>
@@ -258,37 +277,14 @@ const ProductsTable = () => {
               </Form.Item>
               <Form.Item label="Género:" name="genero">
                 <Select
-                  defaultValue="Educativo"
-                  name="genero"
-                  onChange={{}}
-                  options={[
-                    {
-                      value: "Educativo",
-                      label: "Educativo",
-                    },
-                    {
-                      value: "Fantasía",
-                      label: "Fantasía",
-                    },
-                    {
-                      value: "Novela",
-                      label: "Novela",
-                    },
-                    {
-                      value: "Romance",
-                      label: "Romance",
-                    },
-                    {
-                      value: "Sci-Fi",
-                      label: "Sci-Fi",
-                    },
-                    {
-                      value: "Terror",
-                      label: "Terror",
-                    },
-                  ]}
+                defaultValue={defaultValue}
+                onChange={handleChange}
+                options={genres.map((genre) => ({
+                  value: genre.value,
+                  label: genre.label,
+                }))}
                 />
-              </Form.Item>
+                </Form.Item>
               <Form.Item label="ISBN:" name="isbn">
                 <Input placeholder="978-8484050421" name="isbn" />
               </Form.Item>
