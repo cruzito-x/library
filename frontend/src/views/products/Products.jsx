@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { PlusCircleOutlined, PlusCircleFilled, UserOutlined } from "@ant-design/icons";
 import {
   Breadcrumb,
@@ -26,6 +26,8 @@ const Products = () => {
   const { TextArea } = Input;
   const [form] = Form.useForm();
   const [formLayout, setFormLayout] = useState("horizontal");
+  const [genres, setGenres] = useState([]);
+  const [defaultValue, setDefaultValue] = useState("");
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -34,6 +36,20 @@ const Products = () => {
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
+
+  useEffect(() => {
+    fetch("http://localhost:3001/books/genres")
+      .then((response) => response.json())
+      .then((data) => {
+        setGenres(data);
+        if (data.length > 0) {
+          setDefaultValue(data[0].value);
+        }
+      })
+      .catch((error) => {
+        console.error("Error al cargar los géneros:", error);
+      });
+  }, []);
 
   const showAddModal = () => {
     confirm({
@@ -62,37 +78,7 @@ const Products = () => {
             <Input prefix="$" placeholder="0.00" name="precio" />
           </Form.Item>
           <Form.Item label="Género:" name="genero">
-            <Select
-              defaultValue="Educativo"
-              name="genero"
-              onChange={handleChange}
-              options={[
-                {
-                  value: "Educativo",
-                  label: "Educativo",
-                },
-                {
-                  value: "Fantasía",
-                  label: "Fantasía",
-                },
-                {
-                  value: "Novela",
-                  label: "Novela",
-                },
-                {
-                  value: "Romance",
-                  label: "Romance",
-                },
-                {
-                  value: "Sci-Fi",
-                  label: "Sci-Fi",
-                },
-                {
-                  value: "Terror",
-                  label: "Terror",
-                },
-              ]}
-            />
+            <Select defaultValue={defaultValue} onChange={handleChange} options={genres.map(genre => ({ value: genre.value, label: genre.label }))} />
           </Form.Item>
           <Form.Item label="ISBN:" name="isbn">
             <Input placeholder="978-8484050421" name="isbn" />
@@ -144,7 +130,7 @@ const Products = () => {
             message.success(data.message);
           })
           .catch((error) => {
-            message.error("Error al crear el libro");
+            message.error("Error al registrar el libro");
           });
       },
       onCancel() {},
@@ -174,10 +160,7 @@ const Products = () => {
               icon={<PlusCircleOutlined />}
               size={size}
               onClick={showAddModal}
-            >
-              {" "}
-              Añadir nuevo{" "}
-            </Button>
+            > Añadir nuevo </Button>
           </Col>
           <Col span={6}>
             <Search placeholder="Buscar" onSearch={onSearch} enterButton />
