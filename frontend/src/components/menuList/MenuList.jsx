@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import { Menu, theme } from 'antd';
-import { ProductOutlined, BookOutlined, DownloadOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined, LeftOutlined, SettingOutlined, RightOutlined} from '@ant-design/icons';
+import { ProductOutlined, BookOutlined, DownloadOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined, LeftOutlined, QuestionCircleOutlined, SettingOutlined, RightOutlined} from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
@@ -55,14 +55,19 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
       <Menu.Item key='/users' icon={<UserOutlined />}>
         Usuarios
       </Menu.Item>
-      <Menu.Item key='/settings' icon={<SettingOutlined />}>
-        Ajustes
+      <Menu.Item key='/help' icon={<QuestionCircleOutlined />}>
+        Ayuda
       </Menu.Item>
+      <Menu.SubMenu key='/settings' title='Ajustes' icon={<SettingOutlined />}>
+        <Menu.Item>
+          Géneros
+        </Menu.Item>
+      </Menu.SubMenu>
       <Menu.Item key='/sign-out' icon={<PoweroffOutlined />}>
         Salir
       </Menu.Item>
       <Menu.Item
-        key={"/collapsed"}
+        key={"#"}
         icon={collapsed ? <RightOutlined /> : <LeftOutlined />}
         onClick={() => setCollapsed(!collapsed)}
         className='toggle'

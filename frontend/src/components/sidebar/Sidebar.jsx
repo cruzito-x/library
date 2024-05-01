@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Layout, theme } from 'antd';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import Logo from '../logo/Logo';
 import LayoutHeader from '../layoutHeader/LayoutHeader';
 import MenuList from '../menuList/MenuList';
@@ -9,8 +9,10 @@ import Products from '../../views/products/Products';
 import Bills from '../../views/bills/Bills';
 import Users from '../../views/users/Users';
 import Settings from '../../views/settings/Settings';
+import NotFound from '../results/NotFound';
 import ToggleThemeButton from '../toggleThemeButton/ToggleThemeButton';
 import './Sidebar.css';
+import Help from '../../views/help/Help';
 
 const { Sider, Content, Footer } = Layout;
 
@@ -18,6 +20,7 @@ const Sidebar = () => {
   const [darkTheme, setDarkTheme] = useState(true);
   const toggleTheme = () => { setDarkTheme(!darkTheme); };
   const [collapsed, setCollapsed] = useState(false);
+  const location = useLocation();
 
   const { token: { colorBgContainer } } = theme.useToken();
 
@@ -26,13 +29,20 @@ const Sidebar = () => {
     transition: 'all .25s ease-in-out'
   };
 
-  const routes = [
-    '/7-days',
-    '/14-days',
-    '/1-month',
-    '/6-months',
-    '/1-year'
+  const allowedRoutes = [
+    '/dashboard',
+    '/books',
+    '/bills',
+    '/users',
+    '/help',
+    '/settings'
   ];
+
+  const shouldRenderLayout = allowedRoutes.includes(location.pathname);
+
+  if (!shouldRenderLayout) {
+    return <Routes> <Route path='*' element={<NotFound />} /> </Routes>;
+  }
 
   return (
     <Layout hasSider>
@@ -58,11 +68,9 @@ const Sidebar = () => {
             <Route path='/books' element={<Products />} />
             <Route path='/bills' element={<Bills />} />
             <Route path='/users' element={<Users />} />
+            <Route path='/help' element={<Help />} />
             <Route path='/settings' element={<Settings />} />
-          </Routes>
-          <Routes>{routes.map((route, index) => (
-          <Route key={index} path={route} element={''} />
-          ))}
+            <Route path='*' element={<NotFound />} />
           </Routes>
         </Content>
         <Footer style={{ textAlign: 'center' }}>

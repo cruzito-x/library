@@ -47,28 +47,25 @@ const Products = () => {
   };
 
   const handleFileUpload = ({ file }) => {
-    console.log(file);
-    setFiles(pre => {
-      return { ...pre, [file.uid]: file }
+    const formData = new FormData();
+    formData.append("portada", file);
+  
+    axios.post('http://localhost:3001/books/upload', formData, {
+      onUploadProgress: (progressEvent) => {
+        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+        console.log(`Uploaded: ${percentCompleted}%`);
+      },
+    })
+    .then((response) => {
+      const imageUrl = response.data.filename; // Nombre del archivo devuelto por el backend
+      form.setFieldsValue({ portada: imageUrl }); // Actualiza el valor del campo 'portada' en el formulario
+      message.success("Imagen cargada exitosamente");
+    })
+    .catch((error) => {
+      message.error("Error al cargar la imagen");
+      console.error("Error al cargar la imagen:", error);
     });
-
-    const getFileObject = (progress) => {
-      return {
-        uid: file.uid,
-        name: file.name,
-        progress: progress
-      }
-    }
-
-    axios.post('http://localhost:3001/books/upload', file, {
-      onUploadProgress: (event) => {
-        console.log(event);
-        setFiles((pre) => {
-          return { ...pre, [file.uid]: getFileObject(event.progress) }
-        });
-      }
-    });
-  }
+  };  
 
   useEffect(() => {
     fetch("http://localhost:3001/books/genres")
