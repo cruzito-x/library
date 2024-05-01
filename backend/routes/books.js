@@ -4,7 +4,8 @@ const bookController = require("../controllers/bookController");
 
 router.get("/", bookController.getAllBooks);
 router.get("/latest", bookController.getLastFiveBooks);
-router.post("/", bookController.saveBook);
-router.delete("/deleteBookUpdatedDeletedAt/:idLibro", bookController.deleteBookUpdatedDeletedAt); // Nuevo endpoint
+router.post("/save", bookController.saveBook);
+router.delete("/deleteBookUpdatedDeletedAt/:idLibro", bookController.deleteBookUpdatedDeletedAt);
+router.put("/updateBook/:idLibro", bookController.updateBook);
 
 module.exports = router;
