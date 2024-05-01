@@ -140,16 +140,17 @@ const Products = () => {
 
         formData.append("titulo", formValues.titulo);
         formData.append("autor", formValues.autor);
+        formData.append("isbn", formValues.isbn);
         formData.append("fechaPublicacion", formValues.fechaPublicacion);
         formData.append("genero", formValues.genero);
         formData.append("precio", formValues.precio);
-        formData.append("isbn", formValues.isbn);
         formData.append("ingreso", formValues.ingreso);
         formData.append("sinopsis", formValues.sinopsis);
 
         if (formValues.portada && formValues.portada.file) { // Verificar si 'portada' está definido y contiene un archivo
           formData.append("portada", formValues.portada.file); // Agregar la imagen al FormData
         }
+        console.log(formData);
 
         fetch("http://localhost:3001/books/save", {
           method: "POST",

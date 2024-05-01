@@ -8,6 +8,7 @@ import Dashboard from '../../views/dashboard/Dashboard';
 import Products from '../../views/products/Products';
 import Bills from '../../views/bills/Bills';
 import Users from '../../views/users/Users';
+import Settings from '../../views/settings/Settings';
 import ToggleThemeButton from '../toggleThemeButton/ToggleThemeButton';
 import './Sidebar.css';
 
@@ -57,6 +58,7 @@ const Sidebar = () => {
             <Route path='/books' element={<Products />} />
             <Route path='/bills' element={<Bills />} />
             <Route path='/users' element={<Users />} />
+            <Route path='/settings' element={<Settings />} />
           </Routes>
           <Routes>{routes.map((route, index) => (
           <Route key={index} path={route} element={''} />

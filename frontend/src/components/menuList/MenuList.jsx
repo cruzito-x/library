@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import { Menu, theme } from 'antd';
-import { ProductOutlined, BookOutlined, DownloadOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined, LeftOutlined, RightOutlined} from '@ant-design/icons';
+import { ProductOutlined, BookOutlined, DownloadOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined, LeftOutlined, SettingOutlined, RightOutlined} from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
@@ -54,6 +54,9 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
       </Menu.SubMenu>
       <Menu.Item key='/users' icon={<UserOutlined />}>
         Usuarios
+      </Menu.Item>
+      <Menu.Item key='/settings' icon={<SettingOutlined />}>
+        Ajustes
       </Menu.Item>
       <Menu.Item key='/sign-out' icon={<PoweroffOutlined />}>
         Salir
