@@ -57,7 +57,7 @@ exports.saveBook = (req, res) => {
     .update(`${Date.now()}`)
     .digest("hex");
 
-  const insertLibros = `insert into libros (idLibro, titulo, autor, isbn, fechaPublicacion, genero, precio, sinopsis, portada, created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, curdate())`;
+  const insertLibros = `insert into libros (idLibro, titulo, autor, isbn, fechaPublicacion, genero, precio, portada, sinopsis, created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, curdate())`;
   const insertExistencias = `insert into existencias (idLibro, existencia, created_at) values (?, ?, now())`;
 
   const librosValues = [
