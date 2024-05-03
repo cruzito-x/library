@@ -1,8 +1,7 @@
 const db = require("../config/db");
-const fs = require("fs");
 const crypto = require("crypto");
 
-exports.getAllBooks = (req, res) => {
+exports.getBooks = (req, res) => {
   db.query(
     "select *, e.existencia as stock, g.nombreGenero as genero from libros l inner join existencias e on e.idLibro = l.idLibro inner join genero g on g.idGenero = l.genero where (l.deleted_at is null and e.deleted_at is null)",
     (err, results) => {
@@ -30,7 +29,7 @@ exports.getLastFiveBooks = (req, res) => {
   );
 };
 
-exports.getAllGenres = (req, res) => {
+exports.getGenres = (req, res) => {
   db.query("select idGenero as value, nombreGenero as label from genero where deleted_at is null order by nombreGenero asc", (err, results) => {
     if (err) {
       console.error("Error al obtener los géneros:", err);
@@ -213,3 +212,24 @@ exports.updateBook = (req, res) => {
     });
   });
 };
+
+exports.upload = (async (req, res) => {
+  try {
+    if (!req.files) {
+      res.status(400).json({ message: "No se subió ningún archivo" });
+    } else {
+      const file = req.files.portada;
+      const fileName = file.name;
+
+      file.mv(`./uploads/${fileName}`, (err) => {
+        if (err) {
+          res.status(500).json({ message: "Error interno del servidor" });
+        } else {
+          res.status(200).json({ message: "Archivo subido exitosamente", data: { name: file.name, size: file.size, type: file.mimetype } });
+        }
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
+});
