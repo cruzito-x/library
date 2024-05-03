@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import { Menu, theme } from 'antd';
-import { ProductOutlined, BookOutlined, DownloadOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined, LeftOutlined, QuestionCircleOutlined, SettingOutlined, RightOutlined} from '@ant-design/icons';
+import { ProductOutlined, BookOutlined, DownloadOutlined, FieldTimeOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined, LeftOutlined, QuestionCircleOutlined, SettingOutlined, TagOutlined, RightOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
@@ -36,20 +36,20 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
         Facturar
       </Menu.Item>
       <Menu.SubMenu key='/reports' title='Reportes' icon={<DownloadOutlined />}>
-        <Menu.Item key='7-days'>
-          Últimos 7 días
+        <Menu.Item key='7-days' icon={<FieldTimeOutlined />}>
+          Últ. 7 días
         </Menu.Item>
-        <Menu.Item key='14-days'>
-          Últimos 14 días
+        <Menu.Item key='14-days' icon={<FieldTimeOutlined />}>
+          Últ. 14 días
         </Menu.Item>
-        <Menu.Item key='1-month'>
-          Último mes
+        <Menu.Item key='1-month' icon={<FieldTimeOutlined />}>
+          Últ. mes
         </Menu.Item>
-        <Menu.Item key='6-months'>
-          Últimos 6 meses
+        <Menu.Item key='6-months' icon={<FieldTimeOutlined />}>
+          Últ. 6 meses
         </Menu.Item> 
-        <Menu.Item key='1-year'>
-          Último año
+        <Menu.Item key='1-year' icon={<FieldTimeOutlined />}>
+          Últ. año
         </Menu.Item>
       </Menu.SubMenu>
       <Menu.Item key='/users' icon={<UserOutlined />}>
@@ -59,7 +59,7 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
         Ayuda
       </Menu.Item>
       <Menu.SubMenu key='/settings' title='Ajustes' icon={<SettingOutlined />}>
-        <Menu.Item key='/settings/gender'>
+        <Menu.Item key='/settings/gender' icon={<TagOutlined />}>
           Géneros
         </Menu.Item>
       </Menu.SubMenu>

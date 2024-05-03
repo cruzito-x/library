@@ -1,5 +1,4 @@
 import { React, useState, useEffect } from "react";
-import axios from "axios";
 import {
   PlusCircleOutlined,
   PlusCircleFilled,
@@ -36,7 +35,6 @@ const Products = () => {
   const [formLayout, setFormLayout] = useState("horizontal");
   const [genres, setGenres] = useState([]);
   const [defaultValue, setDefaultValue] = useState("");
-  const [files, setFiles] = useState({});
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -45,27 +43,6 @@ const Products = () => {
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
-
-  // const handleFileUpload = ({ file }) => {
-  //   const formData = new FormData();
-  //   formData.append("portada", file);
-  
-  //   axios.post('http://localhost:3001/books/upload', formData, {
-  //     onUploadProgress: (progressEvent) => {
-  //       const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-  //       console.log(`Uploaded: ${percentCompleted}%`);
-  //     },
-  //   })
-  //   .then((response) => {
-  //     const imageUrl = response.data.filename; // Nombre del archivo devuelto por el backend
-  //     form.setFieldsValue({ portada: imageUrl }); // Actualiza el valor del campo 'portada' en el formulario
-  //     message.success("Imagen cargada exitosamente");
-  //   })
-  //   .catch((error) => {
-  //     message.error("Error al cargar la imagen");
-  //     console.error("Error al cargar la imagen:", error);
-  //   });
-  // };  
 
   useEffect(() => {
     fetch("http://localhost:3001/books/genres")

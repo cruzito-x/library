@@ -33,9 +33,15 @@ const Sidebar = () => {
     '/dashboard',
     '/books',
     '/bills',
+    '/7-days',
+    '/14-days',
+    '/1-month',
+    '/6-months',
+    '/1-year',
     '/users',
     '/help',
-    '/settings'
+    '/settings',
+    '/settings/gender'
   ];
 
   const shouldRenderLayout = allowedRoutes.includes(location.pathname);
