@@ -1,6 +1,6 @@
 import { React, useState, useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
-import { Card, Spin, Typography, Row, Col, Table } from "antd";
+import { Card, Spin, Typography, Row, Col, Table, message } from "antd";
 
 const DashboardGraphs = () => {
   const { Title } = Typography;
@@ -85,9 +85,7 @@ const DashboardGraphs = () => {
     const barCtx = barChartRef.current.getContext("2d");
 
     const barData = {
-      labels: [
-        
-      ],
+      labels: [],
       datasets: [
         {
           label: "Ventas del mes",
@@ -221,24 +219,34 @@ const DashboardGraphs = () => {
     };
   }, []);
 
-  const columns = [
-    {
-      title: "Nombre del libro",
-      dataIndex: "titulo",
-      key: "name",
-    },
-    {
-      title: "Autor",
-      dataIndex: "autor",
-      key: "author",
-    },
-    {
-      title: "Precio",
-      dataIndex: "precio",
-      key: "price",
-    },
-  ];
+  // Obtener la lista de los libros más vendidos.
+  useEffect(() => {
+    fetch("http://localhost:3001/dashboard/topSellers")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Error al obtener la lista de libros más vendidos");
+        }
+        return response.json();
+      })
+      .then(data => {
+        const labels = data.map(book => book.titulo); // Títulos  de los datos obtenidos
+        const dataValues = data.map(book => book.totalVendido); // Cantidades vendidas de los datos obtenidos
 
+        // Actualizar datos del Rengoku's graph.
+        doughnutChartInstance.current.data.labels = labels;
+        doughnutChartInstance.current.data.datasets[0].data = dataValues;
+        doughnutChartInstance.current.update();
+
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error("Error al obtener la lista de libros más vendidos:", error);
+        setLoading(false);
+        message.error("Error al obtener la lista de libros más vendidos");
+      });
+  }, []);
+
+  // Obtener la lista de los últimos libros añadidos a stock.
   useEffect(() => {
     fetch("http://localhost:3001/books/latest")
       .then(response => {
@@ -259,6 +267,23 @@ const DashboardGraphs = () => {
       });
   }, []);
 
+  const columns = [
+    {
+      title: "Nombre del libro",
+      dataIndex: "titulo",
+      key: "name",
+    },
+    {
+      title: "Autor",
+      dataIndex: "autor",
+      key: "author",
+    },
+    {
+      title: "Precio",
+      dataIndex: "precio",
+      key: "price",
+    },
+  ];
 
   return (
     <>
