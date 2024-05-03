@@ -262,14 +262,14 @@ const DashboardGraphs = ({ period }) => {
           lineChartInstance.current.data = lineData;
           lineChartInstance.current.update();
         }
-        //setLoading(false);
+        setLoading(false);
       })
       .catch((error) => {
         console.error(
           "Error al obtener los datos de ventas por género:",
           error
         );
-        //setLoading(false);
+        setLoading(false);
         message.error("Error al obtener los datos de ventas por género");
       });
   }, [period]);
@@ -285,14 +285,11 @@ const DashboardGraphs = ({ period }) => {
       })
       .then((data) => {
         const formattedData = data.map((sale) => {
-          // Convertir la fecha a objeto Date
-          const saleDate = new Date(sale.fecha);
-          // Obtener partes de la fecha
+          const saleDate = new Date(sale.fecha); // Convertir la fecha a objeto Date y luego obtener partes de la fecha
           const day = saleDate.getDate().toString().padStart(2, "0"); // Día con dos dígitos
           const month = (saleDate.getMonth() + 1).toString().padStart(2, "0"); // Mes con dos dígitos (se suma 1 porque en JavaScript los meses van de 0 a 11)
           const year = saleDate.getFullYear(); // Año
 
-          // Formatear la fecha como "dd-MM-yyyy"
           const formattedDate = `${day}-${month}-${year}`;
 
           return {
