@@ -219,6 +219,57 @@ const DashboardGraphs = () => {
     };
   }, []);
 
+  // Obtener la lista de las ventas del mes
+  useEffect(() => {
+    fetch("http://localhost:3001/dashboard/monthSales")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            "Error al obtener la lista de ventas del mes actual"
+          );
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const formattedData = data.map((sale) => {
+          // Convertir la fecha a objeto Date
+          const saleDate = new Date(sale.fecha);
+          // Obtener partes de la fecha
+          const day = saleDate.getDate().toString().padStart(2, '0'); // Día con dos dígitos
+          const month = (saleDate.getMonth() + 1).toString().padStart(2, '0'); // Mes con dos dígitos (se suma 1 porque en JavaScript los meses van de 0 a 11)
+          const year = saleDate.getFullYear(); // Año
+  
+          // Formatear la fecha como "dd-MM-yyyy"
+          const formattedDate = `${day}-${month}-${year}`;
+  
+          return {
+            fecha: formattedDate,
+            total_venta: sale.total_venta
+          };
+        });
+
+        const labels = formattedData.map((sale) => sale.fecha);
+      const dataValues = formattedData.map((sale) => sale.total_venta);
+
+        // Update Bar Chart data
+        if (barChartInstance.current !== null) {
+          barChartInstance.current.data.labels = labels;
+          barChartInstance.current.data.datasets[0].data = dataValues;
+          barChartInstance.current.update();
+        }
+
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(
+          "Error al obtener la lista de ventas del mes actual:",
+          error
+        );
+        setLoading(false);
+        message.error("Error al obtener la lista de ventas del mes actual");
+      });
+  }, []);
+
   // Obtener la lista de los libros más vendidos.
   useEffect(() => {
     fetch("http://localhost:3001/dashboard/topSellers")
