@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import { Menu, theme } from 'antd';
-import { ProductOutlined, BookOutlined, DownloadOutlined, FieldTimeOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined, LeftOutlined, QuestionCircleOutlined, SettingOutlined, TagOutlined, RightOutlined } from '@ant-design/icons';
+import { ProductOutlined, BookOutlined, DownloadOutlined, CalendarOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined, LeftOutlined, QuestionCircleOutlined, SettingOutlined, TagOutlined, RightOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
@@ -36,19 +36,19 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
         Facturar
       </Menu.Item>
       <Menu.SubMenu key='/reports' title='Reportes' icon={<DownloadOutlined />}>
-        <Menu.Item key='7-days' icon={<FieldTimeOutlined />}>
+        <Menu.Item key='7-days' icon={<CalendarOutlined />}>
           Últ. 7 días
         </Menu.Item>
-        <Menu.Item key='14-days' icon={<FieldTimeOutlined />}>
+        <Menu.Item key='14-days' icon={<CalendarOutlined />}>
           Últ. 14 días
         </Menu.Item>
-        <Menu.Item key='1-month' icon={<FieldTimeOutlined />}>
+        <Menu.Item key='1-month' icon={<CalendarOutlined />}>
           Últ. mes
         </Menu.Item>
-        <Menu.Item key='6-months' icon={<FieldTimeOutlined />}>
+        <Menu.Item key='6-months' icon={<CalendarOutlined />}>
           Últ. 6 meses
         </Menu.Item> 
-        <Menu.Item key='1-year' icon={<FieldTimeOutlined />}>
+        <Menu.Item key='1-year' icon={<CalendarOutlined />}>
           Últ. año
         </Menu.Item>
       </Menu.SubMenu>
