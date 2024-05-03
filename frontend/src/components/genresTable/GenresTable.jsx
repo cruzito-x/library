@@ -10,7 +10,7 @@ import {
   Spin,
   Form,
   Input,
-  message
+  message,
 } from "antd";
 
 const GenresTable = () => {
@@ -31,17 +31,19 @@ const GenresTable = () => {
 
   const saveChanges = () => {
     form.validateFields().then((values) => {
-      fetch(`http://localhost:3001/genres/updateGenre/${editedGenre.idGenero}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      })
+      fetch(
+        `http://localhost:3001/genres/updateGenre/${editedGenre.idGenero}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      )
         .then((response) => {
           if (!response.ok) {
-
-            if(response.status === 400) {
+            if (response.status === 400) {
               throw new Error("El género literario ya existe");
             } else if (response.status === 500) {
               throw new Error("Error interno de servidor");
@@ -92,12 +94,23 @@ const GenresTable = () => {
     {
       title: "Género",
       dataIndex: "nombreGenero",
-      key: "genre"
+      key: "genre",
     },
     {
       title: "Creado el",
       dataIndex: "created at",
-      key: "createdAt"
+      key: "createdAt",
+      render: (text) => {
+        // Formatear la fecha
+        const formattedDate = new Date(text)
+          .toLocaleDateString("es-ES", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          })
+          .replace(/\//g, "-");
+        return formattedDate;
+      },
     },
     {
       title: "Acciones",
@@ -156,9 +169,7 @@ const GenresTable = () => {
               dataSource={genres}
               onRow={(record, rowIndex) => {
                 return {
-                  onClick: (event) => {
-                    
-                  },
+                  onClick: (event) => {},
                 };
               }}
             />
@@ -174,7 +185,7 @@ const GenresTable = () => {
               </Button>,
               <Button key="submit" type="primary" onClick={saveChanges}>
                 Guardar Cambios
-              </Button>
+              </Button>,
             ]}
           >
             <Form form={form}>

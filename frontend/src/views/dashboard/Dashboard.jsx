@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Space, Select, theme } from "antd";
 import DashboardGraphs from "../../components/dashboardGraphs/DashboardGraphs";
@@ -12,6 +12,12 @@ const Dashboard = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const [period, setPeriod] = useState("7");
+
+  const handleChange = (value) => {
+    setPeriod(value);
+  };
 
   return (
       <Content style={{ margin: "0 16px" }}>
@@ -31,7 +37,7 @@ const Dashboard = () => {
             Fecha
             <Select
               defaultValue="7"
-              id="date"
+              name="period"
               style={{
                 width: 120,
               }}
@@ -65,7 +71,7 @@ const Dashboard = () => {
             />
           </Space>
           <Content>
-              <DashboardGraphs/>
+              <DashboardGraphs period={period} />
             </Content>
         </div>
       </Content>

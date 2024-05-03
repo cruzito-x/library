@@ -2,7 +2,7 @@ import { React, useState, useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 import { Card, Spin, Typography, Row, Col, Table, message } from "antd";
 
-const DashboardGraphs = () => {
+const DashboardGraphs = ({ period }) => {
   const { Title } = Typography;
   const lineChartRef = useRef(null);
   const barChartRef = useRef(null);
@@ -236,7 +236,7 @@ const DashboardGraphs = () => {
 
   // Obtener datos de ventas por género
   useEffect(() => {
-    fetch("http://localhost:3001/dashboard")
+    fetch(`http://localhost:3001/dashboard?period=${period}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener los datos de ventas por género");
@@ -275,7 +275,7 @@ const DashboardGraphs = () => {
         setLoading(false);
         message.error("Error al obtener los datos de ventas por género");
       });
-  }, []);
+  }, [period]);
 
   // Obtener la lista de las ventas del mes
   useEffect(() => {
@@ -368,7 +368,6 @@ const DashboardGraphs = () => {
       .then((data) => {
         setBooks(data);
         setLoading(false);
-        console.log(data);
       })
       .catch((error) => {
         console.error("Error al obtener la lista de libros:", error);
