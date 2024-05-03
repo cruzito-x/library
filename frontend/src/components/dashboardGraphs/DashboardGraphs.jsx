@@ -15,19 +15,29 @@ const DashboardGraphs = ({ period }) => {
   let doughnutChartInstance = useRef(null);
 
   useEffect(() => {
-    // Line Chart
-    const lineCtx = lineChartRef.current.getContext("2d");
+    const lineCtx = lineChartRef.current.getContext("2d"); // Line Chart
+    const barCtx = barChartRef.current.getContext("2d"); // Bar Chart
+    const doughnutCtx = doughnutChartRef.current.getContext("2d"); // Rengoku's Chart
+
+    const monthNames = [
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre",
+    ];
+
+    //Graphs data
 
     const lineData = {
-      labels: [
-        "Lunes",
-        "Martes",
-        "Miércoles",
-        "Jueves",
-        "Viernes",
-        "Sábado",
-        "Domingo",
-      ],
+      labels: [],
       datasets: [
         {
           label: "Ganancias por género",
@@ -37,52 +47,6 @@ const DashboardGraphs = ({ period }) => {
         }
       ],
     };
-
-    const lineConfig = {
-      type: "line",
-      data: lineData,
-      options: {
-        responsive: true,
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: "Géneros",
-              color: "black",
-              font: {
-                weight: "regular",
-              },
-            },
-            grid: {
-              display: false,
-            },
-          },
-          y: {
-            beginAtZero: true,
-            grid: {
-              display: false,
-            },
-            title: {
-              display: true,
-              text: "Ventas por género",
-              color: "black",
-              font: {
-                weight: "regular",
-              },
-            },
-          },
-        },
-      },
-    };
-
-    if (lineChartInstance.current !== null) {
-      lineChartInstance.current.destroy();
-    }
-
-    lineChartInstance.current = new Chart(lineCtx, lineConfig);
-
-    // Bar Chart
-    const barCtx = barChartRef.current.getContext("2d");
 
     const barData = {
       labels: [],
@@ -121,20 +85,67 @@ const DashboardGraphs = ({ period }) => {
       ],
     };
 
-    const monthNames = [
-      "Enero",
-      "Febrero",
-      "Marzo",
-      "Abril",
-      "Mayo",
-      "Junio",
-      "Julio",
-      "Agosto",
-      "Septiembre",
-      "Octubre",
-      "Noviembre",
-      "Diciembre",
-    ];
+    const doughnutData = {
+      labels: [],
+      datasets: [
+        {
+          label: ["Cantidad vendida"],
+          backgroundColor: [
+            "#ff6384",
+            "#36a2Eb",
+            "#ffce56",
+            "#59ac59",
+            "#6666ff",
+          ],
+          hoverBackgroundColor: [
+            "#ff6384",
+            "#36a2Eb",
+            "#ffce56",
+            "#59ac59",
+            "#6666ff",
+          ],
+        },
+      ],
+    };
+
+    // Graphs configuration
+
+    const lineConfig = {
+      type: "line",
+      data: lineData,
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Géneros",
+              color: "black",
+              font: {
+                weight: "regular",
+              },
+            },
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            beginAtZero: true,
+            grid: {
+              display: false,
+            },
+            title: {
+              display: true,
+              text: "Ventas por género",
+              color: "black",
+              font: {
+                weight: "regular",
+              },
+            },
+          },
+        },
+      },
+    };
 
     const barConfig = {
       type: "bar",
@@ -173,38 +184,6 @@ const DashboardGraphs = ({ period }) => {
       },
     };
 
-    if (barChartInstance.current !== null) {
-      barChartInstance.current.destroy();
-    }
-
-    barChartInstance.current = new Chart(barCtx, barConfig);
-
-    // Doughnut Chart
-    const doughnutCtx = doughnutChartRef.current.getContext("2d");
-
-    const doughnutData = {
-      labels: [],
-      datasets: [
-        {
-          label: ["Cantidad vendida"],
-          backgroundColor: [
-            "#ff6384",
-            "#36a2Eb",
-            "#ffce56",
-            "#59ac59",
-            "#6666ff",
-          ],
-          hoverBackgroundColor: [
-            "#ff6384",
-            "#36a2Eb",
-            "#ffce56",
-            "#59ac59",
-            "#6666ff",
-          ],
-        },
-      ],
-    };
-
     const doughnutConfig = {
       type: "doughnut",
       data: doughnutData,
@@ -218,10 +197,10 @@ const DashboardGraphs = ({ period }) => {
       },
     };
 
-    if (doughnutChartInstance.current !== null) {
-      doughnutChartInstance.current.destroy();
-    }
+    // Graphs instances
 
+    lineChartInstance.current = new Chart(lineCtx, lineConfig);
+    barChartInstance.current = new Chart(barCtx, barConfig);
     doughnutChartInstance.current = new Chart(doughnutCtx, doughnutConfig);
 
     return () => {
@@ -397,6 +376,7 @@ const DashboardGraphs = ({ period }) => {
       title: "Precio",
       dataIndex: "precio",
       key: "price",
+      render: (precio) => `$${precio}`
     },
   ];
 
@@ -470,7 +450,7 @@ const DashboardGraphs = ({ period }) => {
                     ),
                     rowExpandable: (record) => record.name !== "Not Expandable",
                   }}
-                  dataSource={books}
+                  dataSource={books.map((book, index) => ({ ...book, key: index }))} // Asignar una clave única para cada registro
                 />
               </Spin>
             </Card>
