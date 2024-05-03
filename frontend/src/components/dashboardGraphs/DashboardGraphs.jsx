@@ -197,6 +197,18 @@ const DashboardGraphs = ({ period }) => {
       },
     };
 
+    if (lineChartInstance.current !== null) {
+      lineChartInstance.current.destroy();
+    }
+
+    if (barChartInstance.current !== null) {
+      barChartInstance.current.destroy();
+    }
+
+    if (doughnutChartInstance.current !== null) {
+      doughnutChartInstance.current.destroy();
+    }
+
     // Graphs instances
 
     lineChartInstance.current = new Chart(lineCtx, lineConfig);
