@@ -26,22 +26,22 @@ const DashboardGraphs = () => {
         "Jueves",
         "Viernes",
         "Sábado",
-        "Domingo"
+        "Domingo",
       ],
       datasets: [
         {
-          label: "Aumento",
+          label: "",
           data: [],
           borderColor: "#05b0ff",
           backgroundColor: "#05b0ff",
-          borderWidth: 2.5
+          borderWidth: 2.5,
         },
         {
-          label: "Decremento",
+          label: "",
           data: [],
           borderColor: "#ff4040",
           backgroundColor: "#ff4040",
-          borderWidth: 2.5
+          borderWidth: 2.5,
         },
       ],
     };
@@ -219,14 +219,46 @@ const DashboardGraphs = () => {
     };
   }, []);
 
+  // Obtener datos de ventas por género
+  useEffect(() => {
+    fetch(
+      "http://localhost:3001/dashboard/"
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos de ventas por género");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const labels = data.map((item) => item.Genero); // Obtener nombres de género
+        const dataValues = data.map((item) => item.VentasTotales); // Obtener ventas totales
+
+        // Actualizar datos del gráfico de línea
+        if (lineChartInstance.current !== null) {
+          lineChartInstance.current.data.labels = labels;
+          lineChartInstance.current.data.datasets[0].data = dataValues;
+          lineChartInstance.current.update();
+        }
+
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(
+          "Error al obtener los datos de ventas por género:",
+          error
+        );
+        setLoading(false);
+        message.error("Error al obtener los datos de ventas por género");
+      });
+  }, []);
+
   // Obtener la lista de las ventas del mes
   useEffect(() => {
     fetch("http://localhost:3001/dashboard/monthSales")
       .then((response) => {
         if (!response.ok) {
-          throw new Error(
-            "Error al obtener la lista de ventas del mes actual"
-          );
+          throw new Error("Error al obtener la lista de ventas del mes actual");
         }
         return response.json();
       })
@@ -235,21 +267,21 @@ const DashboardGraphs = () => {
           // Convertir la fecha a objeto Date
           const saleDate = new Date(sale.fecha);
           // Obtener partes de la fecha
-          const day = saleDate.getDate().toString().padStart(2, '0'); // Día con dos dígitos
-          const month = (saleDate.getMonth() + 1).toString().padStart(2, '0'); // Mes con dos dígitos (se suma 1 porque en JavaScript los meses van de 0 a 11)
+          const day = saleDate.getDate().toString().padStart(2, "0"); // Día con dos dígitos
+          const month = (saleDate.getMonth() + 1).toString().padStart(2, "0"); // Mes con dos dígitos (se suma 1 porque en JavaScript los meses van de 0 a 11)
           const year = saleDate.getFullYear(); // Año
-  
+
           // Formatear la fecha como "dd-MM-yyyy"
           const formattedDate = `${day}-${month}-${year}`;
-  
+
           return {
             fecha: formattedDate,
-            total_venta: sale.total_venta
+            total_venta: sale.total_venta,
           };
         });
 
         const labels = formattedData.map((sale) => sale.fecha);
-      const dataValues = formattedData.map((sale) => sale.total_venta);
+        const dataValues = formattedData.map((sale) => sale.total_venta);
 
         // Update Bar Chart data
         if (barChartInstance.current !== null) {
@@ -273,15 +305,15 @@ const DashboardGraphs = () => {
   // Obtener la lista de los libros más vendidos.
   useEffect(() => {
     fetch("http://localhost:3001/dashboard/topSellers")
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener la lista de libros más vendidos");
         }
         return response.json();
       })
-      .then(data => {
-        const labels = data.map(book => book.titulo); // Títulos  de los datos obtenidos
-        const dataValues = data.map(book => book.totalVendido); // Cantidades vendidas de los datos obtenidos
+      .then((data) => {
+        const labels = data.map((book) => book.titulo); // Títulos  de los datos obtenidos
+        const dataValues = data.map((book) => book.totalVendido); // Cantidades vendidas de los datos obtenidos
 
         // Actualizar datos del Rengoku's graph.
         doughnutChartInstance.current.data.labels = labels;
@@ -290,8 +322,11 @@ const DashboardGraphs = () => {
 
         setLoading(false);
       })
-      .catch(error => {
-        console.error("Error al obtener la lista de libros más vendidos:", error);
+      .catch((error) => {
+        console.error(
+          "Error al obtener la lista de libros más vendidos:",
+          error
+        );
         setLoading(false);
         message.error("Error al obtener la lista de libros más vendidos");
       });
@@ -300,18 +335,18 @@ const DashboardGraphs = () => {
   // Obtener la lista de los últimos libros añadidos a stock.
   useEffect(() => {
     fetch("http://localhost:3001/books/latest")
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener la lista de libros");
         }
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         setBooks(data);
         setLoading(false);
         console.log(data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error al obtener la lista de libros:", error);
         setLoading(false);
         message.error("Error al obtener la lista de libros");
@@ -381,23 +416,23 @@ const DashboardGraphs = () => {
               <Title level={5} style={{ marginTop: "0" }}>
                 Añadido recientemente
               </Title>
-              <Spin spinning={loading} size='large' tip='Cargando...'>
-              <Table
-                columns={columns}
-                expandable={{
-                  expandedRowRender: (record) => (
-                    <p
-                      style={{
-                        margin: 0,
-                      }}
-                    >
-                      {record.sinopsis}
-                    </p>
-                  ),
-                  rowExpandable: (record) => record.name !== "Not Expandable",
-                }}
-                dataSource={books}
-              />
+              <Spin spinning={loading} size="large" tip="Cargando...">
+                <Table
+                  columns={columns}
+                  expandable={{
+                    expandedRowRender: (record) => (
+                      <p
+                        style={{
+                          margin: 0,
+                        }}
+                      >
+                        {record.sinopsis}
+                      </p>
+                    ),
+                    rowExpandable: (record) => record.name !== "Not Expandable",
+                  }}
+                  dataSource={books}
+                />
               </Spin>
             </Card>
           </Col>
