@@ -55,7 +55,7 @@ const DashboardGraphs = () => {
           x: {
             title: {
               display: true,
-              text: "Ventas",
+              text: "Géneros",
               color: "black",
               font: {
                 weight: "regular",
@@ -70,6 +70,14 @@ const DashboardGraphs = () => {
             grid: {
               display: false,
             },
+            title: {
+              display: true,
+              text: "Ventas por género",
+              color: "black",
+              font: {
+                weight: "regular",
+              },
+            }
           },
         },
       },
@@ -147,6 +155,14 @@ const DashboardGraphs = () => {
             grid: {
               display: false,
             },
+            title: {
+              display: true,
+              text: "Ventas diarias",
+              color: "black",
+              font: {
+                weight: "regular",
+              },
+            }
           },
         },
       },
@@ -166,7 +182,6 @@ const DashboardGraphs = () => {
       datasets: [
         {
           label: ["Cantidad vendida"],
-          data: [],
           backgroundColor: [
             "#ff6384",
             "#36a2Eb",
@@ -221,9 +236,7 @@ const DashboardGraphs = () => {
 
   // Obtener datos de ventas por género
   useEffect(() => {
-    fetch(
-      "http://localhost:3001/dashboard/"
-    )
+    fetch("http://localhost:3001/dashboard")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener los datos de ventas por género");
@@ -231,16 +244,27 @@ const DashboardGraphs = () => {
         return response.json();
       })
       .then((data) => {
-        const labels = data.map((item) => item.Genero); // Obtener nombres de género
-        const dataValues = data.map((item) => item.VentasTotales); // Obtener ventas totales
+        const genres = data.map((item) => item.Genero); // Obtener nombres de género
+        const sales = data.map((item) => item.VentasTotales); // Obtener ventas totales
+
+        const lineData = {
+          labels: genres,
+          datasets: [
+            {
+              label: "Ventas por género",
+              data: sales,
+              borderColor: "#05b0ff",
+              backgroundColor: "#05b0ff",
+              borderWidth: 2.5,
+            },
+          ],
+        };
 
         // Actualizar datos del gráfico de línea
         if (lineChartInstance.current !== null) {
-          lineChartInstance.current.data.labels = labels;
-          lineChartInstance.current.data.datasets[0].data = dataValues;
+          lineChartInstance.current.data = lineData;
           lineChartInstance.current.update();
         }
-
         setLoading(false);
       })
       .catch((error) => {
