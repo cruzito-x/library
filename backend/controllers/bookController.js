@@ -51,7 +51,7 @@ exports.saveBook = (req, res) => {
     sinopsis,
     ingreso,
   } = req.body;
-  const portada = req.file ? req.file.path : null; // Ruta temporal de la imagen cargada
+  const portada = req.file ? req.file.path : null;
   const idLibro = crypto
     .createHash("md5")
     .update(`${Date.now()}`)
@@ -213,23 +213,28 @@ exports.updateBook = (req, res) => {
   });
 };
 
-exports.upload = (async (req, res) => {
+exports.upload = async (req, res) => {
   try {
     if (!req.files) {
       res.status(400).json({ message: "No se subió ningún archivo" });
     } else {
       const file = req.files.portada;
-      const fileName = file.name;
+      
+      // Generar nombre de archivo basado en la fecha y hora actual
+      const currentDate = new Date();
+      const formattedDate = currentDate.toLocaleString('es-ES', { timeZone: 'UTC' }).replace(/[\/\,\.\s\:]/g, '');
+      const fileName = `${formattedDate}.${file.name.split('.').pop()}`; // Mantener la extensión original del archivo
 
       file.mv(`./uploads/${fileName}`, (err) => {
         if (err) {
           res.status(500).json({ message: "Error interno del servidor" });
         } else {
-          res.status(200).json({ message: "Archivo subido exitosamente", data: { name: file.name, size: file.size, type: file.mimetype } });
+          res.status(200).json({ message: "Archivo subido exitosamente", data: { name: fileName, size: file.size, type: file.mimetype } });
+          console.log('Archivo subido exitosamente', fileName + ', ' + file.size + ', ' + file.mimetype);
         }
       });
     }
   } catch (error) {
     res.status(500).json({ message: "Error interno del servidor" });
   }
-});
+};
