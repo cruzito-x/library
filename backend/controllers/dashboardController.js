@@ -1,11 +1,10 @@
 const db = require("../config/db");
-const crypto = require("crypto");
 
 exports.getGenresComparative = (req, res) => {
-  const selectSalesByGenre =
-    "select g.nombreGenero as Genero, sum(dv.subtotal) as VentasTotales from ventas v inner join detalles_venta dv on v.idVenta = dv.idVenta inner join libros l on dv.idLibro = l.idLibro inner join genero g on l.genero = g.idGenero where v.estado = 'completado' group by g.nombreGenero order by VentasTotales asc;";
+  const period = req.query.period || '7'; // Valor predeterminado: últimos 7 días
+  const selectSalesByGenre = "select g.nombreGenero as Genero, sum(dv.subtotal) as VentasTotales from ventas v inner join detalles_venta dv on v.idVenta = dv.idVenta  inner join libros l on dv.idLibro = l.idLibro inner join genero g on l.genero = g.idGenero where v.estado = 'completado' and (g.deleted_at is null and v.deleted_at is null and dv.deleted_at is null) and v.fecha >= now() - interval ? day group by g.nombreGenero  order by VentasTotales asc;";
 
-  db.query(selectSalesByGenre, (error, results) => {
+  db.query(selectSalesByGenre, [period], (error, results) => {
     if (error) {
       res.status(500).json({ error: "Error al obtener los datos de ventas por género" });
     } else {
@@ -13,6 +12,7 @@ exports.getGenresComparative = (req, res) => {
     }
   });
 };
+
 
 exports.getMonthSales = (req, res) => {
   // Obtener las ventas del mes actual
