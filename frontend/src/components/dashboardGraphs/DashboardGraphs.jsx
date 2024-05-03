@@ -251,7 +251,7 @@ const DashboardGraphs = () => {
           labels: genres,
           datasets: [
             {
-              label: "Ventas por género",
+              label: "Ganancias por género",
               data: sales,
               borderColor: "#05b0ff",
               backgroundColor: "#05b0ff",
