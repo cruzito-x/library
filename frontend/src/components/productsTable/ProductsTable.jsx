@@ -61,7 +61,6 @@ const ProductsTable = () => {
 
   const saveChanges = () => {
     form.validateFields().then((values) => {
-      // Enviar solicitud de actualización al servidor
       fetch(`http://localhost:3001/books/updateBook/${editedBook.idLibro}`, {
         method: "PUT",
         headers: {

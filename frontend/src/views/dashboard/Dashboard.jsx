@@ -1,6 +1,6 @@
 import React from "react";
 import { UserOutlined } from "@ant-design/icons";
-import { Breadcrumb, Layout, Divider, Space, Select, theme } from "antd";
+import { Breadcrumb, Layout, Space, Select, theme } from "antd";
 import DashboardGraphs from "../../components/dashboardGraphs/DashboardGraphs";
 
 const handleChange = (value) => {

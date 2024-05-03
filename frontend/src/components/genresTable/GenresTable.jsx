@@ -1,31 +1,26 @@
 import { React, useState, useEffect } from "react";
 import {
   Card,
-  Tag,
   Button,
   Modal,
   Row,
   Col,
   Table,
-  Image,
   Popconfirm,
   Spin,
   Form,
   Input,
-  Select,
-  InputNumber,
-  message,
+  message
 } from "antd";
 
-const GendersTable = () => {
+const GenresTable = () => {
   const [modal1Open, setModal1Open] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
   const [genres, setGenres] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [editedBook, setEditedBook] = useState(null);
+  const [editedGenre, setEditedBook] = useState(null);
   const [defaultValue, setDefaultValue] = useState("");
   const [form] = Form.useForm();
-  const { TextArea } = Input;
 
   const handleEdit = (record) => {
     setSelectedRowData(record);
@@ -36,8 +31,7 @@ const GendersTable = () => {
 
   const saveChanges = () => {
     form.validateFields().then((values) => {
-      // Enviar solicitud de actualización al servidor
-      fetch(`http://localhost:3001/genres/updateGenre/${editedBook.idLibro}`, {
+      fetch(`http://localhost:3001/genres/updateGenre/${editedGenre.idGenero}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -46,7 +40,12 @@ const GendersTable = () => {
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error("Error al actualizar el género literario");
+
+            if(response.status === 400) {
+              throw new Error("El género literario ya existe");
+            } else if (response.status === 500) {
+              throw new Error("Error interno de servidor");
+            }
           }
           return response.json();
         })
@@ -54,15 +53,14 @@ const GendersTable = () => {
           message.success("Género literario actualizado exitosamente");
           setModal1Open(false);
           setGenres(
-            genres.map((book) =>
-              book.idLibro === editedBook.idLibro
-                ? { ...book, ...values }
-                : book
+            genres.map((genre) =>
+              genre.idGenero === editedGenre.idGenero
+                ? { ...genre, ...values }
+                : genre
             )
           );
         })
         .catch((error) => {
-          console.error("Error al actualizar el género literario:", error);
           message.error("Error al actualizar el género literario");
         });
     });
@@ -70,31 +68,30 @@ const GendersTable = () => {
 
   const confirmDelete = (record) => {
     fetch(
-      `http://localhost:3001/genres/deleteBookUpdatedDeletedAt/${record.idLibro}`,
+      `http://localhost:3001/genres/deleteGenreUpdatedDeletedAt/${record.idGenero}`,
       {
         method: "DELETE",
       }
     )
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Error al eliminar el libro");
+          throw new Error("Error al eliminar el género literario");
         }
         return response.json();
       })
       .then((data) => {
-        message.success("Libro eliminado exitosamente");
-        setGenres(genres.filter((book) => book.idLibro !== record.idLibro)); // Actualizar la tabla después de la eliminación
+        message.success("Género literario eliminado exitosamente");
+        setGenres(genres.filter((genre) => genre.idGenero !== record.idGenero)); // Actualizar la tabla después de la eliminación
       })
       .catch((error) => {
-        console.error("Error al eliminar el libro:", error);
-        message.error("Error al eliminar el libro");
+        message.error("Error al eliminar el género literario");
       });
   };
 
   const columns = [
     {
       title: "Género",
-      dataIndex: "genero",
+      dataIndex: "nombreGenero",
       key: "genre"
     },
     {
@@ -160,6 +157,7 @@ const GendersTable = () => {
               onRow={(record, rowIndex) => {
                 return {
                   onClick: (event) => {
+                    
                   },
                 };
               }}
@@ -180,8 +178,8 @@ const GendersTable = () => {
             ]}
           >
             <Form form={form}>
-              <Form.Item label="Género:" name="genero">
-                <Input placeholder="ej. Jícaras tristes" name="genero" />
+              <Form.Item label="Género:" name="nombreGenero">
+                <Input placeholder="ej. Terror" name="nombreGenero" />
               </Form.Item>
             </Form>
           </Modal>
@@ -191,4 +189,4 @@ const GendersTable = () => {
   );
 };
 
-export default GendersTable;
+export default GenresTable;
