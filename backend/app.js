@@ -25,10 +25,12 @@ app.use(
 
 // Configuración de las rutas
 const auth = require("./routes/auth");
+const dashboard = require("./routes/dashboard");
 const books = require("./routes/books");
 const genres = require("./routes/genres");
 
 app.use("/auth", auth);
+app.use("/dashboard", dashboard);
 app.use("/books", books);
 app.use("/genres", genres);
 
