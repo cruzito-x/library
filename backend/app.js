@@ -13,7 +13,7 @@ app.use(bodyParser.json()); // Middleware para parsear el body de las solicitude
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors()); // Aceptar CORS de diferentes endpoints fuera del servidor
 
-const accessLogStream = fs.createWriteStream(path.join(__dirname, "express.log"), { flags: "a" }); // Configuración de Morgan para escribir en el archivo access.log
+const accessLogStream = fs.createWriteStream(path.join(__dirname, "express.log"), { flags: "a" }); // Configuración de Morgan para escribir en el archivo express.log
 app.use(morgan("combined", { stream: accessLogStream }));
 
 // Middleware para subida de archivos
@@ -26,9 +26,11 @@ app.use(
 // Configuración de las rutas
 const auth = require("./routes/auth");
 const books = require("./routes/books");
+const genres = require("./routes/genres");
 
 app.use("/auth", auth);
 app.use("/books", books);
+app.use("/genres", genres);
 
 // Levantar el servidor
 app.listen(port, () => {

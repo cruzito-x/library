@@ -128,10 +128,10 @@ exports.saveBook = (req, res) => {
 
 exports.deleteBookUpdatedDeletedAt = (req, res) => {
   const { idLibro } = req.params;
-  const query = `update libros l, existencias e set l.deleted_at = now(), e.deleted_at = now() where l.idLibro = ? and e.idLibro = ?`;
+  const deleteBookQuery = `update libros l, existencias e set l.deleted_at = now(), e.deleted_at = now() where l.idLibro = ? and e.idLibro = ?`;
   const values = [idLibro, idLibro];
 
-  db.query(query, values, (err, result) => {
+  db.query(deleteBookQuery, values, (err, result) => {
     if (err) {
       console.error("Error al eliminar el libro:", err);
       res.status(500).json({ message: "Error interno del servidor" });
