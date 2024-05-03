@@ -1,9 +1,22 @@
 const db = require("../config/db");
 const crypto = require("crypto");
 
-exports.getSalesProgress = (req, res) => {
-  
-}
+exports.getGenresComparative = (req, res) => {
+  // Ejecuta la consulta SQL
+  const query = "select g.nombreGenero as Genero, sum(dv.subtotal) as VentasTotales from ventas v inner join detalles_venta dv on v.idVenta = dv.idVenta inner join libros l on dv.idLibro = l.idLibro inner join genero g on l.genero = g.idGenero where v.estado = 'completado' group by g.nombreGenero order by VentasTotales asc;";
+
+  db.query(query, (error, results) => {
+    if (error) {
+      // Manejar el error si la consulta falla
+      console.error('Error al ejecutar la consulta:', error);
+      res.status(500).json({ error: 'Error al ejecutar la consulta' });
+      return;
+    }
+
+    // Envía los resultados como JSON
+    res.json(results);
+  });
+};
 
 exports.getMonthSales = (req, res) => {
   // Obtener las ventas del mes actual
