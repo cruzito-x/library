@@ -46,26 +46,26 @@ const Products = () => {
     console.log(`selected ${value}`);
   };
 
-  const handleFileUpload = ({ file }) => {
-    const formData = new FormData();
-    formData.append("portada", file);
+  // const handleFileUpload = ({ file }) => {
+  //   const formData = new FormData();
+  //   formData.append("portada", file);
   
-    axios.post('http://localhost:3001/books/upload', formData, {
-      onUploadProgress: (progressEvent) => {
-        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-        console.log(`Uploaded: ${percentCompleted}%`);
-      },
-    })
-    .then((response) => {
-      const imageUrl = response.data.filename; // Nombre del archivo devuelto por el backend
-      form.setFieldsValue({ portada: imageUrl }); // Actualiza el valor del campo 'portada' en el formulario
-      message.success("Imagen cargada exitosamente");
-    })
-    .catch((error) => {
-      message.error("Error al cargar la imagen");
-      console.error("Error al cargar la imagen:", error);
-    });
-  };  
+  //   axios.post('http://localhost:3001/books/upload', formData, {
+  //     onUploadProgress: (progressEvent) => {
+  //       const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+  //       console.log(`Uploaded: ${percentCompleted}%`);
+  //     },
+  //   })
+  //   .then((response) => {
+  //     const imageUrl = response.data.filename; // Nombre del archivo devuelto por el backend
+  //     form.setFieldsValue({ portada: imageUrl }); // Actualiza el valor del campo 'portada' en el formulario
+  //     message.success("Imagen cargada exitosamente");
+  //   })
+  //   .catch((error) => {
+  //     message.error("Error al cargar la imagen");
+  //     console.error("Error al cargar la imagen:", error);
+  //   });
+  // };  
 
   useEffect(() => {
     fetch("http://localhost:3001/books/genres")
@@ -142,8 +142,8 @@ const Products = () => {
               size="large"
             >
               <Upload
-              name="portada" // Nombre del campo que recibirá el servidor
-              customRequest={handleFileUpload}
+              name="portada"
+              action={ "http://localhost:3001/books/images/upload" }
               listType="picture"
               accept=".png, .jpg, .jpeg"
               maxCount={1}
@@ -153,9 +153,6 @@ const Products = () => {
               >
                 <Button icon={<UploadOutlined />}> Seleccionar imagen (Máx. 1) </Button>
               </Upload>
-              {Object.values(files).map((file, index) => {
-                return <Space></Space>
-              })}
             </Space>
           </Form.Item>
         </Form>

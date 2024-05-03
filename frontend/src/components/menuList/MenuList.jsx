@@ -59,7 +59,7 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
         Ayuda
       </Menu.Item>
       <Menu.SubMenu key='/settings' title='Ajustes' icon={<SettingOutlined />}>
-        <Menu.Item>
+        <Menu.Item key='/settings/gender'>
           Géneros
         </Menu.Item>
       </Menu.SubMenu>

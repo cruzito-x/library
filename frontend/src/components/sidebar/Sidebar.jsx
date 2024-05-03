@@ -8,11 +8,11 @@ import Dashboard from '../../views/dashboard/Dashboard';
 import Products from '../../views/products/Products';
 import Bills from '../../views/bills/Bills';
 import Users from '../../views/users/Users';
-import Settings from '../../views/settings/Settings';
+import Gender from '../../views/settings/Gender';
+import Help from '../../views/help/Help';
 import NotFound from '../results/NotFound';
 import ToggleThemeButton from '../toggleThemeButton/ToggleThemeButton';
 import './Sidebar.css';
-import Help from '../../views/help/Help';
 
 const { Sider, Content, Footer } = Layout;
 
@@ -69,8 +69,8 @@ const Sidebar = () => {
             <Route path='/bills' element={<Bills />} />
             <Route path='/users' element={<Users />} />
             <Route path='/help' element={<Help />} />
-            <Route path='/settings' element={<Settings />} />
-            <Route path='*' element={<NotFound />} />
+            <Route path='/settings/gender' element={<Gender/>} />
+            {/* <Route path='*' element={<NotFound />} /> */}
           </Routes>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
