@@ -30,19 +30,11 @@ const DashboardGraphs = ({ period }) => {
       ],
       datasets: [
         {
-          label: "",
-          data: [],
+          label: "Ganancias por género",
           borderColor: "#05b0ff",
           backgroundColor: "#05b0ff",
           borderWidth: 2.5,
-        },
-        {
-          label: "",
-          data: [],
-          borderColor: "#ff4040",
-          backgroundColor: "#ff4040",
-          borderWidth: 2.5,
-        },
+        }
       ],
     };
 
@@ -77,7 +69,7 @@ const DashboardGraphs = ({ period }) => {
               font: {
                 weight: "regular",
               },
-            }
+            },
           },
         },
       },
@@ -111,7 +103,20 @@ const DashboardGraphs = ({ period }) => {
             "#1abc9c",
             "#95a5a6",
           ],
-          borderWidth: 1,
+          borderColor: [
+            "#05b0ff",
+            "#3cba9f",
+            "#34495e",
+            "#e74c3c",
+            "#f4d03f",
+            "#117baa",
+            "#9b59b6",
+            "#2ecc71",
+            "#e67e22",
+            "#1abc9c",
+            "#95a5a6",
+          ],
+          borderWidth: 2.5,
         },
       ],
     };
@@ -162,7 +167,7 @@ const DashboardGraphs = ({ period }) => {
               font: {
                 weight: "regular",
               },
-            }
+            },
           },
         },
       },
@@ -236,6 +241,7 @@ const DashboardGraphs = ({ period }) => {
 
   // Obtener datos de ventas por género
   useEffect(() => {
+    setLoading(true);
     fetch(`http://localhost:3001/dashboard?period=${period}`)
       .then((response) => {
         if (!response.ok) {
@@ -265,14 +271,14 @@ const DashboardGraphs = ({ period }) => {
           lineChartInstance.current.data = lineData;
           lineChartInstance.current.update();
         }
-        setLoading(false);
+        //setLoading(false);
       })
       .catch((error) => {
         console.error(
           "Error al obtener los datos de ventas por género:",
           error
         );
-        setLoading(false);
+        //setLoading(false);
         message.error("Error al obtener los datos de ventas por género");
       });
   }, [period]);
@@ -399,12 +405,14 @@ const DashboardGraphs = ({ period }) => {
       <Row gutter={16}>
         <Col span={24}>
           <Card style={{ marginTop: "20px" }}>
-            <Title level={5} style={{ marginTop: "0" }}>
-              Progreso de ventas
-            </Title>
-            <div>
-              <canvas ref={lineChartRef} width="100" height="20"></canvas>
-            </div>
+            <Spin spinning={loading} size="large" tip="Cargando...">
+              <Title level={5} style={{ marginTop: "0" }}>
+                Progreso de ventas
+              </Title>
+              <div>
+                <canvas ref={lineChartRef} width="100" height="20"></canvas>
+              </div>
+            </Spin>
           </Card>
         </Col>
       </Row>
@@ -412,22 +420,30 @@ const DashboardGraphs = ({ period }) => {
         <Row gutter={16}>
           <Col span={17}>
             <Card style={{ marginTop: "20px" }}>
-              <Title level={5} style={{ marginTop: "0" }}>
-                Resumen del mes
-              </Title>
-              <div>
-                <canvas ref={barChartRef} width="100" height="38"></canvas>
-              </div>
+              <Spin spinning={loading} size="large" tip="Cargando...">
+                <Title level={5} style={{ marginTop: "0" }}>
+                  Resumen del mes
+                </Title>
+                <div>
+                  <canvas ref={barChartRef} width="100" height="38"></canvas>
+                </div>
+              </Spin>
             </Card>
           </Col>
           <Col span={7}>
             <Card style={{ marginTop: "20px" }}>
-              <Title level={5} style={{ marginTop: "0" }}>
-                Libros más vendidos
-              </Title>
-              <div>
-                <canvas ref={doughnutChartRef} width="100" height="10"></canvas>
-              </div>
+              <Spin spinning={loading} size="large" tip="Cargando...">
+                <Title level={5} style={{ marginTop: "0" }}>
+                  Libros más vendidos
+                </Title>
+                <div>
+                  <canvas
+                    ref={doughnutChartRef}
+                    width="100"
+                    height="10"
+                  ></canvas>
+                </div>
+              </Spin>
             </Card>
           </Col>
         </Row>
