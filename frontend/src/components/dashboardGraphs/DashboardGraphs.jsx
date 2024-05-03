@@ -250,8 +250,8 @@ const DashboardGraphs = ({ period }) => {
             {
               label: "Ganancias por género",
               data: sales,
-              borderColor: "#05b0ff",
-              backgroundColor: "#05b0ff",
+              borderColor: "#8c8cff",
+              backgroundColor: "#8c8cff",
               borderWidth: 2.5,
             },
           ],
