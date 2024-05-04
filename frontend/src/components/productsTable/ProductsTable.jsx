@@ -138,9 +138,8 @@ const ProductsTable = () => {
       key: "x",
       render: (text, record) => (
         <>
-          <Button
-            primary
-            style={{ marginRight: "20px" }}
+          <Button type="primary"
+            style={{ marginRight: "20px", backgroundColor: "#20c997" }}
             onClick={() => handleEdit(record)}
           >
             Editar
@@ -153,7 +152,7 @@ const ProductsTable = () => {
             okText="Sí"
             cancelText="No"
           >
-            <Button danger>Eliminar</Button>
+            <Button type="primary" danger>Eliminar</Button>
           </Popconfirm>
         </>
       ),

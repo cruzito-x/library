@@ -29,6 +29,25 @@ const GenresTable = () => {
     form.setFieldsValue(record);
   };
 
+  useEffect(() => {
+    fetch("http://localhost:3001/genres/")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al obtener la lista de géneros");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setGenres(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error al obtener la lista de géneros:", error);
+        setLoading(false);
+        message.error("Error al obtener la lista de géneros");
+      });
+  }, []);
+
   const saveChanges = () => {
     form.validateFields().then((values) => {
       fetch(
@@ -101,9 +120,7 @@ const GenresTable = () => {
       dataIndex: "created at",
       key: "createdAt",
       render: (text) => {
-        // Formatear la fecha
-        const formattedDate = new Date(text)
-          .toLocaleDateString("es-ES", {
+        const formattedDate = new Date(text).toLocaleDateString("es-ES", { // Formatear la fecha
             day: "2-digit",
             month: "2-digit",
             year: "numeric",
@@ -119,8 +136,8 @@ const GenresTable = () => {
       render: (text, record) => (
         <>
           <Button
-            primary
-            style={{ marginRight: "20px" }}
+            type="primary"
+            style={{ marginRight: "20px", backgroundColor: "#20c997" }}
             onClick={() => handleEdit(record)}
           >
             Editar
@@ -133,31 +150,12 @@ const GenresTable = () => {
             okText="Sí"
             cancelText="No"
           >
-            <Button danger>Eliminar</Button>
+            <Button type="primary" danger>Eliminar</Button>
           </Popconfirm>
         </>
       ),
     },
   ];
-
-  useEffect(() => {
-    fetch("http://localhost:3001/genres/")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error al obtener la lista de géneros");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setGenres(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error al obtener la lista de géneros:", error);
-        setLoading(false);
-        message.error("Error al obtener la lista de géneros");
-      });
-  }, []);
 
   return (
     <Card style={{ marginTop: "20px" }}>

@@ -31,23 +31,6 @@ const Genres = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const handleSave = () => {
-    const formData = new FormData();
-    fetch("http://localhost:3001/genders/save", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        message.success(data.message);
-        message.success("Datos guardados correctamente");
-        setIsModalVisible(false);
-      })
-      .catch((error) => {
-        message.error("Error al registrar el libro");
-      });
-  };
-
   const showAddModal = () => {
     confirm({
       width: "35%",
@@ -72,10 +55,7 @@ const Genres = () => {
       onOk() {
         const formData = new FormData();
         const formValues = form.getFieldsValue(); // Obtener los valores del formulario
-
         formData.append("nombreGenero", formValues.nombreGenero);
-
-        console.log(formData);
 
         fetch("http://localhost:3001/genres/save", {
           method: "POST",
