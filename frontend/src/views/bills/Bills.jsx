@@ -39,13 +39,18 @@ const Bills = () => {
       .then((data) => {
         setBooks(data);
         if (data.length > 0) {
-          form.setFieldsValue({ libro: data[0].value });
+          form.setFieldsValue({ libro: data[0].value, precioUnitario: data[0].precio, cantidad: 1});
         }
       })
       .catch((error) => {
         console.error("Error al cargar los libros: ", error);
       });
   }, [form]);
+
+  const handleBookSelect = (value, option) => {
+    const selectedBook = books.find((book) => book.value === value);
+    form.setFieldsValue({ precioUnitario: selectedBook.precio });
+  };
 
   const handleAddBook = () => {
     form.validateFields().then((values) => {
@@ -67,7 +72,7 @@ const Bills = () => {
       form.setFieldsValue({
         libro: books[0]?.value,
         cantidad: 1,
-        precioUnitario: undefined,
+        precioUnitario: books[0]?.precio,
       });
     });
   };
@@ -151,6 +156,7 @@ const Bills = () => {
               <Form.Item label="Libro:" name="libro">
                 <Select
                   onChange={handleChange}
+                  onSelect={handleBookSelect}
                   options={books.map((book) => ({
                     value: book.value,
                     label: book.label + " - " + book.autor,
@@ -167,12 +173,12 @@ const Bills = () => {
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item label="Precio unitario:" name="precioUnitario">
-                <Input prefix={"$"} />
+                <Input prefix={"$"} disabled defaultValue={books.precio} />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item label="Descuento:" name="descuento">
-                <Input prefix={"$"} />
+                <Input prefix={"$"} placeholder="0.00" />
               </Form.Item>
             </Col>
           </Row>
