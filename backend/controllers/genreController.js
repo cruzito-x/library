@@ -2,9 +2,9 @@ const db = require("../config/db");
 const crypto = require("crypto");
 
 exports.getGenres = (req, res) => {
-  db.query("select idGenero, nombreGenero, created_at as 'created at' from genero where deleted_at is null order by nombreGenero asc", (err, results) => {
-    if (err) {
-      console.error("Error al obtener los géneros:", err);
+  db.query("select idGenero, nombreGenero, created_at as 'created at' from genero where deleted_at is null order by nombreGenero asc", (error, results) => {
+    if (error) {
+      console.error("Error al obtener los géneros:", error);
       res.status(500).json({ message: "Error interno del servidor" });
       return;
     }
@@ -20,8 +20,8 @@ exports.saveGenre = (req, res) => {
   const insertGenero = `insert into genero (idGenero, nombreGenero, created_at) values (?, ?, curdate())`;
   const generoValues = [idGenero, nombreGenero];
 
-  db.query(selectGenero, nombreGenero, (err, results) => {  // Verificamos si el género ya existe
-    if (err) {
+  db.query(selectGenero, nombreGenero, (error, results) => {  // Verificamos si el género ya existe
+    if (error) {
       res.status(500).json({ message: "Error interno del servidor" });
       return;
     }
@@ -31,8 +31,8 @@ exports.saveGenre = (req, res) => {
       return;
     }
 
-    db.query(insertGenero, generoValues, (err, results) => { // Si no hay resultados, procedemos a insertar el nuevo género
-      if (err) {
+    db.query(insertGenero, generoValues, (error, results) => { // Si no hay resultados, procedemos a insertar el nuevo género
+      if (error) {
         res.status(500).json({ message: "Error interno del servidor" });
         return;
       }
@@ -46,9 +46,9 @@ exports.deleteGenreUpdatedDeletedAt = (req, res) => {
   const deleteGenreQuery = `update genero set deleted_at = now() where idGenero = ?`;
   const generoValues = [idGenero, idGenero];
 
-  db.query(deleteGenreQuery, generoValues, (err, result) => {
-    if (err) {
-      console.error("Error al eliminar el género:", err);
+  db.query(deleteGenreQuery, generoValues, (error, result) => {
+    if (error) {
+      console.error("Error al eliminar el género:", error);
       res.status(500).json({ message: "Error interno del servidor" });
       return;
     }

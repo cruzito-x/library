@@ -4,9 +4,9 @@ const crypto = require("crypto");
 exports.getBooks = (req, res) => {
   db.query(
     "select *, e.existencia as stock, g.nombreGenero as genero from libros l inner join existencias e on e.idLibro = l.idLibro inner join genero g on g.idGenero = l.genero where (l.deleted_at is null and e.deleted_at is null)",
-    (err, results) => {
-      if (err) {
-        console.error("Error al obtener los libros:", err);
+    (error, results) => {
+      if (error) {
+        console.error("Error al obtener los libros:", error);
         res.status(500).json({ message: "Error interno del servidor" });
         return;
       }
@@ -18,9 +18,9 @@ exports.getBooks = (req, res) => {
 exports.getLastFiveBooks = (req, res) => {
   db.query(
     "select *, e.existencia as stock from libros l inner join existencias e on e.idLibro = l.idLibro where (l.deleted_at is null and e.deleted_at is null) order by l.id desc limit 5",
-    (err, results) => {
-      if (err) {
-        console.error("Error al obtener los libros:", err);
+    (error, results) => {
+      if (error) {
+        console.error("Error al obtener los libros:", error);
         res.status(500).json({ message: "Error interno del servidor" });
         return;
       }
@@ -30,9 +30,9 @@ exports.getLastFiveBooks = (req, res) => {
 };
 
 exports.getGenres = (req, res) => {
-  db.query("select idGenero as value, nombreGenero as label from genero where deleted_at is null order by nombreGenero asc", (err, results) => {
-    if (err) {
-      console.error("Error al obtener los géneros:", err);
+  db.query("select idGenero as value, nombreGenero as label from genero where deleted_at is null order by nombreGenero asc", (error, results) => {
+    if (error) {
+      console.error("Error al obtener los géneros:", error);
       res.status(500).json({ message: "Error interno del servidor" });
       return;
     }
@@ -78,17 +78,17 @@ exports.saveBook = (req, res) => {
   ];
 
   // Realizar ambas inserciones en una transacción
-  db.beginTransaction((err) => {
-    if (err) {
-      console.error("Error al iniciar la transacción:", err);
+  db.beginTransaction((error) => {
+    if (error) {
+      console.error("Error al iniciar la transacción:", error);
       res.status(500).json({ message: "Error interno del servidor" });
       return;
     }
 
     // Insertar en la tabla libros
-    db.query(insertLibros, librosValues, (err, result) => {
-      if (err) {
-        console.error("Error al guardar el libro:", err);
+    db.query(insertLibros, librosValues, (error, result) => {
+      if (error) {
+        console.error("Error al guardar el libro:", error);
         db.rollback(() => {
           res.status(500).json({ message: "Error interno del servidor" });
         });
@@ -96,9 +96,9 @@ exports.saveBook = (req, res) => {
       }
 
       // Insertar en la tabla existencias
-      db.query(insertExistencias, existenciasValues, (err, _result) => {
-        if (err) {
-          console.error("Error al guardar la existencia:", err);
+      db.query(insertExistencias, existenciasValues, (error, _result) => {
+        if (error) {
+          console.error("Error al guardar la existencia:", error);
           db.rollback(() => {
             res.status(500).json({ message: "Error interno del servidor" });
           });
@@ -106,9 +106,9 @@ exports.saveBook = (req, res) => {
         }
 
         // Commit la transacción si ambas inserciones son exitosas
-        db.commit((err) => {
-          if (err) {
-            console.error("Error al hacer commit de la transacción:", err);
+        db.commit((error) => {
+          if (error) {
+            console.error("Error al hacer commit de la transacción:", error);
             db.rollback(() => {
               res.status(500).json({ message: "Error interno del servidor" });
             });
@@ -131,9 +131,9 @@ exports.deleteBookUpdatedDeletedAt = (req, res) => {
   const deleteBookQuery = `update libros l, existencias e set l.deleted_at = now(), e.deleted_at = now() where l.idLibro = ? and e.idLibro = ?`;
   const values = [idLibro, idLibro];
 
-  db.query(deleteBookQuery, values, (err, result) => {
-    if (err) {
-      console.error("Error al eliminar el libro:", err);
+  db.query(deleteBookQuery, values, (error, result) => {
+    if (error) {
+      console.error("Error al eliminar el libro:", error);
       res.status(500).json({ message: "Error interno del servidor" });
       return;
     }
@@ -170,17 +170,17 @@ exports.updateBook = (req, res) => {
 
   const existenciaValues = [ingreso, idLibro];
 
-  db.beginTransaction((err) => {
-    if (err) {
-      console.error("Error al iniciar la transacción:", err);
+  db.beginTransaction((error) => {
+    if (error) {
+      console.error("Error al iniciar la transacción:", error);
       res.status(500).json({ message: "Error interno del servidor" });
       return;
     }
 
     // Actualizar en la tabla libros
-    db.query(updateLibros, libroValues, (err, result) => {
-      if (err) {
-        console.error("Error al actualizar el libro:", err);
+    db.query(updateLibros, libroValues, (error, result) => {
+      if (error) {
+        console.error("Error al actualizar el libro:", error);
         db.rollback(() => {
           res.status(500).json({ message: "Error interno del servidor" });
         });
@@ -188,9 +188,9 @@ exports.updateBook = (req, res) => {
       }
 
       // Actualizar en la tabla existencias
-      db.query(updateExistencias, existenciaValues, (err, result) => {
-        if (err) {
-          console.error("Error al actualizar la existencia:", err);
+      db.query(updateExistencias, existenciaValues, (error, result) => {
+        if (error) {
+          console.error("Error al actualizar la existencia:", error);
           db.rollback(() => {
             res.status(500).json({ message: "Error interno del servidor" });
           });
@@ -198,9 +198,9 @@ exports.updateBook = (req, res) => {
         }
 
         // Commit a la transacción si ambas actualizaciones son exitosas
-        db.commit((err) => {
-          if (err) {
-            console.error("Error al hacer commit de la transacción:", err);
+        db.commit((error) => {
+          if (error) {
+            console.error("Error al hacer commit de la transacción:", error);
             db.rollback(() => {
               res.status(500).json({ message: "Error interno del servidor" });
             });
@@ -225,8 +225,8 @@ exports.upload = async (req, res) => {
       const formattedDate = currentDate.toLocaleString('es-ES', { timeZone: 'UTC' }).replace(/[\/\,\.\s\:]/g, '');
       const fileName = `${formattedDate}.${file.name.split('.').pop()}`; // Mantener la extensión original del archivo
 
-      file.mv(`./uploads/${fileName}`, (err) => {
-        if (err) {
+      file.mv(`./uploads/${fileName}`, (error) => {
+        if (error) {
           res.status(500).json({ message: "Error interno del servidor" });
         } else {
           res.status(200).json({ message: "Archivo subido exitosamente", data: { name: fileName, size: file.size, type: file.mimetype } });

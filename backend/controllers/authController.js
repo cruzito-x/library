@@ -7,8 +7,8 @@ exports.login = (req, res) => {
   const hashedPassword = crypto.createHash('md5').update(password).digest('hex');
 
   const query = `select * from usuarios where nombreUsuario = ? and password = ? and deleted_at is null`;
-  db.query(query, [username, hashedPassword], (err, results) => {
-    if (err) {
+  db.query(query, [username, hashedPassword], (error, results) => {
+    if (error) {
       res.status(500).json({ message: "Error interno del servidor" });
       return;
     }

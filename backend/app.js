@@ -27,12 +27,24 @@ app.use(
 const auth = require("./routes/auth");
 const dashboard = require("./routes/dashboard");
 const books = require("./routes/books");
+const bills = require("./routes/bills");
 const genres = require("./routes/genres");
 
 app.use("/auth", auth);
 app.use("/dashboard", dashboard);
 app.use("/books", books);
+app.use("/bills", bills);
 app.use("/genres", genres);
+
+// Redirigir console.log y console.error a un archivo de registro
+const logStream = fs.createWriteStream(path.join(__dirname, "express.log"), { flags: "a" });
+console.log = function(message) {
+  logStream.write(`[LOG] ${message}\n`);
+};
+
+console.error = function(message) {
+  logStream.write(`[ERROR] ${message}\n`);
+};
 
 // Levantar el servidor
 app.listen(port, () => {
