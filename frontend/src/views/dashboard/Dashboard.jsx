@@ -3,10 +3,6 @@ import { UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Space, Select, theme } from "antd";
 import DashboardGraphs from "../../components/dashboardGraphs/DashboardGraphs";
 
-const handleChange = (value) => {
-  console.log(`selected ${value}`);
-};
-
 const Dashboard = () => {
   const { Content } = Layout;
   const {

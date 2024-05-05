@@ -13,13 +13,12 @@ exports.getGenresComparative = (req, res) => {
   });
 };
 
-
 exports.getMonthSales = (req, res) => {
-  // Obtener las ventas del mes actual
-  const selectMonthSales =
-    "select v.fecha, sum(v.total) as total_venta from ventas v inner join detalles_venta dv on v.idVenta = dv.idVenta where month(v.fecha) = month(current_date()) and year(v.fecha) = year(current_date()) group by v.fecha";
+  const period = req.query.period || '7'; 
+  const selectMonthSales = `select v.fecha, sum(v.total) as total_venta from ventas v inner join detalles_venta dv on v.idVenta = dv.idVenta where v.fecha >= now() - interval ? day group by v.fecha order by fecha asc`;
 
-  db.query(selectMonthSales, (error, results) => {
+
+  db.query(selectMonthSales, [period], (error, results) => {
     if (error) {
       res
         .status(500)
@@ -31,11 +30,11 @@ exports.getMonthSales = (req, res) => {
 };
 
 exports.getTopSellers = (req, res) => {
-  // Obtener los libros más vendidos
+  const period = req.query.period || '7';
   const selectTopSellers =
-    "select l.idLibro, l.titulo, sum(dv.cantidad) as totalVendido from libros l join detalles_venta dv on l.idLibro = dv.idLibro join ventas v on dv.idVenta = v.idVenta where v.estado = 'completado' group by l.idLibro, l.titulo order by totalVendido desc limit 5;";
+    "select l.idLibro, l.titulo, sum(dv.cantidad) as totalVendido from libros l join detalles_venta dv on l.idLibro = dv.idLibro join ventas v on dv.idVenta = v.idVenta where v.estado = 'completado' and v.fecha >= now() - interval ? day group by l.idLibro, l.titulo order by totalVendido desc limit 5;";
 
-  db.query(selectTopSellers, (error, results) => {
+  db.query(selectTopSellers, [period], (error, results) => {
     if (error) {
       console.error("Error en la consulta SQL:", error);
       res

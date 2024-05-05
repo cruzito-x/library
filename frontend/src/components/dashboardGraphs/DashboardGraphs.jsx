@@ -44,7 +44,7 @@ const DashboardGraphs = ({ period }) => {
           borderColor: "#05b0ff",
           backgroundColor: "#05b0ff",
           borderWidth: 2.5,
-        }
+        },
       ],
     };
 
@@ -276,7 +276,8 @@ const DashboardGraphs = ({ period }) => {
 
   // Obtener la lista de las ventas del mes
   useEffect(() => {
-    fetch("http://localhost:3001/dashboard/monthSales")
+    setLoading(true);
+    fetch(`http://localhost:3001/dashboard/monthSales?period=${period}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener la lista de ventas del mes actual");
@@ -301,7 +302,7 @@ const DashboardGraphs = ({ period }) => {
         const labels = formattedData.map((sale) => sale.fecha);
         const dataValues = formattedData.map((sale) => sale.total_venta);
 
-        // Update Bar Chart data
+        // Actualizar los datos del gráfico de barras
         if (barChartInstance.current !== null) {
           barChartInstance.current.data.labels = labels;
           barChartInstance.current.data.datasets[0].data = dataValues;
@@ -318,11 +319,12 @@ const DashboardGraphs = ({ period }) => {
         setLoading(false);
         message.error("Error al obtener la lista de ventas del mes actual");
       });
-  }, []);
+  }, [period]);
 
   // Obtener la lista de los libros más vendidos.
   useEffect(() => {
-    fetch("http://localhost:3001/dashboard/topSellers")
+    setLoading(true);
+    fetch(`http://localhost:3001/dashboard/topSellers?period=${period}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener la lista de libros más vendidos");
@@ -348,7 +350,7 @@ const DashboardGraphs = ({ period }) => {
         setLoading(false);
         message.error("Error al obtener la lista de libros más vendidos");
       });
-  }, []);
+  }, [period]);
 
   // Obtener la lista de los últimos libros añadidos a stock.
   useEffect(() => {
@@ -385,7 +387,7 @@ const DashboardGraphs = ({ period }) => {
       title: "Precio",
       dataIndex: "precio",
       key: "price",
-      render: (precio) => `$${precio}`
+      render: (precio) => `$${precio}`,
     },
   ];
 
@@ -459,7 +461,10 @@ const DashboardGraphs = ({ period }) => {
                     ),
                     rowExpandable: (record) => record.name !== "Not Expandable",
                   }}
-                  dataSource={books.map((book, index) => ({ ...book, key: index }))} // Asignar una clave única para cada registro
+                  dataSource={books.map((book, index) => ({
+                    ...book,
+                    key: index,
+                  }))} // Asignar una clave única para cada registro
                 />
               </Spin>
             </Card>
