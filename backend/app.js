@@ -13,6 +13,9 @@ app.use(bodyParser.json()); // Middleware para parsear el body de las solicitude
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors()); // Aceptar CORS de diferentes endpoints fuera del servidor
 
+// Configurar el middleware para servir archivos estáticos desde la carpeta 'uploads'
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 const accessLogStream = fs.createWriteStream(path.join(__dirname, "express.log"), { flags: "a" }); // Configuración de Morgan para escribir en el archivo express.log
 app.use(morgan("combined", { stream: accessLogStream }));
 
