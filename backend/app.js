@@ -9,37 +9,32 @@ const path = require("path");
 const app = express();
 const port = 3001;
 
+// Configuración de Morgan para escribir en el archivo express.log
+const accessLogStream = fs.createWriteStream(path.join(__dirname, "express.log"), { flags: "a" });
+
 app.use(bodyParser.json()); // Middleware para parsear el body de las solicitudes como JSON
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors()); // Aceptar CORS de diferentes endpoints fuera del servidor
-
-// Configurar el middleware para servir archivos estáticos desde la carpeta 'uploads'
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-const accessLogStream = fs.createWriteStream(path.join(__dirname, "express.log"), { flags: "a" }); // Configuración de Morgan para escribir en el archivo express.log
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Configurar el middleware para retornar archivos estáticos desde la carpeta 'uploads'
+app.use(fileupload({ createParentPath: true })); // Middleware para subida de archivos, permite crear la carpeta si no existe
 app.use(morgan("combined", { stream: accessLogStream }));
-
-// Middleware para subida de archivos
-app.use(
-  fileupload({
-    createParentPath: true,
-  })
-);
 
 // Configuración de las rutas
 const auth = require("./routes/auth");
 const dashboard = require("./routes/dashboard");
 const books = require("./routes/books");
 const bills = require("./routes/bills");
+const users = require("./routes/users");
 const genres = require("./routes/genres");
 
 app.use("/auth", auth);
 app.use("/dashboard", dashboard);
 app.use("/books", books);
 app.use("/bills", bills);
+app.use("/users", users);
 app.use("/genres", genres);
 
-// Redirigir console.log y console.error a un archivo de registro
+// Redirigir console.log y console.error al archivo de registro
 const logStream = fs.createWriteStream(path.join(__dirname, "express.log"), { flags: "a" });
 console.log = function(message) {
   logStream.write(`[LOG] ${message}\n`);
