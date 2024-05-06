@@ -113,7 +113,12 @@ const GenresTable = () => {
     {
       title: "Género",
       dataIndex: "nombreGenero",
-      key: "genre",
+      key: "genre"
+    },
+    {
+      title: "Cantidad",
+      dataIndex: "cantidad",
+      key: "quantity"
     },
     {
       title: "Creado el",
@@ -127,7 +132,7 @@ const GenresTable = () => {
           })
           .replace(/\//g, "-");
         return formattedDate;
-      },
+      }
     },
     {
       title: "Acciones",
