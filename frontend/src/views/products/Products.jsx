@@ -36,6 +36,7 @@ const Products = () => {
   const [genres, setGenres] = useState([]);
   const [defaultValue, setDefaultValue] = useState("");
   const [imageName, setImageName] = useState(null);
+  const [refreshTable, setRefreshTable] = useState(false);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -172,6 +173,7 @@ const Products = () => {
           .then((response) => response.json())
           .then((data) => {
             message.success(data.message);
+            setRefreshTable(!refreshTable); // Actualiza la tabla
           })
           .catch((error) => {
             message.error("Error al registrar el libro");
@@ -210,7 +212,7 @@ const Products = () => {
             <Search placeholder="Buscar" onSearch={onSearch} enterButton />
           </Col>
         </Row>
-        <ProductsTable/>
+        <ProductsTable refreshTable={refreshTable} setRefreshTable={setRefreshTable} />
       </div>
     </Content>
   );

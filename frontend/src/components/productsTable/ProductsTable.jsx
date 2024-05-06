@@ -17,7 +17,7 @@ import {
   message,
 } from "antd";
 
-const ProductsTable = () => {
+const ProductsTable = ( { refreshTable, setRefreshTable } ) => {
   const [modal1Open, setModal1Open] = useState(false);
   const [modal2Open, setModal2Open] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
@@ -177,7 +177,7 @@ const ProductsTable = () => {
         setLoading(false);
         message.error("Error al obtener la lista de libros");
       });
-  }, []);
+  }, [refreshTable]); 
 
   return (
     <Card style={{ marginTop: "20px" }}>
