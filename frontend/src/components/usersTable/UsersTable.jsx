@@ -122,6 +122,18 @@ const UsersTable = () => {
       key: "role"
     },
     {
+      title: "Status",
+      dataIndex: "deleted_at",
+      key: "status",
+      render: (text) => {
+        if(text == null) {
+          return (<span> <SmileOutlined style={{ color: "#20c997" }} /> Activo </span>);
+        } else {
+          return (<span> <FrownOutlined style={{ color: "#ff4d4f" }} /> Inactivo </span>);
+        }
+      }
+    },
+    {
       title: "Creado el",
       dataIndex: "created_at",
       key: "createdAt",
@@ -133,18 +145,6 @@ const UsersTable = () => {
           })
           .replace(/\//g, "-");
         return formattedDate;
-      }
-    },
-    {
-      title: "Status",
-      dataIndex: "deleted_at",
-      key: "status",
-      render: (text) => {
-        if(text == null) {
-          return (<span> <SmileOutlined style={{ color: "#20c997" }} /> Activo </span>);
-        } else {
-          return (<span> <FrownOutlined style={{ color: "#ff4d4f" }} /> Inactivo </span>);
-        }
       }
     },
     {
