@@ -14,7 +14,7 @@ import {
   Row,
   Col,
   theme,
-  message,
+  message
 } from "antd";
 import GenresTable from "../../components/genresTable/GenresTable";
 
