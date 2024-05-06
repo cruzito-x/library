@@ -19,21 +19,6 @@ const DashboardGraphs = ({ period }) => {
     const barCtx = barChartRef.current.getContext("2d"); // Bar Chart
     const doughnutCtx = doughnutChartRef.current.getContext("2d"); // Rengoku's Chart
 
-    const monthNames = [
-      "Enero",
-      "Febrero",
-      "Marzo",
-      "Abril",
-      "Mayo",
-      "Junio",
-      "Julio",
-      "Agosto",
-      "Septiembre",
-      "Octubre",
-      "Noviembre",
-      "Diciembre",
-    ];
-
     //Graphs data
 
     const lineData = {
@@ -52,7 +37,7 @@ const DashboardGraphs = ({ period }) => {
       labels: [],
       datasets: [
         {
-          label: "Ventas del mes",
+          label: "Total obtenido",
           data: [],
           backgroundColor: [
             "#05b0ff",
@@ -66,6 +51,7 @@ const DashboardGraphs = ({ period }) => {
             "#e67e22",
             "#1abc9c",
             "#95a5a6",
+            "#007bff"
           ],
           borderColor: [
             "#05b0ff",
@@ -79,6 +65,7 @@ const DashboardGraphs = ({ period }) => {
             "#e67e22",
             "#1abc9c",
             "#95a5a6",
+            "#007bff"
           ],
           borderWidth: 2.5,
         },
@@ -156,7 +143,7 @@ const DashboardGraphs = ({ period }) => {
           x: {
             title: {
               display: true,
-              text: monthNames[new Date().getMonth()],
+              text: "Fechas",
               color: "black",
               font: {
                 weight: "regular",
@@ -173,7 +160,7 @@ const DashboardGraphs = ({ period }) => {
             },
             title: {
               display: true,
-              text: "Ventas diarias",
+              text: "Total de ventas",
               color: "black",
               font: {
                 weight: "regular",
@@ -286,12 +273,16 @@ const DashboardGraphs = ({ period }) => {
       })
       .then((data) => {
         const formattedData = data.map((sale) => {
-          const saleDate = new Date(sale.fecha); // Convertir la fecha a objeto Date y luego obtener partes de la fecha
-          const day = saleDate.getDate().toString().padStart(2, "0"); // Día con dos dígitos
-          const month = (saleDate.getMonth() + 1).toString().padStart(2, "0"); // Mes con dos dígitos (se suma 1 porque en JavaScript los meses van de 0 a 11)
-          const year = saleDate.getFullYear(); // Año
-
-          const formattedDate = `${day}-${month}-${year}`;
+          let formattedDate;
+          if (sale.fecha.includes('T')) {
+            const saleDate = new Date(sale.fecha);
+            const day = saleDate.getDate().toString().padStart(2, "0");
+            const month = (saleDate.getMonth() + 1).toString().padStart(2, "0");
+            const year = saleDate.getFullYear();
+            formattedDate = `${day}-${month}-${year}`;
+          } else {
+            formattedDate = sale.fecha;
+          }
 
           return {
             fecha: formattedDate,
@@ -398,7 +389,7 @@ const DashboardGraphs = ({ period }) => {
           <Card style={{ marginTop: "20px" }}>
             <Spin spinning={loading} size="large" tip="Cargando...">
               <Title level={5} style={{ marginTop: "0" }}>
-                Progreso de ventas
+                Escala de ventas por género
               </Title>
               <div>
                 <canvas ref={lineChartRef} width="100" height="20"></canvas>
@@ -413,7 +404,7 @@ const DashboardGraphs = ({ period }) => {
             <Card style={{ marginTop: "20px" }}>
               <Spin spinning={loading} size="large" tip="Cargando...">
                 <Title level={5} style={{ marginTop: "0" }}>
-                  Resumen del mes
+                  Resumen de ventas
                 </Title>
                 <div>
                   <canvas ref={barChartRef} width="100" height="38"></canvas>

@@ -8,7 +8,7 @@ import Dashboard from '../../views/dashboard/Dashboard';
 import Products from '../../views/products/Products';
 import Bills from '../../views/bills/Bills';
 import Users from '../../views/users/Users';
-import Genres from '../../views/settings/Genres';
+import Genres from '../../views/extras/Genres';
 import Help from '../../views/help/Help';
 import NotFound from '../results/NotFound';
 import ToggleThemeButton from '../toggleThemeButton/ToggleThemeButton';
@@ -40,8 +40,8 @@ const Sidebar = () => {
     '/1-year',
     '/users',
     '/help',
-    '/settings',
-    '/settings/gender'
+    '/extras',
+    '/extras/gender'
   ];
 
   const shouldRenderLayout = allowedRoutes.includes(location.pathname);
@@ -75,7 +75,7 @@ const Sidebar = () => {
             <Route path='/bills' element={<Bills />} />
             <Route path='/users' element={<Users />} />
             <Route path='/help' element={<Help />} />
-            <Route path='/settings/gender' element={<Genres />} />
+            <Route path='/extras/gender' element={<Genres />} />
             {/* <Route path='*' element={<NotFound />} /> */}
           </Routes>
         </Content>

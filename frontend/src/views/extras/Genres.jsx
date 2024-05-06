@@ -75,11 +75,12 @@ const Genres = () => {
 
   return (
     <Content style={{ margin: "0 16px" }}>
-      <Breadcrumb style={{ margin: "0 0 16px 0" }}>
+      <Breadcrumb style={{ margin: "50px 0 16px 0" }}>
         <Breadcrumb.Item>
           <UserOutlined /> {localStorage.getItem("username")}
         </Breadcrumb.Item>
-        <Breadcrumb.Item> Libros </Breadcrumb.Item>
+        <Breadcrumb.Item> Extras </Breadcrumb.Item>
+        <Breadcrumb.Item> Géneros </Breadcrumb.Item>
       </Breadcrumb>
       <div
         style={{

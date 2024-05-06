@@ -27,11 +27,11 @@ const Help = () => {
 
   return (
     <Content style={{ margin: "0 16px" }}>
-      <Breadcrumb style={{ margin: "0 0 16px 0" }}>
+      <Breadcrumb style={{ margin: "50px 0 16px 0" }}>
         <Breadcrumb.Item>
           <UserOutlined /> {localStorage.getItem("username")}
         </Breadcrumb.Item>
-        <Breadcrumb.Item> Libros </Breadcrumb.Item>
+        <Breadcrumb.Item> Ayuda </Breadcrumb.Item>
       </Breadcrumb>
       <div
         style={{
@@ -41,7 +41,7 @@ const Help = () => {
           borderRadius: borderRadiusLG,
         }}
       >
-        <Title level={3}>
+        <Title level={3} style={{ marginTop: "-3px" }}>
           <QuestionCircleOutlined /> Ayuda
         </Title>
         <>

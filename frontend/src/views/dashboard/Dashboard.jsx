@@ -17,7 +17,7 @@ const Dashboard = () => {
 
   return (
       <Content style={{ margin: "0 16px" }}>
-        <Breadcrumb style={{ margin: "0 0 16px 0" }}>
+        <Breadcrumb style={{ margin: "50px 0 16px 0" }}>
           <Breadcrumb.Item> <UserOutlined /> { localStorage.getItem('username') } </Breadcrumb.Item>
           <Breadcrumb.Item> Dashboard </Breadcrumb.Item>
         </Breadcrumb>
