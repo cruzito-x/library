@@ -3,7 +3,7 @@ const crypto = require("crypto");
 
 exports.getBooks = (req, res) => {
   db.query(
-    "select *, e.existencia as stock, g.nombreGenero as genero from libros l inner join existencias e on e.idLibro = l.idLibro inner join genero g on g.idGenero = l.genero where (l.deleted_at is null and e.deleted_at is null)",
+    "select *, e.existencia as existencia, g.nombreGenero as genero from libros l inner join existencias e on e.idLibro = l.idLibro inner join genero g on g.idGenero = l.genero where (l.deleted_at is null and e.deleted_at is null)",
     (error, results) => {
       if (error) {
         console.error("Error al obtener los libros:", error);
@@ -50,9 +50,8 @@ exports.saveBook = (req, res) => {
     precio,
     portada,
     sinopsis,
-    ingreso,
+    existencia,
   } = req.body;
-  //const portada = req.file ? `./uploads/${fileName}` : null;
   const idLibro = crypto
     .createHash("md5")
     .update(`${Date.now()}`)
@@ -75,7 +74,7 @@ exports.saveBook = (req, res) => {
 
   const existenciasValues = [
     idLibro,
-    ingreso, // Valor obtenido del frontend
+    existencia, // Valor obtenido del frontend
   ];
 
   // Realizar ambas inserciones en una transacción
@@ -83,6 +82,7 @@ exports.saveBook = (req, res) => {
     if (error) {
       console.error("Error al iniciar la transacción:", error);
       res.status(500).json({ message: "Error interno del servidor" });
+      console.error("Error interno del servidor: ", error);
       return;
     }
 
@@ -92,6 +92,7 @@ exports.saveBook = (req, res) => {
         console.error("Error al guardar el libro:", error);
         db.rollback(() => {
           res.status(500).json({ message: "Error interno del servidor" });
+          console.error("Error interno del servidor: ", error);
         });
         return;
       }
@@ -102,6 +103,7 @@ exports.saveBook = (req, res) => {
           console.error("Error al guardar la existencia:", error);
           db.rollback(() => {
             res.status(500).json({ message: "Error interno del servidor" });
+            console.error("Error interno del servidor: ", error);
           });
           return;
         }
@@ -112,6 +114,7 @@ exports.saveBook = (req, res) => {
             console.error("Error al hacer commit de la transacción:", error);
             db.rollback(() => {
               res.status(500).json({ message: "Error interno del servidor" });
+              console.error("Error interno del servidor: ", error);
             });
             return;
           }
@@ -152,7 +155,7 @@ exports.updateBook = (req, res) => {
     genero,
     precio,
     sinopsis,
-    ingreso
+    existencia
   } = req.body;
 
   const updateLibros = `update libros set titulo = ?, autor = ?, isbn = ?, fechaPublicacion = ?, genero = ?, precio = ?, sinopsis = ? where idLibro = ?`;
@@ -169,7 +172,7 @@ exports.updateBook = (req, res) => {
     idLibro
   ];
 
-  const existenciaValues = [ingreso, idLibro];
+  const existenciaValues = [existencia, idLibro];
 
   db.beginTransaction((error) => {
     if (error) {
