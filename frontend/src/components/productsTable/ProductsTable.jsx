@@ -130,6 +130,7 @@ const ProductsTable = () => {
       title: "Precio",
       dataIndex: "precio",
       key: "price",
+      render: (precio) => `$${precio}`,
       sorter: (a, b) => a.precio - b.precio,
     },
     {
@@ -232,7 +233,7 @@ const ProductsTable = () => {
                 </p>
                 <p>
                   <strong> Existencia: </strong> <br />
-                  <Tag bordered={false} color={ selectedRowData.stock === 0 ? "error" : selectedRowData.stock < 20 ? "orange" : "success" }> {selectedRowData.stock === 0 ? "Agotado" : selectedRowData.stock < 20 ? "Últimas unidades" : "En Existencia"} </Tag>
+                  <Tag bordered={false} color={ selectedRowData.existencia === 0 ? "error" : selectedRowData.existencia < 20 ? "orange" : "success" }> {selectedRowData.existencia === 0 ? "Agotado" : selectedRowData.existencia < 20 ? "Últimas unidades" : "En Existencia"} </Tag>
                 </p>
                 <p> <strong> Autor: </strong> <br />
                   {selectedRowData.autor}
@@ -286,12 +287,12 @@ const ProductsTable = () => {
               <Form.Item label="ISBN:" name="isbn">
                 <Input placeholder="978-8484050421" name="isbn" />
               </Form.Item>
-              <Form.Item label="Ingreso:" name="ingreso">
+              <Form.Item label="Ingreso:" name="existencia">
                 <InputNumber
                   min={1}
                   max={100}
                   defaultValue={1}
-                  name="ingreso"
+                  name="existencia"
                 />
               </Form.Item>
               <Form.Item label="Descripción:" name="sinopsis">
