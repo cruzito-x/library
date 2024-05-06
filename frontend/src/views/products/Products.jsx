@@ -111,8 +111,8 @@ const Products = () => {
           <Form.Item label="ISBN:" name="isbn">
             <Input placeholder="978-8484050421" name="isbn" />
           </Form.Item>
-          <Form.Item label="Ingreso:" name="ingreso">
-            <InputNumber min={1} max={100} defaultValue={1} name="ingreso" />
+          <Form.Item label="Ingreso:" name="existencia">
+            <InputNumber min={1} max={100} defaultValue={1} name="existencia" />
           </Form.Item>
           <Form.Item label="Descripción:" name="sinopsis">
             <TextArea
@@ -162,13 +162,8 @@ const Products = () => {
         formData.append("genero", formValues.genero);
         formData.append("precio", formValues.precio);
         formData.append("portada", "/uploads/"+localStorage.getItem("nombreImagen"));
-        formData.append("ingreso", formValues.ingreso);
+        formData.append("existencia", formValues.existencia);
         formData.append("sinopsis", formValues.sinopsis);
-
-        // if (formValues.portada && formValues.portada.file) { // Verificar si 'portada' está definido y contiene un archivo
-        //   formData.append("portada", formValues.portada.file); // Agregar la imagen al FormData
-        // }
-        console.log(formData);
 
         fetch("http://localhost:3001/books/save", {
           method: "POST",
@@ -215,7 +210,7 @@ const Products = () => {
             <Search placeholder="Buscar" onSearch={onSearch} enterButton />
           </Col>
         </Row>
-        <ProductsTable />
+        <ProductsTable/>
       </div>
     </Content>
   );
