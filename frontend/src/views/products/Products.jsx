@@ -35,6 +35,7 @@ const Products = () => {
   const [formLayout, setFormLayout] = useState("horizontal");
   const [genres, setGenres] = useState([]);
   const [defaultValue, setDefaultValue] = useState("");
+  const [imageName, setImageName] = useState(null);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -42,6 +43,19 @@ const Products = () => {
 
   const handleChange = (value) => {
     console.log(`selected ${value}`);
+  };
+
+  const handleUploadChange = (info) => {
+    if (info.file.status === 'done') {
+      // Si la carga se completa, obtenemos el nombre del archivo y lo almacenamos en localStorage
+      const currentDate = new Date();
+      const formattedDate = currentDate.toLocaleString('es-ES', { timeZone: 'UTC' }).replace(/[\/\,\.\s\:]/g, '');
+      const fileName = `${formattedDate}.${info.file.name.split('.').pop()}`; // Mantener la extensión original del archivo
+
+      localStorage.setItem('nombreImagen', fileName);
+      setImageName(fileName); // Actualizamos el estado con el nombre de la imagen cargada
+      console.log(localStorage.getItem('nombreImagen'));
+    }
   };
 
   useEffect(() => {
@@ -124,6 +138,7 @@ const Products = () => {
               listType="picture"
               accept=".png, .jpg, .jpeg"
               maxCount={1}
+              onChange={handleUploadChange}
               iconRender={() => {
                 return <Spin></Spin>
               }}
@@ -146,12 +161,13 @@ const Products = () => {
         formData.append("fechaPublicacion", formValues.fechaPublicacion);
         formData.append("genero", formValues.genero);
         formData.append("precio", formValues.precio);
+        formData.append("portada", "./uploads/"+localStorage.getItem("nombreImagen"));
         formData.append("ingreso", formValues.ingreso);
         formData.append("sinopsis", formValues.sinopsis);
 
-        if (formValues.portada && formValues.portada.file) { // Verificar si 'portada' está definido y contiene un archivo
-          formData.append("portada", formValues.portada.file); // Agregar la imagen al FormData
-        }
+        // if (formValues.portada && formValues.portada.file) { // Verificar si 'portada' está definido y contiene un archivo
+        //   formData.append("portada", formValues.portada.file); // Agregar la imagen al FormData
+        // }
         console.log(formData);
 
         fetch("http://localhost:3001/books/save", {

@@ -222,7 +222,7 @@ const ProductsTable = () => {
                   }}
                 >
                   <Image
-                    src={selectedRowData.portada === null ? "logo512.png" : `data:image/png;base64,${selectedRowData.portada}`}
+                    src={selectedRowData.portada === null ? "logo512.png" : `http://localhost:3001${selectedRowData.portada}`}
                     style={{ width: "300px", height: "350px" }}
                     alt="Product photo"
                   />
