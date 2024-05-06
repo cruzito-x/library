@@ -2,10 +2,11 @@ const db = require("../config/db");
 const crypto = require("crypto");
 
 exports.getGenres = (req, res) => {
-  db.query("select idGenero, nombreGenero, created_at as 'created at' from genero where deleted_at is null order by nombreGenero asc", (error, results) => {
+  db.query("select g.idGenero, g.nombreGenero, g.created_at as 'created at', count(l.id) as 'cantidad' from genero g left join libros l on g.idGenero = l.genero and l.deleted_at is null where g.deleted_at is null group by g.idGenero, g.nombreGenero, g.created_at order by g.nombreGenero asc", (error, results) => {
     if (error) {
       console.error("Error al obtener los géneros:", error);
       res.status(500).json({ message: "Error interno del servidor" });
+      console.error("Error interno del servidor", error);
       return;
     }
     res.status(200).json(results);
