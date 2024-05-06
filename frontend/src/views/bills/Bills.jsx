@@ -1,21 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { UserOutlined, PrinterOutlined } from "@ant-design/icons";
-import {
-  Breadcrumb,
-  Form,
-  Input,
-  Button,
-  Select,
-  Layout,
-  Typography,
-  Divider,
-  Row,
-  Col,
-  Table,
-  theme,
-  InputNumber,
-  Checkbox,
-} from "antd";
+import { Breadcrumb, Form, Input, Button, Select, Layout, Typography, Divider, Row, Col,Table, InputNumber, Checkbox, theme, message } from "antd";
 
 const Bills = () => {
   const { Content } = Layout;
@@ -46,6 +31,30 @@ const Bills = () => {
         console.error("Error al cargar los libros: ", error);
       });
   }, [form]);
+
+  const handleSaveBill = () => {
+    const { nombre, apellido } = form.getFieldsValue(["nombre", "apellido"]);
+    const request = {
+      selectedBooks,
+      nombre,
+      apellido,
+    };
+
+    fetch("http://localhost:3001/bills/save", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(request),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        message.success(data.message);
+      })
+      .catch((error) => {
+        message.error("Error al guardar la factura");
+      });
+  };
 
   const handleBookSelect = (value, option) => {
     const selectedBook = books.find((book) => book.value === value);
@@ -217,7 +226,7 @@ const Bills = () => {
             dataSource={selectedBooks.concat(totalRow)}
           />
           <br />
-          <Button type="primary">
+          <Button type="primary" onClick={handleSaveBill}>
             <PrinterOutlined /> Generar factura
           </Button>
         </Form>
