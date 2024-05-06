@@ -51,7 +51,7 @@ exports.saveBook = (req, res) => {
     sinopsis,
     ingreso,
   } = req.body;
-  const portada = req.file ? req.file.path : null;
+  const portada = req.file ? `./uploads/${fileName}` : null;
   const idLibro = crypto
     .createHash("md5")
     .update(`${Date.now()}`)
@@ -68,8 +68,8 @@ exports.saveBook = (req, res) => {
     fechaPublicacion,
     genero,
     precio,
-    sinopsis,
     portada || null,
+    sinopsis
   ];
 
   const existenciasValues = [
