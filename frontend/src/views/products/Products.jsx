@@ -161,7 +161,7 @@ const Products = () => {
         formData.append("fechaPublicacion", formValues.fechaPublicacion);
         formData.append("genero", formValues.genero);
         formData.append("precio", formValues.precio);
-        formData.append("portada", "./uploads/"+localStorage.getItem("nombreImagen"));
+        formData.append("portada", "/uploads/"+localStorage.getItem("nombreImagen"));
         formData.append("ingreso", formValues.ingreso);
         formData.append("sinopsis", formValues.sinopsis);
 
