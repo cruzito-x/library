@@ -1,6 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { UserOutlined, PrinterOutlined } from "@ant-design/icons";
-import { Breadcrumb, Form, Input, Button, Select, Layout, Typography, Divider, Row, Col,Table, InputNumber, Checkbox, theme, message } from "antd";
+import {
+  Breadcrumb,
+  Form,
+  Input,
+  Button,
+  Select,
+  Layout,
+  Typography,
+  Divider,
+  Row,
+  Col,
+  Table,
+  InputNumber,
+  Checkbox,
+  theme,
+  message,
+} from "antd";
+import jsPDF from "jspdf";
+import 'jspdf-autotable';
 
 const Bills = () => {
   const { Content } = Layout;
@@ -24,7 +42,11 @@ const Bills = () => {
       .then((data) => {
         setBooks(data);
         if (data.length > 0) {
-          form.setFieldsValue({ libro: data[0].value, precioUnitario: data[0].precio, cantidad: 1});
+          form.setFieldsValue({
+            libro: data[0].value,
+            precioUnitario: data[0].precio,
+            cantidad: 1,
+          });
         }
       })
       .catch((error) => {
@@ -50,6 +72,7 @@ const Bills = () => {
       .then((response) => response.json())
       .then((data) => {
         message.success(data.message);
+        generatePDF(request);
       })
       .catch((error) => {
         message.error("Error al guardar la factura");
@@ -87,10 +110,61 @@ const Bills = () => {
   };
 
   const getTotalAmount = () => {
-    return selectedBooks.reduce((acc, book) => acc + book.total, 0);
+    return selectedBooks.reduce((acumuladorTotal, book) => acumuladorTotal + book.total, 0);
   };
 
   const totalAmount = getTotalAmount();
+
+  const generatePDF = (data) => {
+    // Crear un nuevo documento PDF
+    const doc = new jsPDF();
+
+    // Agregar el logo y el título "Factura"
+    const logo = new Image();
+    logo.src = "logo512.png";
+    doc.addImage(logo, "PNG", 10, 10, 40, 40);
+    doc.setFontSize(16);
+    doc.text("Factura", 60, 30);
+
+    // Agregar detalles del cliente
+    doc.setFontSize(12);
+    doc.text(`Cliente: ${data.nombre+' '+data.apellido}`, 10, 60);
+    const facturadoPor = localStorage.getItem("facturadoPor");
+    doc.text(`Facturado por: ${localStorage.getItem('username')}`, 10, 70);
+
+    // Agregar la tabla
+    const tableData = [];
+    // Suponiendo que selectedBooks es un array de objetos con los detalles de los libros
+    selectedBooks.forEach((book, index) => {
+      console.log(book);
+      const rowData = [
+        book.label, // Nombre del libro
+        book.cantidad, // Cantidad
+        book.precio, // Precio unitario
+        book.subtotal, // Subtotal
+        book.descuento, // Descuento
+        book.total, // Total
+      ];
+      tableData.push(rowData);
+    });
+    doc.autoTable({
+      head: [
+        [
+          "Nombre libro",
+          "Cantidad",
+          "Precio unitario",
+          "Subtotal",
+          "Descuento",
+          "Total",
+        ],
+      ],
+      body: tableData,
+      startY: 80
+    });
+
+    // Guardar el documento como un archivo PDF
+    doc.save("factura.pdf");
+  };
 
   const totalRow = {
     label: "Total:",
