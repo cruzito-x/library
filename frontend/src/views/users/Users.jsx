@@ -3,6 +3,8 @@ import {
   PlusCircleOutlined,
   PlusCircleFilled,
   UserOutlined,
+  EyeInvisibleOutlined,
+  EyeTwoTone
 } from "@ant-design/icons";
 import {
   Breadcrumb,
@@ -34,7 +36,7 @@ const Users = () => {
   const showAddModal = () => {
     confirm({
       width: "35%",
-      title: "Añadir género literario",
+      title: "Añadir nuevo usuario",
       icon: <PlusCircleFilled />,
       style: { top: "5%" },
       content: (
@@ -45,8 +47,11 @@ const Users = () => {
             layout: formLayout,
           }}
         >
-          <Form.Item label="Género:" name="nombreGenero">
-            <Input placeholder="ej. Terror" name="nombreGenero" />
+          <Form.Item label="Usuario:" name="nombreUsuario">
+            <Input placeholder="ej. David Cruz" name="nombreUsuario" />
+          </Form.Item>
+          <Form.Item label="Contraseña:" name="password">
+          <Input.Password placeholder="ej. 12345678" iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} name="password"/>
           </Form.Item>
         </Form>
       ),

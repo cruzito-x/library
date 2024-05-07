@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons"
 import { Card, Form, Input, Checkbox, Button, message } from "antd";
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
@@ -89,7 +90,7 @@ const Login = () => {
               { required: true, message: "Por favor ingrese su contraseña" },
             ]}
           >
-            <Input.Password placeholder="Contraseña" />
+            <Input.Password placeholder="Contraseña" iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} />
           </Form.Item>
 
           <Form.Item
