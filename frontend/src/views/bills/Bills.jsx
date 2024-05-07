@@ -190,11 +190,24 @@ const Bills = () => {
       doc.text("Gracias por preferirnos", 40, 280, "center");
     }
 
-    // Guardar el documento como un archivo PDF
-    doc.save("factura.pdf");
-};
-
-
+    var currentDate = new Date();
+    var formattedDate = currentDate.getFullYear().toString() + 
+    addZero(currentDate.getMonth() + 1) +
+    addZero(currentDate.getDate()) + 
+    addZero(currentDate.getHours()) +
+    addZero(currentDate.getMinutes()) +
+    addZero(currentDate.getSeconds());
+    
+    function addZero(number) {
+      if (number < 10) {
+        return '0' + number;
+      }
+      return number;
+    }
+    
+    doc.save(formattedDate + ".pdf");
+  };
+  
   const totalRow = {
     label: "Total:",
     total: `$${totalAmount.toFixed(2)}`,
