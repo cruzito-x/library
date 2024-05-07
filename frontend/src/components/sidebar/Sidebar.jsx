@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout, theme } from 'antd';
 import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import Logo from '../logo/Logo';
@@ -22,6 +22,17 @@ const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
 
+  useEffect(() => {
+    const username = localStorage.getItem("username");
+    if (!username && location.pathname !== "/") {
+      navigate("/");
+    }
+  }, [location.pathname]);
+
+  const navigate = (path) => {
+    window.location.href = path;
+  };
+
   const { token: { colorBgContainer } } = theme.useToken();
 
   const layoutStyle = {
@@ -41,7 +52,9 @@ const Sidebar = () => {
     '/users',
     '/help',
     '/extras',
-    '/extras/gender'
+    '/extras/gender',
+    '/extras/permissions',
+    '/extras/logs'
   ];
 
   const shouldRenderLayout = allowedRoutes.includes(location.pathname);
@@ -76,7 +89,6 @@ const Sidebar = () => {
             <Route path='/users' element={<Users />} />
             <Route path='/help' element={<Help />} />
             <Route path='/extras/gender' element={<Genres />} />
-            {/* <Route path='*' element={<NotFound />} /> */}
           </Routes>
         </Content>
         <Footer style={{ textAlign: 'center' }}>

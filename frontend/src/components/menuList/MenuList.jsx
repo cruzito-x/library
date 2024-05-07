@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import { Menu, theme } from 'antd';
-import { ProductOutlined, BookOutlined, DownloadOutlined, CalendarOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined, LeftOutlined, QuestionCircleOutlined, SettingOutlined, TagOutlined, HistoryOutlined, RightOutlined } from '@ant-design/icons';
+import { ProductOutlined, BookOutlined, DownloadOutlined, CalendarOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined, LeftOutlined, QuestionCircleOutlined, SettingOutlined, TagOutlined, SafetyOutlined, HistoryOutlined, RightOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
@@ -61,6 +61,9 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
       <Menu.SubMenu key='/extras' title='Extras' icon={<SettingOutlined />}>
         <Menu.Item key='/extras/gender' icon={<TagOutlined />}>
           Géneros
+        </Menu.Item>
+        <Menu.Item key='/extras/permissions' icon={<SafetyOutlined />}>
+          Permisos
         </Menu.Item>
         <Menu.Item key='/extras/logs' icon={<HistoryOutlined />}>
           Logs
