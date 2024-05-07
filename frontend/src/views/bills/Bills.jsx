@@ -152,7 +152,7 @@ const Bills = () => {
     )
       .toString()
       .padStart(2, "0")}-${currentDate.getDate().toString().padStart(2, "0")}`;
-    doc.text("Fecha:", doc.internal.pageSize.getWidth() - 22, 50, {
+    doc.text("Fecha:", doc.internal.pageSize.getWidth() - 23, 50, {
       align: "right",
     });
     doc.setFont("Helvetica");
