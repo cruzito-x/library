@@ -72,10 +72,11 @@ const Bills = () => {
       .then((response) => response.json())
       .then((data) => {
         message.success(data.message);
-        generatePDF(request);
+        generatePDF(request, selectedBooks);
       })
       .catch((error) => {
         message.error("Error al guardar la factura");
+        console.error("Error al guardar la factura: ", error.message);
       });
   };
 
@@ -115,7 +116,7 @@ const Bills = () => {
 
   const totalAmount = getTotalAmount();
 
-  const generatePDF = (data) => {
+  const generatePDF = (data, selectedBooks) => {
     // Crear un nuevo documento PDF
     const doc = new jsPDF();
 
@@ -129,23 +130,23 @@ const Bills = () => {
     // Agregar detalles del cliente
     doc.setFontSize(12);
     doc.text(`Cliente: ${data.nombre+' '+data.apellido}`, 10, 60);
-    const facturadoPor = localStorage.getItem("facturadoPor");
     doc.text(`Facturado por: ${localStorage.getItem('username')}`, 10, 70);
 
     // Agregar la tabla
     const tableData = [];
-    // Suponiendo que selectedBooks es un array de objetos con los detalles de los libros
+    let totalPagar = 0;
     selectedBooks.forEach((book, index) => {
       console.log(book);
       const rowData = [
-        book.label, // Nombre del libro
-        book.cantidad, // Cantidad
-        book.precio, // Precio unitario
-        book.subtotal, // Subtotal
-        book.descuento, // Descuento
-        book.total, // Total
+        book.label,
+        book.cantidad,
+        "$"+book.precio,
+        "$"+book.subtotal,
+        "$"+book.descuento,
+        "$"+book.total,
       ];
       tableData.push(rowData);
+      totalPagar += book.total;
     });
     doc.autoTable({
       head: [
@@ -162,9 +163,37 @@ const Bills = () => {
       startY: 80
     });
 
+    // Agregar fila de Total a pagar
+    const totalRow = [
+      { content: "Total", colSpan: 5 }, // ColSpan para ocupar las primeras 5 columnas
+      "", // Celdas vacías para las columnas intermedias
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "", // Quinta columna vacía para compensar el ColSpan
+      { content: `$${totalPagar}`, colSpan: 2, styles: { cellWidth: "auto" } }, // ColSpan para ocupar las últimas 2 columnas
+    ];
+    doc.autoTable({
+      body: [totalRow],
+      startY: doc.autoTable.previous.finalY
+    });
+
+    // Agregar footer
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let n = 1; n <= pageCount; n++) {
+      doc.setPage(n);
+      doc.text("Gracias por preferirnos", 40, 280, "center");
+    }
+
     // Guardar el documento como un archivo PDF
     doc.save("factura.pdf");
-  };
+};
+
 
   const totalRow = {
     label: "Total:",
