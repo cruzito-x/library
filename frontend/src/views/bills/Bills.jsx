@@ -130,10 +130,10 @@ const Bills = () => {
     doc.addImage(
       logo,
       "PNG",
-      doc.internal.pageSize.getWidth() - 40,
+      doc.internal.pageSize.getWidth() - 37,
       15,
-      30,
-      30
+      27,
+      27
     );
     doc.setTextColor("#001529");
     doc.setFontSize(32);
