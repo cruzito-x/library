@@ -73,6 +73,8 @@ const Bills = () => {
       .then((data) => {
         message.success(data.message);
         generatePDF(request, selectedBooks);
+        setSelectedBooks([]);
+        form.setFieldsValue({ nombre: "", apellido: "" });
       })
       .catch((error) => {
         message.error("Error al guardar la factura");
