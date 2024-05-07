@@ -152,11 +152,10 @@ const Bills = () => {
     )
       .toString()
       .padStart(2, "0")}-${currentDate.getDate().toString().padStart(2, "0")}`;
-    doc.setFont("Helvetica", "bold"); // Corrección 1: Establecer el estilo de fuente en negrita
     doc.text("Fecha:", doc.internal.pageSize.getWidth() - 22, 50, {
       align: "right",
     });
-    doc.setFont("Helvetica"); // Restablecer el estilo de fuente a la normalidad
+    doc.setFont("Helvetica");
     doc.text(formattedDate, doc.internal.pageSize.getWidth() - 15, 55, {
       align: "right",
     });
@@ -208,67 +207,58 @@ const Bills = () => {
     );
 
     // Agregar Método de Pago (sin negrita/bold)
-    doc.setFont("Helvetica", "bold"); // Corrección 2: Establecer el estilo de fuente en negrita
-    doc.text("Método de pago:", 15, doc.autoTable.previous.finalY + 15);
-    doc.setFont("Helvetica"); // Restablecer el estilo de fuente a la normalidad
+    doc.text("Método de pago", 15, doc.autoTable.previous.finalY + 15);
+    doc.setFont("Helvetica");
     doc.text("Efectivo", 15, doc.autoTable.previous.finalY + 20);
 
     // Agregar Subtotal a la misma altura que Método de pago (sin negrita/bold)
-    doc.setFont("Helvetica", "bold"); // Corrección 3: Establecer el estilo de fuente en negrita
     doc.text(
       "Subtotal:",
       doc.internal.pageSize.getWidth() - 75,
       doc.autoTable.previous.finalY + 15
     );
-    doc.setFont("Helvetica"); // Restablecer el estilo de fuente a la normalidad
     doc.text(
       `$${totalPagar}`,
-      doc.internal.pageSize.getWidth() - 10,
+      doc.internal.pageSize.getWidth() - 15,
       doc.autoTable.previous.finalY + 15,
       { align: "right" }
     );
 
     // Agregar Descuento y Total
-    doc.setFont("Helvetica", "bold"); // Corrección 3: Establecer el estilo de fuente en negrita
     doc.text(
       "Descuento:",
       doc.internal.pageSize.getWidth() - 75,
       doc.autoTable.previous.finalY + 20
     );
-    doc.setFont("Helvetica"); // Restablecer el estilo de fuente a la normalidad
     doc.text(
       `$${descuento}`,
-      doc.internal.pageSize.getWidth() - 10,
+      doc.internal.pageSize.getWidth() - 15,
       doc.autoTable.previous.finalY + 20,
       { align: "right" }
     );
-    doc.setFont("Helvetica", "bold"); // Corrección 3: Establecer el estilo de fuente en negrita
     doc.text(
       "Total:",
       doc.internal.pageSize.getWidth() - 75,
       doc.autoTable.previous.finalY + 25
     );
-    doc.setFont("Helvetica"); // Restablecer el estilo de fuente a la normalidad
     doc.text(
       `$${totalPagar - descuento}`,
-      doc.internal.pageSize.getWidth() - 10,
+      doc.internal.pageSize.getWidth() - 15,
       doc.autoTable.previous.finalY + 25,
       { align: "right" }
     );
 
-    // Agregar footer
-    doc.setFillColor("#001529");
-    doc.setTextColor("#ffffff");
-    doc.setFont("italic");
-    doc.text(
-      "Gracias por preferirnos",
-      doc.internal.pageSize.getWidth() / 2,
-      doc.internal.pageSize.getHeight() - 10,
-      { align: "center" }
-    );
+    var now = new Date();
+    var formattedNow =
+      now.getFullYear().toString() +
+      pad(now.getMonth() + 1) +
+      pad(now.getDate()) +
+      pad(now.getHours()) +
+      pad(now.getMinutes()) +
+      pad(now.getSeconds());
 
     // Guardar el PDF
-    doc.save(formattedDate.replace(/-/g, '') + ".pdf");
+    doc.save(formattedNow + ".pdf");
   };
 
   function pad(number) {
