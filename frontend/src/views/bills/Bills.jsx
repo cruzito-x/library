@@ -18,7 +18,7 @@ import {
   message,
 } from "antd";
 import jsPDF from "jspdf";
-import 'jspdf-autotable';
+import "jspdf-autotable";
 
 const Bills = () => {
   const { Content } = Layout;
@@ -113,39 +113,69 @@ const Bills = () => {
   };
 
   const getTotalAmount = () => {
-    return selectedBooks.reduce((acumuladorTotal, book) => acumuladorTotal + book.total, 0);
+    return selectedBooks.reduce(
+      (acumuladorTotal, book) => acumuladorTotal + book.total,
+      0
+    );
   };
 
   const totalAmount = getTotalAmount();
 
   const generatePDF = (data, selectedBooks) => {
-    // Crear un nuevo documento PDF
     const doc = new jsPDF();
 
     // Agregar el logo y el título "Factura"
     const logo = new Image();
     logo.src = "logo512.png";
-    doc.addImage(logo, "PNG", 10, 10, 40, 40);
-    doc.setFontSize(16);
-    doc.text("Factura", 60, 30);
+    doc.addImage(
+      logo,
+      "PNG",
+      doc.internal.pageSize.getWidth() - 40,
+      15,
+      30,
+      30
+    );
+    doc.setTextColor("#001529");
+    doc.setFontSize(32);
+    doc.text("FACTURA", 15, 30);
+    doc.setFont("Helvetica", "bold");
 
-    // Agregar detalles del cliente
+    // Agregar detalles del cliente y factura
     doc.setFontSize(12);
-    doc.text(`Cliente: ${data.nombre+' '+data.apellido}`, 10, 60);
-    doc.text(`Facturado por: ${localStorage.getItem('username')}`, 10, 70);
+    doc.text("Facturado por:", 15, 50);
+    doc.setFont("Helvetica");
+    doc.text(localStorage.getItem("username"), 15, 55);
+    doc.text(`Cliente: ${data.nombre} ${data.apellido}`, 15, 65);
+    const currentDate = new Date();
+    const formattedDate = `${currentDate.getFullYear()}-${(
+      currentDate.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}-${currentDate.getDate().toString().padStart(2, "0")}`;
+    doc.setFont("Helvetica", "bold"); // Corrección 1: Establecer el estilo de fuente en negrita
+    doc.text("Fecha:", doc.internal.pageSize.getWidth() - 22, 50, {
+      align: "right",
+    });
+    doc.setFont("Helvetica"); // Restablecer el estilo de fuente a la normalidad
+    doc.text(formattedDate, doc.internal.pageSize.getWidth() - 15, 55, {
+      align: "right",
+    });
 
-    // Agregar la tabla
+    // Agregar una línea arriba de la tabla (10 unidades más arriba)
+    doc.setLineWidth(0.2);
+    doc.setDrawColor("#001529");
+    doc.line(15, 80, doc.internal.pageSize.getWidth() - 15, 80);
+
+    // Agregar la tabla centrada
     const tableData = [];
     let totalPagar = 0;
+    let descuento = 0;
     selectedBooks.forEach((book, index) => {
-      console.log(book);
       const rowData = [
-        book.label,
-        book.cantidad,
-        "$"+book.precio,
-        "$"+book.subtotal,
-        "$"+book.descuento,
-        "$"+book.total,
+        { content: book.label, styles: { halign: "left" } },
+        { content: `$${book.precio}`, styles: { halign: "center" } },
+        { content: book.cantidad, styles: { halign: "center" } },
+        { content: `$${book.total}`, styles: { halign: "center" } },
       ];
       tableData.push(rowData);
       totalPagar += book.total;
@@ -153,63 +183,101 @@ const Bills = () => {
     doc.autoTable({
       head: [
         [
-          "Nombre libro",
-          "Cantidad",
-          "Precio unitario",
-          "Subtotal",
-          "Descuento",
-          "Total",
+          { content: "Nombre libro", styles: { halign: "left" } },
+          { content: "Precio", styles: { halign: "center" } },
+          { content: "Cantidad", styles: { halign: "center" } },
+          { content: "Total", styles: { halign: "center" } },
         ],
       ],
       body: tableData,
-      startY: 80
+      startY: 85,
+      theme: "plain",
+      styles: {
+        textColor: "#001529",
+      },
     });
 
-    // Agregar fila de Total a pagar
-    const totalRow = [
-      { content: "Total", colSpan: 5 }, // ColSpan para ocupar las primeras 5 columnas
-      "", // Celdas vacías para las columnas intermedias
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "", // Quinta columna vacía para compensar el ColSpan
-      { content: `$${totalPagar}`, colSpan: 2, styles: { cellWidth: "auto" } }, // ColSpan para ocupar las últimas 2 columnas
-    ];
-    doc.autoTable({
-      body: [totalRow],
-      startY: doc.autoTable.previous.finalY
-    });
+    // Agregar una línea abajo de la tabla
+    doc.setLineWidth(0.2);
+    doc.setDrawColor("#001529");
+    doc.line(
+      15,
+      doc.autoTable.previous.finalY + 5,
+      doc.internal.pageSize.getWidth() - 15,
+      doc.autoTable.previous.finalY + 5
+    );
+
+    // Agregar Método de Pago (sin negrita/bold)
+    doc.setFont("Helvetica", "bold"); // Corrección 2: Establecer el estilo de fuente en negrita
+    doc.text("Método de pago:", 15, doc.autoTable.previous.finalY + 15);
+    doc.setFont("Helvetica"); // Restablecer el estilo de fuente a la normalidad
+    doc.text("Efectivo", 15, doc.autoTable.previous.finalY + 20);
+
+    // Agregar Subtotal a la misma altura que Método de pago (sin negrita/bold)
+    doc.setFont("Helvetica", "bold"); // Corrección 3: Establecer el estilo de fuente en negrita
+    doc.text(
+      "Subtotal:",
+      doc.internal.pageSize.getWidth() - 75,
+      doc.autoTable.previous.finalY + 15
+    );
+    doc.setFont("Helvetica"); // Restablecer el estilo de fuente a la normalidad
+    doc.text(
+      `$${totalPagar}`,
+      doc.internal.pageSize.getWidth() - 10,
+      doc.autoTable.previous.finalY + 15,
+      { align: "right" }
+    );
+
+    // Agregar Descuento y Total
+    doc.setFont("Helvetica", "bold"); // Corrección 3: Establecer el estilo de fuente en negrita
+    doc.text(
+      "Descuento:",
+      doc.internal.pageSize.getWidth() - 75,
+      doc.autoTable.previous.finalY + 20
+    );
+    doc.setFont("Helvetica"); // Restablecer el estilo de fuente a la normalidad
+    doc.text(
+      `$${descuento}`,
+      doc.internal.pageSize.getWidth() - 10,
+      doc.autoTable.previous.finalY + 20,
+      { align: "right" }
+    );
+    doc.setFont("Helvetica", "bold"); // Corrección 3: Establecer el estilo de fuente en negrita
+    doc.text(
+      "Total:",
+      doc.internal.pageSize.getWidth() - 75,
+      doc.autoTable.previous.finalY + 25
+    );
+    doc.setFont("Helvetica"); // Restablecer el estilo de fuente a la normalidad
+    doc.text(
+      `$${totalPagar - descuento}`,
+      doc.internal.pageSize.getWidth() - 10,
+      doc.autoTable.previous.finalY + 25,
+      { align: "right" }
+    );
 
     // Agregar footer
-    const pageCount = doc.internal.getNumberOfPages();
-    for (let n = 1; n <= pageCount; n++) {
-      doc.setPage(n);
-      doc.text("Gracias por preferirnos", 40, 280, "center");
-    }
+    doc.setFillColor("#001529");
+    doc.setTextColor("#ffffff");
+    doc.setFont("italic");
+    doc.text(
+      "Gracias por preferirnos",
+      doc.internal.pageSize.getWidth() / 2,
+      doc.internal.pageSize.getHeight() - 10,
+      { align: "center" }
+    );
 
-    var currentDate = new Date();
-    var formattedDate = currentDate.getFullYear().toString() + 
-    addZero(currentDate.getMonth() + 1) +
-    addZero(currentDate.getDate()) + 
-    addZero(currentDate.getHours()) +
-    addZero(currentDate.getMinutes()) +
-    addZero(currentDate.getSeconds());
-    
-    function addZero(number) {
-      if (number < 10) {
-        return '0' + number;
-      }
-      return number;
-    }
-    
-    doc.save(formattedDate + ".pdf");
+    // Guardar el PDF
+    doc.save(formattedDate.replace(/-/g, '') + ".pdf");
   };
-  
+
+  function pad(number) {
+    if (number < 10) {
+      return "0" + number;
+    }
+    return number;
+  }
+
   const totalRow = {
     label: "Total:",
     total: `$${totalAmount.toFixed(2)}`,
