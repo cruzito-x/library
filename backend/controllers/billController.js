@@ -22,15 +22,15 @@ exports.saveBill = (req, res) => {
   const total = selectedBooks.reduce((acumuladorTotal, book) => acumuladorTotal + parseFloat(book.total), 0).toFixed(2);
 
   // Begin transaction
-  db.beginTransaction(err => {
-    if (err) {
-      console.error('Error starting transaction: ', err);
+  db.beginTransaction(error => {
+    if (error) {
+      console.error('Error starting transaction: ', error);
       res.status(500).json({ message: 'Error interno del servidor' });
       return;
     }
 
-    const insertCliente = "INSERT INTO clientes (idCliente, nombre, apellido, metodoPago, created_at) VALUES (?, ?, ?, ?, CURDATE())";
-    db.query(insertCliente, [idCliente, nombre, apellido, "efectivo"], (error, resultCliente) => {
+    const insertCliente = "insert into clientes (idCliente, nombre, apellido, metodoPago, created_at) values (?, ?, ?, ?, curdate())";
+    db.query(insertCliente, [idCliente, nombre, apellido, "efectivo"], (error, result) => {
       if (error) {
         console.error("Error al insertar cliente: ", error);
         return db.rollback(() => {
@@ -38,8 +38,8 @@ exports.saveBill = (req, res) => {
         });
       }
 
-      const insertVenta = "INSERT INTO ventas (idVenta, fecha, total, estado, created_at) VALUES (?, CURDATE(), ?, 'completado', CURDATE())";
-      db.query(insertVenta, [idVenta, total], (error, resultVenta) => {
+      const insertVenta = "insert into ventas (idVenta, fecha, total, estado, created_at) values (?, curdate(), ?, 'completado', curdate())";
+      db.query(insertVenta, [idVenta, total], (error, result) => {
         if (error) {
           console.error("Error al insertar venta: ", error);
           return db.rollback(() => {
@@ -47,9 +47,9 @@ exports.saveBill = (req, res) => {
           });
         }
 
-        const valuesDetalleVenta = selectedBooks.map(book => [idVenta, idCliente, book.value, book.cantidad, book.precioUnitario, book.subtotal, book.descuento, new Date()]);
-        const insertDetalleVenta = "INSERT INTO detalles_venta (idVenta, idCliente, idLibro, cantidad, precioUnitario, subtotal, descuento, created_at) VALUES ?";
-        db.query(insertDetalleVenta, [valuesDetalleVenta], (error, resultDetalleVenta) => {
+        const valuesDetalleVenta = selectedBooks.map(book => [idVenta, idVenta, idCliente, book.value, book.cantidad, book.precioUnitario, book.subtotal, book.descuento, new Date()]);
+        const insertDetalleVenta = "insert into detalles_venta (idDetalleVenta, idVenta, idCliente, idLibro, cantidad, precioUnitario, subtotal, descuento, created_at) values ?";
+        db.query(insertDetalleVenta, [valuesDetalleVenta], (error, result) => {
           if (error) {
             console.error("Error al insertar detalles de venta: ", error);
             return db.rollback(() => {
@@ -57,8 +57,8 @@ exports.saveBill = (req, res) => {
             });
           }
 
-          const updateExistencia = "UPDATE existencias AS ex INNER JOIN detalles_venta AS dv ON ex.idLibro = dv.idLibro SET ex.existencia = ex.existencia - dv.cantidad WHERE dv.idVenta = ?";
-          db.query(updateExistencia, [idVenta], (error, resultExistencia) => {
+          const updateExistencia = "update existencias as ex inner join detalles_venta as dv on ex.idLibro = dv.idLibro set ex.existencia = ex.existencia - dv.cantidad where dv.idVenta = ?";
+          db.query(updateExistencia, [idVenta], (error, result) => {
             if (error) {
               console.error("Error al actualizar existencia: ", error);
               return db.rollback(() => {
@@ -67,9 +67,9 @@ exports.saveBill = (req, res) => {
             }
 
             // Commit the transaction if all queries were successful
-            db.commit(err => {
-              if (err) {
-                console.error("Error committing transaction: ", err);
+            db.commit(error => {
+              if (error) {
+                console.error("Error committing transaction: ", error);
                 return db.rollback(() => {
                   res.status(500).json({ message: "Error interno del servidor" });
                 });
