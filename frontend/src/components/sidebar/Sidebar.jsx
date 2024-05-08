@@ -5,12 +5,12 @@ import Logo from '../logo/Logo';
 import LayoutHeader from '../layoutHeader/LayoutHeader';
 import MenuList from '../menuList/MenuList';
 import Dashboard from '../../views/dashboard/Dashboard';
-import Products from '../../views/products/Products';
+import Books from '../../views/books/Books';
 import Bills from '../../views/bills/Bills';
 import Users from '../../views/users/Users';
-import Help from '../../views/help/Help';
 import Genres from '../../views/extras/Genres';
 import Stock from '../../views/extras/Stock';
+import Help from '../../views/help/Help';
 import NotFound from '../results/NotFound';
 import ToggleThemeButton from '../toggleThemeButton/ToggleThemeButton';
 import './Sidebar.css';
@@ -86,7 +86,7 @@ const Sidebar = () => {
         <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
           <Routes>
             <Route path='/dashboard' element={<Dashboard />} />
-            <Route path='/books' element={<Products />} />
+            <Route path='/books' element={<Books />} />
             <Route path='/bills' element={<Bills />} />
             <Route path='/users' element={<Users />} />
             <Route path='/extras/gender' element={<Genres />} />

@@ -17,7 +17,7 @@ import {
   message,
 } from "antd";
 
-const ProductsTable = ( { booksData, refreshTable, setRefreshTable } ) => {
+const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
   const [modal1Open, setModal1Open] = useState(false);
   const [modal2Open, setModal2Open] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
@@ -309,4 +309,4 @@ const ProductsTable = ( { booksData, refreshTable, setRefreshTable } ) => {
   );
 };
 
-export default ProductsTable;
+export default BooksTable;

@@ -22,9 +22,9 @@ import {
   theme,
   message,
 } from "antd";
-import ProductsTable from "../../components/productsTable/ProductsTable";
+import BooksTable from "../../components/booksTable/BooksTable";
 
-const Products = () => {
+const Books = () => {
   const { Content } = Layout;
   const { Search } = Input;
   const [searchTerm, setSearchTerm] = useState("");
@@ -59,9 +59,7 @@ const Products = () => {
       });
   }, [refreshTable]);
 
-  const handleChange = (value) => {
-    console.log(`selected ${value}`);
-  };
+  const handleChange = (value) => {};
 
   const handleUploadChange = (info) => {
     if (info.file.status === 'done') {
@@ -238,10 +236,10 @@ const Products = () => {
             <Search placeholder="Buscar por nombre de libro" onSearch={handleSearch} enterButton />
           </Col>
         </Row>
-        <ProductsTable booksData={filteredBooksData} refreshTable={refreshTable} setRefreshTable={setRefreshTable} />
+        <BooksTable booksData={filteredBooksData} refreshTable={refreshTable} setRefreshTable={setRefreshTable} />
       </div>
     </Content>
   );
 };
 
-export default Products;
+export default Books;
