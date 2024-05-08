@@ -4,19 +4,20 @@ import {
   PlusCircleFilled,
   UserOutlined,
   EyeInvisibleOutlined,
-  EyeTwoTone
+  EyeTwoTone,
 } from "@ant-design/icons";
 import {
   Breadcrumb,
   Layout,
   Input,
+  Select,
   Button,
   Modal,
   Form,
   Row,
   Col,
   theme,
-  message,
+  message
 } from "antd";
 import UsersTable from "../../components/usersTable/UsersTable";
 
@@ -28,6 +29,7 @@ const Users = () => {
   const [size, setSize] = useState("medium");
   const { Search } = Input;
   const onSearch = (value, _e, info) => console.log(info?.source, value);
+  const [refreshTable, setRefreshTable] = useState(false);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -51,7 +53,23 @@ const Users = () => {
             <Input placeholder="ej. David Cruz" name="nombreUsuario" />
           </Form.Item>
           <Form.Item label="Contraseña:" name="password">
-          <Input.Password placeholder="ej. 12345678" iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} name="password"/>
+            <Input.Password
+              placeholder="ej. 12345678"
+              iconRender={(visible) =>
+                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+              }
+              name="password"
+            />
+          </Form.Item>
+          <Form.Item label="Rol" name="rol">
+            <Select
+              name="rol"
+              defaultValue="admin"
+              options={[
+                { value: "admin", label: "Administrador" },
+                { value: "superadmin", label: "Super administrador" }
+              ]}
+            />
           </Form.Item>
         </Form>
       ),
@@ -60,18 +78,21 @@ const Users = () => {
       onOk() {
         const formData = new FormData();
         const formValues = form.getFieldsValue(); // Obtener los valores del formulario
-        formData.append("nombreGenero", formValues.nombreGenero);
+        formData.append("nombreUsuario", formValues.nombreUsuario);
+        formData.append("password", formValues.password);
+        formData.append("rol", formValues.rol);
 
-        fetch("http://localhost:3001/genres/save", {
-          method: "POST",
+        fetch("http://localhost:3001/users/save", {
+          method: "post",
           body: formData,
         })
           .then((response) => response.json())
           .then((data) => {
             message.success(data.message);
+            setRefreshTable(!refreshTable); // Actualiza la tabla
           })
           .catch((error) => {
-            message.error("Error al registrar el género literario");
+            message.error("Error al registrar usuario");
           });
       },
       onCancel() {},
@@ -110,7 +131,7 @@ const Users = () => {
             <Search placeholder="Buscar" onSearch={onSearch} enterButton />
           </Col>
         </Row>
-        <UsersTable />
+        <UsersTable refreshTable={refreshTable} setRefreshTable={setRefreshTable}/>
       </div>
     </Content>
   );

@@ -8,8 +8,9 @@ import Dashboard from '../../views/dashboard/Dashboard';
 import Products from '../../views/products/Products';
 import Bills from '../../views/bills/Bills';
 import Users from '../../views/users/Users';
-import Genres from '../../views/extras/Genres';
 import Help from '../../views/help/Help';
+import Genres from '../../views/extras/Genres';
+import Stock from '../../views/extras/Stock';
 import NotFound from '../results/NotFound';
 import ToggleThemeButton from '../toggleThemeButton/ToggleThemeButton';
 import './Sidebar.css';
@@ -24,7 +25,9 @@ const Sidebar = () => {
 
   useEffect(() => {
     const username = localStorage.getItem("username");
-    if (!username && location.pathname !== "/") {
+    if (username && location.pathname === "/") {
+      navigate("/dashboard");
+    } else if (!username && location.pathname !== "/") {
       navigate("/");
     }
   }, [location.pathname]);
@@ -53,8 +56,7 @@ const Sidebar = () => {
     '/help',
     '/extras',
     '/extras/gender',
-    '/extras/permissions',
-    '/extras/logs'
+    '/extras/stock'
   ];
 
   const shouldRenderLayout = allowedRoutes.includes(location.pathname);
@@ -89,6 +91,7 @@ const Sidebar = () => {
             <Route path='/users' element={<Users />} />
             <Route path='/help' element={<Help />} />
             <Route path='/extras/gender' element={<Genres />} />
+            <Route path='/extras/stock' element={<Stock />} />
           </Routes>
         </Content>
         <Footer style={{ textAlign: 'center' }}>

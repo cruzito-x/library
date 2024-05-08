@@ -63,7 +63,7 @@ const Bills = () => {
     };
 
     fetch("http://localhost:3001/bills/save", {
-      method: "POST",
+      method: "post",
       headers: {
         "Content-Type": "application/json",
       },

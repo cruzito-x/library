@@ -62,7 +62,7 @@ const ProductsTable = ( { refreshTable, setRefreshTable } ) => {
   const saveChanges = () => {
     form.validateFields().then((values) => {
       fetch(`http://localhost:3001/books/updateBook/${editedBook.idLibro}`, {
-        method: "PUT",
+        method: "put",
         headers: {
           "Content-Type": "application/json",
         },
@@ -96,7 +96,7 @@ const ProductsTable = ( { refreshTable, setRefreshTable } ) => {
     fetch(
       `http://localhost:3001/books/deleteBookUpdatedDeletedAt/${record.idLibro}`,
       {
-        method: "DELETE",
+        method: "delete",
       }
     )
       .then((response) => {

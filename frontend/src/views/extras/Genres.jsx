@@ -26,6 +26,7 @@ const Genres = () => {
   const [size, setSize] = useState("medium");
   const { Search } = Input;
   const onSearch = (value, _e, info) => console.log(info?.source, value);
+  const [refreshTable, setRefreshTable] = useState(false);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -58,12 +59,13 @@ const Genres = () => {
         formData.append("nombreGenero", formValues.nombreGenero);
 
         fetch("http://localhost:3001/genres/save", {
-          method: "POST",
+          method: "post",
           body: formData,
         })
           .then((response) => response.json())
           .then((data) => {
             message.success(data.message);
+            setRefreshTable(!refreshTable); // Actualiza la tabla
           })
           .catch((error) => {
             message.error("Error al registrar el género literario");
@@ -106,7 +108,7 @@ const Genres = () => {
             <Search placeholder="Buscar" onSearch={onSearch} enterButton />
           </Col>
         </Row>
-        <GenresTable />
+        <GenresTable refreshTable={refreshTable} setRefreshTable={setRefreshTable} />
       </div>
     </Content>
   );

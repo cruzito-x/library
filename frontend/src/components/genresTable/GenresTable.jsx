@@ -13,18 +13,18 @@ import {
   message,
 } from "antd";
 
-const GenresTable = () => {
+const GenresTable = ({ refreshTable, setRefreshTable }) => {
   const [modal1Open, setModal1Open] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
   const [genres, setGenres] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [editedGenre, setEditedBook] = useState(null);
+  const [editedGenre, setEditedGenre] = useState(null);
   const [defaultValue, setDefaultValue] = useState("");
   const [form] = Form.useForm();
 
   const handleEdit = (record) => {
     setSelectedRowData(record);
-    setEditedBook(record);
+    setEditedGenre(record);
     setModal1Open(true);
     form.setFieldsValue(record);
   };
@@ -46,14 +46,14 @@ const GenresTable = () => {
         setLoading(false);
         message.error("Error al obtener la lista de géneros");
       });
-  }, []);
+  }, [refreshTable]);
 
   const saveChanges = () => {
     form.validateFields().then((values) => {
       fetch(
         `http://localhost:3001/genres/updateGenre/${editedGenre.idGenero}`,
         {
-          method: "PUT",
+          method: "put",
           headers: {
             "Content-Type": "application/json",
           },
@@ -91,7 +91,7 @@ const GenresTable = () => {
     fetch(
       `http://localhost:3001/genres/deleteGenreUpdatedDeletedAt/${record.idGenero}`,
       {
-        method: "DELETE",
+        method: "delete",
       }
     )
       .then((response) => {
@@ -170,11 +170,6 @@ const GenresTable = () => {
             <Table
               columns={columns}
               dataSource={genres}
-              onRow={(record, rowIndex) => {
-                return {
-                  onClick: (event) => {},
-                };
-              }}
             />
           </Spin>
 

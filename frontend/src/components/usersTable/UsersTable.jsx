@@ -14,18 +14,18 @@ import {
   message,
 } from "antd";
 
-const UsersTable = () => {
+const UsersTable = ({ refreshTable, setRefreshTable }) => {
   const [modal1Open, setModal1Open] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
-  const [genres, setGenres] = useState([]);
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [editedGenre, setEditedBook] = useState(null);
+  const [editedUser, setEditedUser] = useState(null);
   const [defaultValue, setDefaultValue] = useState("");
   const [form] = Form.useForm();
 
   const handleEdit = (record) => {
     setSelectedRowData(record);
-    setEditedBook(record);
+    setEditedUser(record);
     setModal1Open(true);
     form.setFieldsValue(record);
   };
@@ -34,27 +34,25 @@ const UsersTable = () => {
     fetch("http://localhost:3001/users/")
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Error al obtener la lista de géneros");
+          throw new Error("Error al obtener la lista de usuarios");
         }
         return response.json();
       })
       .then((data) => {
-        setGenres(data);
+        setUsers(data);
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error al obtener la lista de géneros:", error);
         setLoading(false);
-        message.error("Error al obtener la lista de géneros");
       });
-  }, []);
+  }, [refreshTable]);
 
   const saveChanges = () => {
     form.validateFields().then((values) => {
       fetch(
-        `http://localhost:3001/genres/updateGenre/${editedGenre.idGenero}`,
+        `http://localhost:3001/users/updateUser/${editedUser.idUsuario}`,
         {
-          method: "PUT",
+          method: "put",
           headers: {
             "Content-Type": "application/json",
           },
@@ -64,7 +62,7 @@ const UsersTable = () => {
         .then((response) => {
           if (!response.ok) {
             if (response.status === 400) {
-              throw new Error("El género literario ya existe");
+              throw new Error("El usuario ya existe");
             } else if (response.status === 500) {
               throw new Error("Error interno de servidor");
             }
@@ -72,41 +70,41 @@ const UsersTable = () => {
           return response.json();
         })
         .then((data) => {
-          message.success("Género literario actualizado exitosamente");
+          message.success("Usuario actualizado exitosamente");
           setModal1Open(false);
-          setGenres(
-            genres.map((genre) =>
-              genre.idGenero === editedGenre.idGenero
-                ? { ...genre, ...values }
-                : genre
+          setUsers(
+            users.map((user) =>
+              user.idUsuario === editedUser.idUsuario
+                ? { ...user, ...values }
+                : user
             )
           );
         })
         .catch((error) => {
-          message.error("Error al actualizar el género literario");
+          message.error("Error al actualizar el usuario");
         });
     });
   };
 
   const confirmDelete = (record) => {
     fetch(
-      `http://localhost:3001/genres/deleteGenreUpdatedDeletedAt/${record.idGenero}`,
+      `http://localhost:3001/users/deleteUserUpdatedDeletedAt/${record.idUsuario}`,
       {
-        method: "DELETE",
+        method: "delete",
       }
     )
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Error al eliminar el género literario");
+          throw new Error("Error al eliminar el usuario");
         }
         return response.json();
       })
       .then((data) => {
-        message.success("Género literario eliminado exitosamente");
-        setGenres(genres.filter((genre) => genre.idGenero !== record.idGenero)); // Actualizar la tabla después de la eliminación
+        message.success("Usuario eliminado exitosamente");
+        setUsers(users.filter((user) => user.idUsuario !== record.idUsuario)); // Actualizar la tabla después de la eliminación
       })
       .catch((error) => {
-        message.error("Error al eliminar el género literario");
+        message.error("Error al eliminar el usuario");
       });
   };
 
@@ -148,6 +146,23 @@ const UsersTable = () => {
       }
     },
     {
+      title: "Inactivo desde",
+      dataIndex: "deleted_at",
+      key: "deletedAt",
+      render: (text) => {
+        if (text === null) {
+          return "-";
+        } else {
+          const formattedDate = new Date(text).toLocaleDateString("es-ES", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          }).replace(/\//g, "-");
+          return formattedDate;
+        }
+      }
+    },    
+    {
       title: "Acciones",
       dataIndex: "",
       key: "x",
@@ -182,7 +197,7 @@ const UsersTable = () => {
           <Spin spinning={loading} size="large" tip="Cargando...">
             <Table
               columns={columns}
-              dataSource={genres}
+              dataSource={users}
               onRow={(record, rowIndex) => {
                 return {
                   onClick: (event) => {},

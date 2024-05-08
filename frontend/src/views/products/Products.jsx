@@ -167,7 +167,7 @@ const Products = () => {
         formData.append("sinopsis", formValues.sinopsis);
 
         fetch("http://localhost:3001/books/save", {
-          method: "POST",
+          method: "post",
           body: formData,
         })
           .then((response) => response.json())
@@ -177,6 +177,7 @@ const Products = () => {
           })
           .catch((error) => {
             message.error("Error al registrar el libro");
+            console.error("Error al registrar el libro:", error.message);
           });
       },
       onCancel() {},
