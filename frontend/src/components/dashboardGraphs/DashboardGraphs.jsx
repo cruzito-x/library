@@ -42,7 +42,6 @@ const DashboardGraphs = ({ period }) => {
           backgroundColor: [
             "#05b0ff",
             "#3cba9f",
-            "#34495e",
             "#e74c3c",
             "#f4d03f",
             "#117baa",
@@ -51,12 +50,12 @@ const DashboardGraphs = ({ period }) => {
             "#e67e22",
             "#1abc9c",
             "#95a5a6",
-            "#007bff"
+            "#007bff",
+            "#34495e"
           ],
           borderColor: [
             "#05b0ff",
             "#3cba9f",
-            "#34495e",
             "#e74c3c",
             "#f4d03f",
             "#117baa",
@@ -65,7 +64,8 @@ const DashboardGraphs = ({ period }) => {
             "#e67e22",
             "#1abc9c",
             "#95a5a6",
-            "#007bff"
+            "#007bff",
+            "#34495e"
           ],
           borderWidth: 2.5,
         },

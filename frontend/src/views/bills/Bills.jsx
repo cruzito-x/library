@@ -98,7 +98,7 @@ const Bills = () => {
         cantidad: values.cantidad,
         precioUnitario: values.precioUnitario,
         subtotal,
-        descuento,
+        descuento: values.descuento,
         total,
       };
       setSelectedBooks([...selectedBooks, newBook]);
@@ -363,7 +363,7 @@ const Bills = () => {
             </Col>
             <Col span={12}>
               <Form.Item label="Descuento:" name="descuento">
-                <Input prefix={"$"} placeholder="0.00" />
+                <Input prefix={"%"} placeholder="0.00" />
               </Form.Item>
             </Col>
           </Row>
