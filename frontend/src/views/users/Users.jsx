@@ -36,6 +36,8 @@ const Users = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  const handleChange = (value) => {};
+
   useEffect(() => {
     fetch("http://localhost:3001/users")
       .then((response) => {
@@ -66,10 +68,10 @@ const Users = () => {
             layout: formLayout,
           }}
         >
-          <Form.Item label="Usuario:" name="nombreUsuario">
+          <Form.Item label="Usuario:" name="nombreUsuario" rules={[{ required: true, message: 'Por favor, ingrese un nombre de usuario' }]} >
             <Input placeholder="ej. David Cruz" name="nombreUsuario" />
           </Form.Item>
-          <Form.Item label="Contraseña:" name="password">
+          <Form.Item label="Contraseña:" name="password" rules={[{ required: true, message: 'Por favor, ingrese una contraseña' }]} >
             <Input.Password
               placeholder="ej. 12345678"
               iconRender={(visible) =>
@@ -78,10 +80,11 @@ const Users = () => {
               name="password"
             />
           </Form.Item>
-          <Form.Item label="Rol" name="rol">
+          <Form.Item label="Rol" name="rol" rules={[{ required: true, message: 'Por favor, seleccione un rol para este usuario' }]} >
             <Select
               name="rol"
               defaultValue="admin"
+              onChange={handleChange}
               options={[
                 { value: "admin", label: "Administrador" },
                 { value: "superadmin", label: "Super administrador" }
