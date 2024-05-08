@@ -83,6 +83,13 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
           .then((data) => {
             message.success("Usuario actualizado exitosamente");
             setModal1Open(false);
+            setUsers(
+              users.map((user) =>
+                user.idUsuario === editedUser.idUsuario
+                  ? { ...user, ...values }
+                  : user
+              )
+            );
           })
           .catch((error) => {
             message.error("Error al actualizar el usuario");
