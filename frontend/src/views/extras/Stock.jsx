@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Input, Row, Col, theme } from "antd";
 import StockTable from "../../components/stockTable/StockTable";
@@ -6,12 +6,37 @@ import StockTable from "../../components/stockTable/StockTable";
 const Stock = () => {
   const { Content } = Layout;
   const { Search } = Input;
-  const onSearch = (value, _e, info) => console.log(info?.source, value);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [stockData, setStockData] = useState([]);
   const [refreshTable, setRefreshTable] = useState(false);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  useEffect(() => {
+    fetch("http://localhost:3001/stock")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al obtener stock");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setStockData(data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener stock:", error);
+      });
+  }, [refreshTable]);
+
+  const handleSearch = (value) => {
+    setSearchTerm(value);
+  };
+
+  const filteredStockData = stockData.filter((item) =>
+    item.titulo.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <Content style={{ margin: "0 16px" }}>
@@ -33,10 +58,18 @@ const Stock = () => {
         <Row gutter={16}>
           <Col span={18}> </Col>
           <Col span={6}>
-            <Search placeholder="Buscar" onSearch={onSearch} enterButton />
+            <Search
+              placeholder="Buscar por nombre de libro"
+              onSearch={handleSearch}
+              enterButton
+            />
           </Col>
         </Row>
-        <StockTable refreshTable={refreshTable} setRefreshTable={setRefreshTable} />
+        <StockTable
+          stockData={filteredStockData}
+          refreshTable={refreshTable}
+          setRefreshTable={setRefreshTable}
+        />
       </div>
     </Content>
   );
