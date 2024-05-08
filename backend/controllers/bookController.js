@@ -52,10 +52,7 @@ exports.saveBook = (req, res) => {
     sinopsis,
     existencia,
   } = req.body;
-  const idLibro = crypto
-    .createHash("md5")
-    .update(`${Date.now()}`)
-    .digest("hex");
+  const idLibro = crypto.createHash("md5").update(new Date().toISOString()).digest("hex")
 
   const insertLibros = `insert into libros (idLibro, titulo, autor, isbn, fechaPublicacion, genero, precio, portada, sinopsis, created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, curdate())`;
   const insertExistencias = `insert into existencias (idLibro, existencia, created_at) values (?, ?, now())`;

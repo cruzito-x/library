@@ -16,7 +16,8 @@ exports.getUsers = (req, res) => {
 };
 
 exports.saveUser = (req, res) => {
-  const idUsuario = crypto.createHash("md5").update(`${Date.now()}`).digest("hex");
+  const idUsuario = crypto.createHash("md5").update(new Date().toISOString()).digest("hex")
+;
   const nombreUsuario = req.body.nombreUsuario; // Accede a los datos del formulario usando req.body
   const password = crypto.createHash("md5").update(req.body.password).digest("hex");
   const rol = req.body.rol;

@@ -14,7 +14,8 @@ exports.getGenres = (req, res) => {
 }
 
 exports.saveGenre = (req, res) => {
-  const idGenero = crypto.createHash("md5").update(`${Date.now()}`).digest("hex");
+  const idGenero = crypto.createHash("md5").update(new Date().toISOString()).digest("hex")
+;
 
   const { nombreGenero } = req.body;
   const selectGenero = `select * from genero where nombreGenero = ?`;
