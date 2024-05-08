@@ -53,9 +53,9 @@ exports.updateUser = (req, res) => {
   const { nombreUsuario, password, rol } = req.body;
 
   const updateUserQuery = `update usuarios set nombreUsuario = ?, password = ?, rol = ? where idUsuario = ?`;
-  const values = [nombreUsuario, password, rol, idUsuario];
+  const usuarioValues = [nombreUsuario, password, rol, idUsuario];
 
-  db.query(updateUserQuery, values, (error, result) => {
+  db.query(updateUserQuery, usuarioValues, (error, result) => {
     if (error) {
       console.error("Error al actualizar el usuario:", error);
       res.status(500).json({ message: "Error interno del servidor" });
