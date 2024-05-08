@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import {
   PlusCircleOutlined,
   PlusCircleFilled,
@@ -25,12 +25,29 @@ const Genres = () => {
   const { Content } = Layout;
   const [size, setSize] = useState("medium");
   const { Search } = Input;
-  const onSearch = (value, _e, info) => console.log(info?.source, value);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [genresData, setGenresData] = useState([]);
   const [refreshTable, setRefreshTable] = useState(false);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  useEffect(() => {
+    fetch("http://localhost:3001/genres")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al obtener la lista de géneros");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setGenresData(data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener la lista de géneros:", error);
+      });
+  }, [refreshTable]);
 
   const showAddModal = () => {
     confirm({
@@ -75,6 +92,14 @@ const Genres = () => {
     });
   };
 
+  const handleSearch = (value) => {
+    setSearchTerm(value);
+  };
+
+  const filteredGenresData = genresData.filter(item =>
+    item.nombreGenero.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  
   return (
     <Content style={{ margin: "0 16px" }}>
       <Breadcrumb style={{ margin: "50px 0 16px 0" }}>
@@ -105,10 +130,10 @@ const Genres = () => {
             </Button>
           </Col>
           <Col span={6}>
-            <Search placeholder="Buscar" onSearch={onSearch} enterButton />
+            <Search placeholder="Buscar por género literario" onSearch={handleSearch} enterButton />
           </Col>
         </Row>
-        <GenresTable refreshTable={refreshTable} setRefreshTable={setRefreshTable} />
+        <GenresTable genresData={filteredGenresData} refreshTable={refreshTable} setRefreshTable={setRefreshTable} />
       </div>
     </Content>
   );

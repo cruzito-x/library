@@ -235,7 +235,7 @@ const Products = () => {
             > Añadir nuevo </Button>
           </Col>
           <Col span={6}>
-            <Search placeholder="Buscar" onSearch={handleSearch} enterButton />
+            <Search placeholder="Buscar por nombre de libro" onSearch={handleSearch} enterButton />
           </Col>
         </Row>
         <ProductsTable booksData={filteredBooksData} refreshTable={refreshTable} setRefreshTable={setRefreshTable} />

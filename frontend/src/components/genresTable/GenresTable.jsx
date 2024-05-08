@@ -13,7 +13,7 @@ import {
   message,
 } from "antd";
 
-const GenresTable = ({ refreshTable, setRefreshTable }) => {
+const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
   const [modal1Open, setModal1Open] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
   const [genres, setGenres] = useState([]);
@@ -169,7 +169,7 @@ const GenresTable = ({ refreshTable, setRefreshTable }) => {
           <Spin spinning={loading} size="large" tip="Cargando...">
             <Table
               columns={columns}
-              dataSource={genres}
+              dataSource={genresData}
             />
           </Spin>
 
