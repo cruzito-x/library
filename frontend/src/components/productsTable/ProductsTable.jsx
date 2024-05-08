@@ -17,7 +17,7 @@ import {
   message,
 } from "antd";
 
-const ProductsTable = ( { refreshTable, setRefreshTable } ) => {
+const ProductsTable = ( { booksData, refreshTable, setRefreshTable } ) => {
   const [modal1Open, setModal1Open] = useState(false);
   const [modal2Open, setModal2Open] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
@@ -58,6 +58,25 @@ const ProductsTable = ( { refreshTable, setRefreshTable } ) => {
     setModal2Open(true);
     form.setFieldsValue(record);
   };
+
+  useEffect(() => {
+    fetch("http://localhost:3001/books/")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al obtener la lista de libros");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setBooks(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error al obtener la lista de libros:", error);
+        setLoading(false);
+        message.error("Error al obtener la lista de libros");
+      });
+  }, [refreshTable, setRefreshTable]); 
 
   const saveChanges = () => {
     form.validateFields().then((values) => {
@@ -160,25 +179,6 @@ const ProductsTable = ( { refreshTable, setRefreshTable } ) => {
     },
   ];
 
-  useEffect(() => {
-    fetch("http://localhost:3001/books/")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error al obtener la lista de libros");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setBooks(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error al obtener la lista de libros:", error);
-        setLoading(false);
-        message.error("Error al obtener la lista de libros");
-      });
-  }, [refreshTable]); 
-
   return (
     <Card style={{ marginTop: "20px" }}>
       <Row gutter={16}>
@@ -186,7 +186,7 @@ const ProductsTable = ( { refreshTable, setRefreshTable } ) => {
           <Spin spinning={loading} size="large" tip="Cargando...">
             <Table
               columns={columns}
-              dataSource={books}
+              dataSource={booksData}
               onRow={(record, rowIndex) => {
                 return {
                   onClick: (event) => {

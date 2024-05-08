@@ -5,7 +5,7 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true); // Establecer el estado de carga como verdadero al inicio de la solicitud
+    setLoading(true);
     fetch("http://localhost:3001/stock")
       .then((response) => {
         if (!response.ok) {

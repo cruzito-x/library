@@ -27,7 +27,7 @@ import ProductsTable from "../../components/productsTable/ProductsTable";
 const Products = () => {
   const { Content } = Layout;
   const { Search } = Input;
-  const onSearch = (value, _e, info) => console.log(info?.source, value);
+  const [searchTerm, setSearchTerm] = useState("");
   const [size, setSize] = useState("medium");
   const { confirm } = Modal;
   const { TextArea } = Input;
@@ -36,11 +36,28 @@ const Products = () => {
   const [genres, setGenres] = useState([]);
   const [defaultValue, setDefaultValue] = useState("");
   const [imageName, setImageName] = useState(null);
+  const [booksData, setBooksData] = useState([]);
   const [refreshTable, setRefreshTable] = useState(false);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  useEffect(() => {
+    fetch("http://localhost:3001/books")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al obtener libros");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setBooksData(data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener libros:", error);
+      });
+  }, [refreshTable]);
 
   const handleChange = (value) => {
     console.log(`selected ${value}`);
@@ -184,6 +201,14 @@ const Products = () => {
     });
   };
 
+  const handleSearch = (value) => {
+    setSearchTerm(value);
+  };
+
+  const filteredBooksData = booksData.filter((item) =>
+    item.titulo.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <Content style={{ margin: "0 16px" }}>
       <Breadcrumb style={{ margin: "50px 0 16px 0" }}>
@@ -210,10 +235,10 @@ const Products = () => {
             > Añadir nuevo </Button>
           </Col>
           <Col span={6}>
-            <Search placeholder="Buscar" onSearch={onSearch} enterButton />
+            <Search placeholder="Buscar" onSearch={handleSearch} enterButton />
           </Col>
         </Row>
-        <ProductsTable refreshTable={refreshTable} setRefreshTable={setRefreshTable} />
+        <ProductsTable booksData={filteredBooksData} refreshTable={refreshTable} setRefreshTable={setRefreshTable} />
       </div>
     </Content>
   );
