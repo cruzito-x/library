@@ -73,13 +73,8 @@ const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
         .then((data) => {
           message.success("Género literario actualizado exitosamente");
           setModal1Open(false);
-          setGenres(
-            genres.map((genre) =>
-              genre.idGenero === editedGenre.idGenero
-                ? { ...genre, ...values }
-                : genre
-            )
-          );
+          setGenres(genres.filter((genre) => genre.idGenero !== editedGenre.idGenero)); // Actualizar la tabla después de la eliminación
+          setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
         })
         .catch((error) => {
           message.error("Error al actualizar el género literario");
@@ -102,7 +97,8 @@ const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
       })
       .then((data) => {
         message.success("Género literario eliminado exitosamente");
-        setGenres(genres.filter((genre) => genre.idGenero !== record.idGenero)); // Actualizar la tabla después de la eliminación
+        setGenres(genres.filter((genre) => genre.idGenero !== editedGenre.idGenero)); // Actualizar la tabla después de la eliminación
+        setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
       })
       .catch((error) => {
         message.error("Error al eliminar el género literario");
