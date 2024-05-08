@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import {
   PlusCircleOutlined,
   PlusCircleFilled,
@@ -28,12 +28,29 @@ const Users = () => {
   const { Content } = Layout;
   const [size, setSize] = useState("medium");
   const { Search } = Input;
-  const onSearch = (value, _e, info) => console.log(info?.source, value);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [usersData, setUsersData] = useState([]);
   const [refreshTable, setRefreshTable] = useState(false);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  useEffect(() => {
+    fetch("http://localhost:3001/users")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al obtener la lista de usuarios");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setUsersData(data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener la lista de usuarios:", error);
+      });
+  }, [refreshTable]);
 
   const showAddModal = () => {
     confirm({
@@ -99,6 +116,14 @@ const Users = () => {
     });
   };
 
+  const handleSearch = (value) => {
+    setSearchTerm(value);
+  };
+
+  const filteredUsersData = usersData.filter(item =>
+    item.nombreUsuario.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <Content style={{ margin: "0 16px" }}>
       <Breadcrumb style={{ margin: "50px 0 16px 0" }}>
@@ -123,15 +148,14 @@ const Users = () => {
               size={size}
               onClick={showAddModal}
             >
-              {" "}
-              Añadir nuevo{" "}
+              Añadir nuevo
             </Button>
           </Col>
           <Col span={6}>
-            <Search placeholder="Buscar" onSearch={onSearch} enterButton />
+            <Search placeholder="Buscar" onSearch={handleSearch} enterButton />
           </Col>
         </Row>
-        <UsersTable refreshTable={refreshTable} setRefreshTable={setRefreshTable}/>
+        <UsersTable usersData={filteredUsersData} refreshTable={refreshTable} setRefreshTable={setRefreshTable}/>
       </div>
     </Content>
   );

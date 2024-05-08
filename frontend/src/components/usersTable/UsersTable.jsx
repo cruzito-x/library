@@ -20,7 +20,7 @@ import {
   message,
 } from "antd";
 
-const UsersTable = ({ refreshTable, setRefreshTable }) => {
+const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
   const [modal1Open, setModal1Open] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
   const [users, setUsers] = useState([]);
@@ -214,7 +214,7 @@ const UsersTable = ({ refreshTable, setRefreshTable }) => {
       <Row gutter={16}>
         <Col span={24}>
           <Spin spinning={loading} size="large" tip="Cargando...">
-            <Table columns={columns} dataSource={users} />
+            <Table columns={columns} dataSource={usersData} />
           </Spin>
 
           <Modal
