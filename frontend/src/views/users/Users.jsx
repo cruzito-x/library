@@ -152,7 +152,7 @@ const Users = () => {
             </Button>
           </Col>
           <Col span={6}>
-            <Search placeholder="Buscar" onSearch={handleSearch} enterButton />
+            <Search placeholder="Buscar usuario" onSearch={handleSearch} enterButton />
           </Col>
         </Row>
         <UsersTable usersData={filteredUsersData} refreshTable={refreshTable} setRefreshTable={setRefreshTable}/>
