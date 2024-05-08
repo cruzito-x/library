@@ -10,14 +10,14 @@ const app = express();
 const port = 3001;
 
 // Configuración de Morgan para escribir en el archivo express.log
-const accessLogStream = fs.createWriteStream(path.join(__dirname, "./logs/express.log"), { flags: "a" });
+const expressLogStream = fs.createWriteStream(path.join(__dirname, "./logs/express.log"), { flags: "a" });
 
 app.use(bodyParser.json()); // Middleware para parsear el body de las solicitudes como JSON
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors()); // Aceptar CORS de diferentes endpoints fuera del servidor
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Configurar el middleware para retornar archivos estáticos desde la carpeta 'uploads'
 app.use(fileupload({ createParentPath: true })); // Middleware para subida de archivos, permite crear la carpeta si no existe
-app.use(morgan("combined", { stream: accessLogStream }));
+app.use(morgan("combined", { stream: expressLogStream }));
 
 // Configuración de las rutas
 const auth = require("./routes/auth");
@@ -26,6 +26,7 @@ const books = require("./routes/books");
 const bills = require("./routes/bills");
 const users = require("./routes/users");
 const genres = require("./routes/genres");
+const stock = require("./routes/stock");
 
 app.use("/auth", auth);
 app.use("/dashboard", dashboard);
@@ -33,6 +34,7 @@ app.use("/books", books);
 app.use("/bills", bills);
 app.use("/users", users);
 app.use("/genres", genres);
+app.use("/stock", stock);
 
 // Redirigir console.log y console.error al archivo de registro
 const logStream = fs.createWriteStream(path.join(__dirname, "./logs/express.log"), { flags: "a" });
