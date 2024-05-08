@@ -53,10 +53,10 @@ const Sidebar = () => {
     '/6-months',
     '/1-year',
     '/users',
-    '/help',
     '/extras',
     '/extras/gender',
-    '/extras/stock'
+    '/extras/stock',
+    '/help'
   ];
 
   const shouldRenderLayout = allowedRoutes.includes(location.pathname);
@@ -89,9 +89,9 @@ const Sidebar = () => {
             <Route path='/books' element={<Products />} />
             <Route path='/bills' element={<Bills />} />
             <Route path='/users' element={<Users />} />
-            <Route path='/help' element={<Help />} />
             <Route path='/extras/gender' element={<Genres />} />
             <Route path='/extras/stock' element={<Stock />} />
+            <Route path='/help' element={<Help />} />
           </Routes>
         </Content>
         <Footer style={{ textAlign: 'center' }}>

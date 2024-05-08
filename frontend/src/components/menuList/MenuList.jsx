@@ -55,9 +55,6 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
       <Menu.Item key='/users' icon={<UserOutlined />}>
         Usuarios
       </Menu.Item>
-      <Menu.Item key='/help' icon={<QuestionCircleOutlined />}>
-        Ayuda
-      </Menu.Item>
       <Menu.SubMenu key='/extras' title='Extras' icon={<SettingOutlined />}>
         <Menu.Item key='/extras/gender' icon={<TagOutlined />}>
           Géneros
@@ -66,6 +63,9 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
           Existencias
         </Menu.Item>
       </Menu.SubMenu>
+      <Menu.Item key='/help' icon={<QuestionCircleOutlined />}>
+        Ayuda
+      </Menu.Item>
       <Menu.Item key='/sign-out' icon={<PoweroffOutlined />}>
         Salir
       </Menu.Item>

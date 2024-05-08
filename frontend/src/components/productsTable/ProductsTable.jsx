@@ -96,13 +96,8 @@ const ProductsTable = ( { booksData, refreshTable, setRefreshTable } ) => {
         .then((data) => {
           message.success("Libro actualizado exitosamente");
           setModal2Open(false);
-          setBooks(
-            books.map((book) =>
-              book.idLibro === editedBook.idLibro
-                ? { ...book, ...values }
-                : book
-            )
-          );
+          setBooks(books.filter((book) => book.idLibro !== editedBook.idLibro)); // Actualizar la tabla después de la eliminación
+          setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
         })
         .catch((error) => {
           console.error("Error al actualizar el libro:", error);
@@ -127,6 +122,7 @@ const ProductsTable = ( { booksData, refreshTable, setRefreshTable } ) => {
       .then((data) => {
         message.success("Libro eliminado exitosamente");
         setBooks(books.filter((book) => book.idLibro !== record.idLibro)); // Actualizar la tabla después de la eliminación
+        setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
       })
       .catch((error) => {
         console.error("Error al eliminar el libro:", error);
