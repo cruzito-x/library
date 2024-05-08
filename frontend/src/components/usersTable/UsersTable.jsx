@@ -35,6 +35,8 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
     form.setFieldsValue(record);
   };
 
+  const handleChange = (value) => {};
+
   useEffect(() => {
     fetch("http://localhost:3001/users/")
       .then((response) => {
@@ -234,12 +236,7 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
               <Form.Item
                 label="Usuario:"
                 name="nombreUsuario"
-                rules={[
-                  {
-                    required: true,
-                    message: "Por favor ingrese el nombre de usuario",
-                  },
-                ]}
+                rules={[{ required: true, message: 'Por favor, ingrese un nombre de usuario' }]}
               >
                 <Input placeholder="ej. David Cruz" name="nombreUsuario" />
               </Form.Item>
@@ -247,12 +244,7 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
                 label="Contraseña:"
                 defaultValue=""
                 name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Por favor ingrese su contraseña",
-                  },
-                ]}
+                rules={[{ required: true, message: 'Por favor, ingrese una contraseña' }]}
               >
                 <Input.Password
                   placeholder="ej. 12345678"
@@ -265,16 +257,12 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
               <Form.Item
                 label="Rol"
                 name="rol"
-                rules={[
-                  {
-                    required: true,
-                    message: "Por favor seleccione un rol",
-                  },
-                ]}
+                rules={[{ required: true, message: 'Por favor, seleccione un rol para este usuario' }]}
               >
                 <Select
                   name="rol"
                   defaultValue="admin"
+                  onChange={handleChange}
                   options={[
                     { value: "admin", label: "Administrador" },
                     { value: "superadmin", label: "Super administrador" },
