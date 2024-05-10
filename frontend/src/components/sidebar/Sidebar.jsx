@@ -7,6 +7,7 @@ import MenuList from '../menuList/MenuList';
 import Dashboard from '../../views/dashboard/Dashboard';
 import Books from '../../views/books/Books';
 import Bills from '../../views/bills/Bills';
+import SemanalReport from '../reports/SemanalReport';
 import Users from '../../views/users/Users';
 import Genres from '../../views/extras/Genres';
 import Stock from '../../views/extras/Stock';
@@ -47,11 +48,11 @@ const Sidebar = () => {
     '/dashboard',
     '/books',
     '/bills',
-    '/7-days',
-    '/14-days',
-    '/1-month',
-    '/6-months',
-    '/1-year',
+    '/reports/7-days',
+    '/reports/14-days',
+    '/reports/1-month',
+    '/reports/6-months',
+    '/reports/1-year',
     '/users',
     '/extras',
     '/extras/gender',
@@ -88,6 +89,7 @@ const Sidebar = () => {
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/books' element={<Books />} />
             <Route path='/bills' element={<Bills />} />
+            <Route path='/reports/7-days' element={<SemanalReport  />} />
             <Route path='/users' element={<Users />} />
             <Route path='/extras/gender' element={<Genres />} />
             <Route path='/extras/stock' element={<Stock />} />

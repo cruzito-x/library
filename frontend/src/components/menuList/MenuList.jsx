@@ -36,19 +36,19 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
         Facturar
       </Menu.Item>
       <Menu.SubMenu key='/reports' title='Reportes' icon={<DownloadOutlined />}>
-        <Menu.Item key='7-days' icon={<CalendarOutlined />}>
+        <Menu.Item key='/reports/7-days' icon={<CalendarOutlined />}>
           Últ. 7 días
         </Menu.Item>
-        <Menu.Item key='14-days' icon={<CalendarOutlined />}>
+        <Menu.Item key='/reports/14-days' icon={<CalendarOutlined />}>
           Últ. 14 días
         </Menu.Item>
-        <Menu.Item key='1-month' icon={<CalendarOutlined />}>
+        <Menu.Item key='/reports/1-month' icon={<CalendarOutlined />}>
           Últ. mes
         </Menu.Item>
-        <Menu.Item key='6-months' icon={<CalendarOutlined />}>
+        <Menu.Item key='/reports/6-months' icon={<CalendarOutlined />}>
           Últ. 6 meses
         </Menu.Item> 
-        <Menu.Item key='1-year' icon={<CalendarOutlined />}>
+        <Menu.Item key='/reports/1-year' icon={<CalendarOutlined />}>
           Últ. año
         </Menu.Item>
       </Menu.SubMenu>
