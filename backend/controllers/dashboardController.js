@@ -15,22 +15,22 @@ exports.getGenresComparative = (req, res) => {
 
 exports.getMonthSales = (req, res) => {
   const period = parseInt(req.query.period) || 7; 
-  let selectMonthSales = ``;
+  let selectSalesByPeriod = ``;
 
   if(period == 7) {
-    selectMonthSales = 'select fecha, sum(total) as total_venta from ventas where fecha between curdate() - interval ? day and curdate() group by fecha;';
+    selectSalesByPeriod = 'select fecha, sum(total) as total_venta from ventas where fecha between curdate() - interval ? day and curdate() group by fecha;';
   }
   if(period == 14) {
-    selectMonthSales = 'select concat("Semana del ", date_format(fecha_inicio, "%d-%m-%Y"), " al ", date_format(fecha_fin, "%d-%m-%Y")) as fecha, sum(total) as total_venta from (select date_sub(fecha, interval weekday(fecha) day) as fecha_inicio, date_add(date_sub(fecha, interval weekday(fecha) day), interval 7 day) as fecha_fin, total from ventas where fecha between curdate() - interval ? day and curdate()) as fecha group by fecha_inicio, fecha_fin;';
+    selectSalesByPeriod = 'select concat("Semana del ", date_format(fecha_inicio, "%d-%m-%Y"), " al ", date_format(fecha_fin, "%d-%m-%Y")) as fecha, sum(total) as total_venta from (select date_sub(fecha, interval weekday(fecha) day) as fecha_inicio, date_add(date_sub(fecha, interval weekday(fecha) day), interval 7 day) as fecha_fin, total from ventas where fecha between curdate() - interval ? day and curdate()) as fecha group by fecha_inicio, fecha_fin;';
   }
   if(period == 30) {
-    selectMonthSales = 'select concat("Desde el ", date_format(min(fecha), "%d-%m-%Y"), " hasta el ", date_format(max(fecha), "%d-%m-%Y")) as fecha, sum(total) as total_venta from ventas where fecha between curdate() - interval ? day and curdate();';
+    selectSalesByPeriod = 'select concat("Desde el ", date_format(min(fecha), "%d-%m-%Y"), " hasta el ", date_format(max(fecha), "%d-%m-%Y")) as fecha, sum(total) as total_venta from ventas where fecha between curdate() - interval ? day and curdate();';
   }
   if(period == 90 || period == 180 || period == 365) {
-    selectMonthSales = 'select concat(monthname(fecha), " ", year(fecha)) as fecha, sum(total) as total_venta from ventas where fecha between curdate() - interval ? day and curdate() group by year(fecha), month(fecha) order by year(fecha), month(fecha);';
+    selectSalesByPeriod = 'select concat(monthname(fecha), " ", year(fecha)) as fecha, sum(total) as total_venta from ventas where fecha between curdate() - interval ? day and curdate() group by year(fecha), month(fecha) order by year(fecha), month(fecha);';
   }
 
-  db.query(selectMonthSales, [period], (error, results) => {
+  db.query(selectSalesByPeriod, [period], (error, results) => {
     if (error) {
       res
         .status(500)
