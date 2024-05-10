@@ -438,6 +438,7 @@ const DashboardGraphs = ({ period }) => {
               </Title>
               <Spin spinning={loading} size="large" tip="Cargando...">
                 <Table
+                  scroll={{ x: "max-content" }} 
                   columns={columns}
                   expandable={{
                     expandedRowRender: (record) => (

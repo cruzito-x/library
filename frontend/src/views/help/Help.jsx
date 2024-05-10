@@ -5,8 +5,11 @@ import {
   Breadcrumb,
   Typography,
   Card,
+  Image,
   Collapse,
   Alert,
+  Row,
+  Col,
   theme,
 } from "antd";
 
@@ -44,7 +47,7 @@ import refreshGenresTableAfterDelete from "../../assets/images/genres/refreshGen
 import stock from "../../assets/images/stock/stock.png";
 import editStock from "../../assets/images/stock/editStock.png";
 import successStockUpdated from "../../assets/images/stock/successStockUpdated.png";
-import confirmDeleteStock from "../../assets/images/buttons/confirmDeleteStock.png";
+import popConfirmDeleteStock from "../../assets/images/buttons/popConfirmDeleteStock.png";
 import successStockDeleted from "../../assets/images/stock/successStockDeleted.png";
 import refreshStockTableAfterDelete from "../../assets/images/stock/refreshStockTableAfterDelete.png";
 import activateButton from "../../assets/images/buttons/activateButton.png";
@@ -78,34 +81,41 @@ const Help = () => {
           <QuestionCircleOutlined /> Ayuda
         </Title>
         <>
-          <Card type="inner" title="Dashboard">
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <img
-                src={dashboard}
-                style={{ width: "1180px", height: "620px" }}
-              />
-            </div>
-            <p>
-              
-              En este apartado podrás visualizar de manera centralizada todo
-              aquello referente a los datos más importantes registradas en el
-              sistema, tales como:
-            </p>
-            <ul>
-              <li>
-                <strong>1.</strong> Tendencia de ventas por género.
-              </li>
-              <li>
-                <strong>2.</strong> Ventas diarias registradas en el mes actual.
-              </li>
-              <li>
-                <strong>3.</strong> Adiciones recientes.
-              </li>
-              <li>
-                <strong>4.</strong> Los libros más vendidos de todo nuestro
-                inventario.
-              </li>
-            </ul>
+          <Card title="Dashboard">
+            <Row justify="center">
+              <Col xs={24}>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <img
+                    src={dashboard}
+                    style={{ maxWidth: "100%", height: "auto" }}
+                    alt="Dashboard"
+                  />
+                </div>
+              </Col>
+              <Col xs={24}>
+                <p>
+                  En este apartado podrás visualizar de manera centralizada todo
+                  aquello referente a los datos más importantes registrados en
+                  el sistema, tales como:
+                </p>
+                <ul>
+                  <li>
+                    <strong>1.</strong> Tendencia de ventas por género.
+                  </li>
+                  <li>
+                    <strong>2.</strong> Ventas diarias registradas en el mes
+                    actual.
+                  </li>
+                  <li>
+                    <strong>3.</strong> Adiciones recientes.
+                  </li>
+                  <li>
+                    <strong>4.</strong> Los libros más vendidos de todo nuestro
+                    inventario.
+                  </li>
+                </ul>
+              </Col>
+            </Row>
           </Card>
 
           <br />
@@ -117,15 +127,11 @@ const Help = () => {
                 label: "Libros",
                 children: (
                   <>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <img
+                    <div style={{ textAlign: "center" }}>
+                      <Image
                         src={books}
-                        style={{ width: "950px", height: "490px" }}
+                        preview={false} // Desactiva la previsualización si no es necesaria
+                        style={{ maxWidth: "80%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                       />
                     </div>
                     <br />
@@ -143,27 +149,19 @@ const Help = () => {
                                 <strong> Añadir nuevo </strong> que se encuentra
                                 en la parte superior del formulario:
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={addButton}
-                                  style={{ width: "330px", height: "100px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p> Esto desplegará el siguiente modal: </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={saveBook}
-                                  style={{ width: "470px", height: "490px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "80%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
@@ -173,16 +171,11 @@ const Help = () => {
                                 <strong> Guardar </strong>. Lo cual mostrará el
                                 siguiente mensaje en pantalla:
                               </p>
-
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={successBookSaved}
-                                  style={{ width: "350px", height: "70px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
@@ -190,15 +183,11 @@ const Help = () => {
                                 satisfactoriamente, junto con esto, se
                                 refrescará automáticamente la tabla de datos.
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={newBookInTable}
-                                  style={{ width: "1150px", height: "250px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "80%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                             </>
@@ -222,27 +211,19 @@ const Help = () => {
                                 <strong> Editar </strong> correspondiente al
                                 registro que desea actualizar:
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={editButton}
-                                  style={{ width: "150px", height: "60px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p> Esto desplegará el siguiente modal: </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={updateBook}
-                                  style={{ width: "440px", height: "510px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "80%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
@@ -252,16 +233,11 @@ const Help = () => {
                                 el botón <strong> Guardar cambios </strong>. Lo
                                 cual mostrará el siguiente mensaje en pantalla:
                               </p>
-
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={successBookUpdated}
-                                  style={{ width: "350px", height: "50px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
@@ -269,15 +245,11 @@ const Help = () => {
                                 libro satisfactoriamente, junto con esto, se
                                 refrescará automáticamente la tabla de datos.
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={refreshBooksTableAfterUpdate}
-                                  style={{ width: "1350px", height: "100px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "80%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                             </>
@@ -301,30 +273,22 @@ const Help = () => {
                                 <strong> Eliminar </strong> correspondiente al
                                 registro que desea eliminar:
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={deleteButton}
-                                  style={{ width: "150px", height: "60px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
                                 Esto desplegará el siguiente cuadro de
                                 confirmación:
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={popConfirmDelete}
-                                  style={{ width: "390px", height: "180px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
@@ -333,15 +297,11 @@ const Help = () => {
                                 opción <strong>Sí</strong>, esto desplegará la
                                 siguiente alerta:
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={successBookDeleted}
-                                  style={{ width: "350px", height: "50px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
@@ -349,15 +309,11 @@ const Help = () => {
                                 satisfactoriamente, junto con esto, se
                                 refrescará automáticamente la tabla de datos.
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={refreshBooksTableAfterDelete}
-                                  style={{ width: "1150px", height: "500px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "80%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                             </>
@@ -381,15 +337,11 @@ const Help = () => {
                 children: (
                   <>
                     <>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <img
+                      <div style={{ textAlign: "center" }}>
+                        <Image
                           src={bills}
-                          style={{ width: "950px", height: "490px" }}
+                          preview={false} // Desactiva la previsualización si no es necesaria
+                          style={{ maxWidth: "80%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                         />
                       </div>
                       <p>
@@ -414,18 +366,14 @@ const Help = () => {
                                   <p>
                                     Selecciona el libro que se va a facturar:
                                   </p>
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                    }}
-                                  >
-                                    <img
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
                                       src={selectBook}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
                                       style={{
-                                        width: "1250px",
-                                        height: "290px",
-                                      }}
+                                        maxWidth: "90%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
                                     />
                                   </div>
                                 </li>
@@ -433,20 +381,19 @@ const Help = () => {
                                   <h3> Paso 2. </h3>
                                   <p>
                                     Rellena los campos:
-                                    <strong> cantidad y descuento (opcional)</strong>.
+                                    <strong>
+                                      cantidad y descuento (opcional)
+                                    </strong>
+                                    .
                                   </p>
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                    }}
-                                  >
-                                    <img
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
                                       src={fillBillFields}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
                                       style={{
-                                        width: "1250px",
-                                        height: "160px",
-                                      }}
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
                                     />
                                   </div>
                                 </li>
@@ -458,18 +405,14 @@ const Help = () => {
                                     el libro en la tabla para proceder con la
                                     facturación.
                                   </p>
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                    }}
-                                  >
-                                    <img
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
                                       src={addBookToFill}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
                                       style={{
-                                        width: "1150px",
-                                        height: "380px",
-                                      }}
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
                                     />
                                   </div>
                                 </li>
@@ -482,18 +425,14 @@ const Help = () => {
                                     </strong>
                                     y da clic en el botón <strong></strong>.
                                   </p>
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                    }}
-                                  >
-                                    <img
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
                                       src={fillBillClientFields}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
                                       style={{
-                                        width: "1250px",
-                                        height: "120px",
-                                      }}
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
                                     />
                                   </div>
                                 </li>
@@ -503,18 +442,14 @@ const Help = () => {
                                     Haz clic sobre el botón
                                     <strong>Generar factura</strong>:
                                   </p>
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                    }}
-                                  >
-                                    <img
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
                                       src={generateBill}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
                                       style={{
-                                        width: "220px",
-                                        height: "60px",
-                                      }}
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
                                     />
                                   </div>
                                 </li>
@@ -523,30 +458,19 @@ const Help = () => {
                                 Cumplidos estos pasos, se generarán la siguiente
                                 alerta:
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={successBillSaved}
-                                  style={{ width: "350px", height: "70px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>Y se exportará el siguiente archivo PDF:</p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={showBill}
-                                  style={{
-                                    width: "1220px",
-                                    height: "460px",
-                                  }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "80%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                             </>
@@ -558,7 +482,7 @@ const Help = () => {
                 ),
               },
             ]}
-          ></Collapse>
+          />
 
           <br />
           <Collapse
@@ -583,7 +507,7 @@ const Help = () => {
                 ),
               },
             ]}
-          ></Collapse>
+          />
 
           <br />
           <Collapse
@@ -595,15 +519,11 @@ const Help = () => {
                 children: (
                   <>
                     <>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <img
+                      <div style={{ textAlign: "center" }}>
+                        <Image
                           src={genres}
-                          style={{ width: "950px", height: "490px" }}
+                          preview={false} // Desactiva la previsualización si no es necesaria
+                          style={{ maxWidth: "80%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                         />
                       </div>
                       <p>
@@ -626,46 +546,33 @@ const Help = () => {
                                 <strong>Añadir </strong> que se encuentra en la
                                 parte superior del formulario:
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={addButton}
-                                  style={{ width: "330px", height: "100px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p> Esto desplegará el siguiente modal: </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={saveGenre}
-                                  style={{ width: "630px", height: "150px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
-                                
                                 Este debe ser rellenado con el campo solicitado
                                 para proceder con el registro de dicho género,
                                 finalmente debe dar clic sobre el botón
                                 <strong>Guardar</strong>. Lo cual mostrará el
                                 siguiente mensaje:
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={successGenreSaved}
-                                  style={{ width: "350px", height: "70px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
@@ -673,15 +580,11 @@ const Help = () => {
                                 satisfactoriamente, esto refrescará
                                 automáticamente la tabla de datos.
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={newGenreInTable}
-                                  style={{ width: "1150px", height: "60px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "80%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                             </>
@@ -705,45 +608,33 @@ const Help = () => {
                                 literario, debe dar clic sobre el botón
                                 <strong>Editar</strong>:
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={editButton}
-                                  style={{ width: "150px", height: "60px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p> Esto desplegará el siguiente modal: </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={updateGenre}
-                                  style={{ width: "630px", height: "150px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
                                 Este debe ser rellenado con el campo solicitado
                                 para proceder con el registro de dicho género,
                                 finalmente debe dar clic sobre el botón
-                                <strong>Guardar</strong>. Lo cual mostrará el
-                                siguiente mensaje:
+                                <strong> Guardar cambios</strong>. Lo cual
+                                mostrará el siguiente mensaje:
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={successGenreUpdated}
-                                  style={{ width: "350px", height: "70px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
@@ -751,15 +642,11 @@ const Help = () => {
                                 satisfactoriamente, esto refrescará
                                 automáticamente la tabla de datos.
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={refreshGenresTableAfterUpdate}
-                                  style={{ width: "1250px", height: "70px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                             </>
@@ -782,30 +669,22 @@ const Help = () => {
                                 género literario, debe dar clic sobre el botón
                                 <strong>Eliminar</strong>:
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={deleteButton}
-                                  style={{ width: "150px", height: "60px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
                                 Esto desplegará el siguiente cuadro de
                                 confirmación:
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={popConfirmDelete}
-                                  style={{ width: "390px", height: "180px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
@@ -815,15 +694,11 @@ const Help = () => {
                                 <strong>Guardar</strong>. Lo cual mostrará el
                                 siguiente mensaje:
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={successGenreDeleted}
-                                  style={{ width: "350px", height: "70px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
@@ -831,15 +706,11 @@ const Help = () => {
                                 satisfactoriamente, esto refrescará
                                 automáticamente la tabla de datos.
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={refreshGenresTableAfterDelete}
-                                  style={{ width: "1250px", height: "190px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <br />
@@ -869,15 +740,11 @@ const Help = () => {
                 children: (
                   <>
                     <>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <img
+                      <div style={{ textAlign: "center" }}>
+                        <Image
                           src={stock}
-                          style={{ width: "950px", height: "490px" }}
+                          preview={false} // Desactiva la previsualización si no es necesaria
+                          style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                         />
                       </div>
                       <p>
@@ -912,54 +779,39 @@ const Help = () => {
                           label: "Actualizar existencias",
                           children: (
                             <>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={editButton}
-                                  style={{ width: "150px", height: "60px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
-                                
                                 Para realizar la actualización de stock de un
                                 libro, se deberá dar clic sobre el botón
                                 <strong>Editar</strong>, el cual desplegará el
                                 siguiente modal:
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={editStock}
-                                  style={{ width: "650px", height: "160px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
-                                
                                 Al dar clic en el botón
                                 <strong>Guardar cambios</strong> se desplegará
                                 el siguiente mensaje:
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={successStockUpdated}
-                                  style={{ width: "350px", height: "60px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
-                                
                                 Con lo cual se estará actualizando el total de
                                 unidades en stock del libro seleccionado.
                               </p>
@@ -984,30 +836,22 @@ const Help = () => {
                                 <strong>Eliminar</strong> correspondiente al
                                 registro que desea eliminar
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={deleteButton}
-                                  style={{ width: "150px", height: "60px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
                                 Esto desplegará el siguiente cuadro de
                                 confirmación:
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
-                                  src={confirmDeleteStock}
-                                  style={{ width: "390px", height: "180px" }}
+                              <div style={{ textAlign: "center" }}>
+                                <Image
+                                  src={popConfirmDeleteStock}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
@@ -1016,15 +860,11 @@ const Help = () => {
                                 opción <strong>Sí</strong>, esto desplegará la
                                 siguiente alerta:
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={successStockDeleted}
-                                  style={{ width: "350px", height: "50px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
@@ -1032,15 +872,11 @@ const Help = () => {
                                 en este caso, el estado "
                                 <strong>Retirado</strong>".
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={refreshStockTableAfterDelete}
-                                  style={{ width: "1250px", height: "65px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
@@ -1070,27 +906,19 @@ const Help = () => {
                                 <strong>Activar</strong> correspondiente al
                                 registro que desea activar
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={activateButton}
-                                  style={{ width: "150px", height: "60px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p> Esto desplegará la siguiente alerta: </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={successStockActivation}
-                                  style={{ width: "350px", height: "50px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>
@@ -1098,15 +926,11 @@ const Help = () => {
                                 en este caso, el estado "
                                 <strong>Retirado</strong>".
                               </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
+                              <div style={{ textAlign: "center" }}>
+                                <Image
                                   src={refreshStockTableAfterActivate}
-                                  style={{ width: "1250px", height: "65px" }}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                                 />
                               </div>
                               <p>

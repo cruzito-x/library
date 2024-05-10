@@ -92,18 +92,7 @@ const Login = () => {
           >
             <Input.Password placeholder="Contraseña" iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} />
           </Form.Item>
-
-          <Form.Item
-            name="remember"
-            valuePropName="checked"
-            wrapperCol={{
-              offset: 0,
-              span: 24,
-            }}
-          >
-            <Checkbox>Recuérdame</Checkbox>
-          </Form.Item>
-
+          
           <Form.Item>
             <Button
               type="primary"
