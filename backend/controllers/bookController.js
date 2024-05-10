@@ -3,7 +3,7 @@ const crypto = require("crypto");
 
 exports.getBooks = (req, res) => {
   db.query(
-    "select *, e.existencia as existencia, g.nombreGenero as genero from libros l inner join existencias e on e.idLibro = l.idLibro inner join genero g on g.idGenero = l.genero where (l.deleted_at is null and e.deleted_at is null)",
+    "select *, e.existencia as existencia, g.nombreGenero as genero from libros l inner join existencias e on e.idLibro = l.idLibro inner join genero g on g.idGenero = l.genero where (l.deleted_at is null and e.deleted_at is null) and e.existencia != 0",
     (error, results) => {
       if (error) {
         console.error("Error al obtener los libros:", error);
