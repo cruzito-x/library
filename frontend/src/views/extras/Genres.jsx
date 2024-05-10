@@ -16,7 +16,7 @@ import {
   theme,
   message
 } from "antd";
-import GenresTable from "../../components/genresTable/GenresTable";
+import GenresTable from "../../components/tables/genresTable/GenresTable";
 
 const Genres = () => {
   const { confirm } = Modal;

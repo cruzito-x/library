@@ -19,7 +19,7 @@ import {
   theme,
   message
 } from "antd";
-import UsersTable from "../../components/usersTable/UsersTable";
+import UsersTable from "../../components/tables/usersTable/UsersTable";
 
 const Users = () => {
   const { confirm } = Modal;

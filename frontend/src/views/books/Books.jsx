@@ -22,7 +22,7 @@ import {
   theme,
   message,
 } from "antd";
-import BooksTable from "../../components/booksTable/BooksTable";
+import BooksTable from "../../components/tables/booksTable/BooksTable";
 
 const Books = () => {
   const { Content } = Layout;

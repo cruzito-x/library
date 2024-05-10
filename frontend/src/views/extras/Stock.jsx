@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Input, Row, Col, theme } from "antd";
-import StockTable from "../../components/stockTable/StockTable";
+import StockTable from "../../components/tables/stockTable/StockTable";
 
 const Stock = () => {
   const { Content } = Layout;
