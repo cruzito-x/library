@@ -86,34 +86,29 @@ const Help = () => {
               />
             </div>
             <p>
-              {" "}
+              
               En este apartado podrás visualizar de manera centralizada todo
               aquello referente a los datos más importantes registradas en el
-              sistema, tales como:{" "}
+              sistema, tales como:
             </p>
             <ul>
               <li>
-                {" "}
-                <strong>1.</strong> Tendencia de ventas por género.{" "}
+                <strong>1.</strong> Tendencia de ventas por género.
               </li>
               <li>
-                {" "}
-                <strong>2.</strong> Ventas diarias registradas en el mes actual.{" "}
+                <strong>2.</strong> Ventas diarias registradas en el mes actual.
               </li>
               <li>
-                {" "}
-                <strong>3.</strong> Adiciones recientes.{" "}
+                <strong>3.</strong> Adiciones recientes.
               </li>
               <li>
-                {" "}
                 <strong>4.</strong> Los libros más vendidos de todo nuestro
-                inventario.{" "}
+                inventario.
               </li>
             </ul>
           </Card>
 
           <br />
-
           <Collapse
             size="large"
             items={[
@@ -144,7 +139,7 @@ const Help = () => {
                             <>
                               <p>
                                 Para realizar el registro de un libro, debe dar
-                                clic sobre el botón{" "}
+                                clic sobre el botón
                                 <strong> Añadir nuevo </strong> que se encuentra
                                 en la parte superior del formulario:
                               </p>
@@ -172,12 +167,11 @@ const Help = () => {
                                 />
                               </div>
                               <p>
-                                {" "}
                                 Este debe ser rellenado con los campos
                                 solicitados para proceder al registro de dicho
-                                libro, finalmente debe dar clic sobre el botón{" "}
+                                libro, finalmente debe dar clic sobre el botón
                                 <strong> Guardar </strong>. Lo cual mostrará el
-                                siguiente mensaje en pantalla:{" "}
+                                siguiente mensaje en pantalla:
                               </p>
 
                               <div
@@ -194,7 +188,7 @@ const Help = () => {
                               <p>
                                 Mostrando que se ha registrado el libro
                                 satisfactoriamente, junto con esto, se
-                                refrescará automáticamente la tabla de datos.{" "}
+                                refrescará automáticamente la tabla de datos.
                               </p>
                               <div
                                 style={{
@@ -224,7 +218,7 @@ const Help = () => {
                             <>
                               <p>
                                 Para realizar la edición del registro de un
-                                libro, debe dar clic sobre el botón{" "}
+                                libro, debe dar clic sobre el botón
                                 <strong> Editar </strong> correspondiente al
                                 registro que desea actualizar:
                               </p>
@@ -252,12 +246,11 @@ const Help = () => {
                                 />
                               </div>
                               <p>
-                                {" "}
                                 Este debe ser rellenado con los campos
                                 solicitados para proceder a la actualización de
                                 dicho registro, finalmente debe dar clic sobre
                                 el botón <strong> Guardar cambios </strong>. Lo
-                                cual mostrará el siguiente mensaje en pantalla:{" "}
+                                cual mostrará el siguiente mensaje en pantalla:
                               </p>
 
                               <div
@@ -274,7 +267,7 @@ const Help = () => {
                               <p>
                                 Mostrando que se ha actualizado el registro del
                                 libro satisfactoriamente, junto con esto, se
-                                refrescará automáticamente la tabla de datos.{" "}
+                                refrescará automáticamente la tabla de datos.
                               </p>
                               <div
                                 style={{
@@ -304,7 +297,7 @@ const Help = () => {
                             <>
                               <p>
                                 Para realizar la eliminación del registro de un
-                                libro, debe dar clic sobre el botón{" "}
+                                libro, debe dar clic sobre el botón
                                 <strong> Eliminar </strong> correspondiente al
                                 registro que desea eliminar:
                               </p>
@@ -320,9 +313,8 @@ const Help = () => {
                                 />
                               </div>
                               <p>
-                                {" "}
                                 Esto desplegará el siguiente cuadro de
-                                confirmación:{" "}
+                                confirmación:
                               </p>
                               <div
                                 style={{
@@ -355,7 +347,7 @@ const Help = () => {
                               <p>
                                 Mostrando que se ha eliminado el registro
                                 satisfactoriamente, junto con esto, se
-                                refrescará automáticamente la tabla de datos.{" "}
+                                refrescará automáticamente la tabla de datos.
                               </p>
                               <div
                                 style={{
@@ -380,7 +372,6 @@ const Help = () => {
           ></Collapse>
 
           <br />
-
           <Collapse
             size="large"
             items={[
@@ -402,7 +393,6 @@ const Help = () => {
                         />
                       </div>
                       <p>
-                        {" "}
                         En este apartado se realiza el proceso de facturación.
                       </p>
                     </>
@@ -415,16 +405,14 @@ const Help = () => {
                           children: (
                             <>
                               <p>
-                                {" "}
                                 Para realizar una factura los pasos a seguir son
-                                los siguientes:{" "}
+                                los siguientes:
                               </p>
                               <ul>
                                 <li>
                                   <h3> Paso 1. </h3>
                                   <p>
-                                    {" "}
-                                    Selecciona el libro que se va a facturar:{" "}
+                                    Selecciona el libro que se va a facturar:
                                   </p>
                                   <div
                                     style={{
@@ -444,13 +432,8 @@ const Help = () => {
                                 <li>
                                   <h3> Paso 2. </h3>
                                   <p>
-                                    {" "}
-                                    Rellena los campos:{" "}
-                                    <strong>
-                                      {" "}
-                                      cantidad y descuento (opcional){" "}
-                                    </strong>
-                                    .{" "}
+                                    Rellena los campos:
+                                    <strong> cantidad y descuento (opcional)</strong>.
                                   </p>
                                   <div
                                     style={{
@@ -470,11 +453,10 @@ const Help = () => {
                                 <li>
                                   <h3> Paso 3. </h3>
                                   <p>
-                                    {" "}
-                                    Da clic en el botón{" "}
+                                    Da clic en el botón
                                     <strong>Añadir libro</strong>, esto cargará
                                     el libro en la tabla para proceder con la
-                                    facturación.{" "}
+                                    facturación.
                                   </p>
                                   <div
                                     style={{
@@ -494,13 +476,11 @@ const Help = () => {
                                 <li>
                                   <h3> Paso 4. </h3>
                                   <p>
-                                    {" "}
-                                    Rellena los campos:{" "}
+                                    Rellena los campos:
                                     <strong>
-                                      {" "}
-                                      nombre y apellido (obligatorio){" "}
-                                    </strong>{" "}
-                                    y da clic en el botón <strong></strong>.{" "}
+                                      nombre y apellido (obligatorio)
+                                    </strong>
+                                    y da clic en el botón <strong></strong>.
                                   </p>
                                   <div
                                     style={{
@@ -520,9 +500,8 @@ const Help = () => {
                                 <li>
                                   <h3> Paso 5. </h3>
                                   <p>
-                                    {" "}
-                                    Haz clic sobre el botón{" "}
-                                    <strong>Generar factura</strong>:{" "}
+                                    Haz clic sobre el botón
+                                    <strong>Generar factura</strong>:
                                   </p>
                                   <div
                                     style={{
@@ -541,9 +520,8 @@ const Help = () => {
                                 </li>
                               </ul>
                               <p>
-                                {" "}
                                 Cumplidos estos pasos, se generarán la siguiente
-                                alerta:{" "}
+                                alerta:
                               </p>
                               <div
                                 style={{
@@ -583,7 +561,6 @@ const Help = () => {
           ></Collapse>
 
           <br />
-
           <Collapse
             size="large"
             items={[
@@ -609,7 +586,6 @@ const Help = () => {
           ></Collapse>
 
           <br />
-
           <Collapse
             size="large"
             items={[
@@ -631,10 +607,9 @@ const Help = () => {
                         />
                       </div>
                       <p>
-                        {" "}
                         En este apartado del sistema podremos visualizar los
                         géneros literarios que se manejan para la clasificación
-                        de libros y cuantos pertenecen a cada uno de ellos.{" "}
+                        de libros y cuantos pertenecen a cada uno de ellos.
                       </p>
                     </>
                     <Collapse
@@ -646,11 +621,10 @@ const Help = () => {
                           children: (
                             <>
                               <p>
-                                {" "}
                                 Para realizar la actualización de un género
-                                literario, debe dar clic sobre el botón{" "}
+                                literario, debe dar clic sobre el botón
                                 <strong>Añadir </strong> que se encuentra en la
-                                parte superior del formulario:{" "}
+                                parte superior del formulario:
                               </p>
                               <div
                                 style={{
@@ -676,12 +650,12 @@ const Help = () => {
                                 />
                               </div>
                               <p>
-                                {" "}
+                                
                                 Este debe ser rellenado con el campo solicitado
                                 para proceder con el registro de dicho género,
-                                finalmente debe dar clic sobre el botón{" "}
+                                finalmente debe dar clic sobre el botón
                                 <strong>Guardar</strong>. Lo cual mostrará el
-                                siguiente mensaje:{" "}
+                                siguiente mensaje:
                               </p>
                               <div
                                 style={{
@@ -695,10 +669,9 @@ const Help = () => {
                                 />
                               </div>
                               <p>
-                                {" "}
                                 Mostrando que se ha registrado el género
                                 satisfactoriamente, esto refrescará
-                                automáticamente la tabla de datos.{" "}
+                                automáticamente la tabla de datos.
                               </p>
                               <div
                                 style={{
@@ -728,10 +701,9 @@ const Help = () => {
                           children: (
                             <>
                               <p>
-                                {" "}
                                 Para realizar la actualización de un género
-                                literario, debe dar clic sobre el botón{" "}
-                                <strong>Editar</strong>:{" "}
+                                literario, debe dar clic sobre el botón
+                                <strong>Editar</strong>:
                               </p>
                               <div
                                 style={{
@@ -757,12 +729,11 @@ const Help = () => {
                                 />
                               </div>
                               <p>
-                                {" "}
                                 Este debe ser rellenado con el campo solicitado
                                 para proceder con el registro de dicho género,
-                                finalmente debe dar clic sobre el botón{" "}
+                                finalmente debe dar clic sobre el botón
                                 <strong>Guardar</strong>. Lo cual mostrará el
-                                siguiente mensaje:{" "}
+                                siguiente mensaje:
                               </p>
                               <div
                                 style={{
@@ -776,10 +747,9 @@ const Help = () => {
                                 />
                               </div>
                               <p>
-                                {" "}
                                 Mostrando que el género se ha actualizado
                                 satisfactoriamente, esto refrescará
-                                automáticamente la tabla de datos.{" "}
+                                automáticamente la tabla de datos.
                               </p>
                               <div
                                 style={{
@@ -799,7 +769,6 @@ const Help = () => {
                     />
 
                     <br />
-
                     <Collapse
                       size="large"
                       items={[
@@ -809,10 +778,9 @@ const Help = () => {
                           children: (
                             <>
                               <p>
-                                {" "}
                                 Para realizar la eliminación del registro de un
-                                género literario, debe dar clic sobre el botón{" "}
-                                <strong>Eliminar</strong>:{" "}
+                                género literario, debe dar clic sobre el botón
+                                <strong>Eliminar</strong>:
                               </p>
                               <div
                                 style={{
@@ -826,9 +794,8 @@ const Help = () => {
                                 />
                               </div>
                               <p>
-                                {" "}
                                 Esto desplegará el siguiente cuadro de
-                                confirmación:{" "}
+                                confirmación:
                               </p>
                               <div
                                 style={{
@@ -842,12 +809,11 @@ const Help = () => {
                                 />
                               </div>
                               <p>
-                                {" "}
                                 Este debe ser rellenado con el campo solicitado
                                 para proceder con el registro de dicho género,
-                                finalmente debe dar clic sobre el botón{" "}
+                                finalmente debe dar clic sobre el botón
                                 <strong>Guardar</strong>. Lo cual mostrará el
-                                siguiente mensaje:{" "}
+                                siguiente mensaje:
                               </p>
                               <div
                                 style={{
@@ -861,10 +827,9 @@ const Help = () => {
                                 />
                               </div>
                               <p>
-                                {" "}
                                 Mostrando que se ha registrado el género
                                 satisfactoriamente, esto refrescará
-                                automáticamente la tabla de datos.{" "}
+                                automáticamente la tabla de datos.
                               </p>
                               <div
                                 style={{
@@ -892,10 +857,9 @@ const Help = () => {
                 ),
               },
             ]}
-          ></Collapse>
+          />
 
           <br />
-
           <Collapse
             size="large"
             items={[
@@ -917,30 +881,26 @@ const Help = () => {
                         />
                       </div>
                       <p>
-                        {" "}
                         En este apartado del sistema podremos visualizar el
-                        stock yacente de cada libro y sus respectivos estados{" "}
+                        stock yacente de cada libro y sus respectivos estados
                         <strong>
                           (estado de unidades y estado de circulación)
                         </strong>
                         , para los cuales se cuenta con los siguientes botones
-                        de acción:{" "}
+                        de acción:
                       </p>
                       <ul>
                         <li>
-                          {" "}
                           <strong>1. Editar:</strong> Este botón permite la
-                          actualización de unidades en stock.{" "}
+                          actualización de unidades en stock.
                         </li>
                         <li>
-                          {" "}
                           <strong>2. Eliminar:</strong> Este botón retira las
-                          unidades de circulación del stock.{" "}
+                          unidades de circulación del stock.
                         </li>
                         <li>
-                          {" "}
                           <strong>3. Activar:</strong> Este botón activa el
-                          stock en circulación.{" "}
+                          stock en circulación.
                         </li>
                       </ul>
                     </>
@@ -964,11 +924,11 @@ const Help = () => {
                                 />
                               </div>
                               <p>
-                                {" "}
+                                
                                 Para realizar la actualización de stock de un
-                                libro, se deberá dar clic sobre el botón{" "}
+                                libro, se deberá dar clic sobre el botón
                                 <strong>Editar</strong>, el cual desplegará el
-                                siguiente modal:{" "}
+                                siguiente modal:
                               </p>
                               <div
                                 style={{
@@ -982,10 +942,10 @@ const Help = () => {
                                 />
                               </div>
                               <p>
-                                {" "}
-                                Al dar clic en el botón{" "}
+                                
+                                Al dar clic en el botón
                                 <strong>Guardar cambios</strong> se desplegará
-                                el siguiente mensaje:{" "}
+                                el siguiente mensaje:
                               </p>
                               <div
                                 style={{
@@ -999,9 +959,9 @@ const Help = () => {
                                 />
                               </div>
                               <p>
-                                {" "}
+                                
                                 Con lo cual se estará actualizando el total de
-                                unidades en stock del libro seleccionado.{" "}
+                                unidades en stock del libro seleccionado.
                               </p>
                             </>
                           ),
@@ -1010,7 +970,6 @@ const Help = () => {
                     />
 
                     <br />
-
                     <Collapse
                       size="large"
                       items={[
@@ -1020,11 +979,10 @@ const Help = () => {
                           children: (
                             <>
                               <p>
-                                {" "}
                                 Para realizar el retiro de stock de un libro,
-                                debe dar clic sobre el botón{" "}
+                                debe dar clic sobre el botón
                                 <strong>Eliminar</strong> correspondiente al
-                                registro que desea eliminar{" "}
+                                registro que desea eliminar
                               </p>
                               <div
                                 style={{
@@ -1038,9 +996,8 @@ const Help = () => {
                                 />
                               </div>
                               <p>
-                                {" "}
                                 Esto desplegará el siguiente cuadro de
-                                confirmación:{" "}
+                                confirmación:
                               </p>
                               <div
                                 style={{
@@ -1054,11 +1011,10 @@ const Help = () => {
                                 />
                               </div>
                               <p>
-                                {" "}
                                 Si escoge la opción <strong>No</strong>, no
                                 ocurrirá nada, sin embargo, si decide escoger la
                                 opción <strong>Sí</strong>, esto desplegará la
-                                siguiente alerta:{" "}
+                                siguiente alerta:
                               </p>
                               <div
                                 style={{
@@ -1072,10 +1028,9 @@ const Help = () => {
                                 />
                               </div>
                               <p>
-                                {" "}
                                 Mostrando ahora un nuevo estado para el libro,
                                 en este caso, el estado "
-                                <strong>Retirado</strong>".{" "}
+                                <strong>Retirado</strong>".
                               </p>
                               <div
                                 style={{
@@ -1089,11 +1044,10 @@ const Help = () => {
                                 />
                               </div>
                               <p>
-                                {" "}
                                 Debido al estado establecido para dicho libro,
                                 este ya no se mostrará en las vistas en las que
-                                la información de libros se muestra{" "}
-                                <strong>(Libros y Facturas)</strong>.{" "}
+                                la información de libros se muestra
+                                <strong>(Libros y Facturas)</strong>.
                               </p>
                             </>
                           ),
@@ -1102,7 +1056,6 @@ const Help = () => {
                     />
 
                     <br />
-
                     <Collapse
                       size="large"
                       items={[
@@ -1112,11 +1065,10 @@ const Help = () => {
                           children: (
                             <>
                               <p>
-                                {" "}
                                 Para realizar la activación de stock de un
-                                libro, debe dar clic sobre el botón{" "}
+                                libro, debe dar clic sobre el botón
                                 <strong>Activar</strong> correspondiente al
-                                registro que desea activar{" "}
+                                registro que desea activar
                               </p>
                               <div
                                 style={{
@@ -1142,10 +1094,9 @@ const Help = () => {
                                 />
                               </div>
                               <p>
-                                {" "}
                                 Mostrando ahora un nuevo estado para el libro,
                                 en este caso, el estado "
-                                <strong>Retirado</strong>".{" "}
+                                <strong>Retirado</strong>".
                               </p>
                               <div
                                 style={{
@@ -1159,10 +1110,9 @@ const Help = () => {
                                 />
                               </div>
                               <p>
-                                {" "}
                                 Ahora el libro podrá ser accedido desde las
-                                vistas relacionadas a este correspondientemente{" "}
-                                <strong>(Libros y Facturas)</strong>.{" "}
+                                vistas relacionadas a este correspondientemente
+                                <strong>(Libros y Facturas)</strong>.
                               </p>
                             </>
                           ),
@@ -1173,7 +1123,7 @@ const Help = () => {
                 ),
               },
             ]}
-          ></Collapse>
+          />
         </>
       </div>
     </Content>
