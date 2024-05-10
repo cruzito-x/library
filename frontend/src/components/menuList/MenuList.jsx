@@ -22,7 +22,11 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
     <Menu theme={darkTheme ? 'dark' : 'light'} mode='inline' className='menu-bar' onClick={({ key }) => {
       if (key === '/sign-out') {
         window.location.href = '/';
-      } else {
+      }
+      if(key === '/reports/7-days') {
+        window.location.href = '/reports/7-days#';
+      }
+      else {
         navigate(key);
       }
     }}>

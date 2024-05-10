@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
 const ReportTemplate = ({ reportData }) => {
+  const [pdfGenerated, setPdfGenerated] = useState(false);
+  
   useEffect(() => {
-    if (reportData.length > 0) {
+    if (reportData.length > 0 && !pdfGenerated) {
       // Crear un nuevo documento PDF
       const doc = new jsPDF();
 
