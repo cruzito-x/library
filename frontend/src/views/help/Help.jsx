@@ -1,31 +1,47 @@
 import React from "react";
 import { UserOutlined, QuestionCircleOutlined } from "@ant-design/icons";
-import { Layout, Breadcrumb, Typography, Card, Collapse, theme } from "antd";
+import {
+  Layout,
+  Breadcrumb,
+  Typography,
+  Card,
+  Collapse,
+  Alert,
+  theme,
+} from "antd";
 
-import dashboard from "../../assets/images/dashboard.png";
-import books from "../../assets/images/books.png";
-import newBook from "../../assets/images/newBook.png";
-import saveBook from "../../assets/images/saveBook.png";
-import successBookSaved from "../../assets/images/successBookSaved.png";
-import newBookInTable from "../../assets/images/newBookInTable.png";
-import deleteButton from "../../assets/images/deleteButton.png";
-import confirmDeleteBook from "../../assets/images/confirmDeleteBook.png";
-import successBookDeleted from "../../assets/images/successBookDeleted.png";
-import refreshBooksTableAfterDelete from "../../assets/images/refreshBooksTableAfterDelete.png";
-import editButton from "../../assets/images/editButton.png";
-import updateBook from "../../assets/images/updateBook.png";
-import successBookUpdated from "../../assets/images/successBookUpdated.png";
-import refreshBooksTableAfterUpdate from "../../assets/images/refreshBooksTableAfterUpdate.png";
-import genres from "../../assets/images/genres.png";
-import stock from "../../assets/images/stock.png";
-import editStock from "../../assets/images/editStock.png";
-import successStockUpdated from "../../assets/images/successStockUpdated.png";
-import confirmDeleteStock from "../../assets/images/confirmDeleteStock.png";
-import successStockDeleted from "../../assets/images/successStockDeleted.png";
-import refreshStockTableAfterDelete from "../../assets/images/refreshStockTableAfterDelete.png";
-import activateButton from "../../assets/images/activateButton.png";
-import successStockActivation from "../../assets/images/successStockActivation.png";
-import refreshStockTableAfterActivate from "../../assets/images/refreshStockTableAfterActivate.png";
+import dashboard from "../../assets/images/dashboard/dashboard.png";
+import books from "../../assets/images/books/books.png";
+import addButton from "../../assets/images/buttons/addButton.png";
+import saveBook from "../../assets/images/books/saveBook.png";
+import successBookSaved from "../../assets/images/books/successBookSaved.png";
+import newBookInTable from "../../assets/images/books/newBookInTable.png";
+import deleteButton from "../../assets/images/buttons/deleteButton.png";
+import popConfirmDelete from "../../assets/images/buttons/popConfirmDelete.png";
+import successBookDeleted from "../../assets/images/books/successBookDeleted.png";
+import refreshBooksTableAfterDelete from "../../assets/images/books/refreshBooksTableAfterDelete.png";
+import editButton from "../../assets/images/buttons/editButton.png";
+import updateBook from "../../assets/images/books/updateBook.png";
+import successBookUpdated from "../../assets/images/books/successBookUpdated.png";
+import refreshBooksTableAfterUpdate from "../../assets/images/books/refreshBooksTableAfterUpdate.png";
+import genres from "../../assets/images/genres/genres.png";
+import saveGenre from "../../assets/images/genres/saveGenre.png";
+import successGenreSaved from "../../assets/images/genres/successGenreSaved.png";
+import newGenreInTable from "../../assets/images/genres/newGenreInTable.png";
+import updateGenre from "../../assets/images/genres/updateGenre.png";
+import successGenreUpdated from "../../assets/images/genres/successGenreUpdated.png";
+import successGenreDeleted from "../../assets/images/genres/successGenreDeleted.png";
+import refreshGenresTableAfterUpdate from "../../assets/images/genres/refreshGenresTableAfterUpdate.png";
+import refreshGenresTableAfterDelete from "../../assets/images/genres/refreshGenresTableAfterDelete.png";
+import stock from "../../assets/images/stock/stock.png";
+import editStock from "../../assets/images/stock/editStock.png";
+import successStockUpdated from "../../assets/images/stock/successStockUpdated.png";
+import confirmDeleteStock from "../../assets/images/buttons/confirmDeleteStock.png";
+import successStockDeleted from "../../assets/images/stock/successStockDeleted.png";
+import refreshStockTableAfterDelete from "../../assets/images/stock/refreshStockTableAfterDelete.png";
+import activateButton from "../../assets/images/buttons/activateButton.png";
+import successStockActivation from "../../assets/images/stock/successStockActivation.png";
+import refreshStockTableAfterActivate from "../../assets/images/stock/refreshStockTableAfterActivate.png";
 
 const Help = () => {
   const { Content } = Layout;
@@ -65,10 +81,27 @@ const Help = () => {
               {" "}
               En este apartado podrás visualizar de manera centralizada todo
               aquello referente a los datos más importantes registradas en el
-              sistema, tales como: Tendencia de ventas por género, las ventas
-              diarias registradas en el mes actual, las adiciones más recientes
-              y los libros más vendidos de todo nuestro inventario.{" "}
+              sistema, tales como:{" "}
             </p>
+            <ul>
+              <li>
+                {" "}
+                <strong>1.</strong> Tendencia de ventas por género{" "}
+              </li>
+              <li>
+                {" "}
+                <strong>2.</strong> Ventas diarias registradas en el mes actual{" "}
+              </li>
+              <li>
+                {" "}
+                <strong>3.</strong> Adiciones recientes{" "}
+              </li>
+              <li>
+                {" "}
+                <strong>4.</strong> Los libros más vendidos de todo nuestro
+                inventario.{" "}
+              </li>
+            </ul>
           </Card>
 
           <br />
@@ -81,6 +114,18 @@ const Help = () => {
                 label: "Libros",
                 children: (
                   <>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <img
+                        src={books}
+                        style={{ width: "950px", height: "490px" }}
+                      />
+                    </div>
+                    <br />
                     <Collapse
                       size="large"
                       items={[
@@ -89,17 +134,6 @@ const Help = () => {
                           label: "Registrar un nuevo libro",
                           children: (
                             <>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
-                                  src={books}
-                                  style={{ width: "950px", height: "490px" }}
-                                />
-                              </div>
                               <p>
                                 Para realizar el registro de un libro, debe dar
                                 clic sobre el botón{" "}
@@ -113,8 +147,8 @@ const Help = () => {
                                 }}
                               >
                                 <img
-                                  src={newBook}
-                                  style={{ width: "430px", height: "120px" }}
+                                  src={addButton}
+                                  style={{ width: "330px", height: "100px" }}
                                 />
                               </div>
                               <p> Esto desplegará el siguiente modal: </p>
@@ -177,112 +211,9 @@ const Help = () => {
                       items={[
                         {
                           key: "1",
-                          label: "Eliminar un libro",
-                          children: (
-                            <div>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
-                                  src={books}
-                                  style={{ width: "950px", height: "490px" }}
-                                />
-                              </div>
-                              <p>
-                                Para realizar la eliminación del registro de un
-                                libro, debe dar clic sobre el botón{" "}
-                                <strong> Eliminar </strong> correspondiente al
-                                registro que desea eliminar
-                              </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
-                                  src={deleteButton}
-                                  style={{ width: "150px", height: "60px" }}
-                                />
-                              </div>
-                              <p>
-                                {" "}
-                                Esto desplegará el siguiente cuadro de
-                                confirmación:{" "}
-                              </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
-                                  src={confirmDeleteBook}
-                                  style={{ width: "390px", height: "180px" }}
-                                />
-                              </div>
-                              <p>
-                                Si escoge la opción <strong>No</strong>, no
-                                ocurrirá nada, sin embargo, si decide escoger la
-                                opción <strong>Sí</strong>, esto desplegará la
-                                siguiente alerta:
-                              </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
-                                  src={successBookDeleted}
-                                  style={{ width: "350px", height: "50px" }}
-                                />
-                              </div>
-                              <p>
-                                Mostrando que se ha eliminado el registro
-                                satisfactoriamente, junto con esto, se
-                                refrescará automáticamente la tabla de datos.{" "}
-                              </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
-                                  src={refreshBooksTableAfterDelete}
-                                  style={{ width: "1150px", height: "500px" }}
-                                />
-                              </div>
-                            </div>
-                          ),
-                        },
-                      ]}
-                    />
-
-                    <br />
-                    <Collapse
-                      size="large"
-                      items={[
-                        {
-                          key: "1",
                           label: "Actualizar un libro",
                           children: (
-                            <div>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <img
-                                  src={books}
-                                  style={{ width: "950px", height: "490px" }}
-                                />
-                              </div>
+                            <>
                               <p>
                                 Para realizar la edición del registro de un
                                 libro, debe dar clic sobre el botón{" "}
@@ -348,7 +279,88 @@ const Help = () => {
                                   style={{ width: "1350px", height: "100px" }}
                                 />
                               </div>
-                            </div>
+                            </>
+                          ),
+                        },
+                      ]}
+                    />
+
+                    <br />
+                    <Collapse
+                      size="large"
+                      items={[
+                        {
+                          key: "1",
+                          label: "Eliminar un libro",
+                          children: (
+                            <>
+                              <p>
+                                Para realizar la eliminación del registro de un
+                                libro, debe dar clic sobre el botón{" "}
+                                <strong> Eliminar </strong> correspondiente al
+                                registro que desea eliminar
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={deleteButton}
+                                  style={{ width: "150px", height: "60px" }}
+                                />
+                              </div>
+                              <p>
+                                {" "}
+                                Esto desplegará el siguiente cuadro de
+                                confirmación:{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={popConfirmDelete}
+                                  style={{ width: "390px", height: "180px" }}
+                                />
+                              </div>
+                              <p>
+                                Si escoge la opción <strong>No</strong>, no
+                                ocurrirá nada, sin embargo, si decide escoger la
+                                opción <strong>Sí</strong>, esto desplegará la
+                                siguiente alerta:
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={successBookDeleted}
+                                  style={{ width: "350px", height: "50px" }}
+                                />
+                              </div>
+                              <p>
+                                Mostrando que se ha eliminado el registro
+                                satisfactoriamente, junto con esto, se
+                                refrescará automáticamente la tabla de datos.{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={refreshBooksTableAfterDelete}
+                                  style={{ width: "1150px", height: "500px" }}
+                                />
+                              </div>
+                            </>
                           ),
                         },
                       ]}
@@ -421,14 +433,40 @@ const Help = () => {
                 label: "Géneros",
                 children: (
                   <>
+                    <>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <img
+                          src={genres}
+                          style={{ width: "950px", height: "490px" }}
+                        />
+                      </div>
+                      <p>
+                        {" "}
+                        En este apartado del sistema podremos visualizar los
+                        géneros literarios que se manejan para la clasificación
+                        de libros y cuantos pertenecen a cada uno de ellos.{" "}
+                      </p>
+                    </>
                     <Collapse
                       size="large"
                       items={[
                         {
                           key: "1",
-                          label: "Configurar un nuevo género",
+                          label: "Añadir un nuevo género",
                           children: (
                             <>
+                              <p>
+                                {" "}
+                                Para realizar la actualización de un género
+                                literario, debe dar clic sobre el botón{" "}
+                                <strong>Añadir </strong> que se encuentra en la
+                                parte superior del formulario:{" "}
+                              </p>
                               <div
                                 style={{
                                   display: "flex",
@@ -436,8 +474,137 @@ const Help = () => {
                                 }}
                               >
                                 <img
-                                  src={genres}
-                                  style={{ width: "950px", height: "490px" }}
+                                  src={addButton}
+                                  style={{ width: "330px", height: "100px" }}
+                                />
+                              </div>
+                              <p> Esto desplegará el siguiente modal: </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={saveGenre}
+                                  style={{ width: "630px", height: "150px" }}
+                                />
+                              </div>
+                              <p>
+                                {" "}
+                                Este debe ser rellenado con el campo solicitado
+                                para proceder con el registro de dicho género,
+                                finalmente debe dar clic sobre el botón{" "}
+                                <strong>Guardar</strong>. Lo cual mostrará el
+                                siguiente mensaje:{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={successGenreSaved}
+                                  style={{ width: "350px", height: "70px" }}
+                                />
+                              </div>
+                              <p>
+                                {" "}
+                                Mostrando que se ha registrado el género
+                                satisfactoriamente, esto refrescará
+                                automáticamente la tabla de datos.{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={newGenreInTable}
+                                  style={{ width: "1150px", height: "60px" }}
+                                />
+                              </div>
+                            </>
+                          ),
+                        },
+                      ]}
+                    />
+
+                    <br />
+
+                    <Collapse
+                      size="large"
+                      items={[
+                        {
+                          key: "1",
+                          label: "Actualizar un género existente",
+                          children: (
+                            <>
+                              <p>
+                                {" "}
+                                Para realizar la actualización de un género
+                                literario, debe dar clic sobre el botón{" "}
+                                <strong>Editar</strong>:{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={editButton}
+                                  style={{ width: "150px", height: "60px" }}
+                                />
+                              </div>
+                              <p> Esto desplegará el siguiente modal: </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={updateGenre}
+                                  style={{ width: "630px", height: "150px" }}
+                                />
+                              </div>
+                              <p>
+                                {" "}
+                                Este debe ser rellenado con el campo solicitado
+                                para proceder con el registro de dicho género,
+                                finalmente debe dar clic sobre el botón{" "}
+                                <strong>Guardar</strong>. Lo cual mostrará el
+                                siguiente mensaje:{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={successGenreUpdated}
+                                  style={{ width: "350px", height: "70px" }}
+                                />
+                              </div>
+                              <p>
+                                {" "}
+                                Mostrando que el género se ha actualizado
+                                satisfactoriamente, esto refrescará
+                                automáticamente la tabla de datos.{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={refreshGenresTableAfterUpdate}
+                                  style={{ width: "1250px", height: "70px" }}
                                 />
                               </div>
                             </>
@@ -454,20 +621,85 @@ const Help = () => {
                         {
                           key: "1",
                           label: "Eliminar un género existente",
-                          children: <></>,
-                        },
-                      ]}
-                    />
-
-                    <br />
-
-                    <Collapse
-                      size="large"
-                      items={[
-                        {
-                          key: "1",
-                          label: "Actualizar un género existente",
-                          children: <></>,
+                          children: (
+                            <>
+                              <p>
+                                {" "}
+                                Para realizar la eliminación del registro de un
+                                género literario, debe dar clic sobre el botón{" "}
+                                <strong>Eliminar</strong>:{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={deleteButton}
+                                  style={{ width: "150px", height: "60px" }}
+                                />
+                              </div>
+                              <p>
+                                {" "}
+                                Esto desplegará el siguiente cuadro de
+                                confirmación:{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={popConfirmDelete}
+                                  style={{ width: "390px", height: "180px" }}
+                                />
+                              </div>
+                              <p>
+                                {" "}
+                                Este debe ser rellenado con el campo solicitado
+                                para proceder con el registro de dicho género,
+                                finalmente debe dar clic sobre el botón{" "}
+                                <strong>Guardar</strong>. Lo cual mostrará el
+                                siguiente mensaje:{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={successGenreDeleted}
+                                  style={{ width: "350px", height: "70px" }}
+                                />
+                              </div>
+                              <p>
+                                {" "}
+                                Mostrando que se ha registrado el género
+                                satisfactoriamente, esto refrescará
+                                automáticamente la tabla de datos.{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={refreshGenresTableAfterDelete}
+                                  style={{ width: "1250px", height: "190px" }}
+                                />
+                              </div>
+                              <br />
+                              <Alert
+                                message="Importante"
+                                description="Si se elimina un género literario que ya contiene libros dentro de sí, todos los que pertenezcan a este ya no serán accesibles desde las vistas adyacentes a ellos."
+                                type="warning"
+                              />
+                            </>
+                          ),
                         },
                       ]}
                     />
@@ -696,8 +928,8 @@ const Help = () => {
                             <>
                               <p>
                                 {" "}
-                                Para realizar la activación de stock de un libro,
-                                debe dar clic sobre el botón{" "}
+                                Para realizar la activación de stock de un
+                                libro, debe dar clic sobre el botón{" "}
                                 <strong>Activar</strong> correspondiente al
                                 registro que desea activar{" "}
                               </p>
@@ -712,10 +944,7 @@ const Help = () => {
                                   style={{ width: "150px", height: "60px" }}
                                 />
                               </div>
-                              <p>
-                                {" "}
-                                Esto desplegará la siguiente alerta:{" "}
-                              </p>
+                              <p> Esto desplegará la siguiente alerta: </p>
                               <div
                                 style={{
                                   display: "flex",
@@ -746,7 +975,8 @@ const Help = () => {
                               </div>
                               <p>
                                 {" "}
-                                Ahora el libro podrá ser accedido desde las vistas relacionadas a este correspondientemente{" "}
+                                Ahora el libro podrá ser accedido desde las
+                                vistas relacionadas a este correspondientemente{" "}
                                 <strong>(Libros y Facturas)</strong>.{" "}
                               </p>
                             </>
