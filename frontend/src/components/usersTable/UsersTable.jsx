@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   SmileOutlined,
   FrownOutlined,
@@ -213,81 +213,85 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
 
   return (
     <div style={{ marginTop: "20px" }}>
-      <Row gutter={16}>
-        <Col span={24}>
+      <Row gutter={[16, 16]}>
+        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
           <Spin spinning={loading} size="large" tip="Cargando...">
-            <Table columns={columns} dataSource={usersData} />
+            <Table
+              scroll={{ x: "max-content" }}
+              columns={columns}
+              dataSource={usersData}
+            />
           </Spin>
-
-          <Modal
-            title="Editar usuario"
-            open={modal1Open}
-            onCancel={() => setModal1Open(false)}
-            footer={[
-              <Button key="back" onClick={() => setModal1Open(false)}>
-                Cancelar
-              </Button>,
-              <Button key="submit" type="primary" onClick={saveChanges}>
-                Guardar Cambios
-              </Button>,
-            ]}
-          >
-            <Form form={form}>
-              <Form.Item
-                label="Usuario:"
-                name="nombreUsuario"
-                rules={[
-                  {
-                    required: true,
-                    message: "Por favor, ingrese un nombre de usuario",
-                  },
-                ]}
-              >
-                <Input placeholder="ej. David Cruz" name="nombreUsuario" />
-              </Form.Item>
-              <Form.Item
-                label="Contraseña:"
-                defaultValue=""
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Por favor, ingrese una contraseña",
-                  },
-                ]}
-              >
-                <Input.Password
-                  placeholder="ej. 12345678"
-                  iconRender={(visible) =>
-                    visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                  }
-                  name="password"
-                />
-              </Form.Item>
-              <Form.Item
-                label="Rol"
-                name="rol"
-                rules={[
-                  {
-                    required: true,
-                    message: "Por favor, seleccione un rol para este usuario",
-                  },
-                ]}
-              >
-                <Select
-                  name="rol"
-                  defaultValue="admin"
-                  onChange={handleChange}
-                  options={[
-                    { value: "admin", label: "Administrador" },
-                    { value: "superadmin", label: "Super administrador" },
-                  ]}
-                />
-              </Form.Item>
-            </Form>
-          </Modal>
         </Col>
       </Row>
+
+      <Modal
+        title="Editar usuario"
+        visible={modal1Open}
+        onCancel={() => setModal1Open(false)}
+        footer={[
+          <Button key="back" onClick={() => setModal1Open(false)}>
+            Cancelar
+          </Button>,
+          <Button key="submit" type="primary" onClick={saveChanges}>
+            Guardar Cambios
+          </Button>,
+        ]}
+      >
+        <Form form={form}>
+          <Form.Item
+            label="Usuario:"
+            name="nombreUsuario"
+            rules={[
+              {
+                required: true,
+                message: "Por favor, ingrese un nombre de usuario",
+              },
+            ]}
+          >
+            <Input placeholder="ej. David Cruz" name="nombreUsuario" />
+          </Form.Item>
+          <Form.Item
+            label="Contraseña:"
+            defaultValue=""
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: "Por favor, ingrese una contraseña",
+              },
+            ]}
+          >
+            <Input.Password
+              placeholder="ej. 12345678"
+              iconRender={(visible) =>
+                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+              }
+              name="password"
+            />
+          </Form.Item>
+          <Form.Item
+            label="Rol"
+            name="rol"
+            rules={[
+              {
+                required: true,
+                message: "Por favor, seleccione un rol para este usuario",
+              },
+            ]}
+          >
+            <Select
+              name="rol"
+              defaultValue="admin"
+              onChange={handleChange}
+              options={[
+                { value: "admin", label: "Administrador" },
+                { value: "superadmin", label: "Super administrador" },
+              ]}
+            />
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 };

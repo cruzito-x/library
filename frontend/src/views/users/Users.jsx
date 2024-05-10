@@ -134,39 +134,35 @@ const Users = () => {
   );
 
   return (
-    <Content style={{ margin: "0 16px" }}>
+    <Layout.Content style={{ margin: "0 16px" }}>
       <Breadcrumb style={{ margin: "50px 0 16px 0" }}>
         <Breadcrumb.Item>
           <UserOutlined /> {localStorage.getItem("username")}
         </Breadcrumb.Item>
         <Breadcrumb.Item> Usuarios </Breadcrumb.Item>
       </Breadcrumb>
-      <div
-        style={{
-          padding: 24,
-          minHeight: "86vh",
-          background: colorBgContainer,
-          borderRadius: borderRadiusLG,
-        }}
-      >
-        <Row gutter={16}>
-          <Col span={18}>
+      <div style={{ padding: 24, minHeight: "86vh" }}>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={12} md={18} lg={18} xl={18}>
             <Button
               type="primary"
               icon={<PlusCircleOutlined />}
-              size={size}
               onClick={showAddModal}
             >
               Añadir nuevo
             </Button>
           </Col>
-          <Col span={6}>
+          <Col xs={24} sm={12} md={6} lg={6} xl={6}>
             <Search placeholder="Buscar usuario" onSearch={handleSearch} enterButton />
           </Col>
         </Row>
-        <UsersTable usersData={filteredUsersData} refreshTable={refreshTable} setRefreshTable={setRefreshTable}/>
+        <UsersTable
+          usersData={filteredUsersData}
+          refreshTable={refreshTable}
+          setRefreshTable={setRefreshTable}
+        />
       </div>
-    </Content>
+    </Layout.Content>
   );
 };
 
