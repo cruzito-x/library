@@ -382,87 +382,73 @@ const DashboardGraphs = ({ period }) => {
   ];
 
   return (
-    <>
-      <Row gutter={16}>
-        <Col span={24}>
-          <Card style={{ marginTop: "20px" }}>
-            <Spin spinning={loading} size="large" tip="Cargando...">
-              <Title level={5} style={{ marginTop: "0" }}>
-                Escala de ventas por género
-              </Title>
-              <div>
-                <canvas ref={lineChartRef} width="100" height="20"></canvas>
-              </div>
-            </Spin>
-          </Card>
-        </Col>
-      </Row>
-      <>
-        <Row gutter={16}>
-          <Col span={17}>
-            <Card style={{ marginTop: "20px" }}>
-              <Spin spinning={loading} size="large" tip="Cargando...">
-                <Title level={5} style={{ marginTop: "0" }}>
-                  Resumen de ventas
-                </Title>
-                <div>
-                  <canvas ref={barChartRef} width="100" height="38"></canvas>
-                </div>
-              </Spin>
-            </Card>
-          </Col>
-          <Col span={7}>
-            <Card style={{ marginTop: "20px" }}>
-              <Spin spinning={loading} size="large" tip="Cargando...">
-                <Title level={5} style={{ marginTop: "0" }}>
-                  Libros más vendidos
-                </Title>
-                <div>
-                  <canvas
-                    ref={doughnutChartRef}
-                    width="100"
-                    height="10"
-                  ></canvas>
-                </div>
-              </Spin>
-            </Card>
-          </Col>
-        </Row>
-      </>
-      <>
-        <Row gutter={16}>
-          <Col span={24}>
-            <Card style={{ marginTop: "20px" }}>
-              <Title level={5} style={{ marginTop: "0" }}>
-                Añadido recientemente
-              </Title>
-              <Spin spinning={loading} size="large" tip="Cargando...">
-                <Table
-                  scroll={{ x: "max-content" }} 
-                  columns={columns}
-                  expandable={{
-                    expandedRowRender: (record) => (
-                      <p
-                        style={{
-                          margin: 0,
-                        }}
-                      >
-                        {record.sinopsis}
-                      </p>
-                    ),
-                    rowExpandable: (record) => record.name !== "Not Expandable",
-                  }}
-                  dataSource={books.map((book, index) => ({
-                    ...book,
-                    key: index,
-                  }))} // Asignar una clave única para cada registro
-                />
-              </Spin>
-            </Card>
-          </Col>
-        </Row>
-      </>
-    </>
+    <Row gutter={16}>
+      <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+        <Card style={{ marginTop: "20px" }}>
+          <Spin spinning={loading} size="large" tip="Cargando...">
+            <Title level={5} style={{ marginTop: "0" }}>
+              Escala de ventas por género
+            </Title>
+            <div>
+              <canvas ref={lineChartRef} width="100" height="20"></canvas>
+            </div>
+          </Spin>
+        </Card>
+      </Col>
+      <Col xs={24} sm={24} md={24} lg={17} xl={17}>
+        <Card style={{ marginTop: "20px" }}>
+          <Spin spinning={loading} size="large" tip="Cargando...">
+            <Title level={5} style={{ marginTop: "0" }}>
+              Resumen de ventas
+            </Title>
+            <div>
+              <canvas ref={barChartRef} width="100" height="38"></canvas>
+            </div>
+          </Spin>
+        </Card>
+      </Col>
+      <Col xs={24} sm={24} md={24} lg={7} xl={7}>
+        <Card style={{ marginTop: "20px" }}>
+          <Spin spinning={loading} size="large" tip="Cargando...">
+            <Title level={5} style={{ marginTop: "0" }}>
+              Libros más vendidos
+            </Title>
+            <div>
+              <canvas ref={doughnutChartRef} width="100" height="10"></canvas>
+            </div>
+          </Spin>
+        </Card>
+      </Col>
+      <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+        <Card style={{ marginTop: "20px" }}>
+          <Title level={5} style={{ marginTop: "0" }}>
+            Añadido recientemente
+          </Title>
+          <Spin spinning={loading} size="large" tip="Cargando...">
+            <Table
+              scroll={{ x: "max-content" }} 
+              columns={columns}
+              expandable={{
+                expandedRowRender: (record) => (
+                  <p
+                    style={{
+                      margin: 0,
+                    }}
+                  >
+                    {record.sinopsis}
+                  </p>
+                ),
+                rowExpandable: (record) => record.name !== "Not Expandable",
+              }}
+              dataSource={books.map((book, index) => ({
+                ...book,
+                key: index,
+              }))} // Asignar una clave única para cada registro
+            />
+          </Spin>
+        </Card>
+      </Col>
+    </Row>
   );
 };
 
