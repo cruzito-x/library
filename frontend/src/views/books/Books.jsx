@@ -109,7 +109,7 @@ const Books = () => {
             <Input placeholder="ej. Alfredo Espino" name="autor" />
           </Form.Item>
           <Form.Item label="F. Publicación:" name="fechaPublicacion">
-            <Input placeholder="23-07-2016" name="fechaPublicacion" />
+            <Input placeholder="23-07-2016" name="fechaPublicacion" maxLength={10} />
           </Form.Item>
           <Form.Item label="Precio:" name="precio">
             <Input prefix="$" placeholder="0.00" name="precio" />
@@ -180,6 +180,8 @@ const Books = () => {
         formData.append("portada", "/uploads/"+localStorage.getItem("nombreImagen"));
         formData.append("existencia", formValues.existencia);
         formData.append("sinopsis", formValues.sinopsis);
+
+        console.log(formData);
 
         fetch("http://localhost:3001/books/save", {
           method: "post",

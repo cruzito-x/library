@@ -83,7 +83,7 @@ const Sidebar = () => {
       </Sider>
       <Layout style={layoutStyle}>
         <LayoutHeader />
-        <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+        <Content style={{ margin: '24px 0 0', overflow: 'initial' }}>
           <Routes>
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/books' element={<Books />} />
