@@ -31,7 +31,7 @@ const ReportTemplate = ({ reportData }) => {
       doc.text(`Fecha: ${fechaInforme}`, 10, 70);
 
       doc.setFontSize(16);
-      doc.text("Sucursal:", 10, 80);
+      doc.text("Resumen empresarial:", 10, 80);
       doc.setFontSize(12);
       doc.text(
         `Durante la ${reportData[1][0].semana}, hemos observado un desempeño notable en las ventas de libros. Este informe detalla los aspectos clave de nuestras ventas, destacando los géneros más populares, los títulos más vendidos y otros datos relevantes para la toma de decisiones estratégicas.`,
@@ -42,10 +42,10 @@ const ReportTemplate = ({ reportData }) => {
 
       // Análisis de Ventas
       doc.setFontSize(16);
-      doc.text("Análisis de Ventas:", 10, 120);
+      doc.text("Análisis de ventas:", 10, 120);
       doc.setFontSize(12);
       doc.text(
-        `Durante esta semana, hemos vendido un total de ${reportData[1][0].total_libros_vendidos} libros en nuestra sucursal. Esta cifra puede atribuirse en gran medida a nuestras estrategias de marketing y promoción, así como a la diversificación de nuestro inventario para satisfacer las necesidades de una amplia gama de lectores.`,
+        `Durante esta semana, hemos vendido un total de ${reportData[1][0].total_libros_vendidos} libros en nuestra sucursal, obteniendo así una ganancia de $${reportData[3][0].total_ganancias} dólares. Estas cifras pueden atribuirse en gran medida a nuestras estrategias de marketing y promoción, así como a la diversificación de nuestro inventario para satisfacer las necesidades de una amplia gama de lectores.`,
         10,
         130,
         { maxWidth: 190 }
@@ -54,7 +54,7 @@ const ReportTemplate = ({ reportData }) => {
       // Géneros más Populares
       doc.setFontSize(16);
       const posYGeneros = 160;
-      doc.text("Géneros más Populares:", 10, posYGeneros);
+      doc.text("Géneros más populares:", 10, posYGeneros);
       const generosData = reportData[2].map((item, index) => [
         index + 1,
         item.nombreGenero,
@@ -66,10 +66,10 @@ const ReportTemplate = ({ reportData }) => {
         body: generosData,
       });
 
-      // Títulos Más Vendidos
+      // Libros Más Vendidos
       doc.setFontSize(16);
       const posYTitulos = doc.autoTable.previous.finalY + 20;
-      doc.text("Títulos Más Vendidos:", 10, posYTitulos);
+      doc.text("Títulos más vendidos:", 10, posYTitulos);
       const titulosData = reportData[0].map((item, index) => [
         index + 1,
         item.titulo,
@@ -81,26 +81,75 @@ const ReportTemplate = ({ reportData }) => {
         body: titulosData,
       });
 
+      // Títulos Más Vendidos
+      doc.setFontSize(16);
+      const posYRecientes = doc.autoTable.previous.finalY + 20;
+      doc.text("Títulos añadidos en los últimos 7 días:", 10, posYRecientes);
+      doc.setFontSize(12);
+      if (reportData[4].length > 15) {
+        doc.text(
+          "Esta semana se adjuntaron múltiples registros nuevos a la base de datos, adyacente a esto, se presentan las últimas adiciones",
+          10,
+          posYRecientes + 10,
+          { maxWidth: 190 }
+        );
+      } else {
+        doc.text(
+          "Esta semana no se adquirio mucha mercadería, por lo cual no se añadieron muchos registros nuevos a la base de datos, adyacente a esto, se presentan las últimas adiciones",
+          10,
+          posYRecientes + 10,
+          { maxWidth: 190 }
+        );
+      }
+
+      const recientesData = reportData[4].map((item, index) => [
+        index + 1,
+        item.titulo,
+        item.precio,
+      ]); // Debes definir cómo obtener estos datos de reportData
+      doc.autoTable({
+        startY: posYRecientes + 20,
+        head: [["#", "Título", "Precio"]],
+        body: recientesData,
+      });
+
       // Desafíos y oportunidades
       doc.setFontSize(16);
       const posYDesafios = doc.autoTable.previous.finalY + 20;
       doc.text("Desafíos y oportunidades:", 10, posYDesafios);
       doc.setFontSize(12);
-      doc.text('A pesar del éxito general, hemos identificado algunos desafíos potenciales, como la competencia de tiendas en línea y los cambios en las preferencias de los consumidores. Sin embargo, también vemos oportunidades para expandir nuestro mercado objetivo mediante la introducción de programas de fidelización, eventos literarios y colaboraciones con autores locales.', 10, (posYDesafios + 10), { maxWidth: 190 });
+      doc.text(
+        "A pesar del éxito general, hemos identificado algunos desafíos potenciales, como la competencia de tiendas en línea y los cambios en las preferencias de los consumidores. Sin embargo, también vemos oportunidades para expandir nuestro mercado objetivo mediante la introducción de programas de fidelización, eventos literarios y colaboraciones con autores locales.",
+        10,
+        posYDesafios + 10,
+        { maxWidth: 190 }
+      );
 
       let now = new Date();
       let formattedNow =
-      now.getFullYear().toString() +
-      pad(now.getMonth() + 1) +
-      pad(now.getDate()) +
-      pad(now.getHours()) +
-      pad(now.getMinutes()) +
-      pad(now.getSeconds());
+        now.getFullYear().toString() +
+        pad(now.getMonth() + 1) +
+        pad(now.getDate()) +
+        pad(now.getHours()) +
+        pad(now.getMinutes()) +
+        pad(now.getSeconds());
 
-      window.location.href = '/dashboard';
+      window.location.href = "/dashboard";
+
+      let pageCount = doc.internal.getNumberOfPages(); //Total Page Number
+      for (let n = 0; n < pageCount; n++) {
+        doc.setPage(n);
+        let pageCurrent = doc.internal.getCurrentPageInfo().pageNumber; //Current Page
+        doc.setFontSize(8);
+        doc.text(
+          "Página: " + pageCurrent + " de " + pageCount,
+          10,
+          doc.internal.pageSize.height - 10
+        );
+      }
 
       // Guardar o mostrar el documento PDF
-      doc.save("Reporte_"+formattedNow+".pdf"); // Para guardar el PDF
+      doc.save("Reporte_" + formattedNow + ".pdf"); // Para guardar el PDF
     }
   }, [reportData]);
 
