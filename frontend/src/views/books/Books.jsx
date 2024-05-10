@@ -229,8 +229,8 @@ const Books = () => {
           borderRadius: borderRadiusLG,
         }}
       >
-        <Row gutter={16}>
-          <Col span={18}>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={18}>
             <Button
               type="primary"
               icon={<PlusCircleOutlined />}
@@ -238,7 +238,7 @@ const Books = () => {
               onClick={showAddModal}
             > Añadir nuevo </Button>
           </Col>
-          <Col span={6}>
+          <Col xs={24} sm={6}>
             <Search placeholder="Buscar por nombre de libro" onSearch={handleSearch} enterButton />
           </Col>
         </Row>
