@@ -24,6 +24,14 @@ import editButton from "../../assets/images/buttons/editButton.png";
 import updateBook from "../../assets/images/books/updateBook.png";
 import successBookUpdated from "../../assets/images/books/successBookUpdated.png";
 import refreshBooksTableAfterUpdate from "../../assets/images/books/refreshBooksTableAfterUpdate.png";
+import bills from "../../assets/images/bills/bills.png";
+import selectBook from "../../assets/images/bills/selectBook.png";
+import fillBillFields from "../../assets/images/bills/fillBillFields.png";
+import addBookToFill from "../../assets/images/bills/addBookToFill.png";
+import fillBillClientFields from "../../assets/images/bills/fillBillClientFields.png";
+import generateBill from "../../assets/images/buttons/generateBill.png";
+import successBillSaved from "../../assets/images/bills/successBillSaved.png";
+import showBill from "../../assets/images/bills/showBill.png";
 import genres from "../../assets/images/genres/genres.png";
 import saveGenre from "../../assets/images/genres/saveGenre.png";
 import successGenreSaved from "../../assets/images/genres/successGenreSaved.png";
@@ -86,15 +94,15 @@ const Help = () => {
             <ul>
               <li>
                 {" "}
-                <strong>1.</strong> Tendencia de ventas por género{" "}
+                <strong>1.</strong> Tendencia de ventas por género.{" "}
               </li>
               <li>
                 {" "}
-                <strong>2.</strong> Ventas diarias registradas en el mes actual{" "}
+                <strong>2.</strong> Ventas diarias registradas en el mes actual.{" "}
               </li>
               <li>
                 {" "}
-                <strong>3.</strong> Adiciones recientes{" "}
+                <strong>3.</strong> Adiciones recientes.{" "}
               </li>
               <li>
                 {" "}
@@ -218,7 +226,7 @@ const Help = () => {
                                 Para realizar la edición del registro de un
                                 libro, debe dar clic sobre el botón{" "}
                                 <strong> Editar </strong> correspondiente al
-                                registro que desea actualizar
+                                registro que desea actualizar:
                               </p>
                               <div
                                 style={{
@@ -298,7 +306,7 @@ const Help = () => {
                                 Para realizar la eliminación del registro de un
                                 libro, debe dar clic sobre el botón{" "}
                                 <strong> Eliminar </strong> correspondiente al
-                                registro que desea eliminar
+                                registro que desea eliminar:
                               </p>
                               <div
                                 style={{
@@ -381,13 +389,190 @@ const Help = () => {
                 label: "Facturar",
                 children: (
                   <>
+                    <>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <img
+                          src={bills}
+                          style={{ width: "950px", height: "490px" }}
+                        />
+                      </div>
+                      <p>
+                        {" "}
+                        En este apartado se realiza el proceso de facturación.
+                      </p>
+                    </>
                     <Collapse
                       size="large"
                       items={[
                         {
                           key: "1",
                           label: "Generar una nueva factura",
-                          children: <></>,
+                          children: (
+                            <>
+                              <p>
+                                {" "}
+                                Para realizar una factura los pasos a seguir son
+                                los siguientes:{" "}
+                              </p>
+                              <ul>
+                                <li>
+                                  <h3> Paso 1. </h3>
+                                  <p>
+                                    {" "}
+                                    Selecciona el libro que se va a facturar:{" "}
+                                  </p>
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                    }}
+                                  >
+                                    <img
+                                      src={selectBook}
+                                      style={{
+                                        width: "1250px",
+                                        height: "290px",
+                                      }}
+                                    />
+                                  </div>
+                                </li>
+                                <li>
+                                  <h3> Paso 2. </h3>
+                                  <p>
+                                    {" "}
+                                    Rellena los campos:{" "}
+                                    <strong>
+                                      {" "}
+                                      cantidad y descuento (opcional){" "}
+                                    </strong>
+                                    .{" "}
+                                  </p>
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                    }}
+                                  >
+                                    <img
+                                      src={fillBillFields}
+                                      style={{
+                                        width: "1250px",
+                                        height: "160px",
+                                      }}
+                                    />
+                                  </div>
+                                </li>
+                                <li>
+                                  <h3> Paso 3. </h3>
+                                  <p>
+                                    {" "}
+                                    Da clic en el botón{" "}
+                                    <strong>Añadir libro</strong>, esto cargará
+                                    el libro en la tabla para proceder con la
+                                    facturación.{" "}
+                                  </p>
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                    }}
+                                  >
+                                    <img
+                                      src={addBookToFill}
+                                      style={{
+                                        width: "1150px",
+                                        height: "380px",
+                                      }}
+                                    />
+                                  </div>
+                                </li>
+                                <li>
+                                  <h3> Paso 4. </h3>
+                                  <p>
+                                    {" "}
+                                    Rellena los campos:{" "}
+                                    <strong>
+                                      {" "}
+                                      nombre y apellido (obligatorio){" "}
+                                    </strong>{" "}
+                                    y da clic en el botón <strong></strong>.{" "}
+                                  </p>
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                    }}
+                                  >
+                                    <img
+                                      src={fillBillClientFields}
+                                      style={{
+                                        width: "1250px",
+                                        height: "120px",
+                                      }}
+                                    />
+                                  </div>
+                                </li>
+                                <li>
+                                  <h3> Paso 5. </h3>
+                                  <p>
+                                    {" "}
+                                    Haz clic sobre el botón{" "}
+                                    <strong>Generar factura</strong>:{" "}
+                                  </p>
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                    }}
+                                  >
+                                    <img
+                                      src={generateBill}
+                                      style={{
+                                        width: "220px",
+                                        height: "60px",
+                                      }}
+                                    />
+                                  </div>
+                                </li>
+                              </ul>
+                              <p>
+                                {" "}
+                                Cumplidos estos pasos, se generarán la siguiente
+                                alerta:{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={successBillSaved}
+                                  style={{ width: "350px", height: "70px" }}
+                                />
+                              </div>
+                              <p>Y se exportará el siguiente archivo PDF:</p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={showBill}
+                                  style={{
+                                    width: "1220px",
+                                    height: "460px",
+                                  }}
+                                />
+                              </div>
+                            </>
+                          ),
                         },
                       ]}
                     />
