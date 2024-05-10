@@ -277,7 +277,7 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
                 />
                 </Form.Item>
               <Form.Item label="ISBN:" name="isbn">
-                <Input placeholder="978-8484050421" name="isbn" />
+                <Input placeholder="978-8484050421" name="isbn" maxLength={14} />
               </Form.Item>
               <Form.Item label="Stock:" name="existencia">
                 <Input

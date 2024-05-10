@@ -62,15 +62,15 @@ const Books = () => {
   const handleChange = (value) => {};
 
   const handleUploadChange = (info) => {
-    if (info.file.status === 'done') {
+    if (info.file.status === "done") {
       // Si la carga se completa, obtenemos el nombre del archivo y lo almacenamos en localStorage
       const currentDate = new Date();
-      const formattedDate = currentDate.toLocaleString('es-ES', { timeZone: 'UTC' }).replace(/[\/\,\.\s\:]/g, '');
-      const fileName = `${formattedDate}.${info.file.name.split('.').pop()}`; // Mantener la extensión original del archivo
+      const formattedDate = currentDate.toLocaleString("es-ES", { timeZone: "UTC" }).replace(/[\/\,\.\s\:]/g, "");
+      const fileName = `${formattedDate}.${info.file.name.split(".").pop()}`; // Mantener la extensión original del archivo
 
-      localStorage.setItem('nombreImagen', fileName);
+      localStorage.setItem("nombreImagen", fileName);
       setImageName(fileName); // Actualizamos el estado con el nombre de la imagen cargada
-      console.log(localStorage.getItem('nombreImagen'));
+      console.log(localStorage.getItem("nombreImagen"));
     }
   };
 
@@ -125,10 +125,10 @@ const Books = () => {
             />
           </Form.Item>
           <Form.Item label="ISBN:" name="isbn">
-            <Input placeholder="978-8484050421" name="isbn" />
+            <Input placeholder="978-8484050421" name="isbn" maxLength={14} />
           </Form.Item>
           <Form.Item label="Ingreso:" name="existencia">
-            <InputNumber min={1} max={500} defaultValue={1} name="existencia" />
+            <InputNumber min={1} max={500} defaultValue={1} name="existencia" style={{ width: "100%" }} />
           </Form.Item>
           <Form.Item label="Descripción:" name="sinopsis">
             <TextArea
@@ -149,15 +149,15 @@ const Books = () => {
               size="large"
             >
               <Upload
-              name="portada"
-              action={ "http://localhost:3001/books/images/upload" }
-              listType="picture"
-              accept=".png, .jpg, .jpeg"
-              maxCount={1}
-              onChange={handleUploadChange}
-              iconRender={() => {
-                return <Spin></Spin>
-              }}
+                name="portada"
+                action={ "http://localhost:3001/books/images/upload" }
+                listType="picture"
+                accept=".png, .jpg, .jpeg"
+                maxCount={1}
+                onChange={handleUploadChange}
+                iconRender={() => {
+                  return <Spin></Spin>
+                }}
               >
                 <Button icon={<UploadOutlined />}> Seleccionar imagen (Máx. 1) </Button>
               </Upload>

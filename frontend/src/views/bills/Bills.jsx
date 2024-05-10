@@ -372,7 +372,7 @@ const Bills = () => {
             </Col>
             <Col span={12}>
               <Form.Item label="Cantidad" name="cantidad">
-                <InputNumber min={1} max={10} defaultValue={1} />
+                <InputNumber min={1} max={10} defaultValue={1} style={{ width: "100%" }} />
               </Form.Item>
             </Col>
           </Row>
@@ -390,6 +390,7 @@ const Bills = () => {
                   max={90}
                   defaultValue={0}
                   placeholder="0"
+                  style={{ width: "100%" }}
                 />
               </Form.Item>
             </Col>
