@@ -227,7 +227,7 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
 
       <Modal
         title="Editar usuario"
-        visible={modal1Open}
+        open={modal1Open}
         onCancel={() => setModal1Open(false)}
         footer={[
           <Button key="back" onClick={() => setModal1Open(false)}>

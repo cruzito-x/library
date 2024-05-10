@@ -134,14 +134,21 @@ const Users = () => {
   );
 
   return (
-    <Layout.Content style={{ margin: "0 16px" }}>
+    <Content style={{ margin: "0 16px" }}>
       <Breadcrumb style={{ margin: "50px 0 16px 0" }}>
         <Breadcrumb.Item>
           <UserOutlined /> {localStorage.getItem("username")}
         </Breadcrumb.Item>
         <Breadcrumb.Item> Usuarios </Breadcrumb.Item>
       </Breadcrumb>
-      <div style={{ padding: 24, minHeight: "86vh" }}>
+      <div
+        style={{
+          padding: 24,
+          minHeight: "86vh",
+          background: colorBgContainer,
+          borderRadius: borderRadiusLG,
+        }}
+      >
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={12} md={18} lg={18} xl={18}>
             <Button
@@ -162,7 +169,7 @@ const Users = () => {
           setRefreshTable={setRefreshTable}
         />
       </div>
-    </Layout.Content>
+    </Content>
   );
 };
 
