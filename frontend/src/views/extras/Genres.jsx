@@ -75,6 +75,11 @@ const Genres = () => {
         const formValues = form.getFieldsValue(); // Obtener los valores del formulario
         formData.append("nombreGenero", formValues.nombreGenero);
 
+        if (!formValues.nombreGenero) {
+          message.error("Por favor, complete los campos requeridos.");
+          return;
+        }
+
         fetch("http://localhost:3001/genres/save", {
           method: "post",
           body: formData,

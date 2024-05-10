@@ -181,6 +181,11 @@ const Books = () => {
         formData.append("existencia", formValues.existencia);
         formData.append("sinopsis", formValues.sinopsis);
 
+        if (!formValues.titulo || !formValues.autor || !formValues.isbn || !formValues.fechaPublicacion || !formValues.genero || !formValues.precio || !localStorage.getItem("nombreImagen") || !formValues.existencia || !formValues.sinopsis) {
+          message.error("Por favor, complete los campos requeridos.");
+          return;
+        }
+        
         console.log(formData);
 
         fetch("http://localhost:3001/books/save", {

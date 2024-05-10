@@ -56,40 +56,37 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
 
   const saveChanges = () => {
     form.validateFields().then((values) => {
-      if (values.nombreUsuario === "" || values.password === "" || values.rol === "") {
+      if (!values.nombreUsuario || !values.password || !values.rol) {
         message.error("Todos los campos son obligatorios");
         return;
-      } else {
-        fetch(
-          `http://localhost:3001/users/updateUser/${editedUser.idUsuario}`,
-          {
-            method: "put",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(values),
-          }
-        )
-          .then((response) => {
-            if (!response.ok) {
-              if (response.status === 400) {
-                throw new Error("El usuario ya existe");
-              } else if (response.status === 500) {
-                throw new Error("Error interno de servidor");
-              }
-            }
-            return response.json();
-          })
-          .then((data) => {
-            message.success(data.message);
-            setModal1Open(false);
-            setUsers(users.filter((user) => user.idUsuario !== editedUser.idUsuario)); // Actualizar la tabla después de la eliminación
-            setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
-          })
-          .catch((error) => {
-            message.error(error.message);
-          });
       }
+
+      fetch(`http://localhost:3001/users/updateUser/${editedUser.idUsuario}`, {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            if (response.status === 400) {
+              throw new Error("El usuario ya existe");
+            } else if (response.status === 500) {
+              throw new Error("Error interno de servidor");
+            }
+          }
+          return response.json();
+        })
+        .then((data) => {
+          message.success(data.message);
+          setModal1Open(false);
+          setUsers(users.filter((user) => user.idUsuario !== editedUser.idUsuario)); // Actualizar la tabla después de la eliminación
+          setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
+        })
+        .catch((error) => {
+          message.error(error.message);
+        });
     });
   };
 
@@ -239,7 +236,12 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
               <Form.Item
                 label="Usuario:"
                 name="nombreUsuario"
-                rules={[{ required: true, message: 'Por favor, ingrese un nombre de usuario' }]}
+                rules={[
+                  {
+                    required: true,
+                    message: "Por favor, ingrese un nombre de usuario",
+                  },
+                ]}
               >
                 <Input placeholder="ej. David Cruz" name="nombreUsuario" />
               </Form.Item>
@@ -247,7 +249,12 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
                 label="Contraseña:"
                 defaultValue=""
                 name="password"
-                rules={[{ required: true, message: 'Por favor, ingrese una contraseña' }]}
+                rules={[
+                  {
+                    required: true,
+                    message: "Por favor, ingrese una contraseña",
+                  },
+                ]}
               >
                 <Input.Password
                   placeholder="ej. 12345678"
@@ -260,7 +267,12 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
               <Form.Item
                 label="Rol"
                 name="rol"
-                rules={[{ required: true, message: 'Por favor, seleccione un rol para este usuario' }]}
+                rules={[
+                  {
+                    required: true,
+                    message: "Por favor, seleccione un rol para este usuario",
+                  },
+                ]}
               >
                 <Select
                   name="rol"

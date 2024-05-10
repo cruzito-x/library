@@ -103,6 +103,11 @@ const Users = () => {
         formData.append("password", formValues.password);
         formData.append("rol", formValues.rol);
 
+        if (!formValues.nombreUsuario || !formValues.password || !formValues.rol) {
+          message.error("Por favor, complete los campos requeridos.");
+          return;
+        }
+
         fetch("http://localhost:3001/users/save", {
           method: "post",
           body: formData,
