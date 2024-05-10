@@ -4,7 +4,7 @@ import "jspdf-autotable";
 
 const ReportTemplate = ({ reportData }) => {
   const [pdfGenerated, setPdfGenerated] = useState(false);
-  
+
   useEffect(() => {
     if (reportData.length > 0 && !pdfGenerated) {
       // Crear un nuevo documento PDF
@@ -96,6 +96,8 @@ const ReportTemplate = ({ reportData }) => {
       pad(now.getHours()) +
       pad(now.getMinutes()) +
       pad(now.getSeconds());
+
+      window.location.href = '/dashboard';
 
       // Guardar o mostrar el documento PDF
       doc.save("Reporte_"+formattedNow+".pdf"); // Para guardar el PDF

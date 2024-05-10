@@ -5,14 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
   const navigate = useNavigate();
-  const [showPDF, setShowPDF] = useState(false);
-  const [reportData, setReportData] = useState([]);
-  
-
-  const handleClosePDF = () => {
-    setShowPDF(false);
-    setReportData([]);
-  };
 
   const {
     token : { colorBgContainer }
