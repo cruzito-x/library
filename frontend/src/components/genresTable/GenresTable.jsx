@@ -163,6 +163,7 @@ const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
         <Col span={24}>
           <Spin spinning={loading} size="large" tip="Cargando...">
             <Table
+              scroll={{ x: "max-content" }} 
               columns={columns}
               dataSource={genresData}
             />
