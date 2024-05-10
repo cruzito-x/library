@@ -17,10 +17,8 @@ exports.getBooks = (req, res) => {
 exports.saveBill = (req, res) => {
   const { selectedBooks, nombre, apellido } = req.body;
 
-  const idVenta = crypto.createHash("md5").update(new Date().toISOString()).digest("hex")
-;
-  const idCliente = crypto.createHash("md5").update(new Date().toISOString()).digest("hex")
-;
+  const idVenta = crypto.createHash("md5").update(new Date().toISOString()).digest("hex");
+  const idCliente = crypto.createHash("md5").update(new Date().toISOString()).digest("hex");
   const total = selectedBooks.reduce((acumuladorTotal, book) => acumuladorTotal + parseFloat(book.total), 0).toFixed(2);
 
   // Begin transaction
