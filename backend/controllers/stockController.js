@@ -1,7 +1,7 @@
 const db = require("../config/db");
 
 exports.getStock = (req, res) => {
-  db.query("select e.idLibro, l.titulo, e.existencia as stock, e.deleted_at from libros l inner join existencias e on e.idLibro = l.idLibro where l.deleted_at is null order by e.existencia desc;", (error, results) => {
+  db.query("select e.idLibro, l.titulo, e.existencia as stock, e.deleted_at from libros l inner join existencias e on e.idLibro = l.idLibro order by e.existencia desc;", (error, results) => {
     if (error) {
       console.error("Error al obtener el stock:", error);
       res.status(500).json({ message: "Error interno del servidor" });
@@ -44,12 +44,41 @@ exports.updateStock = (req, res) => {
 exports.activateStock = (req, res) => {
   const { idLibro } = req.params;
 
-  db.query("update existencias set deleted_at = null where idLibro = ?;", [idLibro], (error, results) => {
+  db.beginTransaction((error) => {
     if (error) {
       res.status(500).json({ message: "Error interno del servidor" });
-      console.error("Error interno del servidor", error);
+      console.error("Error al iniciar transacción", error.message);
       return;
     }
-    res.status(200).json({ message: "Libro activado en el stock exitosamente" });
+
+    // Actualización de la tabla 'libros'
+    db.query("update libros set deleted_at = null where idLibro = ?;", [idLibro], (error, results) => {
+      if (error) {
+        return db.rollback(() => {
+          res.status(500).json({ message: "Error interno del servidor" });
+          console.error("Error al actualizar la tabla 'libros'", error.message);
+        });
+      }
+
+      // Actualización de la tabla 'existencias'
+      db.query("update existencias set deleted_at = null where idLibro = ?;", [idLibro], (error, results) => {
+        if (error) {
+          return db.rollback(() => {
+            res.status(500).json({ message: "Error interno del servidor" });
+            console.error("Error al actualizar la tabla 'existencias'", error.message);
+          });
+        }
+
+        db.commit((error) => {
+          if (error) {
+            return db.rollback(() => {
+              res.status(500).json({ message: "Error interno del servidor" });
+              console.error("Error al hacer commit de la transacción", error.message);
+            });
+          }
+          res.status(200).json({ message: "Libro activado en el stock exitosamente" });
+        });
+      });
+    });
   });
 }

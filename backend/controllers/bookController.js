@@ -77,19 +77,19 @@ exports.saveBook = (req, res) => {
   // Realizar ambas inserciones en una transacción
   db.beginTransaction((error) => {
     if (error) {
-      console.error("Error al iniciar la transacción:", error);
+      console.error("Error al iniciar la transacción:", error.message);
       res.status(500).json({ message: "Error interno del servidor" });
-      console.error("Error interno del servidor: ", error);
+      console.error("Error interno del servidor: ", error.message);
       return;
     }
 
     // Insertar en la tabla libros
     db.query(insertLibros, librosValues, (error, result) => {
       if (error) {
-        console.error("Error al guardar el libro:", error);
+        console.error("Error al guardar el libro:", error.message);
         db.rollback(() => {
           res.status(500).json({ message: "Error interno del servidor" });
-          console.error("Error interno del servidor: ", error);
+          console.error("Error interno del servidor: ", error.message);
         });
         return;
       }
@@ -97,10 +97,10 @@ exports.saveBook = (req, res) => {
       // Insertar en la tabla existencias
       db.query(insertExistencias, existenciasValues, (error, _result) => {
         if (error) {
-          console.error("Error al guardar la existencia:", error);
+          console.error("Error al guardar el stock:", error.message);
           db.rollback(() => {
             res.status(500).json({ message: "Error interno del servidor" });
-            console.error("Error interno del servidor: ", error);
+            console.error("Error interno del servidor: ", error.message);
           });
           return;
         }
@@ -108,19 +108,14 @@ exports.saveBook = (req, res) => {
         // Commit la transacción si ambas inserciones son exitosas
         db.commit((error) => {
           if (error) {
-            console.error("Error al hacer commit de la transacción:", error);
+            console.error("Error al hacer commit de la transacción:", error.message);
             db.rollback(() => {
               res.status(500).json({ message: "Error interno del servidor" });
-              console.error("Error interno del servidor: ", error);
+              console.error("Error interno del servidor: ", error.message);
             });
             return;
           }
-          res
-            .status(200)
-            .json({
-              message: "Libro guardado exitosamente",
-              id: result.insertId,
-            });
+          res.status(200).json({ message: "Libro guardado exitosamente" });
         });
       });
     });
@@ -151,12 +146,10 @@ exports.updateBook = (req, res) => {
     fechaPublicacion,
     genero,
     precio,
-    sinopsis,
-    existencia
+    sinopsis
   } = req.body;
 
   const updateLibros = `update libros set titulo = ?, autor = ?, isbn = ?, fechaPublicacion = ?, genero = ?, precio = ?, sinopsis = ? where idLibro = ?`;
-  const updateExistencias = `update existencias set existencia = ? where idLibro = ?`;
 
   const libroValues = [
     titulo,
@@ -168,50 +161,16 @@ exports.updateBook = (req, res) => {
     sinopsis,
     idLibro
   ];
-
-  const existenciaValues = [existencia, idLibro];
-
-  db.beginTransaction((error) => {
+  
+  // Actualizar en la tabla libros
+  db.query(updateLibros, libroValues, (error, result) => {
     if (error) {
-      console.error("Error al iniciar la transacción:", error);
+      console.error("Error al actualizar el libro:", error);
       res.status(500).json({ message: "Error interno del servidor" });
       return;
     }
 
-    // Actualizar en la tabla libros
-    db.query(updateLibros, libroValues, (error, result) => {
-      if (error) {
-        console.error("Error al actualizar el libro:", error);
-        db.rollback(() => {
-          res.status(500).json({ message: "Error interno del servidor" });
-        });
-        return;
-      }
-      res.status(200).json({ message: "Libro actualizado exitosamente" });
-
-      // Actualizar en la tabla existencias
-      // db.query(updateExistencias, existenciaValues, (error, result) => {
-      //   if (error) {
-      //     console.error("Error al actualizar la existencia:", error);
-      //     db.rollback(() => {
-      //       res.status(500).json({ message: "Error interno del servidor" });
-      //     });
-      //     return;
-      //   }
-
-      //   // Commit a la transacción si ambas actualizaciones son exitosas
-      //   db.commit((error) => {
-      //     if (error) {
-      //       console.error("Error al hacer commit de la transacción:", error);
-      //       db.rollback(() => {
-      //         res.status(500).json({ message: "Error interno del servidor" });
-      //       });
-      //       return;
-      //     }
-      //     res.status(200).json({ message: "Libro actualizado exitosamente" });
-      //   });
-      // });
-    });
+    res.status(200).json({ message: "Libro actualizado exitosamente" });
   });
 };
 
