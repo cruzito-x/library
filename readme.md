@@ -7,8 +7,8 @@ Este es un sistema de facturación desarrollado para una librería utilizando la
 - **Base de Datos:** MySQL
 
 ## Funcionalidades
-- Gestión de clientes: permite agregar, editar y eliminar clientes.
-- Gestión de productos: permite agregar, editar y eliminar productos.
+- Dashboard: permite visualizar de manera centralizada la información más importante referente a ventas, libros y ganancias obtenidas.
+- Gestión de libros: permite agregar, editar y eliminar productos.
 - Facturación: permite generar facturas para los clientes, seleccionando los productos que desean adquirir.
 
 ## Requisitos de Instalación
@@ -29,12 +29,14 @@ cd library
 ```
 
 Instala las dependencias del frontend y del backend:
+### Front-end
 ```
 cd frontend
 ```
 ```
 npm install
 ```
+### Back-end
 ```
 cd backend
 ```
@@ -44,10 +46,4 @@ npm install
 
 Configura la base de datos MySQL:
 - Crea una nueva base de datos MySQL.
-- Importa el archivo database.sql proporcionado en la carpeta backend para crear la estructura de la base de datos y datos de ejemplo.
-
-Contribución
-Si deseas contribuir a este proyecto, siéntete libre de hacer un fork y enviar un pull request. Cualquier contribución es bienvenida.
-
-Licencia
-Este proyecto está bajo la licencia MIT.
+- Importa el archivo database.sql proporcionado en la carpeta data para crear la estructura de la base de datos.

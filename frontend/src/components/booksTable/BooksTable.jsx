@@ -279,12 +279,13 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
               <Form.Item label="ISBN:" name="isbn">
                 <Input placeholder="978-8484050421" name="isbn" />
               </Form.Item>
-              <Form.Item label="Ingreso:" name="existencia">
-                <InputNumber
+              <Form.Item label="Stock:" name="existencia">
+                <Input
                   min={1}
                   max={500}
                   defaultValue={1}
                   name="existencia"
+                  disabled
                 />
               </Form.Item>
               <Form.Item label="Descripción:" name="sinopsis">
