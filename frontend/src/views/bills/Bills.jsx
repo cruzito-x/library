@@ -181,6 +181,7 @@ const Bills = () => {
     const tableData = [];
     let totalPagar = 0;
     let descuento = 0;
+
     selectedBooks.forEach((book, index) => {
       const rowData = [
         { content: book.label, styles: { halign: "left" } },
@@ -189,6 +190,7 @@ const Bills = () => {
         { content: `$${book.total}`, styles: { halign: "center" } },
       ];
       tableData.push(rowData);
+      descuento += book.descuento;
       totalPagar += book.total;
     });
     doc.autoTable({
@@ -243,7 +245,7 @@ const Bills = () => {
       doc.autoTable.previous.finalY + 20
     );
     doc.text(
-      `$${descuento}`,
+      `${descuento}%`,
       doc.internal.pageSize.getWidth() - 15,
       doc.autoTable.previous.finalY + 20,
       { align: "right" }
@@ -350,15 +352,9 @@ const Bills = () => {
         <Title level={3} style={{ marginBottom: "25px" }}>
           Datos de libro
         </Title>
-        <Form
-          layout={formLayout}
-          form={form}
-          initialValues={{
-            layout: formLayout,
-          }}
-        >
-          <Row gutter={16}>
-            <Col span={12}>
+        <Form form={form}>
+          <Row gutter={[16, 16]}>
+            <Col xs={24} sm={12}>
               <Form.Item label="Libro:" name="libro">
                 <Select
                   onChange={handleChange}
@@ -370,19 +366,17 @@ const Bills = () => {
                 />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col xs={24} sm={12}>
               <Form.Item label="Cantidad" name="cantidad">
                 <InputNumber min={1} max={10} defaultValue={1} style={{ width: "100%" }} />
               </Form.Item>
             </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={12}>
+            <Col xs={24} sm={12}>
               <Form.Item label="Precio unitario:" name="precioUnitario">
                 <Input prefix={"$"} disabled defaultValue={books.precio} />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col xs={24} sm={12}>
               <Form.Item label="Descuento:" name="descuento">
                 <InputNumber
                   prefix={"%"}
@@ -394,46 +388,43 @@ const Bills = () => {
                 />
               </Form.Item>
             </Col>
+            <Col span={24}>
+              <Button type="primary" onClick={handleAddBook}>
+                Añadir libro
+              </Button>
+            </Col>
           </Row>
-          <Button type="primary" onClick={handleAddBook}>
-            Añadir libro
-          </Button>
-
-          <Divider />
-
-          <Title level={3} style={{ marginBottom: "25px" }}>
-            Datos de cliente
-          </Title>
-
-          <Row gutter={16}>
-            <Col span={12}>
+        </Form>
+        <Divider />
+        <Title level={3} style={{ marginBottom: "25px" }}>
+          Datos de cliente
+        </Title>
+        <Form form={form}>
+          <Row gutter={[16, 16]}>
+            <Col xs={24} sm={12}>
               <Form.Item label="Nombre" name="nombre">
                 <Input placeholder="Nombre de cliente" />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col xs={24} sm={12}>
               <Form.Item label="Apellido" name="apellido">
                 <Input placeholder="Apellido de cliente" />
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={16}>
-            <Col span={12}>
+          <Row>
+            <Col xs={24}>
               <Form.Item label="Método de pago:" name="metodoPago">
                 <Checkbox checked={true}>Efectivo</Checkbox>
               </Form.Item>
             </Col>
           </Row>
-
-          <Table
-            columns={columnsWithTotal}
-            dataSource={selectedBooks.concat(totalRow)}
-          />
-          <br />
-          <Button type="primary" onClick={handleSaveBill}>
-            <PrinterOutlined /> Generar factura
-          </Button>
         </Form>
+        <Table scroll={{ x: "max-content" }} columns={columnsWithTotal} dataSource={selectedBooks.concat(totalRow)} />
+        <br />
+        <Button type="primary" onClick={handleSaveBill}>
+          <PrinterOutlined /> Generar factura
+        </Button>
       </div>
     </Content>
   );

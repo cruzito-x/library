@@ -174,11 +174,12 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
   ];
 
   return (
-    <Card style={{ marginTop: "20px" }}>
+    <div style={{ marginTop: "20px" }}>
       <Row gutter={[16, 16]}>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
           <Spin spinning={loading} size="large" tip="Cargando...">
             <Table
+              scroll={{ x: "max-content" }} 
               columns={columns}
               dataSource={booksData}
               onRow={(record, rowIndex) => {
@@ -303,7 +304,7 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
           </Modal>
         </Col>
       </Row>
-    </Card>
+    </div>
   );
 };
 

@@ -212,7 +212,7 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
   ];
 
   return (
-    <Card style={{ marginTop: "20px" }}>
+    <div style={{ marginTop: "20px" }}>
       <Row gutter={16}>
         <Col span={24}>
           <Spin spinning={loading} size="large" tip="Cargando...">
@@ -288,7 +288,7 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
           </Modal>
         </Col>
       </Row>
-    </Card>
+    </div>
   );
 };
 
