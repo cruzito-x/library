@@ -49,29 +49,6 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
       });
   }, [refreshTable, setRefreshTable]);
 
-  const confirmDelete = (record) => {
-    fetch(
-      `http://localhost:3001/stock/deleteStockUpdatedDeletedAt/${record.idLibro}`,
-      {
-        method: "delete",
-      }
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error al retirar el libro del stock");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        message.success(data.message);
-        setStock(stock.filter((stock) => stock.idLibro !== record.idLibro)); // Actualizar la tabla después de la eliminación
-        setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
-      })
-      .catch((error) => {
-        message.error(error.message);
-      });
-  };
-
   const saveChanges = () => {
     form.validateFields().then((values) => {
       fetch(`http://localhost:3001/stock/updateStock/${editedStock.idLibro}`, {
@@ -103,6 +80,49 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
     });
   };
 
+  const confirmDelete = (record) => {
+    fetch(
+      `http://localhost:3001/stock/deleteStockUpdatedDeletedAt/${record.idLibro}`,
+      {
+        method: "delete",
+      }
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al retirar el libro del stock");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        message.success(data.message);
+        setStock(stock.filter((stock) => stock.idLibro !== record.idLibro)); // Actualizar la tabla después de la eliminación
+        setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
+      })
+      .catch((error) => {
+        message.error(error.message);
+      });
+  };
+
+  const activateStock = (record) => {
+    fetch(`http://localhost:3001/stock/activateStock/${record.idLibro}`, {
+      method: "put",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al activar el libro en el stock");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        message.success(data.message);
+        setStock(stock.filter((stock) => stock.idLibro !== record.idLibro)); // Actualizar la tabla después de la eliminación
+        setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
+      })
+      .catch((error) => {
+        message.error(error.message);
+      });
+  };
+
   const columns = [
     {
       title: "Libro",
@@ -117,22 +137,30 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
     {
       title: "Estado",
       render: (record) => (
-        <Tag
-          bordered={false}
-          color={
-            record.stock === 0
-              ? "error"
+        <>
+          <Tag
+            bordered={false}
+            color={
+              record.stock === 0
+                ? "error"
+                : record.stock < 75
+                ? "warning"
+                : "success"
+            }
+          >
+            {record.stock === 0
+              ? "Agotado"
               : record.stock < 75
-              ? "orange"
-              : "success"
-          }
-        >
-          {record.stock === 0
-            ? "Agotado"
-            : record.stock < 75
-            ? "Últimas unidades"
-            : "En Existencia"}
-        </Tag>
+              ? "Últimas unidades"
+              : "En Existencia"}
+          </Tag>
+          <Tag
+            bordered={false}
+            color={record.deleted_at != null ? "error" : "success"}
+          >
+            {record.deleted_at != null ? "Retirado" : "Activo"}
+          </Tag>
+        </>
       ),
     },
     {
@@ -156,10 +184,13 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
             okText="Sí"
             cancelText="No"
           >
-            <Button type="primary" danger>
+            <Button type="primary" danger style={{ marginRight: "20px" }}>
               Eliminar
             </Button>
           </Popconfirm>
+          <Button type="primary" onClick={() => activateStock(record)}>
+            Activar
+          </Button>
         </>
       ),
     },

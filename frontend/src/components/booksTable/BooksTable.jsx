@@ -220,12 +220,12 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
                     alt="Product photo"
                   />
                 </div>
-                <p> <strong> Nombre del libro: </strong> <br />
+                <p> <strong> Título: </strong> <br />
                   {selectedRowData.titulo} <Tag bordered={false} color="blue"> {selectedRowData.genero} </Tag>
                 </p>
                 <p>
                   <strong> Existencia: </strong> <br />
-                  <Tag bordered={false} color={ selectedRowData.existencia === 0 ? "error" : selectedRowData.existencia < 75 ? "orange" : "success" }> {selectedRowData.existencia === 0 ? "Agotado" : selectedRowData.existencia < 75 ? "Últimas unidades" : "En Existencia"} </Tag>
+                  <Tag bordered={false} color={ selectedRowData.existencia === 0 ? "error" : selectedRowData.existencia < 75 ? "warning" : "success" }> {selectedRowData.existencia === 0 ? "Agotado" : selectedRowData.existencia < 75 ? "Últimas unidades" : "En Existencia"} </Tag>
                 </p>
                 <p> <strong> Autor: </strong> <br />
                   {selectedRowData.autor}
@@ -254,7 +254,7 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
             ]}
           >
             <Form form={form}>
-              <Form.Item label="Libro:" name="titulo">
+              <Form.Item label="Título:" name="titulo">
                 <Input placeholder="ej. Jícaras tristes" name="titulo" />
               </Form.Item>
               <Form.Item label="Autor:" name="autor">
@@ -281,9 +281,6 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
               </Form.Item>
               <Form.Item label="Stock:" name="existencia">
                 <Input
-                  min={1}
-                  max={500}
-                  defaultValue={1}
                   name="existencia"
                   disabled
                 />
