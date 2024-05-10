@@ -56,8 +56,8 @@ const Stock = () => {
         }}
       >
         <Row gutter={16}>
-          <Col span={18}> </Col>
-          <Col span={6}>
+          <Col xs={24} sm={12} md={18} lg={18} xl={18}> </Col>
+          <Col xs={24} sm={12} md={6} lg={6} xl={6}>
             <Search
               placeholder="Buscar por nombre de libro"
               onSearch={handleSearch}
