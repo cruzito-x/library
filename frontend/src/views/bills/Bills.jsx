@@ -26,6 +26,8 @@ const Bills = () => {
   const [form] = Form.useForm();
   const [formLayout, setFormLayout] = useState("horizontal");
   const [selectedBooks, setSelectedBooks] = useState([]);
+  const [nombreFilled, setNombreFilled] = useState(false);
+  const [apellidoFilled, setApellidoFilled] = useState(false);
   const { Title } = Typography;
 
   const {
@@ -56,6 +58,12 @@ const Bills = () => {
 
   const handleSaveBill = () => {
     const { nombre, apellido } = form.getFieldsValue(["nombre", "apellido"]);
+
+    if (selectedBooks.length === 0 || !nombre || !apellido) {
+      message.error("Por favor, complete los campos requeridos.");
+      return;
+    }
+
     const request = {
       selectedBooks,
       nombre,
@@ -90,7 +98,12 @@ const Bills = () => {
     form.validateFields().then((values) => {
       const selectedBook = books.find((book) => book.value === values.libro);
       const subtotal = (values.cantidad * values.precioUnitario).toFixed(2);
-      const descuento = 0;
+      const descuento =
+        values.descuento > 0 && values.descuento < 10
+          ? values.precioUnitario * ("0.0" + values.descuento)
+          : values.descuento > 9 && values.descuento < 90
+          ? values.precioUnitario * ("0." + values.descuento)
+          : 0;
       const total = subtotal - descuento;
       const newBook = {
         ...selectedBook,
@@ -247,8 +260,8 @@ const Bills = () => {
       { align: "right" }
     );
 
-    var now = new Date();
-    var formattedNow =
+    let now = new Date();
+    let formattedNow =
       now.getFullYear().toString() +
       pad(now.getMonth() + 1) +
       pad(now.getDate()) +
@@ -288,16 +301,25 @@ const Bills = () => {
       title: "Precio Unitario",
       dataIndex: "precioUnitario",
       key: "precioUnitario",
+      render(text) {
+        return `${text !== undefined ? "$" + text : ""}`;
+      },
     },
     {
       title: "Subtotal",
       dataIndex: "subtotal",
       key: "subtotal",
+      render(text) {
+        return `${text !== undefined ? "$" + text : ""}`;
+      },
     },
     {
       title: "Descuento",
       dataIndex: "descuento",
       key: "descuento",
+      render(text) {
+        return `${text !== undefined ? text + "%" : ""}`;
+      },
     },
     {
       title: "Total",
@@ -362,7 +384,13 @@ const Bills = () => {
             </Col>
             <Col span={12}>
               <Form.Item label="Descuento:" name="descuento">
-                <Input prefix={"%"} placeholder="0.00" />
+                <InputNumber
+                  prefix={"%"}
+                  min={0}
+                  max={90}
+                  defaultValue={0}
+                  placeholder="0"
+                />
               </Form.Item>
             </Col>
           </Row>
