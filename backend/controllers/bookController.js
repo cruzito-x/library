@@ -187,29 +187,30 @@ exports.updateBook = (req, res) => {
         });
         return;
       }
+      res.status(200).json({ message: "Libro actualizado exitosamente" });
 
       // Actualizar en la tabla existencias
-      db.query(updateExistencias, existenciaValues, (error, result) => {
-        if (error) {
-          console.error("Error al actualizar la existencia:", error);
-          db.rollback(() => {
-            res.status(500).json({ message: "Error interno del servidor" });
-          });
-          return;
-        }
+      // db.query(updateExistencias, existenciaValues, (error, result) => {
+      //   if (error) {
+      //     console.error("Error al actualizar la existencia:", error);
+      //     db.rollback(() => {
+      //       res.status(500).json({ message: "Error interno del servidor" });
+      //     });
+      //     return;
+      //   }
 
-        // Commit a la transacción si ambas actualizaciones son exitosas
-        db.commit((error) => {
-          if (error) {
-            console.error("Error al hacer commit de la transacción:", error);
-            db.rollback(() => {
-              res.status(500).json({ message: "Error interno del servidor" });
-            });
-            return;
-          }
-          res.status(200).json({ message: "Libro actualizado exitosamente" });
-        });
-      });
+      //   // Commit a la transacción si ambas actualizaciones son exitosas
+      //   db.commit((error) => {
+      //     if (error) {
+      //       console.error("Error al hacer commit de la transacción:", error);
+      //       db.rollback(() => {
+      //         res.status(500).json({ message: "Error interno del servidor" });
+      //       });
+      //       return;
+      //     }
+      //     res.status(200).json({ message: "Libro actualizado exitosamente" });
+      //   });
+      // });
     });
   });
 };
