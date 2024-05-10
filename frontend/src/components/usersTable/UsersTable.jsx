@@ -81,13 +81,13 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
             return response.json();
           })
           .then((data) => {
-            message.success("Usuario actualizado exitosamente");
+            message.success(data.message);
             setModal1Open(false);
             setUsers(users.filter((user) => user.idUsuario !== editedUser.idUsuario)); // Actualizar la tabla después de la eliminación
             setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
           })
           .catch((error) => {
-            message.error("Error al actualizar el usuario");
+            message.error(error.message);
           });
       }
     });
@@ -107,12 +107,12 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
         return response.json();
       })
       .then((data) => {
-        message.success("Usuario eliminado exitosamente");
+        message.success(data.message);
         setUsers(users.filter((user) => user.idUsuario !== record.idUsuario)); // Actualizar la tabla después de la eliminación
         setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
       })
       .catch((error) => {
-        message.error("Error al eliminar el usuario");
+        message.error(error.message);
       });
   };
 

@@ -31,7 +31,7 @@ const Login = () => {
         localStorage.setItem("username", values.username);
         navigate("/dashboard");
       } else if (response.status === 401) {
-        message.error("Nombre de usuario o contraseña incorrectos");
+        message.error(response.message);
       } else {
         message.error(response.status);
       }

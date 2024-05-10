@@ -50,7 +50,8 @@ const Users = () => {
         setUsersData(data);
       })
       .catch((error) => {
-        console.error("Error al obtener la lista de usuarios:", error);
+        console.error(error.message);
+        
       });
   }, [refreshTable]);
 
@@ -112,7 +113,7 @@ const Users = () => {
             setRefreshTable(!refreshTable); // Actualiza la tabla
           })
           .catch((error) => {
-            message.error("Error al registrar usuario");
+            message.error(error.message);
           });
       },
       onCancel() {},

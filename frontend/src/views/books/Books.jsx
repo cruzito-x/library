@@ -55,7 +55,7 @@ const Books = () => {
         setBooksData(data);
       })
       .catch((error) => {
-        console.error("Error al obtener libros:", error);
+        message.error(error.message);
       });
   }, [refreshTable]);
 
@@ -84,7 +84,7 @@ const Books = () => {
         }
       })
       .catch((error) => {
-        console.error("Error al cargar los géneros:", error);
+        console.error(error.message);
       });
   }, []);
 
@@ -128,7 +128,7 @@ const Books = () => {
             <Input placeholder="978-8484050421" name="isbn" />
           </Form.Item>
           <Form.Item label="Ingreso:" name="existencia">
-            <InputNumber min={1} max={100} defaultValue={1} name="existencia" />
+            <InputNumber min={1} max={500} defaultValue={1} name="existencia" />
           </Form.Item>
           <Form.Item label="Descripción:" name="sinopsis">
             <TextArea
@@ -191,8 +191,7 @@ const Books = () => {
             setRefreshTable(!refreshTable); // Actualiza la tabla
           })
           .catch((error) => {
-            message.error("Error al registrar el libro");
-            console.error("Error al registrar el libro:", error.message);
+            message.error(error.message);
           });
       },
       onCancel() {},

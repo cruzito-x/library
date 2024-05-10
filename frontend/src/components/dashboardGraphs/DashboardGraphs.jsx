@@ -257,7 +257,7 @@ const DashboardGraphs = ({ period }) => {
           error
         );
         setLoading(false);
-        message.error("Error al obtener los datos de ventas por género");
+        message.error(error.message);
       });
   }, [period]);
 
@@ -308,7 +308,7 @@ const DashboardGraphs = ({ period }) => {
           error
         );
         setLoading(false);
-        message.error("Error al obtener la lista de ventas del mes actual");
+        message.error(error.message);
       });
   }, [period]);
 
@@ -339,7 +339,7 @@ const DashboardGraphs = ({ period }) => {
           error
         );
         setLoading(false);
-        message.error("Error al obtener la lista de libros más vendidos");
+        message.error(error.message);
       });
   }, [period]);
 
@@ -357,9 +357,8 @@ const DashboardGraphs = ({ period }) => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error al obtener la lista de libros:", error);
         setLoading(false);
-        message.error("Error al obtener la lista de libros");
+        message.error(error.message);
       });
   }, []);
 

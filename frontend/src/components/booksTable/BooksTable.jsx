@@ -48,7 +48,6 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
         }
       })
       .catch((error) => {
-        console.error("Error al cargar los géneros:", error);
       });
   }, []);
 
@@ -72,9 +71,8 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error al obtener la lista de libros:", error);
         setLoading(false);
-        message.error("Error al obtener la lista de libros");
+        message.error(error.message);
       });
   }, [refreshTable, setRefreshTable]); 
 
@@ -94,14 +92,13 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
           return response.json();
         })
         .then((data) => {
-          message.success("Libro actualizado exitosamente");
+          message.success(data.message);
           setModal2Open(false);
           setBooks(books.filter((book) => book.idLibro !== editedBook.idLibro)); // Actualizar la tabla después de la eliminación
           setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
         })
         .catch((error) => {
-          console.error("Error al actualizar el libro:", error);
-          message.error("Error al actualizar el libro");
+          message.error(error.message);
         });
     });
   };
@@ -120,13 +117,12 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
         return response.json();
       })
       .then((data) => {
-        message.success("Libro eliminado exitosamente");
+        message.success(data.message);
         setBooks(books.filter((book) => book.idLibro !== record.idLibro)); // Actualizar la tabla después de la eliminación
         setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
       })
       .catch((error) => {
-        console.error("Error al eliminar el libro:", error);
-        message.error("Error al eliminar el libro");
+        message.error(error.message);
       });
   };
 
@@ -229,7 +225,7 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
                 </p>
                 <p>
                   <strong> Existencia: </strong> <br />
-                  <Tag bordered={false} color={ selectedRowData.existencia === 0 ? "error" : selectedRowData.existencia < 20 ? "orange" : "success" }> {selectedRowData.existencia === 0 ? "Agotado" : selectedRowData.existencia < 20 ? "Últimas unidades" : "En Existencia"} </Tag>
+                  <Tag bordered={false} color={ selectedRowData.existencia === 0 ? "error" : selectedRowData.existencia < 75 ? "orange" : "success" }> {selectedRowData.existencia === 0 ? "Agotado" : selectedRowData.existencia < 75 ? "Últimas unidades" : "En Existencia"} </Tag>
                 </p>
                 <p> <strong> Autor: </strong> <br />
                   {selectedRowData.autor}
@@ -286,7 +282,7 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
               <Form.Item label="Ingreso:" name="existencia">
                 <InputNumber
                   min={1}
-                  max={100}
+                  max={500}
                   defaultValue={1}
                   name="existencia"
                 />

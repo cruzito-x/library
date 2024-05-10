@@ -50,7 +50,7 @@ const Bills = () => {
         }
       })
       .catch((error) => {
-        console.error("Error al cargar los libros: ", error);
+        console.error(error.message);
       });
   }, [form]);
 
@@ -77,8 +77,7 @@ const Bills = () => {
         form.setFieldsValue({ nombre: "", apellido: "" });
       })
       .catch((error) => {
-        message.error("Error al guardar la factura");
-        console.error("Error al guardar la factura: ", error.message);
+        message.error(error.message);
       });
   };
 
@@ -351,7 +350,7 @@ const Bills = () => {
             </Col>
             <Col span={12}>
               <Form.Item label="Cantidad" name="cantidad">
-                <InputNumber min={1} max={100} defaultValue={1} />
+                <InputNumber min={1} max={10} defaultValue={1} />
               </Form.Item>
             </Col>
           </Row>

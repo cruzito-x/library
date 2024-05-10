@@ -26,7 +26,7 @@ const Stock = () => {
         setStockData(data);
       })
       .catch((error) => {
-        console.error("Error al obtener stock:", error);
+        console.error(error.message);
       });
   }, [refreshTable]);
 

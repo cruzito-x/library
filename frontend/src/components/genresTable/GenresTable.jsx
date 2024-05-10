@@ -42,9 +42,8 @@ const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error al obtener la lista de géneros:", error);
         setLoading(false);
-        message.error("Error al obtener la lista de géneros");
+        message.error(error.message);
       });
   }, [refreshTable]);
 
@@ -71,13 +70,13 @@ const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
           return response.json();
         })
         .then((data) => {
-          message.success("Género literario actualizado exitosamente");
+          message.success(data.message);
           setModal1Open(false);
           setGenres(genres.filter((genre) => genre.idGenero !== editedGenre.idGenero)); // Actualizar la tabla después de la eliminación
           setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
         })
         .catch((error) => {
-          message.error("Error al actualizar el género literario");
+          message.error(error.message);
         });
     });
   };
@@ -96,12 +95,12 @@ const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
         return response.json();
       })
       .then((data) => {
-        message.success("Género literario eliminado exitosamente");
+        message.success(data.message);
         setGenres(genres.filter((genre) => genre.idGenero !== editedGenre.idGenero)); // Actualizar la tabla después de la eliminación
         setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
       })
       .catch((error) => {
-        message.error("Error al eliminar el género literario");
+        message.error(error.message);
       });
   };
 

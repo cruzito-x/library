@@ -45,7 +45,7 @@ const Genres = () => {
         setGenresData(data);
       })
       .catch((error) => {
-        console.error("Error al obtener la lista de géneros:", error);
+        console.error(error.message);
       });
   }, [refreshTable]);
 
@@ -85,7 +85,7 @@ const Genres = () => {
             setRefreshTable(!refreshTable); // Actualiza la tabla
           })
           .catch((error) => {
-            message.error("Error al registrar el género literario");
+            message.error(error.message);
           });
       },
       onCancel() {},
