@@ -3,20 +3,29 @@ import { UserOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import { Layout, Breadcrumb, Typography, Card, Collapse, theme } from "antd";
 
 import dashboard from "../../assets/images/dashboard.png";
-import libros from "../../assets/images/libros.png";
-import nuevoLibro from "../../assets/images/nuevoLibro.png";
-import guardarLibro from "../../assets/images/guardarLibro.png";
-import guardarLibroSuccess from "../../assets/images/guardarLibroSuccess.png";
-import librosNuevaTabla from "../../assets/images/librosNuevaTabla.png";
-import eliminarLibro from "../../assets/images/eliminarLibro.png";
-import confirmarBorrarLibro from "../../assets/images/confirmarBorrarLibro.png";
-import eliminarLibroSuccess from "../../assets/images/eliminarLibroSuccess.png";
-import tablaRefreshEliminarLibro from "../../assets/images/tablaRefreshEliminarLibro.png";
-import editarLibro from "../../assets/images/editarLibro.png";
-import actualizarLibro from "../../assets/images/actualizarLibro.png";
-import actualizarLibroSuccess from "../../assets/images/actualizarLibroSuccess.png";
-import tablaRefreshActuaizarLibro from "../../assets/images/tablaRefreshActuaizarLibro.png";
-import generos from "../../assets/images/generos.png";
+import books from "../../assets/images/books.png";
+import newBook from "../../assets/images/newBook.png";
+import saveBook from "../../assets/images/saveBook.png";
+import successBookSaved from "../../assets/images/successBookSaved.png";
+import newBookInTable from "../../assets/images/newBookInTable.png";
+import deleteButton from "../../assets/images/deleteButton.png";
+import confirmDeleteBook from "../../assets/images/confirmDeleteBook.png";
+import successBookDeleted from "../../assets/images/successBookDeleted.png";
+import refreshBooksTableAfterDelete from "../../assets/images/refreshBooksTableAfterDelete.png";
+import editButton from "../../assets/images/editButton.png";
+import updateBook from "../../assets/images/updateBook.png";
+import successBookUpdated from "../../assets/images/successBookUpdated.png";
+import refreshBooksTableAfterUpdate from "../../assets/images/refreshBooksTableAfterUpdate.png";
+import genres from "../../assets/images/genres.png";
+import stock from "../../assets/images/stock.png";
+import editStock from "../../assets/images/editStock.png";
+import successStockUpdated from "../../assets/images/successStockUpdated.png";
+import confirmDeleteStock from "../../assets/images/confirmDeleteStock.png";
+import successStockDeleted from "../../assets/images/successStockDeleted.png";
+import refreshStockTableAfterDelete from "../../assets/images/refreshStockTableAfterDelete.png";
+import activateButton from "../../assets/images/activateButton.png";
+import successStockActivation from "../../assets/images/successStockActivation.png";
+import refreshStockTableAfterActivate from "../../assets/images/refreshStockTableAfterActivate.png";
 
 const Help = () => {
   const { Content } = Layout;
@@ -87,7 +96,7 @@ const Help = () => {
                                 }}
                               >
                                 <img
-                                  src={libros}
+                                  src={books}
                                   style={{ width: "950px", height: "490px" }}
                                 />
                               </div>
@@ -104,7 +113,7 @@ const Help = () => {
                                 }}
                               >
                                 <img
-                                  src={nuevoLibro}
+                                  src={newBook}
                                   style={{ width: "430px", height: "120px" }}
                                 />
                               </div>
@@ -116,7 +125,7 @@ const Help = () => {
                                 }}
                               >
                                 <img
-                                  src={guardarLibro}
+                                  src={saveBook}
                                   style={{ width: "470px", height: "490px" }}
                                 />
                               </div>
@@ -136,7 +145,7 @@ const Help = () => {
                                 }}
                               >
                                 <img
-                                  src={guardarLibroSuccess}
+                                  src={successBookSaved}
                                   style={{ width: "350px", height: "70px" }}
                                 />
                               </div>
@@ -152,7 +161,7 @@ const Help = () => {
                                 }}
                               >
                                 <img
-                                  src={librosNuevaTabla}
+                                  src={newBookInTable}
                                   style={{ width: "1150px", height: "250px" }}
                                 />
                               </div>
@@ -178,7 +187,7 @@ const Help = () => {
                                 }}
                               >
                                 <img
-                                  src={libros}
+                                  src={books}
                                   style={{ width: "950px", height: "490px" }}
                                 />
                               </div>
@@ -195,8 +204,8 @@ const Help = () => {
                                 }}
                               >
                                 <img
-                                  src={eliminarLibro}
-                                  style={{ width: "250px", height: "90px" }}
+                                  src={deleteButton}
+                                  style={{ width: "150px", height: "60px" }}
                                 />
                               </div>
                               <p>
@@ -211,7 +220,7 @@ const Help = () => {
                                 }}
                               >
                                 <img
-                                  src={confirmarBorrarLibro}
+                                  src={confirmDeleteBook}
                                   style={{ width: "390px", height: "180px" }}
                                 />
                               </div>
@@ -228,8 +237,8 @@ const Help = () => {
                                 }}
                               >
                                 <img
-                                  src={eliminarLibroSuccess}
-                                  style={{ width: "350px", height: "70px" }}
+                                  src={successBookDeleted}
+                                  style={{ width: "350px", height: "50px" }}
                                 />
                               </div>
                               <p>
@@ -244,8 +253,8 @@ const Help = () => {
                                 }}
                               >
                                 <img
-                                  src={tablaRefreshEliminarLibro}
-                                  style={{ width: "1150px", height: "450px" }}
+                                  src={refreshBooksTableAfterDelete}
+                                  style={{ width: "1150px", height: "500px" }}
                                 />
                               </div>
                             </div>
@@ -270,7 +279,7 @@ const Help = () => {
                                 }}
                               >
                                 <img
-                                  src={libros}
+                                  src={books}
                                   style={{ width: "950px", height: "490px" }}
                                 />
                               </div>
@@ -278,7 +287,7 @@ const Help = () => {
                                 Para realizar la edición del registro de un
                                 libro, debe dar clic sobre el botón{" "}
                                 <strong> Editar </strong> correspondiente al
-                                registro que desea eliminar
+                                registro que desea actualizar
                               </p>
                               <div
                                 style={{
@@ -287,8 +296,8 @@ const Help = () => {
                                 }}
                               >
                                 <img
-                                  src={editarLibro}
-                                  style={{ width: "350px", height: "120px" }}
+                                  src={editButton}
+                                  style={{ width: "150px", height: "60px" }}
                                 />
                               </div>
                               <p> Esto desplegará el siguiente modal: </p>
@@ -299,7 +308,7 @@ const Help = () => {
                                 }}
                               >
                                 <img
-                                  src={actualizarLibro}
+                                  src={updateBook}
                                   style={{ width: "440px", height: "510px" }}
                                 />
                               </div>
@@ -319,8 +328,8 @@ const Help = () => {
                                 }}
                               >
                                 <img
-                                  src={actualizarLibroSuccess}
-                                  style={{ width: "350px", height: "70px" }}
+                                  src={successBookUpdated}
+                                  style={{ width: "350px", height: "50px" }}
                                 />
                               </div>
                               <p>
@@ -335,8 +344,8 @@ const Help = () => {
                                 }}
                               >
                                 <img
-                                  src={tablaRefreshActuaizarLibro}
-                                  style={{ width: "1350px", height: "50px" }}
+                                  src={refreshBooksTableAfterUpdate}
+                                  style={{ width: "1350px", height: "100px" }}
                                 />
                               </div>
                             </div>
@@ -427,7 +436,7 @@ const Help = () => {
                                 }}
                               >
                                 <img
-                                  src={generos}
+                                  src={genres}
                                   style={{ width: "950px", height: "490px" }}
                                 />
                               </div>
@@ -459,6 +468,289 @@ const Help = () => {
                           key: "1",
                           label: "Actualizar un género existente",
                           children: <></>,
+                        },
+                      ]}
+                    />
+                  </>
+                ),
+              },
+            ]}
+          ></Collapse>
+
+          <br />
+
+          <Collapse
+            size="large"
+            items={[
+              {
+                key: "0",
+                label: "Existencias",
+                children: (
+                  <>
+                    <>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <img
+                          src={stock}
+                          style={{ width: "950px", height: "490px" }}
+                        />
+                      </div>
+                      <p>
+                        {" "}
+                        En este apartado del sistema podremos visualizar el
+                        stock yacente de cada libro y sus respectivos estados{" "}
+                        <strong>
+                          (estado de unidades y estado de circulación)
+                        </strong>
+                        , para los cuales se cuenta con los siguientes botones
+                        de acción:{" "}
+                      </p>
+                      <ul>
+                        <li>
+                          {" "}
+                          <strong>1. Editar:</strong> Este botón permite la
+                          actualización de unidades en stock.{" "}
+                        </li>
+                        <li>
+                          {" "}
+                          <strong>2. Eliminar:</strong> Este botón retira las
+                          unidades de circulación del stock.{" "}
+                        </li>
+                        <li>
+                          {" "}
+                          <strong>3. Activar:</strong> Este botón activa el
+                          stock en circulación.{" "}
+                        </li>
+                      </ul>
+                    </>
+                    <Collapse
+                      size="large"
+                      items={[
+                        {
+                          key: "1",
+                          label: "Actualizar existencias",
+                          children: (
+                            <>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={editButton}
+                                  style={{ width: "150px", height: "60px" }}
+                                />
+                              </div>
+                              <p>
+                                {" "}
+                                Para realizar la actualización de stock de un
+                                libro, se deberá dar clic sobre el botón{" "}
+                                <strong>Editar</strong>, el cual desplegará el
+                                siguiente modal:{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={editStock}
+                                  style={{ width: "650px", height: "160px" }}
+                                />
+                              </div>
+                              <p>
+                                {" "}
+                                Al dar clic en el botón{" "}
+                                <strong>Guardar cambios</strong> se desplegará
+                                el siguiente mensaje:{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={successStockUpdated}
+                                  style={{ width: "350px", height: "60px" }}
+                                />
+                              </div>
+                              <p>
+                                {" "}
+                                Con lo cual se estará actualizando el total de
+                                unidades en stock del libro seleccionado.{" "}
+                              </p>
+                            </>
+                          ),
+                        },
+                      ]}
+                    />
+
+                    <br />
+
+                    <Collapse
+                      size="large"
+                      items={[
+                        {
+                          key: "2",
+                          label: "Retirar un libro existente del stock",
+                          children: (
+                            <>
+                              <p>
+                                {" "}
+                                Para realizar el retiro de stock de un libro,
+                                debe dar clic sobre el botón{" "}
+                                <strong>Eliminar</strong> correspondiente al
+                                registro que desea eliminar{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={deleteButton}
+                                  style={{ width: "150px", height: "60px" }}
+                                />
+                              </div>
+                              <p>
+                                {" "}
+                                Esto desplegará el siguiente cuadro de
+                                confirmación:{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={confirmDeleteStock}
+                                  style={{ width: "390px", height: "180px" }}
+                                />
+                              </div>
+                              <p>
+                                {" "}
+                                Si escoge la opción <strong>No</strong>, no
+                                ocurrirá nada, sin embargo, si decide escoger la
+                                opción <strong>Sí</strong>, esto desplegará la
+                                siguiente alerta:{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={successStockDeleted}
+                                  style={{ width: "350px", height: "50px" }}
+                                />
+                              </div>
+                              <p>
+                                {" "}
+                                Mostrando ahora un nuevo estado para el libro,
+                                en este caso, el estado "
+                                <strong>Retirado</strong>".{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={refreshStockTableAfterDelete}
+                                  style={{ width: "1250px", height: "65px" }}
+                                />
+                              </div>
+                              <p>
+                                {" "}
+                                Debido al estado establecido para dicho libro,
+                                este ya no se mostrará en las vistas en las que
+                                la información de libros se muestra{" "}
+                                <strong>(Libros y Facturas)</strong>.{" "}
+                              </p>
+                            </>
+                          ),
+                        },
+                      ]}
+                    />
+
+                    <br />
+
+                    <Collapse
+                      size="large"
+                      items={[
+                        {
+                          key: "3",
+                          label: "Activar un libro para el stock",
+                          children: (
+                            <>
+                              <p>
+                                {" "}
+                                Para realizar la activación de stock de un libro,
+                                debe dar clic sobre el botón{" "}
+                                <strong>Activar</strong> correspondiente al
+                                registro que desea activar{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={activateButton}
+                                  style={{ width: "150px", height: "60px" }}
+                                />
+                              </div>
+                              <p>
+                                {" "}
+                                Esto desplegará la siguiente alerta:{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={successStockActivation}
+                                  style={{ width: "350px", height: "50px" }}
+                                />
+                              </div>
+                              <p>
+                                {" "}
+                                Mostrando ahora un nuevo estado para el libro,
+                                en este caso, el estado "
+                                <strong>Retirado</strong>".{" "}
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <img
+                                  src={refreshStockTableAfterActivate}
+                                  style={{ width: "1250px", height: "65px" }}
+                                />
+                              </div>
+                              <p>
+                                {" "}
+                                Ahora el libro podrá ser accedido desde las vistas relacionadas a este correspondientemente{" "}
+                                <strong>(Libros y Facturas)</strong>.{" "}
+                              </p>
+                            </>
+                          ),
                         },
                       ]}
                     />
