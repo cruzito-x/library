@@ -40,7 +40,8 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
         return response.json();
       })
       .then((data) => {
-        setRefreshTable(false); // Establecer refreshTable como falso después de obtener los datos
+        setStock(data);
+        setRefreshTable(false);
         setLoading(false);
       })
       .catch((error) => {
@@ -69,10 +70,10 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
         .then((data) => {
           message.success(data.message);
           setModal1Open(false);
-          setStock(
-            stock.filter((stock) => stock.idLibro !== editedStock.idLibro)
-          ); // Actualizar la tabla después de la eliminación
-          setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
+          setStock(stock.map(item =>
+            item.idLibro === editedStock.idLibro ? { ...item, ...values } : item
+          ));
+          setRefreshTable(prev => !prev);
         })
         .catch((error) => {
           message.error(error.message);
@@ -95,8 +96,8 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
       })
       .then((data) => {
         message.success(data.message);
-        setStock(stock.filter((stock) => stock.idLibro !== record.idLibro)); // Actualizar la tabla después de la eliminación
-        setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
+        setStock(stock.filter(item => item.idLibro !== record.idLibro));
+        setRefreshTable(prev => !prev);
       })
       .catch((error) => {
         message.error(error.message);
@@ -115,8 +116,7 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
       })
       .then((data) => {
         message.success(data.message);
-        setStock(stock.filter((stock) => stock.idLibro !== record.idLibro)); // Actualizar la tabla después de la eliminación
-        setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
+        setRefreshTable(prev => !prev);
       })
       .catch((error) => {
         message.error(error.message);
@@ -198,10 +198,10 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
 
   return (
     <div style={{ marginTop: "20px" }}>
-      <Row gutter={16}>
+      <Row gutter={[16, 16]}>
         <Col span={24}>
           <Spin spinning={loading} size="large" tip="Cargando...">
-            <Table columns={columns} dataSource={stockData} />
+            <Table scroll={{ x: "max-content" }}   columns={columns} dataSource={stockData} />
           </Spin>
 
           <Modal
@@ -224,11 +224,11 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
                 rules={[
                   {
                     required: true,
-                    message: "Por favor, ingrese un nombre de usuario",
+                    message: "Por favor, ingrese la cantidad de existencia",
                   },
                 ]}
               >
-                <InputNumber min={1} max={500} defaultValue={1} name="stock" />
+                <InputNumber min={0} style={{ width: "100%"}} />
               </Form.Item>
             </Form>
           </Modal>
