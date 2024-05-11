@@ -10,7 +10,7 @@ exports.getSalesData = (req, res) => {
     ); // Obtener los 5 libros más vendidos en los últimos 7 días.
 
     selectSalesByPeriod.push(
-      'select sum(dv.cantidad) as total_libros_vendidos, concat("semana del ", date_sub(curdate(), interval 7 day), " al ", curdate()) as semana from detalles_venta dv join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 7 day);'
+      'select sum(dv.cantidad) as total_libros_vendidos, concat("semana del ", date_sub(curdate(), interval 7 day), " al ", curdate()) as week from detalles_venta dv join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 7 day);'
     ); // Obtener semana de reporte y total de libros vendidos.
 
     selectSalesByPeriod.push(
@@ -40,7 +40,7 @@ exports.getSalesData = (req, res) => {
     ); // Obtener los 5 libros más vendidos en los últimos 14 días.
 
     selectSalesByPeriod.push(
-      'select sum(dv.cantidad) as total_libros_vendidos, concat("semanas del ", date_sub(curdate(), interval 14 day), " al ", curdate()) as semana from detalles_venta dv join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 14 day);'
+      'select sum(dv.cantidad) as total_libros_vendidos, concat("semanas del ", date_sub(curdate(), interval 14 day), " al ", curdate()) as week from detalles_venta dv join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 14 day);'
     ); // Obtener semana de reporte y total de libros vendidos.
 
     selectSalesByPeriod.push(
@@ -70,7 +70,7 @@ exports.getSalesData = (req, res) => {
     ); // Obtener los 5 libros más vendidos en el último mes.
 
     selectSalesByPeriod.push(
-      'select sum(dv.cantidad) as total_libros_vendidos, concat("mes de ", date_sub(curdate(), interval 1 month), " al ", curdate()) as mes from detalles_venta dv join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 1 month);'
+      'select sum(dv.cantidad) as total_libros_vendidos, concat("mes de ", date_sub(curdate(), interval 1 month), " al ", curdate()) as month from detalles_venta dv join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 1 month);'
     ); // Obtener mes de reporte y total de libros vendidos.
 
     selectSalesByPeriod.push(
@@ -99,7 +99,7 @@ exports.getSalesData = (req, res) => {
     ); // Obtener los 5 libros más vendidos en los últimos 6 meses.
 
     selectSalesByPeriod.push(
-      'select sum(dv.cantidad) as total_libros_vendidos, concat("desde ", date_sub(curdate(), interval 6 month), " hasta ", curdate()) as periodo from detalles_venta dv join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 6 month);'
+      'select sum(dv.cantidad) as total_libros_vendidos, concat("desde ", date_sub(curdate(), interval 6 month), " hasta ", curdate()) as semester from detalles_venta dv join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 6 month);'
     ); // Obtener el periodo de reporte y el total de libros vendidos.
 
     selectSalesByPeriod.push(
@@ -128,7 +128,7 @@ exports.getSalesData = (req, res) => {
     ); // Obtener los 5 libros más vendidos en el último año.
 
     selectSalesByPeriod.push(
-      'select sum(dv.cantidad) as total_libros_vendidos, concat("desde ", date_sub(curdate(), interval 1 year), " hasta ", curdate()) as periodo from detalles_venta dv join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 1 year);'
+      'select sum(dv.cantidad) as total_libros_vendidos, concat("desde ", date_sub(curdate(), interval 1 year), " hasta ", curdate()) as year from detalles_venta dv join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 1 year);'
     ); // Obtener el periodo de reporte y el total de libros vendidos.
 
     selectSalesByPeriod.push(
