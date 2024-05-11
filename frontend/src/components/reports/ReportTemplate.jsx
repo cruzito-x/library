@@ -34,7 +34,7 @@ const ReportTemplate = ({ reportData }) => {
       doc.text("Resumen empresarial:", 10, 80);
       doc.setFontSize(12);
       doc.text(
-        `Durante la ${reportData[1][0].semana}, hemos observado un desempeño notable en las ventas de libros. Este informe detalla los aspectos clave de nuestras ventas, destacando los géneros más populares, los títulos más vendidos y otros datos relevantes para la toma de decisiones estratégicas.`,
+        `Durante la ${reportData[1][0].semana}, hemos observado un desempeño notable en las ventas de libros. Se ha registrado un ${reportData[5][0].porcentaje_incremento_decremento} en comparación al período de tiempo anterior, lo que indica una tendencia en el mercado de libros. Este informe detalla los aspectos clave de nuestras ventas, destacando los géneros más populares, los títulos más vendidos y otros datos relevantes para la toma de decisiones estratégicas.`,
         10,
         90,
         { maxWidth: 190 }
