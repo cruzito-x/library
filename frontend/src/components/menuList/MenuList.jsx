@@ -34,21 +34,21 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
       <Menu.Item key='/bills' icon={<PrinterOutlined />}>
         Facturar
       </Menu.Item>
-      <Menu.SubMenu key='/reports' title='Reportes' icon={<DownloadOutlined />}>
+      <Menu.SubMenu key='/reports' title='Informes' icon={<DownloadOutlined />}>
         <Menu.Item key='/reports/weekly' icon={<CalendarOutlined />}>
-          Últ. 7 días
+          Semanal
         </Menu.Item>
         <Menu.Item key='/reports/biweekly' icon={<CalendarOutlined />}>
-          Últ. 14 días
+          Bisemanal
         </Menu.Item>
         <Menu.Item key='/reports/monthly' icon={<CalendarOutlined />}>
-          Últ. mes
+          Mensual
         </Menu.Item>
         <Menu.Item key='/reports/semiannual' icon={<CalendarOutlined />}>
-          Últ. 6 meses
+          Semestral
         </Menu.Item> 
         <Menu.Item key='/reports/yearly' icon={<CalendarOutlined />}>
-          Últ. año
+          Anual
         </Menu.Item>
       </Menu.SubMenu>
       <Menu.Item key='/users' icon={<UserOutlined />}>
