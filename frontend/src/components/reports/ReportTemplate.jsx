@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
-const ReportTemplate = ({ reportData, reportTitle, days }) => {
+const ReportTemplate = ({ reportData, period }) => {
   const [pdfGenerated, setPdfGenerated] = useState(false);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const ReportTemplate = ({ reportData, reportTitle, days }) => {
 
       // Definir el encabezado del PDF
       doc.setFontSize(20);
-      doc.text(`${reportTitle}`, 105, 15, {
+      doc.text(`${ period == 14 ? "Informe de ventas de los últimos 14 días " : (period == 7 ? "Informe de ventas de los últimos 7 días" : "") }`, 105, 15, {
         align: "center",
       });
 
@@ -33,8 +33,9 @@ const ReportTemplate = ({ reportData, reportTitle, days }) => {
       doc.setFontSize(16);
       doc.text("Resumen empresarial:", 10, 80);
       doc.setFontSize(12);
+      console.log(reportData);
       doc.text(
-        `${ days == 14 ? "Durante las" : (days == 7 ? "Durante la" : "") } ${reportData[1][0].semana}, hemos observado un desempeño notable en las ventas de libros. Se ha registrado un ${ reportData[5][0].porcentaje_incremento_decremento === ("incremento del [incremento infinito]%" || "decremento del [incremento infinito]%") ? "0% de incremento o decremento" : reportData[5][0].porcentaje_incremento_decremento } en comparación a ${ days == 14 ? "las 2 semanas anteriores" : (days == 7 ? "la semana pasada" : "") }, lo que indica una tendencia en el mercado de libros. Este informe detalla los aspectos clave de nuestras ventas, destacando los géneros más populares, los títulos más vendidos y otros datos relevantes para la toma de decisiones estratégicas.`,
+        `${ period == 14 ? "Durante las" : (period == 7 ? "Durante la" : (period == 30 ? "Durante el" : "")) } ${(period == 14 || period == 7) ? reportData[1][0].semana : (period == 30 ? reportData[1][0].mes : "")}, hemos observado un desempeño notable en las ventas de libros. Se ha registrado un ${ reportData[5][0].porcentaje_incremento_decremento === ("incremento del [incremento infinito]%" || "decremento del [incremento infinito]%") ? "0% de incremento o decremento" : reportData[5][0].porcentaje_incremento_decremento } en comparación a ${ period == 14 ? "las 2 semanas anteriores" : (period == 7 ? "la semana pasada" : "") }, lo que indica una tendencia en el mercado de libros. Este informe detalla los aspectos clave de nuestras ventas, destacando los géneros más populares, los títulos más vendidos y otros datos relevantes para la toma de decisiones estratégicas.`,
         10,
         90,
         { maxWidth: 190 }
@@ -45,7 +46,7 @@ const ReportTemplate = ({ reportData, reportTitle, days }) => {
       doc.text("Análisis de ventas:", 10, 120);
       doc.setFontSize(12);
       doc.text(
-        `${ days == 14 ? "Durante estas últimas 2 semanas" : (days == 7 ? "Durante esta semana" : "") }, hemos vendido un total de ${reportData[1][0].total_libros_vendidos} libros en nuestra sucursal, obteniendo así una ganancia de $${reportData[3][0].total_ganancias} dólares. Estas cifras pueden atribuirse en gran medida a nuestras estrategias de marketing y promoción, así como a la diversificación de nuestro inventario para satisfacer las necesidades de una amplia gama de lectores.`,
+        `${ period == 14 ? "Durante estas últimas 2 semanas" : (period == 7 ? "Durante esta semana" : "") }, hemos vendido un total de ${reportData[1][0].total_libros_vendidos} libros en nuestra sucursal, obteniendo así una ganancia de $${reportData[3][0].total_ganancias} dólares. Estas cifras pueden atribuirse en gran medida a nuestras estrategias de marketing y promoción, así como a la diversificación de nuestro inventario para satisfacer las necesidades de una amplia gama de lectores.`,
         10,
         130,
         { maxWidth: 190 }
@@ -84,18 +85,18 @@ const ReportTemplate = ({ reportData, reportTitle, days }) => {
       // Títulos Más Vendidos
       doc.setFontSize(16);
       const posYRecientes = doc.autoTable.previous.finalY + 20;
-      doc.text(`Títulos añadidos en los últimos ${days} días:`, 10, posYRecientes);
+      doc.text(`Títulos añadidos en los últimos ${period} días:`, 10, posYRecientes);
       doc.setFontSize(12);
       if (reportData[4].length > 15) {
         doc.text(
-          `${ days == 14 ? "En estas últimas 2 semanas" : (days == 7 ? "En esta semana" : "") } se adjuntaron múltiples registros nuevos a la base de datos, adyacente a esto, se presentan las últimas adiciones:`,
+          `${ period == 14 ? "En estas últimas 2 semanas" : (period == 7 ? "En esta semana" : "") } se adjuntaron múltiples registros nuevos a la base de datos, adyacente a esto, se presentan las últimas adiciones:`,
           10,
           posYRecientes + 10,
           { maxWidth: 190 }
         );
       } else {
         doc.text(
-          `${ days == 14 ? "En estas últimas 2 semanas" : (days == 7 ? "En esta semana" : "") } no se adquirio mucha mercadería, por lo cual no se añadieron muchos registros nuevos a la base de datos, adyacente a esto, se presentan las últimas adiciones`,
+          `${ period == 14 ? "En estas últimas 2 semanas" : (period == 7 ? "En esta semana" : "") } no se adquirio mucha mercadería, por lo cual no se añadieron muchos registros nuevos a la base de datos, adyacente a esto, se presentan las últimas adiciones`,
           10,
           posYRecientes + 10,
           { maxWidth: 190 }

@@ -15,11 +15,11 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
       if (key === '/sign-out') {
         window.location.href = '/';
       }
-      if(key === '/reports/7-days') {
-        window.location.href = '/reports/7-days#';
+      if(key === '/reports/weekly') {
+        window.location.href = '/reports/weekly#';
       }
-      if(key === '/reports/14-days') {
-        window.location.href = '/reports/14-days#';
+      if(key === '/reports/biweekly') {
+        window.location.href = '/reports/biweekly#';
       }
       else {
         navigate(key);
@@ -35,19 +35,19 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
         Facturar
       </Menu.Item>
       <Menu.SubMenu key='/reports' title='Reportes' icon={<DownloadOutlined />}>
-        <Menu.Item key='/reports/7-days' icon={<CalendarOutlined />}>
+        <Menu.Item key='/reports/weekly' icon={<CalendarOutlined />}>
           Últ. 7 días
         </Menu.Item>
-        <Menu.Item key='/reports/14-days' icon={<CalendarOutlined />}>
+        <Menu.Item key='/reports/biweekly' icon={<CalendarOutlined />}>
           Últ. 14 días
         </Menu.Item>
-        <Menu.Item key='/reports/1-month' icon={<CalendarOutlined />}>
+        <Menu.Item key='/reports/monthly' icon={<CalendarOutlined />}>
           Últ. mes
         </Menu.Item>
-        <Menu.Item key='/reports/6-months' icon={<CalendarOutlined />}>
+        <Menu.Item key='/reports/semiannual' icon={<CalendarOutlined />}>
           Últ. 6 meses
         </Menu.Item> 
-        <Menu.Item key='/reports/1-year' icon={<CalendarOutlined />}>
+        <Menu.Item key='/reports/yearly' icon={<CalendarOutlined />}>
           Últ. año
         </Menu.Item>
       </Menu.SubMenu>

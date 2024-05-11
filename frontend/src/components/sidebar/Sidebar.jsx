@@ -7,7 +7,7 @@ import MenuList from '../menuList/MenuList';
 import Dashboard from '../../views/dashboard/Dashboard';
 import Books from '../../views/books/Books';
 import Bills from '../../views/bills/Bills';
-import WeeklyReport from '../reports/WeeklyReport';
+import Report from '../reports/Report';
 import Users from '../../views/users/Users';
 import Genres from '../../views/extras/Genres';
 import Stock from '../../views/extras/Stock';
@@ -15,7 +15,6 @@ import Help from '../../views/help/Help';
 import NotFound from '../results/NotFound';
 import ToggleThemeButton from '../toggleThemeButton/ToggleThemeButton';
 import './Sidebar.css';
-import BiweeklyReport from '../reports/BiweeklyReport';
 
 const { Sider, Content, Footer } = Layout;
 
@@ -49,11 +48,11 @@ const Sidebar = () => {
     '/dashboard',
     '/books',
     '/bills',
-    '/reports/7-days',
-    '/reports/14-days',
-    '/reports/1-month',
-    '/reports/6-months',
-    '/reports/1-year',
+    '/reports/weekly',
+    '/reports/biweekly',
+    '/reports/monthly',
+    '/reports/semiannual',
+    '/reports/yearly',
     '/users',
     '/extras',
     '/extras/gender',
@@ -90,8 +89,11 @@ const Sidebar = () => {
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/books' element={<Books />} />
             <Route path='/bills' element={<Bills />} />
-            <Route path='/reports/7-days' element={<WeeklyReport />} />
-            <Route path='/reports/14-days' element={<BiweeklyReport />} />
+            <Route path='/reports/weekly' element={<Report period={7} />} />
+            <Route path='/reports/biweekly' element={<Report period={14} />} />
+            <Route path='/reports/monthly' element={<Report period={30} />} />
+            <Route path='/reports/semiannual' element={<Report period={180} />} />
+            <Route path='/reports/yearly' element={<Report period={365} />} />
             <Route path='/users' element={<Users />} />
             <Route path='/extras/gender' element={<Genres />} />
             <Route path='/extras/stock' element={<Stock />} />
