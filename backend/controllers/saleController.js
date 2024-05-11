@@ -13,7 +13,7 @@ exports.getSalesData = (req, res) => {
 
     selectSalesByPeriod.push('select sum(dv.subtotal) as total_ganancias from detalles_venta dv join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 7 day);'); // Obtener el total de ganancias en los últimos 7 días.
 
-    selectSalesByPeriod.push('select titulo, precio from libros where created_at >= date_sub(now(), interval 7 day) and deleted_at is null;'); // Obtener el total de ganancias en los últimos 7 días.
+    selectSalesByPeriod.push('select titulo, precio from libros where created_at >= date_sub(now(), interval 7 day) and deleted_at is null order by created_at desc;'); // Obtener el total de ganancias en los últimos 7 días.
   }
   if (period == 14) {
     
