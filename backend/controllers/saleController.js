@@ -12,6 +12,8 @@ exports.getSalesData = (req, res) => {
     selectSalesByPeriod.push('select g.nombreGenero, count(dv.idLibro) as ventas from detalles_venta dv join libros l on dv.idLibro = l.idLibro join genero g on l.genero = g.idGenero join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 7 day) and l.deleted_at is null and g.deleted_at is null group by l.genero order by ventas desc limit 5;'); // Obtener los géneros más populares en los últimos 7 días.
 
     selectSalesByPeriod.push('select sum(dv.subtotal) as total_ganancias from detalles_venta dv join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 7 day);'); // Obtener el total de ganancias en los últimos 7 días.
+
+    selectSalesByPeriod.push('select titulo, precio from libros where created_at >= date_sub(now(), interval 7 day) and deleted_at is null;'); // Obtener el total de ganancias en los últimos 7 días.
   }
   if (period == 14) {
     
