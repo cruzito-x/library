@@ -55,7 +55,7 @@ exports.getSalesData = (req, res) => {
       "select titulo, precio from libros where created_at >= date_sub(now(), interval 14 day) and deleted_at is null order by created_at desc limit 10;"
     ); // Obtener la lista de los 10 registros más recientes de libros
 
-    selectSalesByPeriod.push(`select sum(case when fecha = date_sub(curdate(), interval 14 day) then total else 0 end) as ventas_hace_7_dias, 
+    selectSalesByPeriod.push(`select sum(case when fecha = date_sub(curdate(), interval 14 day) then total else 0 end) as ventas_hace_14_dias, 
     sum(case when fecha = curdate() then total else 0 end) as ventas_hoy,
     concat(case when sum(case when fecha = curdate() then total else 0 end) > sum(case when fecha = date_sub(curdate(), interval 14 day)
     then total else 0 end) then "incremento del " else "decremento del " end,
@@ -91,10 +91,7 @@ exports.getSalesData = (req, res) => {
       case when sum (case when fecha = date_sub(curdate(), interval 1 month) then total else 0 end) = 0 then "[incremento infinito]"
       else round(abs(((sum(case when fecha = curdate() then total else 0 end) - sum(case when fecha = date_sub(curdate(), interval 1 month) then total else 0 end)) / sum(case
         when fecha = date_sub(curdate(), interval 1 month) then total else 0 end)) * 100)) end,"%") as porcentaje_incremento_decremento
-    from ventas 
-    where fecha >= date_sub(curdate(), interval 1 month) and fecha <= curdate();`);
-  }
-  if (period == 90) {
+        from ventas where fecha >= date_sub(curdate(), interval 1 month) and fecha <= curdate();`);
   }
   if (period == 180) {
   }
