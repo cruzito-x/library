@@ -102,7 +102,7 @@ const Bills = () => {
           : values.descuento > 9 && values.descuento < 90
           ? (subtotal * ("0." + values.descuento)).toFixed(2)
           : 0;
-      const total = (subtotal - descuento);
+      const total = subtotal - descuento;
       const newBook = {
         ...selectedBook,
         cantidad: values.cantidad,
@@ -129,6 +129,17 @@ const Bills = () => {
       0
     );
   };
+
+  const getTotalDiscount = () => {
+    return selectedBooks
+      .reduce(
+        (totalDiscount, book) => totalDiscount + parseFloat(book.descuento),
+        0
+      )
+      .toFixed(2);
+  };
+
+  const totalDiscount = getTotalDiscount();
 
   const totalAmount = getTotalAmount();
 
@@ -244,7 +255,7 @@ const Bills = () => {
       doc.autoTable.previous.finalY + 20
     );
     doc.text(
-      `$${descuento}`,
+      `$${totalDiscount}`,
       doc.internal.pageSize.getWidth() - 15,
       doc.autoTable.previous.finalY + 20,
       { align: "right" }
@@ -255,7 +266,7 @@ const Bills = () => {
       doc.autoTable.previous.finalY + 25
     );
     doc.text(
-      `$${totalPagar - descuento}`,
+      `$${(totalPagar - totalDiscount).toFixed(2)}`,
       doc.internal.pageSize.getWidth() - 15,
       doc.autoTable.previous.finalY + 25,
       { align: "right" }
@@ -281,11 +292,23 @@ const Bills = () => {
     return number;
   }
 
-  const totalRow = {
-    label: "Total:",
-    total: `${totalAmount.toFixed(2)}`,
-    key: "total",
-  };
+  const totalRow = [
+    {
+      label: "Subtotal:",
+      total: `${totalAmount.toFixed(2)}`,
+      key: "subtotal",
+    },
+    {
+      label: "Descuento:",
+      total: `- ${totalDiscount}`,
+      key: "descuentoTotal"
+    },
+    {
+      label: "Total a pagar:",
+      total: `${(totalAmount - totalDiscount).toFixed(2)}`,
+      key: "totalPagar"
+    }
+  ];
 
   const columns = [
     {
@@ -370,7 +393,12 @@ const Bills = () => {
             </Col>
             <Col xs={24} sm={12}>
               <Form.Item label="Cantidad" name="cantidad">
-                <InputNumber min={1} max={10} defaultValue={1} style={{ width: "100%" }} />
+                <InputNumber
+                  min={1}
+                  max={10}
+                  defaultValue={1}
+                  style={{ width: "100%" }}
+                />
               </Form.Item>
             </Col>
             <Col xs={24} sm={12}>
@@ -421,7 +449,12 @@ const Bills = () => {
             </Col>
           </Row>
         </Form>
-        <Table scroll={{ x: "max-content" }} columns={columnsWithTotal} dataSource={selectedBooks.concat(totalRow)} />
+        <Table
+          scroll={{ x: "max-content" }}
+          columns={columnsWithTotal}
+          dataSource={selectedBooks.concat(totalRow)}
+          pagination={false}
+        />
         <br />
         <Button type="primary" onClick={handleSaveBill}>
           <PrinterOutlined /> Generar factura

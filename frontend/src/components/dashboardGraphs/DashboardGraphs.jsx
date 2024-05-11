@@ -51,7 +51,7 @@ const DashboardGraphs = ({ period }) => {
             "#1abc9c",
             "#95a5a6",
             "#007bff",
-            "#34495e"
+            "#34495e",
           ],
           borderColor: [
             "#05b0ff",
@@ -65,7 +65,7 @@ const DashboardGraphs = ({ period }) => {
             "#1abc9c",
             "#95a5a6",
             "#007bff",
-            "#34495e"
+            "#34495e",
           ],
           borderWidth: 2.5,
         },
@@ -274,7 +274,7 @@ const DashboardGraphs = ({ period }) => {
       .then((data) => {
         const formattedData = data.map((sale) => {
           let formattedDate;
-          if (sale.fecha.includes('T')) {
+          if (sale.fecha.includes("T")) {
             const saleDate = new Date(sale.fecha);
             const day = saleDate.getDate().toString().padStart(2, "0");
             const month = (saleDate.getMonth() + 1).toString().padStart(2, "0");
@@ -426,7 +426,7 @@ const DashboardGraphs = ({ period }) => {
           </Title>
           <Spin spinning={loading} size="large" tip="Cargando...">
             <Table
-              scroll={{ x: "max-content" }} 
+              scroll={{ x: "max-content" }}
               columns={columns}
               expandable={{
                 expandedRowRender: (record) => (
@@ -444,6 +444,7 @@ const DashboardGraphs = ({ period }) => {
                 ...book,
                 key: index,
               }))} // Asignar una clave única para cada registro
+              pagination={false}
             />
           </Spin>
         </Card>
