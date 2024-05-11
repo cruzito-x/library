@@ -34,9 +34,7 @@ const Bills = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const handleChange = (value) => {
-    console.log(`selected ${value}`);
-  };
+  const handleChange = (value) => {};
 
   useEffect(() => {
     fetch("http://localhost:3001/bills/books")
@@ -100,17 +98,17 @@ const Bills = () => {
       const subtotal = (values.cantidad * values.precioUnitario).toFixed(2);
       const descuento =
         values.descuento > 0 && values.descuento < 10
-          ? values.precioUnitario * ("0.0" + values.descuento)
+          ? (subtotal * ("0.0" + values.descuento)).toFixed(2)
           : values.descuento > 9 && values.descuento < 90
-          ? values.precioUnitario * ("0." + values.descuento)
+          ? (subtotal * ("0." + values.descuento)).toFixed(2)
           : 0;
-      const total = subtotal - descuento;
+      const total = (subtotal - descuento);
       const newBook = {
         ...selectedBook,
         cantidad: values.cantidad,
         precioUnitario: values.precioUnitario,
         subtotal,
-        descuento: values.descuento,
+        descuento,
         total,
       };
       setSelectedBooks([...selectedBooks, newBook]);
@@ -120,6 +118,7 @@ const Bills = () => {
         libro: books[0]?.value,
         cantidad: 1,
         precioUnitario: books[0]?.precio,
+        descuento: 0,
       });
     });
   };
@@ -245,7 +244,7 @@ const Bills = () => {
       doc.autoTable.previous.finalY + 20
     );
     doc.text(
-      `${descuento}%`,
+      `$${descuento}`,
       doc.internal.pageSize.getWidth() - 15,
       doc.autoTable.previous.finalY + 20,
       { align: "right" }
@@ -284,7 +283,7 @@ const Bills = () => {
 
   const totalRow = {
     label: "Total:",
-    total: `$${totalAmount.toFixed(2)}`,
+    total: `${totalAmount.toFixed(2)}`,
     key: "total",
   };
 
@@ -320,13 +319,16 @@ const Bills = () => {
       dataIndex: "descuento",
       key: "descuento",
       render(text) {
-        return `${text !== undefined ? text + "%" : ""}`;
+        return `${text !== undefined ? "$" + text : ""}`;
       },
     },
     {
       title: "Total",
       dataIndex: "total",
       key: "total",
+      render(text) {
+        return `${text !== undefined ? "$" + text : ""}`;
+      },
     },
   ];
 
@@ -383,7 +385,6 @@ const Bills = () => {
                   min={0}
                   max={90}
                   defaultValue={0}
-                  placeholder="0"
                   style={{ width: "100%" }}
                 />
               </Form.Item>
