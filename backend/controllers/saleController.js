@@ -25,8 +25,10 @@ exports.getSalesData = (req, res) => {
     
   }
   if (period == 180) {
+    
   }
   if (period == 365) {
+
   }
 
   const promises = selectSalesByPeriod.map((query) => {
