@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ReportTemplate from "./ReportTemplate";
 
-const SemanalReport = () => {
+const BiweeklyReport = () => {
   const [reportData, setReportData] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/sales?period=7`)
+    fetch(`http://localhost:3001/sales?period=14`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener los datos de ventas");
@@ -23,7 +23,7 @@ const SemanalReport = () => {
       });
   }, []);
 
-  return <ReportTemplate reportData={reportData} />;
+  return <ReportTemplate reportData={reportData} reportTitle={"Informe de los últimos 14 días de venta de libros"} days={14} />;
 };
 
-export default SemanalReport;
+export default BiweeklyReport;

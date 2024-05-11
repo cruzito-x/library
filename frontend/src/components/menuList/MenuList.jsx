@@ -18,6 +18,9 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
       if(key === '/reports/7-days') {
         window.location.href = '/reports/7-days#';
       }
+      if(key === '/reports/14-days') {
+        window.location.href = '/reports/14-days#';
+      }
       else {
         navigate(key);
       }

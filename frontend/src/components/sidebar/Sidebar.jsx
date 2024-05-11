@@ -7,7 +7,7 @@ import MenuList from '../menuList/MenuList';
 import Dashboard from '../../views/dashboard/Dashboard';
 import Books from '../../views/books/Books';
 import Bills from '../../views/bills/Bills';
-import SemanalReport from '../reports/SemanalReport';
+import WeeklyReport from '../reports/WeeklyReport';
 import Users from '../../views/users/Users';
 import Genres from '../../views/extras/Genres';
 import Stock from '../../views/extras/Stock';
@@ -15,6 +15,7 @@ import Help from '../../views/help/Help';
 import NotFound from '../results/NotFound';
 import ToggleThemeButton from '../toggleThemeButton/ToggleThemeButton';
 import './Sidebar.css';
+import BiweeklyReport from '../reports/BiweeklyReport';
 
 const { Sider, Content, Footer } = Layout;
 
@@ -89,7 +90,8 @@ const Sidebar = () => {
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/books' element={<Books />} />
             <Route path='/bills' element={<Bills />} />
-            <Route path='/reports/7-days' element={<SemanalReport  />} />
+            <Route path='/reports/7-days' element={<WeeklyReport />} />
+            <Route path='/reports/14-days' element={<BiweeklyReport />} />
             <Route path='/users' element={<Users />} />
             <Route path='/extras/gender' element={<Genres />} />
             <Route path='/extras/stock' element={<Stock />} />
