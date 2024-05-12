@@ -123,6 +123,16 @@ const Bills = () => {
     });
   };
 
+  const getTotalSubTotal = () => {
+    return selectedBooks
+      .reduce(
+        (acumuladorTotal, book) =>
+          acumuladorTotal + book.cantidad * book.precioUnitario,
+        0
+      )
+      .toFixed(2);
+  };
+
   const getTotalAmount = () => {
     return selectedBooks.reduce(
       (acumuladorTotal, book) => acumuladorTotal + book.total,
@@ -139,8 +149,8 @@ const Bills = () => {
       .toFixed(2);
   };
 
+  const totalSubTotal = getTotalSubTotal();
   const totalDiscount = getTotalDiscount();
-
   const totalAmount = getTotalAmount();
 
   const generatePDF = (data, selectedBooks) => {
@@ -190,7 +200,6 @@ const Bills = () => {
     // Agregar la tabla centrada
     const tableData = [];
     let totalPagar = 0;
-    let descuento = 0;
 
     selectedBooks.forEach((book, index) => {
       const rowData = [
@@ -200,7 +209,6 @@ const Bills = () => {
         { content: `$${book.total}`, styles: { halign: "center" } },
       ];
       tableData.push(rowData);
-      descuento += book.descuento;
       totalPagar += book.total;
     });
     doc.autoTable({
@@ -242,7 +250,7 @@ const Bills = () => {
       doc.autoTable.previous.finalY + 15
     );
     doc.text(
-      `$${totalPagar}`,
+      `$${totalSubTotal}`,
       doc.internal.pageSize.getWidth() - 15,
       doc.autoTable.previous.finalY + 15,
       { align: "right" }
@@ -266,7 +274,7 @@ const Bills = () => {
       doc.autoTable.previous.finalY + 25
     );
     doc.text(
-      `$${(totalPagar - totalDiscount).toFixed(2)}`,
+      `$${totalPagar.toFixed(2)}`,
       doc.internal.pageSize.getWidth() - 15,
       doc.autoTable.previous.finalY + 25,
       { align: "right" }
@@ -294,20 +302,10 @@ const Bills = () => {
 
   const totalRow = [
     {
-      label: "Subtotal:",
-      total: `${totalAmount.toFixed(2)}`,
-      key: "subtotal",
-    },
-    {
-      label: "Descuento:",
-      total: `- ${totalDiscount}`,
-      key: "descuentoTotal"
-    },
-    {
       label: "Total a pagar:",
-      total: `${(totalAmount - totalDiscount).toFixed(2)}`,
-      key: "totalPagar"
-    }
+      total: `${totalAmount.toFixed(2)}`,
+      key: "totalPagar",
+    },
   ];
 
   const columns = [

@@ -5,7 +5,7 @@ const Report = ({ period }) => {
   const [reportData, setReportData] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/sales?period=${period}`)
+    fetch(`http://localhost:3001/sales/getSalesReportData?period=${period}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener los datos de ventas");
