@@ -11,6 +11,7 @@ import Report from '../reports/Report';
 import Users from '../../views/users/Users';
 import Genres from '../../views/extras/Genres';
 import Stock from '../../views/extras/Stock';
+import Sales from '../../views/extras/Sales';
 import Help from '../../views/help/Help';
 import NotFound from '../results/NotFound';
 import ToggleThemeButton from '../toggleThemeButton/ToggleThemeButton';
@@ -57,6 +58,7 @@ const Sidebar = () => {
     '/extras',
     '/extras/gender',
     '/extras/stock',
+    '/extras/sales',
     '/help'
   ];
 
@@ -97,6 +99,7 @@ const Sidebar = () => {
             <Route path='/users' element={<Users />} />
             <Route path='/extras/gender' element={<Genres />} />
             <Route path='/extras/stock' element={<Stock />} />
+            <Route path='/extras/sales' element={<Sales />} />
             <Route path='/help' element={<Help />} />
           </Routes>
         </Content>

@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import { Menu, theme } from 'antd';
-import { ProductOutlined, BookOutlined, DownloadOutlined, CalendarOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined, LeftOutlined, QuestionCircleOutlined, SettingOutlined, TagOutlined, StockOutlined, SafetyOutlined, HistoryOutlined, RightOutlined } from '@ant-design/icons';
+import { ProductOutlined, BookOutlined, DownloadOutlined, CalendarOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined, LeftOutlined, QuestionCircleOutlined, BarsOutlined , TagOutlined, StockOutlined, ShopOutlined, RightOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
@@ -54,12 +54,15 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
       <Menu.Item key='/users' icon={<UserOutlined />}>
         Usuarios
       </Menu.Item>
-      <Menu.SubMenu key='/extras' title='Extras' icon={<SettingOutlined />}>
+      <Menu.SubMenu title='Extras' icon={<BarsOutlined  />}>
         <Menu.Item key='/extras/gender' icon={<TagOutlined />}>
           Géneros
         </Menu.Item>
         <Menu.Item key='/extras/stock' icon={<StockOutlined />}>
           Existencias
+        </Menu.Item>
+        <Menu.Item key='/extras/sales' icon={<ShopOutlined />}>
+          Ventas
         </Menu.Item>
       </Menu.SubMenu>
       <Menu.Item key='/help' icon={<QuestionCircleOutlined />}>
