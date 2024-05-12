@@ -18,10 +18,10 @@ exports.getMonthSales = (req, res) => {
   let selectSalesByPeriod = ``;
 
   if(period == 7) {
-    selectSalesByPeriod = 'select fecha, sum(total) as total_venta from ventas where fecha between curdate() - interval ? day and curdate() group by fecha;';
+    selectSalesByPeriod = 'select created_at as fecha, sum(total) as total_venta from ventas where created_at between curdate() - interval ? day and curdate() group by created_at;';
   }
   if(period == 14) {
-    selectSalesByPeriod = 'select concat("Semana del ", date_format(fecha_inicio, "%d-%m-%Y"), " al ", date_format(fecha_fin, "%d-%m-%Y")) as fecha, sum(total) as total_venta from (select date_sub(fecha, interval weekday(fecha) day) as fecha_inicio, date_add(date_sub(fecha, interval weekday(fecha) day), interval 7 day) as fecha_fin, total from ventas where fecha between curdate() - interval ? day and curdate()) as fecha group by fecha_inicio, fecha_fin;';
+    selectSalesByPeriod = 'select concat("Semana del ", date_format(fecha_inicio, "%d-%m-%Y"), " al ", date_format(fecha_fin, "%d-%m-%Y")) as fecha, sum(total) as total_venta from (select date_sub(created_at, interval weekday(fecha) day) as fecha_inicio, date_add(date_sub(created_at, interval weekday(fecha) day), interval 7 day) as fecha_fin, total from ventas where created_at between curdate() - interval ? day and curdate()) as fecha group by fecha_inicio, fecha_fin;';
   }
   if(period == 30) {
     selectSalesByPeriod = 'select concat("Desde el ", date_format(min(fecha), "%d-%m-%Y"), " hasta el ", date_format(max(fecha), "%d-%m-%Y")) as fecha, sum(total) as total_venta from ventas where fecha between curdate() - interval ? day and curdate();';
