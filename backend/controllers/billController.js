@@ -38,7 +38,7 @@ exports.saveBill = (req, res) => {
         });
       }
 
-      const insertVenta = "insert into ventas (idVenta, fecha, total, estado, created_at) values (?, curdate(), ?, 'completado', curdate())";
+      const insertVenta = "insert into ventas (idVenta, fecha, total, estado, created_at) values (?, now(), ?, 'completado', curdate())";
       db.query(insertVenta, [idVenta, total], (error, result) => {
         if (error) {
           console.error("Error al insertar venta: ", error);
