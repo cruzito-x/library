@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import {
-  Card,
   Row,
   Col,
   Table,
   Spin,
-  Tag,
-  Button,
-  Popconfirm,
   Form,
-  Modal,
-  Input,
-  message,
-  InputNumber,
+  message
 } from "antd";
 
 const SalesTable = ({ salesData, refreshTable, setRefreshTable }) => {
@@ -91,7 +85,8 @@ const SalesTable = ({ salesData, refreshTable, setRefreshTable }) => {
     {
       title: "Facturado el",
       dataIndex: "fecha",
-      key: "date"
+      key: "date",
+      render: (date) => moment(date).format("YYYY-MM-DD HH:mm:ss")
     }
   ];
 

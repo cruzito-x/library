@@ -2,7 +2,6 @@ import { React, useState, useEffect } from "react";
 import moment from "moment";
 
 import {
-  Card,
   Tag,
   Button,
   Modal,
@@ -265,8 +264,8 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
               <Form.Item label="Autor:" name="autor">
                 <Input placeholder="ej. Alfredo Espino" name="autor" />
               </Form.Item>
-              <Form.Item label="F. Publicación:" name="fechaPublicacion">
-                <Input placeholder="23-07-2016" name="fechaPublicacion" />
+              <Form.Item label="Año de publicación:" name="fechaPublicacion">
+                <Input placeholder="ej. 2024" name="fechaPublicacion" maxLength={4} />
               </Form.Item>
               <Form.Item label="Precio:" name="precio">
                 <Input prefix="$" placeholder="0.00" name="precio" />
