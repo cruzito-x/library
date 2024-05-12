@@ -1,6 +1,5 @@
 import React from 'react';
 import { Layout, Typography, theme } from 'antd';
-import $ from 'jquery';
 
 const LayoutHeader = () => {
   const { Header } = Layout;

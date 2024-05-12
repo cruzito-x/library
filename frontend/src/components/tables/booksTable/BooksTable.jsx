@@ -1,6 +1,4 @@
 import { React, useState, useEffect } from "react";
-import moment from "moment";
-
 import {
   Tag,
   Button,
@@ -55,7 +53,6 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
     setSelectedRowData(record);
     setEditedBook(record);
     setModal2Open(true);
-    record.fechaPublicacion = moment(record.fechaPublicacion).format("YYYY-MM-DD"); // Formatear la fecha utilizando moment
     form.setFieldsValue(record);
   };
 

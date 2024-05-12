@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, theme } from 'antd';
-import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Logo from '../logo/Logo';
 import LayoutHeader from '../layoutHeader/LayoutHeader';
 import MenuList from '../menuList/MenuList';
