@@ -1,6 +1,20 @@
 const db = require("../config/db");
 
-exports.getSalesData = (req, res) => {
+exports.getSales = (req, res) => {
+  db.query(
+    "select l.titulo, dv.cantidad, l.precio, dv.cantidad, dv.subtotal, dv.descuento, v.total, concat(c.nombre, ' ', c.apellido) as cliente, v.created_at from detalles_venta dv inner join libros l on l.idLibro = dv.idLibro inner join ventas v on v.idVenta = dv.idVenta inner join clientes c on c.idCliente = dv.idCliente order by v.created_at desc;",
+    (error, results) => {
+      if (error) {
+        console.error("Error al obtener las ventas:", error);
+        res.status(500).json({ message: "Error interno del servidor" });
+        return;
+      }
+      res.status(200).json(results);
+    }
+  );
+};
+
+exports.getSalesReportData = (req, res) => {
   const period = parseInt(req.query.period) || 7;
   let selectSalesByPeriod = [];
 
