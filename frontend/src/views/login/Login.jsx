@@ -28,6 +28,7 @@ const Login = () => {
 
         message.success(data.message);
         localStorage.setItem("username", values.username);
+        localStorage.setItem("rol", data.rol);
         navigate("/dashboard");
       } else if (response.status === 401) {
         message.error(response.message);

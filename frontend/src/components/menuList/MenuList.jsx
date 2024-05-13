@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import { Menu, theme } from 'antd';
 import { ProductOutlined, BookOutlined, DownloadOutlined, CalendarOutlined, PrinterOutlined, UserOutlined, PoweroffOutlined, LeftOutlined, QuestionCircleOutlined, BarsOutlined , TagOutlined, StockOutlined, ShopOutlined, RightOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
@@ -10,16 +10,13 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
     token : { colorBgContainer }
   } = theme.useToken();
 
+  // Supongamos que el rol de superadmin está representado por "superadmin"
+  const isSuperAdmin = localStorage.getItem("rol") === "superadmin";
+
   return (
     <Menu theme={darkTheme ? 'dark' : 'light'} mode='inline' className='menu-bar' onClick={({ key }) => {
       if (key === '/sign-out') {
         window.location.href = '/';
-      }
-      if(key === '/reports/weekly') {
-        window.location.href = '/reports/weekly#';
-      }
-      if(key === '/reports/biweekly') {
-        window.location.href = '/reports/biweekly#';
       }
       else {
         navigate(key);
@@ -51,9 +48,11 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
           Anual
         </Menu.Item>
       </Menu.SubMenu>
+      {isSuperAdmin && (
       <Menu.Item key='/users' icon={<UserOutlined />}>
         Usuarios
       </Menu.Item>
+      )}
       <Menu.SubMenu title='Extras' icon={<BarsOutlined  />}>
         <Menu.Item key='/extras/gender' icon={<TagOutlined />}>
           Géneros
@@ -61,9 +60,11 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
         <Menu.Item key='/extras/stock' icon={<StockOutlined />}>
           Existencias
         </Menu.Item>
+        {isSuperAdmin && (
         <Menu.Item key='/extras/sales' icon={<ShopOutlined />}>
           Ventas
         </Menu.Item>
+        )}
       </Menu.SubMenu>
       <Menu.Item key='/help' icon={<QuestionCircleOutlined />}>
         Ayuda

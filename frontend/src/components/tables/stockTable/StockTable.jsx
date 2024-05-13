@@ -21,6 +21,7 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
   const [loading, setLoading] = useState(true);
   const [editedStock, setEditedStock] = useState(null);
   const [form] = Form.useForm();
+  const isSuperAdmin = localStorage.getItem("rol") === "superadmin";
 
   const handleEdit = (record) => {
     setSelectedRowData(record);
@@ -161,39 +162,41 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
           </Tag>
         </>
       ),
-    },
-    {
-      title: "Acciones",
-      dataIndex: "",
-      key: "x",
-      render: (record) => (
-        <>
-          <Button
-            type="primary"
-            style={{ marginRight: "20px", backgroundColor: "#20c997" }}
-            onClick={() => handleEdit(record)}
-          >
-            Editar
-          </Button>
-          <Popconfirm
-            title="Eliminar registro"
-            description="¿Está seguro de eliminar este registro?"
-            onConfirm={() => confirmDelete(record)}
-            onCancel={() => {}}
-            okText="Sí"
-            cancelText="No"
-          >
-            <Button type="primary" danger style={{ marginRight: "20px" }}>
-              Eliminar
-            </Button>
-          </Popconfirm>
-          <Button type="primary" onClick={() => activateStock(record)}>
+    }];
+
+    if (isSuperAdmin) {
+     columns.push({
+       title: "Acciones",
+       dataIndex: "",
+       key: "x",
+       render: (record) => (
+         <>
+           <Button
+             type="primary"
+             style={{ marginRight: "20px", backgroundColor: "#20c997" }}
+             onClick={() => handleEdit(record)}
+           >
+             Editar
+           </Button>
+           <Popconfirm
+             title="Eliminar registro"
+             description="¿Está seguro de eliminar este registro?"
+             onConfirm={() => confirmDelete(record)}
+             onCancel={() => {}}
+             okText="Sí"
+             cancelText="No"
+           >
+             <Button type="primary" danger style={{ marginRight: "20px" }}>
+               Eliminar
+             </Button>
+           </Popconfirm>
+           <Button type="primary" onClick={() => activateStock(record)}>
             Activar
-          </Button>
-        </>
+           </Button>
+         </>
       ),
-    },
-  ];
+     });
+    }
 
   return (
     <div style={{ marginTop: "20px" }}>

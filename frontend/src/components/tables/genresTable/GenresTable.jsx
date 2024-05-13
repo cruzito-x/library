@@ -20,6 +20,7 @@ const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
   const [editedGenre, setEditedGenre] = useState(null);
   const [defaultValue, setDefaultValue] = useState("");
   const [form] = Form.useForm();
+  const isSuperAdmin = localStorage.getItem("rol") === "superadmin";
 
   const handleEdit = (record) => {
     setSelectedRowData(record);
@@ -127,8 +128,11 @@ const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
           .replace(/\//g, "-");
         return formattedDate;
       }
-    },
-    {
+    }
+  ];
+
+  if (isSuperAdmin) {
+    columns.push({
       title: "Acciones",
       dataIndex: "",
       key: "x",
@@ -153,8 +157,8 @@ const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
           </Popconfirm>
         </>
       ),
-    },
-  ];
+    });
+  }
 
   return (
     <div style={{ marginTop: "20px" }}>
