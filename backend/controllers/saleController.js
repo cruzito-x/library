@@ -39,14 +39,14 @@ exports.getSalesReportData = (req, res) => {
       "select titulo, precio from libros where created_at >= date_sub(now(), interval 7 day) and deleted_at is null order by created_at desc limit 10;"
     ); // Obtener la lista de los 10 registros más recientes de libros
 
-    selectSalesByPeriod.push(`select sum(case when fecha = date_sub(curdate(), interval 7 day) then total else 0 end) as ventas_hace_7_dias, 
-    sum(case when fecha = curdate() then total else 0 end) as ventas_hoy,
-    concat(case when sum(case when fecha = curdate() then total else 0 end) > sum(case when fecha = date_sub(curdate(), interval 7 day)
+    selectSalesByPeriod.push(`select sum(case when created_at = date_sub(curdate(), interval 7 day) then total else 0 end) as ventas_hace_7_dias, 
+    sum(case when created_at = curdate() then total else 0 end) as ventas_hoy,
+    concat(case when sum(case when created_at = curdate() then total else 0 end) > sum(case when created_at = date_sub(curdate(), interval 7 day)
     then total else 0 end) then "incremento del " else "decremento del " end,
-    case when sum(case when fecha = date_sub(curdate(), interval 7 day) then total else 0 end) = 0 then "[incremento infinito]" else
-    round(abs(((sum(case when fecha = curdate() then total else 0 end) - sum(case when fecha = date_sub(curdate(), interval 7 day)
-    then total else 0 end)) / sum(case when fecha = date_sub(curdate(), interval 7 day)
-    then total else 0 end)) * 100)) end,"%") as porcentaje_incremento_decremento from ventas where fecha >= date_sub(curdate(), interval 7 day) and fecha <= curdate();`);
+    case when sum(case when created_at = date_sub(curdate(), interval 7 day) then total else 0 end) = 0 then sum(case when created_at = curdate() then total else 0 end) else
+    round(abs(((sum(case when created_at = curdate() then total else 0 end) - sum(case when created_at = date_sub(curdate(), interval 7 day)
+    then total else 0 end)) / sum(case when created_at = date_sub(curdate(), interval 7 day)
+    then total else 0 end)) * 100)) end,"%") as porcentaje_incremento_decremento from ventas where created_at >= date_sub(curdate(), interval 7 day) and created_at <= curdate();`);
   }
   if (period == 14) {
     selectSalesByPeriod.push(
@@ -69,14 +69,14 @@ exports.getSalesReportData = (req, res) => {
       "select titulo, precio from libros where created_at >= date_sub(now(), interval 14 day) and deleted_at is null order by created_at desc limit 10;"
     ); // Obtener la lista de los 10 registros más recientes de libros
 
-    selectSalesByPeriod.push(`select sum(case when fecha = date_sub(curdate(), interval 14 day) then total else 0 end) as ventas_hace_14_dias, 
-    sum(case when fecha = curdate() then total else 0 end) as ventas_hoy,
-    concat(case when sum(case when fecha = curdate() then total else 0 end) > sum(case when fecha = date_sub(curdate(), interval 14 day)
+    selectSalesByPeriod.push(`select sum(case when created_at = date_sub(curdate(), interval 14 day) then total else 0 end) as ventas_hace_14_dias, 
+    sum(case when created_at = curdate() then total else 0 end) as ventas_hoy,
+    concat(case when sum(case when created_at = curdate() then total else 0 end) > sum(case when created_at = date_sub(curdate(), interval 14 day)
     then total else 0 end) then "incremento del " else "decremento del " end,
-    case when sum(case when fecha = date_sub(curdate(), interval 14 day) then total else 0 end) = 0 then "[incremento infinito]" else
-    round(abs(((sum(case when fecha = curdate() then total else 0 end) - sum(case when fecha = date_sub(curdate(), interval 14 day)
-    then total else 0 end)) / sum(case when fecha = date_sub(curdate(), interval 14 day)
-    then total else 0 end)) * 100)) end,"%") as porcentaje_incremento_decremento from ventas where fecha >= date_sub(curdate(), interval 14 day) and fecha <= curdate();`);
+    case when sum(case when fecha = date_sub(curdate(), interval 14 day) then total else 0 end) = 0 then sum(case when created_at = curdate() then total else 0 end) else
+    round(abs(((sum(case when created_at = curdate() then total else 0 end) - sum(case when created_at = date_sub(curdate(), interval 14 day)
+    then total else 0 end)) / sum(case when created_at = date_sub(curdate(), interval 14 day)
+    then total else 0 end)) * 100)) end,"%") as porcentaje_incremento_decremento from ventas where created_at >= date_sub(curdate(), interval 14 day) and created_at <= curdate();`);
   }
   if (period == 30) {
     selectSalesByPeriod.push(
@@ -99,13 +99,13 @@ exports.getSalesReportData = (req, res) => {
       "select titulo, precio from libros where created_at >= date_sub(now(), interval 1 month) and deleted_at is null order by created_at desc limit 10;"
     ); // Obtener la lista de los 10 registros más recientes de libros del último mes
 
-    selectSalesByPeriod.push(`select sum(case when fecha = date_sub(curdate(), interval 1 month) then total else 0 end) as ventas_hace_1_mes, 
-    sum(case when fecha = curdate() then total else 0 end) as ventas_hoy, concat(
-      case when sum(case when fecha = curdate() then total else 0 end) > sum(case when fecha = date_sub(curdate(), interval 1 month) then total else 0 end) then "incremento del " else "decremento del " end,
-      case when sum (case when fecha = date_sub(curdate(), interval 1 month) then total else 0 end) = 0 then "[incremento infinito]"
-      else round(abs(((sum(case when fecha = curdate() then total else 0 end) - sum(case when fecha = date_sub(curdate(), interval 1 month) then total else 0 end)) / sum(case
-        when fecha = date_sub(curdate(), interval 1 month) then total else 0 end)) * 100)) end,"%") as porcentaje_incremento_decremento
-        from ventas where fecha >= date_sub(curdate(), interval 1 month) and fecha <= curdate();`);
+    selectSalesByPeriod.push(`select sum(case when created_at = date_sub(curdate(), interval 1 month) then total else 0 end) as ventas_hace_1_mes, 
+    sum(case when created_at = curdate() then total else 0 end) as ventas_hoy, concat(
+      case when sum(case when created_at = curdate() then total else 0 end) > sum(case when created_at = date_sub(curdate(), interval 1 month) then total else 0 end) then "incremento del " else "decremento del " end,
+      case when sum (case when created_at = date_sub(curdate(), interval 1 month) then total else 0 end) = 0 then sum(case when created_at = curdate() then total else 0 end)
+      else round(abs(((sum(case when created_at = curdate() then total else 0 end) - sum(case when created_at = date_sub(curdate(), interval 1 month) then total else 0 end)) / sum(case
+        when created_at = date_sub(curdate(), interval 1 month) then total else 0 end)) * 100)) end,"%") as porcentaje_incremento_decremento
+        from ventas where created_at >= date_sub(curdate(), interval 1 month) and created_at <= curdate();`);
   }
   if (period == 180) {
     selectSalesByPeriod.push(
@@ -128,13 +128,12 @@ exports.getSalesReportData = (req, res) => {
       "select titulo, precio from libros where created_at >= date_sub(now(), interval 6 month) and deleted_at is null order by created_at desc limit 10;"
     ); // Obtener la lista de los 10 registros más recientes de libros de los últimos 6 meses
 
-    selectSalesByPeriod.push(`select sum(case when fecha >= date_sub(curdate(), interval 6 month) and fecha <= curdate() then total else 0 end) as ventas_ultimos_6_meses, 
-    sum(case when fecha = curdate() then total else 0 end) as ventas_hoy, concat(
-      case when sum(case when fecha = curdate() then total else 0 end) > sum(case when fecha >= date_sub(curdate(), interval 6 month) and fecha <= date_sub(curdate(), interval 5 month) then total else 0 end) then "incremento del " else "decremento del " end,
-      case when sum (case when fecha >= date_sub(curdate(), interval 6 month) and fecha <= date_sub(curdate(), interval 5 month) then total else 0 end) = 0 then "[incremento infinito]"
-      else round(abs(((sum(case when fecha = curdate() then total else 0 end) - sum(case when fecha >= date_sub(curdate(), interval 6 month) and fecha <= date_sub(curdate(), interval 5 month) then total else 0 end)) / sum(case
-        when fecha >= date_sub(curdate(), interval 6 month) and fecha <= date_sub(curdate(), interval 5 month) then total else 0 end)) * 100)) end,"%") as porcentaje_incremento_decremento
-        from ventas where fecha >= date_sub(curdate(), interval 6 month) and fecha <= curdate();`);
+    selectSalesByPeriod.push(`select sum(case when created_at = date_sub(curdate(), interval 6 month) then total else 0 end) as ventas_hace_6_meses,
+    sum(case when created_at = curdate() then total else 0 end) AS ventas_hoy,
+    concat(case when sum(case when created_at = curdate() then total else 0 end) > sum(case when created_at = date_sub(curdate(), interval 6 month) then total else 0 end) then "incremento del " else "decremento del " end,
+    case when sum(case when created_at = date_sub(curdate(), interval 6 month) then total else 0 end) = 0 then sum(case when created_at = curdate() then total else 0 end)
+    else round(abs(((sum(case when created_at = curdate() then total else 0 end) - sum(case when created_at = date_sub(curdate(), interval 6 month) then total else 0 end)) / sum(case when created_at = date_sub(curdate(), interval 6 month) then total else 0 end)) * 100)) end,"%") as porcentaje_incremento_decremento
+    from ventas where created_at >= date_sub(curdate(), interval 6 month) and created_at <= curdate();`);
   }
   if (period == 365) {
     selectSalesByPeriod.push(
@@ -157,14 +156,13 @@ exports.getSalesReportData = (req, res) => {
       "select titulo, precio from libros where created_at >= date_sub(now(), interval 1 year) and deleted_at is null order by created_at desc limit 10;"
     ); // Obtener la lista de los 10 registros más recientes de libros del último año
 
-    selectSalesByPeriod.push(`select sum(case when fecha >= date_sub(curdate(), interval 1 year) and fecha <= curdate() then total else 0 end) as ventas_ultimo_anio, 
-    sum(case when fecha = curdate() then total else 0 end) as ventas_hoy, concat(
-      case when sum(case when fecha = curdate() then total else 0 end) > sum(case when fecha >= date_sub(curdate(), interval 1 year) and fecha <= date_sub(curdate(), interval 11 month) then total else 0 end) then "incremento del " else "decremento del " end,
-      case when sum (case when fecha >= date_sub(curdate(), interval 1 year) and fecha <= date_sub(curdate(), interval 11 month) then total else 0 end) = 0 then "[incremento infinito]"
-      else round(abs(((sum(case when fecha = curdate() then total else 0 end) - sum(case when fecha >= date_sub(curdate(), interval 1 year) and fecha <= date_sub(curdate(), interval 11 month) then total else 0 end)) / sum(case
-        when fecha >= date_sub(curdate(), interval 1 year) and fecha <= date_sub(curdate(), interval 11 month) then total else 0 end)) * 100)) end,"%") as porcentaje_incremento_decremento
-        from ventas where fecha >= date_sub(curdate(), interval 1 year) and fecha <= curdate();`);
-  }
+    selectSalesByPeriod.push(`select sum(case when created_at = date_sub(curdate(), interval 1 year) then total else 0 end) as ventas_hace_1_año,
+    sum(case when created_at = curdate() then total else 0 end) as ventas_hoy,
+    concat(case when sum(case when created_at = curdate() then total else 0 end) > sum(case when created_at = date_sub(curdate(), interval 1 year) then total else 0 end) then "incremento del " else "decremento del " end,
+    case when sum(case when created_at = date_sub(curdate(), interval 1 year) then total else 0 end) = 0 then sum(case when created_at = curdate() then total else 0 end)
+    else round(abs(((sum(case when created_at = curdate() then total else 0 end) - sum(case when created_at = date_sub(curdate(), interval 1 year) then total else 0 end)) / sum(case when created_at = date_sub(curdate(), interval 1 year) then total else 0 end)) * 100)) end,"%") as porcentaje_incremento_decremento
+    from ventas where created_at >= date_sub(curdate(), interval 1 year) and created_at <= curdate();`);
+}
 
   const promises = selectSalesByPeriod.map((query) => {
     return new Promise((resolve, reject) => {
