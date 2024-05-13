@@ -3,7 +3,6 @@ const crypto = require("crypto");
 
 exports.login = (req, res) => {
   const { username, password } = req.body;
-
   const hashedPassword = crypto.createHash('md5').update(password).digest('hex');
 
   const query = `select * from usuarios where nombreUsuario = ? and password = ? and deleted_at is null`;
@@ -14,7 +13,8 @@ exports.login = (req, res) => {
     }
 
     if (results.length > 0) {
-      res.status(200).json({ message: "Inicio de sesión exitoso" });
+      const userRole = results[0].rol;
+      res.status(200).json({ message: "Inicio de sesión exitoso", rol: userRole });
     } else {
       res.status(401).json({ message: "Nombre de usuario o contraseña incorrectos" });
     }
