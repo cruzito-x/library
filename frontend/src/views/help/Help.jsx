@@ -57,6 +57,7 @@ import refreshStockTableAfterDelete from "../../assets/images/stock/refreshStock
 import activateButton from "../../assets/images/buttons/activateButton.png";
 import successStockActivation from "../../assets/images/stock/successStockActivation.png";
 import refreshStockTableAfterActivate from "../../assets/images/stock/refreshStockTableAfterActivate.png";
+import sales from "../../assets/images/sales/sales.png";
 
 const Help = () => {
   const { Content } = Layout;
@@ -329,7 +330,7 @@ const Help = () => {
                 ),
               },
             ]}
-          ></Collapse>
+          />
 
           <br />
           <Collapse
@@ -999,6 +1000,29 @@ const Help = () => {
                         },
                       ]}
                     />
+                  </>
+                ),
+              },
+            ]}
+          />
+          
+          <br />
+          <Collapse
+            size="large"
+            items={[
+              {
+                key: "0",
+                label: "Ventas",
+                children: (
+                  <>
+                    <div style={{ textAlign: "center" }}>
+                      <Image
+                        src={sales}
+                        preview={false} // Desactiva la previsualización si no es necesaria
+                        style={{ maxWidth: "80%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
+                      />
+                    </div>
+                    <p> En este apartado podrás visualizar todas las ventas realizadas y su información respectiva. </p>
                   </>
                 ),
               },
