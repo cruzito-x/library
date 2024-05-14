@@ -10,7 +10,7 @@ const app = express();
 const port = 3001;
 
 // Configuración de Morgan para escribir en el archivo express.log
-const expressLogStream = fs.createWriteStream(path.join(__dirname, "./logs/express.log"), { flags: "a" });
+const expressLogStream = fs.createWriteStream(path.join(__dirname, "./express.log"), { flags: "a" });
 
 app.use(bodyParser.json()); // Middleware para parsear el body de las solicitudes como JSON
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -39,7 +39,7 @@ app.use("/genres", genres);
 app.use("/stock", stock);
 
 // Redirigir console.log y console.error al archivo de registro
-const logStream = fs.createWriteStream(path.join(__dirname, "./logs/express.log"), { flags: "a" });
+const logStream = fs.createWriteStream(path.join(__dirname, "./express.log"), { flags: "a" });
 console.log = function(message) {
   logStream.write(`[LOG] ${message}\n`);
 };
