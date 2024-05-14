@@ -15,20 +15,6 @@ exports.getBooks = (req, res) => {
   );
 };
 
-exports.getLastFiveBooks = (req, res) => {
-  db.query(
-    "select *, e.existencia as stock from libros l inner join existencias e on e.idLibro = l.idLibro inner join genero g on g.idGenero = l.genero where (l.deleted_at is null and e.deleted_at is null and g.deleted_at is null) order by l.id desc limit 5",
-    (error, results) => {
-      if (error) {
-        console.error("Error al obtener los libros:", error);
-        res.status(500).json({ message: "Error interno del servidor" });
-        return;
-      }
-      res.status(200).json(results);
-    }
-  );
-};
-
 exports.getGenres = (req, res) => {
   db.query("select idGenero as value, nombreGenero as label from genero where deleted_at is null order by nombreGenero asc", (error, results) => {
     if (error) {
