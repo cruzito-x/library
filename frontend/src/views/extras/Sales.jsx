@@ -24,6 +24,7 @@ const Sales = () => {
       })
       .then((data) => {
         setSalesData(data);
+        console.log(data);
       })
       .catch((error) => {
         console.error(error.message);
@@ -35,7 +36,7 @@ const Sales = () => {
   };
 
   const filteredSalesData = salesData.filter((item) =>
-    item.titulo.toLowerCase().includes(searchTerm.toLowerCase())
+    item.cliente && item.cliente.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (

@@ -36,24 +36,6 @@ const SalesTable = ({ salesData, refreshTable, setRefreshTable }) => {
 
   const columns = [
     {
-      title: "Libro",
-      dataIndex: "titulo",
-      key: "book",
-    },
-    {
-      title: "Cantidad",
-      dataIndex: "cantidad",
-      key: "quantity",
-    },
-    {
-      title: "Precio",
-      dataIndex: "precio",
-      key: "price",
-      render(text) {
-        return `$${text}`;
-      }
-    },
-    {
       title: "Subtotal",
       dataIndex: "subtotal",
       key: "subtotal",
