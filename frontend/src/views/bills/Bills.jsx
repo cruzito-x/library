@@ -24,10 +24,7 @@ const Bills = () => {
   const { Content } = Layout;
   const [books, setBooks] = useState([]);
   const [form] = Form.useForm();
-  const [formLayout, setFormLayout] = useState("horizontal");
   const [selectedBooks, setSelectedBooks] = useState([]);
-  const [nombreFilled, setNombreFilled] = useState(false);
-  const [apellidoFilled, setApellidoFilled] = useState(false);
   const { Title } = Typography;
 
   const {

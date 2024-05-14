@@ -21,9 +21,7 @@ import GenresTable from "../../components/tables/genresTable/GenresTable";
 const Genres = () => {
   const { confirm } = Modal;
   const [form] = Form.useForm();
-  const [formLayout, setFormLayout] = useState("horizontal");
   const { Content } = Layout;
-  const [size, setSize] = useState("medium");
   const { Search } = Input;
   const [searchTerm, setSearchTerm] = useState("");
   const [genresData, setGenresData] = useState([]);
@@ -57,10 +55,10 @@ const Genres = () => {
       style: { top: "5%" },
       content: (
         <Form
-          layout={formLayout}
+          layout="horizontal"
           form={form}
           initialValues={{
-            layout: formLayout,
+            layout: "vertical",
           }}
         >
           <Form.Item label="Género:" name="nombreGenero">

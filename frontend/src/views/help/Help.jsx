@@ -40,7 +40,6 @@ import successBillSaved from "../../assets/images/bills/successBillSaved.png";
 import showBill from "../../assets/images/bills/showBill.png";
 import adminShowBill from "../../assets/images/admin/bills/showBill.png";
 import selectReportPeriod from "../../assets/images/reports/selectReportPeriod.png";
-import adminSelectReportPeriod from "../../assets/images/admin/reports/selectReportPeriod.png";
 import saveReport from "../../assets/images/reports/saveReport.png";
 import showExportedReport from "../../assets/images/reports/showExportedReport.png";
 import showSemanalReport from "../../assets/images/reports/showSemanalReport.png";
@@ -514,123 +513,121 @@ const Help = () => {
           />
 
           {/* Reports card */}
-
-          <br />
-          <Collapse
-            size="large"
-            items={[
-              {
-                key: "0",
-                label: "Reportes",
-                children: (
-                  <>
-                    <Collapse
-                      size="large"
-                      items={[
-                        {
-                          key: "1",
-                          label: "Generar un nuevo reporte",
-                          children: (
-                            <>
-                              <p>
-                                Para generar un reporte los pasos a seguir son
-                                los siguientes:
-                              </p>
-                              <ul>
-                                <li>
-                                  <h3> Paso 1. </h3>
-                                  <p>
-                                    
-                                    Selecciona el período de tiempo del cual
-                                    deseas exportar la información:
-                                  </p>
-                                  <div style={{ textAlign: "center" }}>
-                                    <Image
-                                      src={
-                                        isSuperAdmin
-                                          ? selectReportPeriod
-                                          : adminSelectReportPeriod
-                                      }
-                                      preview={false} // Desactiva la previsualización si no es necesaria
-                                      style={{
-                                        maxWidth: "80%",
-                                        height: "auto",
-                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                    />
-                                  </div>
-                                </li>
-                                <li>
-                                  <h3> Paso 2. </h3>
-                                  <p>
-                                    
-                                    Selecciona la ubicación donde deseas guardar
-                                    el reporte
-                                  </p>
-                                  <div style={{ textAlign: "center" }}>
-                                    <Image
-                                      src={saveReport}
-                                      preview={false} // Desactiva la previsualización si no es necesaria
-                                      style={{
-                                        maxWidth: "80%",
-                                        height: "auto",
-                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                    />
-                                  </div>
-                                </li>
-                                <li>
-                                  <h3> Paso 3. </h3>
-                                  <p>
-                                    
-                                    El paso 2 te devolverá un archivo descargado
-                                    con extensión <strong>.pdf</strong>
-                                  </p>
-                                  <div style={{ textAlign: "center" }}>
-                                    <Image
-                                      src={showExportedReport}
-                                      preview={false} // Desactiva la previsualización si no es necesaria
-                                      style={{
-                                        maxWidth: "100%",
-                                        height: "auto",
-                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                    />
-                                  </div>
-                                  <p> Abrelo con tu visor de PDF preferido. </p>
-                                </li>
-                                <li>
-                                  <h3> Paso 4. </h3>
-                                  <p> Visualiza el contenido del reporte </p>
-                                  <div style={{ textAlign: "center" }}>
-                                    <Image
-                                      src={showSemanalReport}
-                                      preview={false} // Desactiva la previsualización si no es necesaria
-                                      style={{
-                                        maxWidth: "80%",
-                                        height: "auto",
-                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                    />
-                                  </div>
-                                </li>
-                              </ul>
-                              <p>
-                                
-                                Si deseas generar otro reporte, sigue los pasos
-                                ya mencionados.
-                              </p>
-                            </>
-                          ),
-                        },
-                      ]}
-                    />
-                  </>
-                ),
-              },
-            ]}
-          />
-
-          {/* Users card */}
-
           {isSuperAdmin && (
             <>
+              <br />
+              <Collapse
+                size="large"
+                items={[
+                  {
+                    key: "0",
+                    label: "Reportes",
+                    children: (
+                      <>
+                        <Collapse
+                          size="large"
+                          items={[
+                            {
+                              key: "1",
+                              label: "Generar un nuevo reporte",
+                              children: (
+                                <>
+                                  <p>
+                                    Para generar un reporte los pasos a seguir
+                                    son los siguientes:
+                                  </p>
+                                  <ul>
+                                    <li>
+                                      <h3> Paso 1. </h3>
+                                      <p>
+                                        Selecciona el período de tiempo del cual
+                                        deseas exportar la información:
+                                      </p>
+                                      <div style={{ textAlign: "center" }}>
+                                        <Image
+                                          src={selectReportPeriod}
+                                          preview={false} // Desactiva la previsualización si no es necesaria
+                                          style={{
+                                            maxWidth: "80%",
+                                            height: "auto",
+                                          }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                        />
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <h3> Paso 2. </h3>
+                                      <p>
+                                        Selecciona la ubicación donde deseas
+                                        guardar el reporte
+                                      </p>
+                                      <div style={{ textAlign: "center" }}>
+                                        <Image
+                                          src={saveReport}
+                                          preview={false} // Desactiva la previsualización si no es necesaria
+                                          style={{
+                                            maxWidth: "80%",
+                                            height: "auto",
+                                          }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                        />
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <h3> Paso 3. </h3>
+                                      <p>
+                                        El paso 2 te devolverá un archivo
+                                        descargado con extensión{" "}
+                                        <strong>.pdf</strong>
+                                      </p>
+                                      <div style={{ textAlign: "center" }}>
+                                        <Image
+                                          src={showExportedReport}
+                                          preview={false} // Desactiva la previsualización si no es necesaria
+                                          style={{
+                                            maxWidth: "100%",
+                                            height: "auto",
+                                          }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                        />
+                                      </div>
+                                      <p>
+                                        {" "}
+                                        Abrelo con tu visor de PDF preferido.{" "}
+                                      </p>
+                                    </li>
+                                    <li>
+                                      <h3> Paso 4. </h3>
+                                      <p>
+                                        {" "}
+                                        Visualiza el contenido del reporte{" "}
+                                      </p>
+                                      <div style={{ textAlign: "center" }}>
+                                        <Image
+                                          src={showSemanalReport}
+                                          preview={false} // Desactiva la previsualización si no es necesaria
+                                          style={{
+                                            maxWidth: "80%",
+                                            height: "auto",
+                                          }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                        />
+                                      </div>
+                                    </li>
+                                  </ul>
+                                  <p>
+                                    Si deseas generar otro reporte, sigue los
+                                    pasos ya mencionados.
+                                  </p>
+                                </>
+                              ),
+                            },
+                          ]}
+                        />
+                      </>
+                    ),
+                  },
+                ]}
+              />
+
+              {/* Users card */}
+
               <br />
               <Collapse
                 size="large"
@@ -1128,8 +1125,8 @@ const Help = () => {
                         />
                       </div>
                       <p>
-                        En este apartado del sistema podrás visualizar el
-                        stock yacente de cada libro y sus respectivos estados
+                        En este apartado del sistema podrás visualizar el stock
+                        yacente de cada libro y sus respectivos estados
                         <strong>
                           (estado de unidades y estado de circulación)
                         </strong>

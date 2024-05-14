@@ -32,7 +32,6 @@ const Books = () => {
   const { confirm } = Modal;
   const { TextArea } = Input;
   const [form] = Form.useForm();
-  const [formLayout, setFormLayout] = useState("horizontal");
   const [genres, setGenres] = useState([]);
   const [defaultValue, setDefaultValue] = useState("");
   const [imageName, setImageName] = useState(null);
@@ -70,7 +69,6 @@ const Books = () => {
 
       localStorage.setItem("nombreImagen", fileName);
       setImageName(fileName); // Actualizamos el estado con el nombre de la imagen cargada
-      console.log(localStorage.getItem("nombreImagen"));
     }
   };
 
@@ -96,10 +94,10 @@ const Books = () => {
       style: { top: "5%" },
       content: (
         <Form
-          layout={formLayout}
+          layout="horizontal"
           form={form}
           initialValues={{
-            layout: formLayout,
+            layout: "vertical",
           }}
         >
           <Form.Item label="Libro:" name="titulo">

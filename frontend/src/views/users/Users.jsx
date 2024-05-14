@@ -24,9 +24,7 @@ import UsersTable from "../../components/tables/usersTable/UsersTable";
 const Users = () => {
   const { confirm } = Modal;
   const [form] = Form.useForm();
-  const [formLayout, setFormLayout] = useState("horizontal");
   const { Content } = Layout;
-  const [size, setSize] = useState("medium");
   const { Search } = Input;
   const [searchTerm, setSearchTerm] = useState("");
   const [usersData, setUsersData] = useState([]);
@@ -63,10 +61,10 @@ const Users = () => {
       style: { top: "5%" },
       content: (
         <Form
-          layout={formLayout}
+          layout="horizontal"
           form={form}
           initialValues={{
-            layout: formLayout,
+            layout: "vertical",
           }}
         >
           <Form.Item label="Usuario:" name="nombreUsuario" rules={[{ required: true, message: 'Por favor, ingrese un nombre de usuario' }]} >

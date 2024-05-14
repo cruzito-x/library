@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons"
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Card, Form, Input, Button, message } from "antd";
 import { useNavigate } from "react-router-dom";
 
@@ -12,31 +12,28 @@ const Login = () => {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const response = await fetch(
-        "http://localhost:3001/auth/login",
-        {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(values),
-        }
-      );
+      const response = await fetch("http://localhost:3001/auth/login", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      const data = await response.json();
 
       if (response.status === 200) {
-        const data = await response.json();
-
         message.success(data.message);
         localStorage.setItem("username", values.username);
         localStorage.setItem("rol", data.rol);
         navigate("/dashboard");
-      } else if (response.status === 401) {
-        message.error(response.message);
       } else {
-        message.error(response.status);
+        if (response.status === 401 || response.status === 500) {
+          message.error(data.message);
+        }
       }
     } catch (error) {
-      message.error("Hubo un problema al iniciar sesión");
+      message.error("Ha ocurrido un error inesperado, por favor intente de nuevo");
     }
     setLoading(false);
   };
@@ -68,15 +65,16 @@ const Login = () => {
         </div>
         <Form
           name="loginForm"
+          layout={"vertical"}
           initialValues={{ remember: true }}
           onFinish={onFinish}
           style={{ width: 300 }}
         >
           <Form.Item
+            label="Usuario:"
             name="username"
             rules={[
               {
-                required: true,
                 message: "Por favor ingrese su usuario",
               },
             ]}
@@ -85,14 +83,18 @@ const Login = () => {
           </Form.Item>
 
           <Form.Item
+            label="Contraseña:"
             name="password"
-            rules={[
-              { required: true, message: "Por favor ingrese su contraseña" },
-            ]}
+            rules={[{ message: "Por favor ingrese su contraseña" }]}
           >
-            <Input.Password placeholder="Contraseña" iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} />
+            <Input.Password
+              placeholder="Contraseña"
+              iconRender={(visible) =>
+                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+              }
+            />
           </Form.Item>
-          
+
           <Form.Item>
             <Button
               type="primary"
