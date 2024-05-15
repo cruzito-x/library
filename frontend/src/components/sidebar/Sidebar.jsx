@@ -24,6 +24,7 @@ const Sidebar = () => {
   const toggleTheme = () => { setDarkTheme(!darkTheme); };
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
+  const isSuperAdmin = localStorage.getItem("rol") === "superadmin";
 
   useEffect(() => {
     const username = localStorage.getItem("username");
@@ -45,7 +46,7 @@ const Sidebar = () => {
     transition: 'all .25s ease-in-out'
   };
 
-  const allowedRoutes = [
+  const allowedRoutes = isSuperAdmin ? [
     '/dashboard',
     '/books',
     '/bills',
@@ -59,6 +60,14 @@ const Sidebar = () => {
     '/extras/gender',
     '/extras/stock',
     '/extras/sales',
+    '/help'
+  ] : [
+    '/dashboard',
+    '/books',
+    '/bills',
+    '/extras',
+    '/extras/gender',
+    '/extras/stock',
     '/help'
   ];
 
