@@ -2,7 +2,7 @@ const db = require("../config/db");
 
 exports.getSales = (req, res) => {
   db.query(
-    "select dv.idVenta, (select sum(dv.subtotal)) as subtotal, (select sum(dv.descuento)) as descuento, v.total, concat(c.nombre, ' ', c.apellido) as cliente, v.fecha from detalles_venta dv inner join libros l on l.idLibro = dv.idLibro inner join ventas v on v.idVenta = dv.idVenta inner join clientes c on c.idCliente = dv.idCliente group by dv.idCliente, idVenta order by fecha desc;",
+    "select dv.idVenta, l.titulo, dv.cantidad, (select sum(dv.subtotal)) as subtotal, (select sum(dv.descuento)) as descuento, v.total, concat(c.nombre, ' ', c.apellido) as cliente, u.nombreUsuario, v.fecha from detalles_venta dv inner join libros l on l.idLibro = dv.idLibro inner join ventas v on v.idVenta = dv.idVenta inner join clientes c on c.idCliente = dv.idCliente inner join usuarios u on u.idUsuario = dv.idUsuario group by dv.idCliente, idVenta order by fecha desc;",
     (error, results) => {
       if (error) {
         console.error("Error al obtener las ventas:", error);
