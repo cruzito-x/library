@@ -10,7 +10,7 @@ const helmet = require("helmet");
 const app = express();
 const port = 3001;
 
-// Configuración de Morgan para escribir en el archivo express.log
+// Configuración de Morgan para escribir en el archivo express.log (importante: crear la carpeta logs primero)
 const expressLogStream = fs.createWriteStream(path.join(__dirname, "./logs/express.log"), { flags: "a" });
 
 app.use(helmet({
