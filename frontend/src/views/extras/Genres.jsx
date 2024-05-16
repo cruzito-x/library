@@ -26,6 +26,7 @@ const Genres = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [genresData, setGenresData] = useState([]);
   const [refreshTable, setRefreshTable] = useState(false);
+  const isSuperAdmin = localStorage.getItem("rol") === "superadmin";
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -122,13 +123,16 @@ const Genres = () => {
       >
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={12} md={18} lg={18} xl={18}>
-            <Button
-              type="primary"
-              icon={<PlusCircleOutlined />}
-              onClick={showAddModal}
-            >
-              Añadir nuevo
-            </Button>
+          {isSuperAdmin && (
+          <Button
+          type="primary"
+          icon={<PlusCircleOutlined />}
+          onClick={showAddModal}
+          >
+            Añadir nuevo
+          </Button>
+          )}
+
           </Col>
           <Col xs={24} sm={12} md={6} lg={6} xl={6}>
             <Search placeholder="Buscar por género literario" onSearch={handleSearch} enterButton />

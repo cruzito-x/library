@@ -26,6 +26,7 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
   const [defaultValue, setDefaultValue] = useState("");
   const [form] = Form.useForm();
   const { TextArea } = Input;
+  const isSuperAdmin = localStorage.getItem("rol") === "superadmin";
 
   const handleRowClick = (record) => {
     setSelectedRowData(record);
@@ -145,8 +146,11 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
       key: "price",
       render: (precio) => `$${precio}`,
       sorter: (a, b) => a.precio - b.precio,
-    },
-    {
+    }
+  ];
+
+    if (isSuperAdmin) {
+      columns.push({
       title: "Acciones",
       dataIndex: "",
       key: "x",
@@ -170,8 +174,8 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
           </Popconfirm>
         </>
       ),
-    },
-  ];
+    });
+  }
 
   return (
     <div style={{ marginTop: "20px" }}>

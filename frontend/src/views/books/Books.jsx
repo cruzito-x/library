@@ -37,6 +37,7 @@ const Books = () => {
   const [imageName, setImageName] = useState(null);
   const [booksData, setBooksData] = useState([]);
   const [refreshTable, setRefreshTable] = useState(false);
+  const isSuperAdmin = localStorage.getItem("rol") === "superadmin";
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -236,12 +237,14 @@ const Books = () => {
       >
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={18}>
+          {isSuperAdmin && (
             <Button
               type="primary"
               icon={<PlusCircleOutlined />}
               size={size}
               onClick={showAddModal}
             > Añadir nuevo </Button>
+          )}
           </Col>
           <Col xs={24} sm={6}>
             <Search placeholder="Buscar por nombre de libro" onSearch={handleSearch} enterButton />
