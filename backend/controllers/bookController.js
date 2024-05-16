@@ -43,10 +43,6 @@ exports.saveBook = (req, res) => {
     return res.status(400).json({ message: "Todos los campos son obligatorios" });
   }
 
-  if(fechaPublicacion < 1901) {
-    fechaPublicacion = '0';
-  }
-
   const idLibro = crypto.createHash("md5").update(new Date().toISOString()).digest("hex");
 
   const insertLibros = 'insert into libros (idLibro, titulo, autor, isbn, fechaPublicacion, genero, precio, portada, sinopsis, created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, curdate())';
