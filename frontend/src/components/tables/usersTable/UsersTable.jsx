@@ -103,7 +103,11 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
         return response.json();
       })
       .then((data) => {
-        message.success(data.message);
+        if(data.status === 200) {
+          message.success(data.message);
+        } else if(data.status === 500) {
+          message.error(data.message);
+        }
         setUsers(users.filter((user) => user.idUsuario !== record.idUsuario)); // Actualizar la tabla después de la eliminación
         setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
       })

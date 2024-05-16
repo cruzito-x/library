@@ -58,7 +58,9 @@ const Books = () => {
       });
   }, [refreshTable]);
 
-  const handleChange = (value) => {};
+  const handleChange = (value) => {
+    console.log(value);
+  };
 
   const handleUploadChange = (info) => {
     if (info.file.status === "done") {
@@ -166,36 +168,39 @@ const Books = () => {
       cancelText: "Cancelar",
       okText: "Guardar",
       onOk() {
-        const formData = new FormData();
         const formValues = form.getFieldsValue(); // Obtener los valores del formulario
-
+  
+        if (!formValues.titulo || !formValues.autor || !formValues.isbn || !formValues.fechaPublicacion || !formValues.genero || !formValues.precio || !localStorage.getItem("nombreImagen") || !formValues.existencia || !formValues.sinopsis) {
+          message.warning("Por favor, complete los campos requeridos.");
+          return;
+        }
+  
+        const formData = new FormData();
         formData.append("titulo", formValues.titulo);
         formData.append("autor", formValues.autor);
         formData.append("isbn", formValues.isbn);
         formData.append("fechaPublicacion", formValues.fechaPublicacion);
         formData.append("genero", formValues.genero);
         formData.append("precio", formValues.precio);
-        formData.append("portada", "/uploads/"+localStorage.getItem("nombreImagen"));
+        formData.append("portada", "/uploads/" + localStorage.getItem("nombreImagen"));
         formData.append("existencia", formValues.existencia);
         formData.append("sinopsis", formValues.sinopsis);
-
-        if (!formValues.titulo || !formValues.autor || !formValues.isbn || !formValues.fechaPublicacion || !formValues.genero || !formValues.precio || !localStorage.getItem("nombreImagen") || !formValues.existencia || !formValues.sinopsis) {
-          message.error("Por favor, complete los campos requeridos.");
-          return;
-        }
-
+  
         fetch("http://localhost:3001/books/save", {
           method: "post",
           body: formData,
         })
           .then((response) => response.json())
           .then((data) => {
-            if (data.status !== 200 && data.status !== 304) {
+            if (data.status === 500) {
               message.error(data.message);
+            } else if(data.status === 400) {
+              message.warning(data.message);
             } else {
               message.success(data.message);
-            }            
-            setRefreshTable(!refreshTable); // Actualiza la tabla
+              setRefreshTable(!refreshTable); // Actualiza la tabla
+              form.resetFields(); // Limpiar formulario después de enviar
+            }
           })
           .catch((error) => {
             message.error(error.message);

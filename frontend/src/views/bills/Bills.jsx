@@ -56,7 +56,7 @@ const Bills = () => {
     let idUsuario = localStorage.getItem("idUsuario");
 
     if (selectedBooks.length === 0 || !nombre || !apellido) {
-      message.error("Por favor, complete los campos requeridos.");
+      message.warning("Por favor, complete los campos requeridos.");
       return;
     }
 

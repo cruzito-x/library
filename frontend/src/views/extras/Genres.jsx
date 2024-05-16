@@ -74,7 +74,7 @@ const Genres = () => {
         formData.append("nombreGenero", formValues.nombreGenero);
 
         if (!formValues.nombreGenero) {
-          message.error("Por favor, complete los campos requeridos.");
+          message.warning("Por favor, complete los campos requeridos.");
           return;
         }
 

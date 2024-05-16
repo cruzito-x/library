@@ -103,7 +103,7 @@ const Users = () => {
         formData.append("rol", formValues.rol);
 
         if (!formValues.nombreUsuario || !formValues.password || !formValues.rol) {
-          message.error("Por favor, complete los campos requeridos.");
+          message.warning("Por favor, complete los campos requeridos.");
           console.log(formValues)
           return;
         }
@@ -114,7 +114,11 @@ const Users = () => {
         })
           .then((response) => response.json())
           .then((data) => {
-            message.success(data.message);
+            if(data.status === 200) {
+              message.success(data.message);
+            } else if(data.status === 500) {
+              message.error(data.message);
+            }
             setRefreshTable(!refreshTable); // Actualiza la tabla
           })
           .catch((error) => {
