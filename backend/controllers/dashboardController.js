@@ -1,7 +1,7 @@
 const db = require("../config/db");
 
 exports.getGenresComparative = (req, res) => {
-  const period = req.query.period || '7'; // Valor predeterminado: últimos 7 días
+  const period = req.query.period || 6; // Valor predeterminado: últimos 7 días
   const selectSalesByGenre = "select g.nombreGenero as Genero, sum(dv.subtotal) as VentasTotales from ventas v inner join detalles_venta dv on v.idVenta = dv.idVenta  inner join libros l on dv.idLibro = l.idLibro inner join genero g on l.genero = g.idGenero where v.estado = 'completado' and (g.deleted_at is null and v.deleted_at is null and dv.deleted_at is null) and v.fecha >= now() - interval ? day group by g.nombreGenero  order by VentasTotales asc;";
 
   db.query(selectSalesByGenre, [period], (error, results) => {
@@ -14,14 +14,14 @@ exports.getGenresComparative = (req, res) => {
 };
 
 exports.getMonthSales = (req, res) => {
-  const period = parseInt(req.query.period) || 7; 
+  const period = parseInt(req.query.period) || 6; 
   let selectSalesByPeriod = ``;
 
-  if(period == 7) {
+  if(period == 6) {
     selectSalesByPeriod = 'select created_at as fecha, sum(total) as total_venta from ventas where created_at between curdate() - interval ? day and curdate() group by created_at;';
   }
   if(period == 14) {
-    selectSalesByPeriod = 'select concat("Semana del ", date_format(fecha_inicio, "%d-%m-%Y"), " al ", date_format(fecha_fin, "%d-%m-%Y")) as fecha, sum(total) as total_venta from (select date_sub(created_at, interval weekday(fecha) day) as fecha_inicio, date_add(date_sub(created_at, interval weekday(fecha) day), interval 7 day) as fecha_fin, total from ventas where created_at between curdate() - interval ? day and curdate()) as fecha group by fecha_inicio, fecha_fin;';
+    selectSalesByPeriod = 'select concat("Semana del ", date_format(fecha_inicio, "%d-%m-%Y"), " al ", date_format(fecha_fin, "%d-%m-%Y")) as fecha, sum(total) as total_venta from (select date_sub(created_at, interval weekday(fecha) day) as fecha_inicio, date_add(date_sub(created_at, interval weekday(fecha) day), interval 6 day) as fecha_fin, total from ventas where created_at between curdate() - interval ? day and curdate()) as fecha group by fecha_inicio, fecha_fin;';
   }
   if(period == 30) {
     selectSalesByPeriod = 'select concat("Desde el ", date_format(min(fecha), "%d-%m-%Y"), " hasta el ", date_format(max(fecha), "%d-%m-%Y")) as fecha, sum(total) as total_venta from ventas where fecha between curdate() - interval ? day and curdate();';
@@ -44,7 +44,7 @@ exports.getMonthSales = (req, res) => {
 };
 
 exports.getTopSellers = (req, res) => {
-  const period = req.query.period || '7';
+  const period = req.query.period || 6;
   const selectTopSellers =
     "select l.idLibro, l.titulo, sum(dv.cantidad) as totalVendido from libros l join detalles_venta dv on l.idLibro = dv.idLibro join ventas v on dv.idVenta = v.idVenta where v.estado = 'completado' and v.fecha >= now() - interval ? day group by l.idLibro, l.titulo order by totalVendido desc limit 5;";
 
