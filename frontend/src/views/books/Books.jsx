@@ -183,8 +183,6 @@ const Books = () => {
           message.error("Por favor, complete los campos requeridos.");
           return;
         }
-        
-        console.log(formData);
 
         fetch("http://localhost:3001/books/save", {
           method: "post",
@@ -192,11 +190,11 @@ const Books = () => {
         })
           .then((response) => response.json())
           .then((data) => {
-            if(data.status !== 200) {
+            if (data.status !== 200 && data.status !== 304) {
               message.error(data.message);
             } else {
               message.success(data.message);
-            }
+            }            
             setRefreshTable(!refreshTable); // Actualiza la tabla
           })
           .catch((error) => {

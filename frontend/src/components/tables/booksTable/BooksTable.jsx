@@ -90,7 +90,7 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
           return response.json();
         })
         .then((data) => {
-          if(data.status !== 200) {
+          if(data.status !== 200 && data.status !== 304) {
             message.error(data.message);
           } else {
             message.success(data.message);
@@ -119,7 +119,7 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
         return response.json();
       })
       .then((data) => {
-        if(data.status !== 200) {
+        if(data.status !== 200 && data.status !== 304) {
           message.error(data.message);
         } else {
           message.success(data.message);
