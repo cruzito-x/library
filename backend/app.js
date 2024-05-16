@@ -1,5 +1,4 @@
 const express = require("express");
-const helmet = require("helmet");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan");
@@ -13,7 +12,6 @@ const port = 3001;
 // Configuración de Morgan para escribir en el archivo express.log
 const expressLogStream = fs.createWriteStream(path.join(__dirname, "./logs/express.log"), { flags: "a" });
 
-app.use(helmet()); //Middleware de seguridad
 app.use(bodyParser.json()); // Middleware para parsear el body de las solicitudes como JSON
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors()); // Aceptar CORS de diferentes endpoints fuera del servidor
