@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const fileupload = require("express-fileupload");
 const fs = require("fs");
 const path = require("path");
+const helmet = require("helmet");
 
 const app = express();
 const port = 3001;
@@ -12,9 +13,12 @@ const port = 3001;
 // Configuración de Morgan para escribir en el archivo express.log
 const expressLogStream = fs.createWriteStream(path.join(__dirname, "./logs/express.log"), { flags: "a" });
 
+app.use(helmet({
+  contentSecurityPolicy: false, // Deshabilitar la política de seguridad de contenido para evitar problemas con CORS
+  crossOriginResourcePolicy: { policy: 'cross-origin' }, // Permitir solicitudes desde otros orígenes
+}));
 app.use(bodyParser.json()); // Middleware para parsear el body de las solicitudes como JSON
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors()); // Aceptar CORS de diferentes endpoints fuera del servidor
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Configurar el middleware para retornar archivos estáticos desde la carpeta 'uploads'
 app.use(fileupload({ createParentPath: true })); // Middleware para subida de archivos, permite crear la carpeta si no existe
 app.use(morgan("combined", { stream: expressLogStream }));
