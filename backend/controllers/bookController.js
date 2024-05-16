@@ -38,66 +38,55 @@ exports.saveBook = (req, res) => {
     sinopsis,
     existencia,
   } = req.body;
-  const idLibro = crypto.createHash("md5").update(new Date().toISOString()).digest("hex")
 
-  const insertLibros = `insert into libros (idLibro, titulo, autor, isbn, fechaPublicacion, genero, precio, portada, sinopsis, created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, curdate())`;
-  const insertExistencias = `insert into existencias (idLibro, existencia, created_at) values (?, ?, now())`;
+  if (!titulo || !autor || !isbn || !fechaPublicacion || !genero || !precio || !portada || !sinopsis || !existencia) {
+    return res.status(400).json({ message: "Todos los campos son obligatorios" });
+  }
+
+  if(fechaPublicacion < 1901) {
+    fechaPublicacion = '0';
+  }
+
+  const idLibro = crypto.createHash("md5").update(new Date().toISOString()).digest("hex");
+
+  const insertLibros = 'insert into libros (idLibro, titulo, autor, isbn, fechaPublicacion, genero, precio, portada, sinopsis, created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, curdate())';
+  const insertExistencias = 'insert into existencias (idLibro, existencia, created_at) values (?, ?, curdate())';
 
   const librosValues = [
-    idLibro,
-    titulo,
-    autor,
-    isbn,
-    fechaPublicacion,
-    genero,
-    precio,
-    portada,
-    sinopsis
+    idLibro, titulo, autor, isbn, fechaPublicacion, genero, precio, portada, sinopsis
   ];
 
-  const existenciasValues = [
-    idLibro,
-    existencia, // Valor obtenido del frontend
-  ];
+  const existenciasValues = [idLibro, existencia];
 
-  // Realizar ambas inserciones en una transacción
   db.beginTransaction((error) => {
     if (error) {
       console.error("Error al iniciar la transacción:", error.message);
-      res.status(500).json({ message: "Error interno del servidor" });
-      console.error("Error interno del servidor: ", error.message);
-      return;
+      return res.status(500).json({ message: "Error interno del servidor" });
     }
 
-    // Insertar en la tabla libros
     db.query(insertLibros, librosValues, (error, result) => {
       if (error) {
         console.error("Error al guardar el libro:", error.message);
         db.rollback(() => {
           res.status(500).json({ message: "Error interno del servidor" });
-          console.error("Error interno del servidor: ", error.message);
         });
         return;
       }
 
-      // Insertar en la tabla existencias
-      db.query(insertExistencias, existenciasValues, (error, _result) => {
+      db.query(insertExistencias, existenciasValues, (error, result) => {
         if (error) {
           console.error("Error al guardar el stock:", error.message);
           db.rollback(() => {
             res.status(500).json({ message: "Error interno del servidor" });
-            console.error("Error interno del servidor: ", error.message);
           });
           return;
         }
 
-        // Commit la transacción si ambas inserciones son exitosas
         db.commit((error) => {
           if (error) {
             console.error("Error al hacer commit de la transacción:", error.message);
             db.rollback(() => {
               res.status(500).json({ message: "Error interno del servidor" });
-              console.error("Error interno del servidor: ", error.message);
             });
             return;
           }
@@ -166,7 +155,7 @@ exports.upload = async (req, res) => {
       res.status(400).json({ message: "No se subió ningún archivo" });
     } else {
       const file = req.files.portada;
-      
+
       // Generar nombre de archivo basado en la fecha y hora actual
       const currentDate = new Date();
       const formattedDate = currentDate.toLocaleString('es-ES', { timeZone: 'UTC' }).replace(/[\/\,\.\s\:]/g, '');
