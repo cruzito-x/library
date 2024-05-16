@@ -73,6 +73,7 @@ import activateButton from "../../assets/images/buttons/activateButton.png";
 import successStockActivation from "../../assets/images/stock/successStockActivation.png";
 import refreshStockTableAfterActivate from "../../assets/images/stock/refreshStockTableAfterActivate.png";
 import sales from "../../assets/images/sales/sales.png";
+import saleDetails from "../../assets/images/sales/saleDetails.png";
 
 const Help = () => {
   const { Content } = Layout;
@@ -227,7 +228,7 @@ const Help = () => {
                       size="large"
                       items={[
                         {
-                          key: "1",
+                          key: "2",
                           label: "Actualizar un libro",
                           children: (
                             <>
@@ -289,7 +290,7 @@ const Help = () => {
                       size="large"
                       items={[
                         {
-                          key: "1",
+                          key: "3",
                           label: "Eliminar un libro",
                           children: (
                             <>
@@ -974,7 +975,7 @@ const Help = () => {
                       size="large"
                       items={[
                         {
-                          key: "1",
+                          key: "2",
                           label: "Actualizar un género existente",
                           children: (
                             <>
@@ -1035,7 +1036,7 @@ const Help = () => {
                       size="large"
                       items={[
                         {
-                          key: "1",
+                          key: "3",
                           label: "Eliminar un género existente",
                           children: (
                             <>
@@ -1391,8 +1392,35 @@ const Help = () => {
                         </div>
                         <p>
                           En este apartado podrás visualizar todas las ventas
-                          realizadas y su información respectiva.
+                          realizadas y su información respectiva, estas están
+                          ordenadas de la más reciente a la más antigua.
                         </p>
+
+                        <Collapse
+                          size="large"
+                          items={[
+                            {
+                              key: "1",
+                              label: "Visualizar detalles de venta",
+                              children: (
+                                <>
+                                  <p> Al dar clic sobre un registro se desplegará el siguiente modal:</p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={saleDetails}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "80%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <p> Donde podrás visualizar el detalle de la venta seleccionada. </p>
+                                </>
+                              ),
+                            },
+                          ]}
+                        />
                       </>
                     ),
                   },
