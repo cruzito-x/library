@@ -192,7 +192,11 @@ const Books = () => {
         })
           .then((response) => response.json())
           .then((data) => {
-            message.success(data.message);
+            if(data.status !== 200) {
+              message.error(data.message);
+            } else {
+              message.success(data.message);
+            }
             setRefreshTable(!refreshTable); // Actualiza la tabla
           })
           .catch((error) => {

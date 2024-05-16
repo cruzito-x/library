@@ -70,7 +70,11 @@ const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
           return response.json();
         })
         .then((data) => {
-          message.success(data.message);
+          if(data.status !== 200) {
+            message.error(data.message);
+          } else {
+            message.success(data.message);
+          }
           setModal1Open(false);
           setGenres(genres.filter((genre) => genre.idGenero !== editedGenre.idGenero)); // Actualizar la tabla después de la eliminación
           setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
@@ -95,7 +99,11 @@ const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
         return response.json();
       })
       .then((data) => {
-        message.success(data.message);
+        if(data.status !== 200) {
+          message.error(data.message);
+        } else {
+          message.success(data.message);
+        }
         setGenres(genres.filter((genre) => genre.idGenero !== editedGenre.idGenero)); // Actualizar la tabla después de la eliminación
         setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
       })

@@ -67,7 +67,11 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
           return response.json();
         })
         .then((data) => {
-          message.success(data.message);
+          if(data.status !== 200) {
+            message.error(data.message);
+          } else {
+            message.success(data.message);
+          }
           setModal1Open(false);
           setStock(stock.map(item =>
             item.idLibro === editedStock.idLibro ? { ...item, ...values } : item
@@ -94,7 +98,11 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
         return response.json();
       })
       .then((data) => {
-        message.success(data.message);
+        if(data.status !== 200) {
+          message.error(data.message);
+        } else {
+          message.success(data.message);
+        }
         setStock(stock.filter(item => item.idLibro !== record.idLibro));
         setRefreshTable(prev => !prev);
       })
@@ -114,7 +122,11 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
         return response.json();
       })
       .then((data) => {
-        message.success(data.message);
+        if(data.status !== 200) {
+          message.error(data.message);
+        } else {
+          message.success(data.message);
+        }
         setRefreshTable(prev => !prev);
       })
       .catch((error) => {

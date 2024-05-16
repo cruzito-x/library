@@ -90,7 +90,11 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
           return response.json();
         })
         .then((data) => {
-          message.success(data.message);
+          if(data.status !== 200) {
+            message.error(data.message);
+          } else {
+            message.success(data.message);
+          }
           setModal2Open(false);
           setBooks(books.filter((book) => book.idLibro !== editedBook.idLibro)); // Actualizar la tabla después de la eliminación
           setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
@@ -115,7 +119,11 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
         return response.json();
       })
       .then((data) => {
-        message.success(data.message);
+        if(data.status !== 200) {
+          message.error(data.message);
+        } else {
+          message.success(data.message);
+        }
         setBooks(books.filter((book) => book.idLibro !== record.idLibro)); // Actualizar la tabla después de la eliminación
         setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
       })
