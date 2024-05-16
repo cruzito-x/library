@@ -15,7 +15,7 @@ exports.getBooks = (req, res) => {
 };
 
 exports.saveBill = (req, res) => {
-  const { selectedBooks, nombre, apellido } = req.body;
+  const { selectedBooks, nombre, apellido, idUsuario } = req.body;
 
   const idVenta = crypto.createHash("md5").update(new Date().toISOString()).digest("hex");
   const idCliente = crypto.createHash("md5").update(new Date().toISOString()).digest("hex");
@@ -47,8 +47,8 @@ exports.saveBill = (req, res) => {
           });
         }
 
-        const valuesDetalleVenta = selectedBooks.map(book => [idVenta, idVenta, idCliente, book.value, book.cantidad, book.precioUnitario, book.subtotal, book.descuento, new Date()]);
-        const insertDetalleVenta = "insert into detalles_venta (idDetalleVenta, idVenta, idCliente, idLibro, cantidad, precioUnitario, subtotal, descuento, created_at) values ?";
+        const valuesDetalleVenta = selectedBooks.map(book => [idVenta, idVenta, idCliente, book.value, idUsuario, book.cantidad, book.precioUnitario, book.subtotal, book.descuento, new Date()]);
+        const insertDetalleVenta = "insert into detalles_venta (idDetalleVenta, idVenta, idCliente, idLibro, idUsuario, cantidad, precioUnitario, subtotal, descuento, created_at) values ?";
         db.query(insertDetalleVenta, [valuesDetalleVenta], (error, result) => {
           if (error) {
             console.error("Error al insertar detalles de venta: ", error.message);

@@ -13,8 +13,7 @@ exports.login = (req, res) => {
     }
 
     if (results.length > 0) {
-      const userRole = results[0].rol;
-      res.status(200).json({ message: "Inicio de sesión exitoso", rol: userRole });
+      res.status(200).json({ message: "Inicio de sesión exitoso", rol: results[0].rol, id: results[0].idUsuario });
     } else {
       res.status(401).json({ message: "Nombre de usuario o contraseña incorrectos" });
     }
