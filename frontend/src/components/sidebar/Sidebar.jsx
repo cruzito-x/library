@@ -98,7 +98,7 @@ const Sidebar = () => {
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/books' element={<Books />} />
             <Route path='/bills' element={<Bills />} />
-            <Route path='/reports/weekly' element={<Report period={7} />} />
+            <Route path='/reports/weekly' element={<Report period={6} />} />
             <Route path='/reports/biweekly' element={<Report period={14} />} />
             <Route path='/reports/monthly' element={<Report period={30} />} />
             <Route path='/reports/semiannual' element={<Report period={180} />} />
@@ -111,7 +111,8 @@ const Sidebar = () => {
           </Routes>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
-          cruzito's Design ©{new Date().getFullYear()} - Created by David Cruz
+          {/* cruzito's Design ©{new Date().getFullYear()} - Created by David Cruz */}
+          ©{new Date().getFullYear()}
         </Footer>
       </Layout>
     </Layout>

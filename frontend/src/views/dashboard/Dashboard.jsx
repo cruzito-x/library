@@ -9,7 +9,7 @@ const Dashboard = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const [period, setPeriod] = useState("7");
+  const [period, setPeriod] = useState("6");
 
   const handleChange = (value) => {
     setPeriod(value);
@@ -32,7 +32,7 @@ const Dashboard = () => {
           <Space wrap>
             Fecha
             <Select
-              defaultValue="7"
+              defaultValue="6"
               name="period"
               style={{
                 width: 120,
@@ -40,7 +40,7 @@ const Dashboard = () => {
               onChange={handleChange}
               options={[
                 {
-                  value: "7",
+                  value: "6",
                   label: "7 días",
                 },
                 {
