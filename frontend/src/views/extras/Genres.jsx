@@ -100,7 +100,7 @@ const Genres = () => {
   };
 
   const filteredGenresData = genresData.filter(item =>
-    item.nombreGenero.toLowerCase().includes(searchTerm.toLowerCase())
+    item.nombreGenero && item.nombreGenero.toLowerCase().includes(searchTerm.toLowerCase())
   );
   
   return (

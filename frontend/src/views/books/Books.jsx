@@ -208,7 +208,7 @@ const Books = () => {
   };
 
   const filteredBooksData = booksData.filter((item) =>
-    item.titulo.toLowerCase().includes(searchTerm.toLowerCase())
+    item.titulo && item.titulo.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (

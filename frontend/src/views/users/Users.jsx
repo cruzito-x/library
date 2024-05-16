@@ -130,7 +130,7 @@ const Users = () => {
   };
 
   const filteredUsersData = usersData.filter(item =>
-    item.nombreUsuario.toLowerCase().includes(searchTerm.toLowerCase())
+    item.nombreUsuario && item.nombreUsuario.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
