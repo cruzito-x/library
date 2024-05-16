@@ -123,7 +123,7 @@ const Genres = () => {
       >
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={12} md={18} lg={18} xl={18}>
-          {isSuperAdmin && (
+          {/* {isSuperAdmin && ( */}
           <Button
           type="primary"
           icon={<PlusCircleOutlined />}
@@ -131,7 +131,7 @@ const Genres = () => {
           >
             Añadir nuevo
           </Button>
-          )}
+          {/* )} */}
 
           </Col>
           <Col xs={24} sm={12} md={6} lg={6} xl={6}>
