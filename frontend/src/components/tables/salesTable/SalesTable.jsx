@@ -1,16 +1,31 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import { Row, Col, Table, Spin, Form, Modal, Button, message } from "antd";
+import {
+  Row,
+  Col,
+  Table,
+  Spin,
+  Form,
+  Modal,
+  Button,
+  Typography,
+  Divider,
+  message,
+} from "antd";
 
 const SalesTable = ({ salesData, refreshTable, setRefreshTable }) => {
   const [modal1Open, setModal1Open] = useState(false);
   const [sales, setSales] = useState([]);
+  const [salesDetails, setSalesDetails] = useState([]);
   const [loading, setLoading] = useState(true);
   const [form] = Form.useForm();
   const [selectedRowData, setSelectedRowData] = useState(null);
+  const [idVenta, setIdVenta] = useState(null);
+  const { Link } = Typography;
 
   const handleRowClick = (record) => {
     setSelectedRowData(record);
+    setIdVenta(record.idVenta);
     setModal1Open(true);
   };
 
@@ -33,6 +48,26 @@ const SalesTable = ({ salesData, refreshTable, setRefreshTable }) => {
         message.error(error.message);
       });
   }, [refreshTable, setRefreshTable]);
+
+  useEffect(() => {
+    if (idVenta !== null) {
+      fetch(`http://localhost:3001/sales/getDetails?idVenta=${idVenta}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Error al obtener el detalle de venta");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setSalesDetails(data);
+          console.log(data);
+        })
+        .catch((error) => {
+          setLoading(false);
+          message.error(error.message);
+        });
+    }
+  }, [idVenta]);
 
   const columns = [
     {
@@ -103,26 +138,40 @@ const SalesTable = ({ salesData, refreshTable, setRefreshTable }) => {
             ]}
           >
             {selectedRowData && (
-              <>
-                <p> <strong> Libros adquiridos: </strong> <br />
-                  {selectedRowData.titulo} <strong>({selectedRowData.cantidad})</strong>
+              <div>
+                <div>
+                  <p>
+                    <strong>Libros adquiridos:</strong>
+                  </p>
+                  {salesDetails.map((detail, index) => (
+                    <p key={index}>{detail.titulo} <Link> <strong>({detail.cantidad})</strong> </Link> </p>
+                  ))}
+                </div>
+                <div>
+                  <p>
+                    <strong>Descuentos realizados:</strong>
+                  </p>
+                  {salesDetails.map((detail, index) => (
+                    <p key={index}>
+                      {detail.titulo} <Link> <strong>(${detail.descuento})</strong> </Link>
+                    </p>
+                  ))}
+                </div>
+                <Divider />
+                <p>
+                  <strong>Subtotal:</strong> ${selectedRowData.subtotal}
                 </p>
-                <p> <strong> Descuentos realizados: </strong> <br />
-                  {selectedRowData.titulo} <strong>(-${selectedRowData.descuento})</strong>
+                <p>
+                  <strong>Descuento:</strong> ${selectedRowData.descuento}
                 </p>
-                <p> <strong> Subtotal: </strong> <br />
-                  {"$" + selectedRowData.subtotal}
+                <p>
+                  <strong>Total:</strong> ${selectedRowData.total}
                 </p>
-                <p> <strong> Descuento: </strong> <br />
-                  {"$" + selectedRowData.descuento}
-                </p>
-                <p> <strong> Total: </strong> <br />
-                  {"$" + selectedRowData.total}
-                </p>
-                <p> <strong> Facturado por: </strong> <br />
+                <p>
+                  <strong>Facturado por:</strong>{" "}
                   {selectedRowData.nombreUsuario}
                 </p>
-              </>
+              </div>
             )}
           </Modal>
         </Col>

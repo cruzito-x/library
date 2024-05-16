@@ -34,7 +34,7 @@ const Users = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const handleChange = (value) => {};
+  const handleChange = (value) => { };
 
   useEffect(() => {
     fetch("http://localhost:3001/users")
@@ -73,6 +73,7 @@ const Users = () => {
           <Form.Item label="Contraseña:" name="password" rules={[{ required: true, message: 'Por favor, ingrese una contraseña' }]} >
             <Input.Password
               placeholder="ej. 12345678"
+              maxLength={8}
               iconRender={(visible) =>
                 visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
               }
@@ -103,6 +104,7 @@ const Users = () => {
 
         if (!formValues.nombreUsuario || !formValues.password || !formValues.rol) {
           message.error("Por favor, complete los campos requeridos.");
+          console.log(formValues)
           return;
         }
 

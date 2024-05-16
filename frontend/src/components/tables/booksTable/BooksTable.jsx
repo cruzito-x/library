@@ -218,7 +218,8 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
                   <Image
                     src={selectedRowData.portada === null ? "logo512.png" : `http://localhost:3001${selectedRowData.portada}`}
                     style={{ width: "300px", height: "350px" }}
-                    alt="Product photo"
+                    alt="Book photo"
+                    preview={false}
                   />
                 </div>
                 <p> <strong> Título: </strong> <br />

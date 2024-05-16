@@ -79,7 +79,7 @@ const MenuList = ({ darkTheme, collapsed, setCollapsed }) => {
         </>
       )}
       <Menu.SubMenu title="Extras" icon={<BarsOutlined />}>
-        <Menu.Item key="/extras/gender" icon={<TagOutlined />}>
+        <Menu.Item key="/extras/genres" icon={<TagOutlined />}>
           Géneros
         </Menu.Item>
         <Menu.Item key="/extras/stock" icon={<StockOutlined />}>

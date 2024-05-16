@@ -24,7 +24,6 @@ const Sales = () => {
       })
       .then((data) => {
         setSalesData(data);
-        console.log(data);
       })
       .catch((error) => {
         console.error(error.message);

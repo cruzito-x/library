@@ -56,8 +56,7 @@ const Sidebar = () => {
     '/reports/semiannual',
     '/reports/yearly',
     '/users',
-    '/extras',
-    '/extras/gender',
+    '/extras/genres',
     '/extras/stock',
     '/extras/sales',
     '/help'
@@ -65,8 +64,7 @@ const Sidebar = () => {
     '/dashboard',
     '/books',
     '/bills',
-    '/extras',
-    '/extras/gender',
+    '/extras/genres',
     '/extras/stock',
     '/help'
   ];
@@ -106,7 +104,7 @@ const Sidebar = () => {
             <Route path='/reports/semiannual' element={<Report period={180} />} />
             <Route path='/reports/yearly' element={<Report period={365} />} />
             <Route path='/users' element={<Users />} />
-            <Route path='/extras/gender' element={<Genres />} />
+            <Route path='/extras/genres' element={<Genres />} />
             <Route path='/extras/stock' element={<Stock />} />
             <Route path='/extras/sales' element={<Sales />} />
             <Route path='/help' element={<Help />} />
