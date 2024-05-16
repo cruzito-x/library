@@ -60,7 +60,6 @@ const SalesTable = ({ salesData, refreshTable, setRefreshTable }) => {
         })
         .then((data) => {
           setSalesDetails(data);
-          console.log(data);
         })
         .catch((error) => {
           setLoading(false);
