@@ -167,6 +167,10 @@ const SalesTable = ({ salesData, refreshTable, setRefreshTable }) => {
                   <strong>Total:</strong> ${selectedRowData.total}
                 </p>
                 <p>
+                  <strong>Cliente:</strong>{" "}
+                  {selectedRowData.cliente}
+                </p>
+                <p>
                   <strong>Facturado por:</strong>{" "}
                   {selectedRowData.nombreUsuario}
                 </p>
