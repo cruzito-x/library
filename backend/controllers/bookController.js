@@ -6,7 +6,7 @@ exports.getBooks = (req, res) => {
     "select *, e.existencia as existencia, g.nombreGenero as genero from libros l inner join existencias e on e.idLibro = l.idLibro inner join genero g on g.idGenero = l.genero where (l.deleted_at is null and e.deleted_at is null and g.deleted_at is null) and e.existencia != 0",
     (error, results) => {
       if (error) {
-        console.error("Error al obtener los libros:", error);
+        console.error("Error al obtener los libros:", error.message);
         res.status(500).json({ message: "Error interno del servidor" });
         return;
       }
@@ -18,7 +18,7 @@ exports.getBooks = (req, res) => {
 exports.getGenres = (req, res) => {
   db.query("select idGenero as value, nombreGenero as label from genero where deleted_at is null order by nombreGenero asc", (error, results) => {
     if (error) {
-      console.error("Error al obtener los géneros:", error);
+      console.error("Error al obtener los géneros:", error.message);
       res.status(500).json({ message: "Error interno del servidor" });
       return;
     }
@@ -115,7 +115,7 @@ exports.deleteBookUpdatedDeletedAt = (req, res) => {
 
   db.query(deleteBookQuery, values, (error, result) => {
     if (error) {
-      console.error("Error al eliminar el libro:", error);
+      console.error("Error al eliminar el libro:", error.message);
       res.status(500).json({ message: "Error interno del servidor" });
       return;
     }
@@ -151,7 +151,7 @@ exports.updateBook = (req, res) => {
   // Actualizar en la tabla libros
   db.query(updateLibros, libroValues, (error, result) => {
     if (error) {
-      console.error("Error al actualizar el libro:", error);
+      console.error("Error al actualizar el libro:", error.message);
       res.status(500).json({ message: "Error interno del servidor" });
       return;
     }

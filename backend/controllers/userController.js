@@ -7,7 +7,7 @@ exports.getUsers = (req, res) => {
     (error, results) => {
       if (error) {
         res.status(500).json({ message: "Error interno del servidor" });
-        console.error("Error interno del servidor", error);
+        console.error("Error interno del servidor", error.message);
         return;
       }
       res.status(200).json(results);
@@ -41,7 +41,7 @@ exports.deleteUserUpdatedAt = (req, res) => {
 
   db.query(deleteUserQuery, values, (error, result) => {
     if (error) {
-      console.error("Error al eliminar el usuario:", error);
+      console.error("Error al eliminar el usuario:", error.message);
       res.status(500).json({ message: "Error interno del servidor" });
       return;
     }
@@ -58,7 +58,7 @@ exports.updateUser = (req, res) => {
 
   db.query(updateUserQuery, usuarioValues, (error, result) => {
     if (error) {
-      console.error("Error al actualizar el usuario:", error);
+      console.error("Error al actualizar el usuario:", error.message);
       res.status(500).json({ message: "Error interno del servidor" });
       return;
     }

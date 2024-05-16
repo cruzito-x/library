@@ -5,7 +5,7 @@ exports.getSales = (req, res) => {
     "select dv.idVenta, l.titulo, dv.cantidad, (select sum(dv.subtotal)) as subtotal, (select sum(dv.descuento)) as descuento, v.total, concat(c.nombre, ' ', c.apellido) as cliente, u.nombreUsuario, v.fecha from detalles_venta dv inner join libros l on l.idLibro = dv.idLibro inner join ventas v on v.idVenta = dv.idVenta inner join clientes c on c.idCliente = dv.idCliente inner join usuarios u on u.idUsuario = dv.idUsuario group by dv.idCliente, dv.idVenta order by v.fecha desc;",
     (error, results) => {
       if (error) {
-        console.error("Error al obtener las ventas:", error);
+        console.error("Error al obtener las ventas:", error.message);
         res.status(500).json({ message: "Error interno del servidor" });
         return;
       }
@@ -16,9 +16,9 @@ exports.getSales = (req, res) => {
 
 exports.getSaleDetails = (req, res) => {
   const idVenta  = req.query.idVenta;
-  db.query("select * from detalles_venta where idVenta = ?", [idVenta], (error, results) => {
+  db.query("select l.titulo, dv.cantidad, dv.precioUnitario, dv.descuento, dv.subtotal, u.nombreUsuario from detalles_venta dv inner join libros l on l.idLibro = dv.idLibro inner join usuarios u on u.idUsuario = dv.idUsuario where dv.idVenta = ?", [idVenta], (error, results) => {
     if (error) {
-      console.error("Error al obtener los detalles de la venta:", error);
+      console.error("Error al obtener los detalles de la venta:", error.message);
       res.status(500).json({ message: "Error interno del servidor" });
       return;
     }

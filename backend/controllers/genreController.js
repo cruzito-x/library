@@ -4,9 +4,9 @@ const crypto = require("crypto");
 exports.getGenres = (req, res) => {
   db.query("select g.idGenero, g.nombreGenero, g.created_at as 'created at', count(l.id) as 'cantidad' from genero g left join libros l on g.idGenero = l.genero and l.deleted_at is null where g.deleted_at is null group by g.idGenero, g.nombreGenero, g.created_at order by g.nombreGenero asc", (error, results) => {
     if (error) {
-      console.error("Error al obtener los géneros:", error);
+      console.error("Error al obtener los géneros:", error.message);
       res.status(500).json({ message: "Error interno del servidor" });
-      console.error("Error interno del servidor", error);
+      console.error("Error interno del servidor", error.message);
       return;
     }
     res.status(200).json(results);
@@ -50,7 +50,7 @@ exports.deleteGenreUpdatedDeletedAt = (req, res) => {
 
   db.query(deleteGenreQuery, generoValues, (error, result) => {
     if (error) {
-      console.error("Error al eliminar el género:", error);
+      console.error("Error al eliminar el género:", error.message);
       res.status(500).json({ message: "Error interno del servidor" });
       return;
     }
@@ -67,13 +67,13 @@ exports.updateGenre = (req, res) => {
 
   db.query(selectGenero, [nombreGenero], (error, results) => { // Verificamos si el nuevo nombre del género ya existe
     if (error) { // Ocurrió un error al ejecutar la consulta
-      console.error("Error al verificar el nombre del género:", error);
+      console.error("Error al verificar el nombre del género:", error.message);
       res.status(500).json({ error: "Error interno del servidor" });
     } else {
       if (results.length === 0) { // Si no hay resultados, el nombre no existe, entonces actualiza el género
         db.query(updateGenero, generoValues, (error, results) => {
           if (error) {
-            console.error("Error al actualizar el género:", error);
+            console.error("Error al actualizar el género:", error.message);
             res.status(500).json({ error: "Error interno del servidor" });
           } else {
             res.status(200).json({ message: "Género actualizado exitosamente" });

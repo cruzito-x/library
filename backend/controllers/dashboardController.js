@@ -50,7 +50,7 @@ exports.getTopSellers = (req, res) => {
 
   db.query(selectTopSellers, [period], (error, results) => {
     if (error) {
-      console.error("Error en la consulta SQL:", error);
+      console.error("Error en la consulta SQL:", error.message);
       res
         .status(500)
         .json({ error: "Error al obtener los libros más vendidos" });
@@ -69,7 +69,7 @@ exports.getLastFiveBooks = (req, res) => {
     "select *, e.existencia as stock from libros l inner join existencias e on e.idLibro = l.idLibro inner join genero g on g.idGenero = l.genero where (l.deleted_at is null and e.deleted_at is null and g.deleted_at is null and l.deleted_at is null) order by l.id desc limit 5",
     (error, results) => {
       if (error) {
-        console.error("Error al obtener los libros:", error);
+        console.error("Error al obtener los libros:", error.message);
         res.status(500).json({ message: "Error interno del servidor" });
         return;
       }
