@@ -24,6 +24,7 @@ const Login = () => {
 
       if (response.status === 200) {
         message.success(data.message);
+        localStorage.setItem("idUsuario", data.id);
         localStorage.setItem("username", values.username);
         localStorage.setItem("rol", data.rol);
         navigate("/dashboard");

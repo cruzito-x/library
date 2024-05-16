@@ -53,6 +53,7 @@ const Bills = () => {
 
   const handleSaveBill = () => {
     const { nombre, apellido } = form.getFieldsValue(["nombre", "apellido"]);
+    let idUsuario = localStorage.getItem("idUsuario");
 
     if (selectedBooks.length === 0 || !nombre || !apellido) {
       message.error("Por favor, complete los campos requeridos.");
@@ -63,6 +64,7 @@ const Bills = () => {
       selectedBooks,
       nombre,
       apellido,
+      idUsuario
     };
 
     fetch("http://localhost:3001/bills/save", {
