@@ -61,20 +61,26 @@ const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
       )
         .then((response) => {
           if (!response.ok) {
+            console.log(response);
             if (response.status === 400) {
-              throw new Error("El género literario ya existe");
+              throw new Error("El género literario ya está registrado");
             } else if (response.status === 500) {
-              throw new Error("Error interno de servidor");
+              throw new Error("Error interno del servidor");
             }
           }
           return response.json();
         })
         .then((data) => {
-          if(data.status !== 200 || data.status !== 304) {
+          if (data.status === 200) {
+            message.success(data.message);
+          } else if (data.status === 400) {
+            message.error(data.message);
+          } else if (data.status === 500) {
             message.error(data.message);
           } else {
-            message.success(data.message);
+            message.error(data.message);
           }
+
           setModal1Open(false);
           setGenres(genres.filter((genre) => genre.idGenero !== editedGenre.idGenero)); // Actualizar la tabla después de la eliminación
           setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla

@@ -103,8 +103,7 @@ const Users = () => {
         formData.append("rol", formValues.rol);
 
         if (!formValues.nombreUsuario || !formValues.password || !formValues.rol) {
-          message.warning("Por favor, complete los campos requeridos.");
-          console.log(formValues)
+          message.warning("Por favor, complete los campos requeridos");
           return;
         }
 
@@ -114,12 +113,17 @@ const Users = () => {
         })
           .then((response) => response.json())
           .then((data) => {
-            if(data.status === 200) {
+            if (data.status === 200) {
               message.success(data.message);
-            } else if(data.status === 500) {
+              setRefreshTable(!refreshTable); // Actualiza la tabla
+              form.resetFields(); // Limpiar formulario después de enviar
+            } else if (data.status === 400) {
+              message.error(data.message);
+            } else if (data.status === 500) {
+              message.error(data.message);
+            } else {
               message.error(data.message);
             }
-            setRefreshTable(!refreshTable); // Actualiza la tabla
           })
           .catch((error) => {
             message.error(error.message);

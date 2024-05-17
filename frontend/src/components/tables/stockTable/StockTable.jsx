@@ -60,14 +60,26 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
       })
         .then((response) => {
           if (!response.ok) {
-            if (response.status === 500) {
+            if(response.status === 400) {
+              throw new Error("Error en la actualización del stock, por favor intente de nuevo");
+            }
+            else if (response.status === 500) {
               throw new Error("Error interno de servidor");
             }
           }
           return response.json();
         })
         .then((data) => {
-          message.success(data.message);
+          if (data.status === 200) {
+            message.success(data.message);
+          } else if (data.status === 400) {
+            message.error(data.message);
+          } else if (data.status === 500) {
+            message.error(data.message);
+          } else {
+            message.error(data.message);
+          }
+
           setModal1Open(false);
           setStock(stock.map(item =>
             item.idLibro === editedStock.idLibro ? { ...item, ...values } : item
@@ -89,16 +101,21 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
     )
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Error al retirar el libro del stock");
+          throw new Error("Error al retirar libro del stock, por favor intente de nuevo");
         }
         return response.json();
       })
       .then((data) => {
-        if(data.status !== 200 || data.status !== 304) {
+        if (data.status === 200) {
+          message.success(data.message);
+        } else if (data.status === 400) {
+          message.error(data.message);
+        } else if (data.status === 500) {
           message.error(data.message);
         } else {
-          message.success(data.message);
+          message.error(data.message);
         }
+
         setStock(stock.filter(item => item.idLibro !== record.idLibro));
         setRefreshTable(prev => !prev);
       })

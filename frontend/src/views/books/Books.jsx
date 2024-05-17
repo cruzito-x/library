@@ -166,7 +166,7 @@ const Books = () => {
         const formValues = form.getFieldsValue(); // Obtener los valores del formulario
   
         if (!formValues.titulo || !formValues.autor || !formValues.isbn || !formValues.fechaPublicacion || !formValues.genero || !formValues.precio || !localStorage.getItem("nombreImagen") || !formValues.existencia || !formValues.sinopsis) {
-          message.warning("Por favor, complete los campos requeridos.");
+          message.warning("Por favor, complete los campos requeridos");
           return;
         }
   
@@ -187,14 +187,16 @@ const Books = () => {
         })
           .then((response) => response.json())
           .then((data) => {
-            if (data.status === 500) {
-              message.error(data.message);
-            } else if(data.status === 400) {
-              message.warning(data.message);
-            } else {
+            if (data.status === 200) {
               message.success(data.message);
               setRefreshTable(!refreshTable); // Actualiza la tabla
               form.resetFields(); // Limpiar formulario después de enviar
+            } else if (data.status === 400) {
+              message.error(data.message);
+            } else if (data.status === 500) {
+              message.error(data.message);
+            } else {
+              message.error(data.message);
             }
           })
           .catch((error) => {

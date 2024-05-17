@@ -75,7 +75,7 @@ const Genres = () => {
         formData.append("nombreGenero", formValues.nombreGenero);
 
         if (!formValues.nombreGenero) {
-          message.warning("Por favor, complete los campos requeridos.");
+          message.warning("Por favor, complete los campos requeridos");
           return;
         }
 
@@ -85,8 +85,17 @@ const Genres = () => {
         })
           .then((response) => response.json())
           .then((data) => {
-            message.success(data.message);
-            setRefreshTable(!refreshTable); // Actualiza la tabla
+            if (data.status === 200) {
+              message.success(data.message);
+              setRefreshTable(!refreshTable); // Actualiza la tabla
+              form.resetFields(); // Limpiar formulario después de enviar
+            } else if (data.status === 400) {
+              message.error(data.message);
+            } else if (data.status === 500) {
+              message.error(data.message);
+            } else {
+              message.error(data.message);
+            }
           })
           .catch((error) => {
             message.error(error.message);
