@@ -10,8 +10,15 @@ const helmet = require("helmet");
 const app = express();
 const port = 3001;
 
-// Configuración de Morgan para escribir en el archivo express.log (importante: crear la carpeta logs primero)
-const expressLogStream = fs.createWriteStream(path.join(__dirname, "./logs/express.log"), { flags: "a" });
+const logsFolder = path.join(__dirname, "./logs"); // Ruta de la carpeta de logs
+
+// Crear la carpeta de logs si no existe
+if (!fs.existsSync(logsFolder)) {
+  fs.mkdirSync(logsFolder);
+}
+
+// Configuración de Morgan para escribir en el archivo express.log
+const expressLogStream = fs.createWriteStream(path.join(logsFolder, "express.log"), { flags: "a" });
 
 app.use(helmet({
   contentSecurityPolicy: false, // Deshabilitar la política de seguridad de contenido para evitar problemas con CORS
@@ -44,7 +51,7 @@ app.use("/genres", genres);
 app.use("/stock", stock);
 
 // Redirigir console.log y console.error al archivo de registro
-const logStream = fs.createWriteStream(path.join(__dirname, "./logs/express.log"), { flags: "a" });
+const logStream = fs.createWriteStream(path.join(logsFolder, "express.log"), { flags: "a" });
 console.log = function(message) {
   logStream.write(`[LOG] ${message}\n`);
 };
