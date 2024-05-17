@@ -10,6 +10,7 @@ import {
   Button,
   Typography,
   Divider,
+  Empty,
   message,
 } from "antd";
 
@@ -121,6 +122,9 @@ const SalesTable = ({ salesData, refreshTable, setRefreshTable }) => {
                     handleRowClick(record);
                   },
                 };
+              }}
+              locale={{
+                emptyText: <Empty description="No hay ventas disponibles" />,
               }}
             />
           </Spin>

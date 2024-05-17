@@ -9,8 +9,9 @@ import {
   Popconfirm,
   Form,
   Modal,
-  message,
   InputNumber,
+  Empty,
+  message,
 } from "antd";
 
 const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
@@ -231,7 +232,7 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
       <Row gutter={[16, 16]}>
         <Col span={24}>
           <Spin spinning={loading} size="large" tip="Cargando...">
-            <Table scroll={{ x: "max-content" }} columns={columns} dataSource={stockData} />
+            <Table scroll={{ x: "max-content" }} columns={columns} dataSource={stockData} locale={{ emptyText: <Empty description="No hay libros disponibles" /> }} />
           </Spin>
 
           <Modal

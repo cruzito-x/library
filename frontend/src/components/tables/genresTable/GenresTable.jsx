@@ -9,6 +9,7 @@ import {
   Spin,
   Form,
   Input,
+  Empty,
   message,
 } from "antd";
 
@@ -188,6 +189,9 @@ const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
               scroll={{ x: "max-content" }} 
               columns={columns}
               dataSource={genresData}
+              locale={{
+                emptyText: <Empty description="No hay géneros disponibles" />,
+              }}
             />
           </Spin>
 

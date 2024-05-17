@@ -16,6 +16,7 @@ import {
   Form,
   Input,
   Select,
+  Empty,
   message,
 } from "antd";
 
@@ -237,6 +238,9 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
               scroll={{ x: "max-content" }}
               columns={columns}
               dataSource={usersData}
+              locale={{
+                emptyText: <Empty description="No hay usuarios disponibles" />,
+              }}
             />
           </Spin>
         </Col>

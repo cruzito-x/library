@@ -12,6 +12,7 @@ import {
   Form,
   Input,
   Select,
+  Empty,
   message,
 } from "antd";
 
@@ -212,6 +213,9 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
                     handleRowClick(record);
                   },
                 };
+              }}
+              locale={{
+                emptyText: <Empty description="No hay libros disponibles" />,
               }}
             />
           </Spin>

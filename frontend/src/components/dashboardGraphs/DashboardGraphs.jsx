@@ -1,6 +1,6 @@
 import { React, useState, useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
-import { Card, Spin, Typography, Row, Col, Table, message } from "antd";
+import { Card, Spin, Typography, Row, Col, Table, Empty, message } from "antd";
 
 const DashboardGraphs = ({ period }) => {
   const { Title } = Typography;
@@ -9,6 +9,9 @@ const DashboardGraphs = ({ period }) => {
   const doughnutChartRef = useRef(null);
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [lineDataEmpty, setLineDataEmpty] = useState(false);
+  const [barDataEmpty, setBarDataEmpty] = useState(false);
+  const [doughnutDataEmpty, setDoughnutDataEmpty] = useState(false);
 
   let lineChartInstance = useRef(null);
   let barChartInstance = useRef(null);
@@ -19,7 +22,7 @@ const DashboardGraphs = ({ period }) => {
     const barCtx = barChartRef.current.getContext("2d"); // Bar Chart
     const doughnutCtx = doughnutChartRef.current.getContext("2d"); // Rengoku's Chart
 
-    //Graphs data
+    // Graphs data
 
     const lineData = {
       labels: [],
@@ -234,31 +237,34 @@ const DashboardGraphs = ({ period }) => {
         const genres = data.map((item) => item.Genero); // Obtener nombres de género
         const sales = data.map((item) => item.VentasTotales); // Obtener ventas totales
 
-        const lineData = {
-          labels: genres,
-          datasets: [
-            {
-              label: "Ganancias por género",
-              data: sales,
-              borderColor: "#8c8cff",
-              backgroundColor: "#8c8cff",
-              borderWidth: 2.5,
-            },
-          ],
-        };
+        if (sales.length === 0) {
+          setLineDataEmpty(true);
+        } else {
+          setLineDataEmpty(false);
+          const lineData = {
+            labels: genres,
+            datasets: [
+              {
+                label: "Ganancias por género",
+                data: sales,
+                borderColor: "#8c8cff",
+                backgroundColor: "#8c8cff",
+                borderWidth: 2.5,
+              },
+            ],
+          };
 
-        // Actualizar datos del gráfico de línea
-        if (lineChartInstance.current !== null) {
-          lineChartInstance.current.data = lineData;
-          lineChartInstance.current.update();
+          // Actualizar datos del gráfico de línea
+          if (lineChartInstance.current !== null) {
+            lineChartInstance.current.data = lineData;
+            lineChartInstance.current.update();
+          }
         }
+
         setLoading(false);
       })
       .catch((error) => {
-        console.error(
-          "Error al obtener los datos de ventas por género",
-          error
-        );
+        console.error("Error al obtener los datos de ventas por género", error);
         setLoading(false);
         message.error(error.message);
       });
@@ -275,32 +281,39 @@ const DashboardGraphs = ({ period }) => {
         return response.json();
       })
       .then((data) => {
-        const formattedData = data.map((sale) => {
-          let formattedDate;
-          if (sale.fecha.includes("T")) {
-            const saleDate = new Date(sale.fecha);
-            const day = saleDate.getDate().toString().padStart(2, "0");
-            const month = (saleDate.getMonth() + 1).toString().padStart(2, "0");
-            const year = saleDate.getFullYear();
-            formattedDate = `${day}-${month}-${year}`;
-          } else {
-            formattedDate = sale.fecha;
+        if (data.length === 0) {
+          setBarDataEmpty(true);
+        } else {
+          setBarDataEmpty(false);
+          const formattedData = data.map((sale) => {
+            let formattedDate;
+            if (sale.fecha.includes("T")) {
+              const saleDate = new Date(sale.fecha);
+              const day = saleDate.getDate().toString().padStart(2, "0");
+              const month = (saleDate.getMonth() + 1)
+                .toString()
+                .padStart(2, "0");
+              const year = saleDate.getFullYear();
+              formattedDate = `${day}-${month}-${year}`;
+            } else {
+              formattedDate = sale.fecha;
+            }
+
+            return {
+              fecha: formattedDate,
+              total_venta: sale.total_venta,
+            };
+          });
+
+          const labels = formattedData.map((sale) => sale.fecha);
+          const dataValues = formattedData.map((sale) => sale.total_venta);
+
+          // Actualizar los datos del gráfico de barras
+          if (barChartInstance.current !== null) {
+            barChartInstance.current.data.labels = labels;
+            barChartInstance.current.data.datasets[0].data = dataValues;
+            barChartInstance.current.update();
           }
-
-          return {
-            fecha: formattedDate,
-            total_venta: sale.total_venta,
-          };
-        });
-
-        const labels = formattedData.map((sale) => sale.fecha);
-        const dataValues = formattedData.map((sale) => sale.total_venta);
-
-        // Actualizar los datos del gráfico de barras
-        if (barChartInstance.current !== null) {
-          barChartInstance.current.data.labels = labels;
-          barChartInstance.current.data.datasets[0].data = dataValues;
-          barChartInstance.current.update();
         }
 
         setLoading(false);
@@ -326,13 +339,20 @@ const DashboardGraphs = ({ period }) => {
         return response.json();
       })
       .then((data) => {
-        const labels = data.map((book) => book.titulo); // Títulos  de los datos obtenidos
-        const dataValues = data.map((book) => book.totalVendido); // Cantidades vendidas de los datos obtenidos
+        if (data.length === 0) {
+          setDoughnutDataEmpty(true);
+        } else {
+          setDoughnutDataEmpty(false);
+          const labels = data.map((book) => book.titulo); // Títulos  de los datos obtenidos
+          const dataValues = data.map((book) => book.totalVendido); // Cantidades vendidas de los datos obtenidos
 
-        // Actualizar datos del Rengoku's graph.
-        doughnutChartInstance.current.data.labels = labels;
-        doughnutChartInstance.current.data.datasets[0].data = dataValues;
-        doughnutChartInstance.current.update();
+          // Actualizar datos del Rengoku's graph.
+          if (doughnutChartInstance.current !== null) {
+            doughnutChartInstance.current.data.labels = labels;
+            doughnutChartInstance.current.data.datasets[0].data = dataValues;
+            doughnutChartInstance.current.update();
+          }
+        }
 
         setLoading(false);
       })
@@ -392,9 +412,15 @@ const DashboardGraphs = ({ period }) => {
             <Title level={5} style={{ marginTop: "0" }}>
               Escala de ventas por género
             </Title>
-            <div style={{ width: "100%", height: "300px" }}>
-              <canvas ref={lineChartRef} width="100" height="20"></canvas>
-            </div>
+            {lineDataEmpty ? (
+              <div style={{ width: "100%", height: "300px", alignContent: "center" }}>
+                <Empty description="No hay datos disponibles" />
+              </div>
+            ) : (
+              <div style={{ width: "100%", height: "300px" }}>
+                <canvas ref={lineChartRef} width="100" height="20"></canvas>
+              </div>
+            )}
           </Spin>
         </Card>
       </Col>
@@ -404,9 +430,15 @@ const DashboardGraphs = ({ period }) => {
             <Title level={5} style={{ marginTop: "0" }}>
               Resumen de ventas
             </Title>
-            <div style={{ width: "100%", height: "300px" }}>
-              <canvas ref={barChartRef} width="100" height="38"></canvas>
-            </div>
+            {barDataEmpty ? (
+              <div style={{ width: "100%", height: "300px", alignContent: "center" }}>
+                <Empty description="No hay datos disponibles" />
+              </div>
+            ) : (
+              <div style={{ width: "100%", height: "300px" }}>
+                <canvas ref={barChartRef} width="100" height="38"></canvas>
+              </div>
+            )}
           </Spin>
         </Card>
       </Col>
@@ -416,9 +448,15 @@ const DashboardGraphs = ({ period }) => {
             <Title level={5} style={{ marginTop: "0" }}>
               Libros más vendidos
             </Title>
-            <div style={{ width: "100%", height: "300px" }}>
-              <canvas ref={doughnutChartRef} width="100" height="10"></canvas>
-            </div>
+            {doughnutDataEmpty ? (
+              <div style={{ width: "100%", height: "300px", alignContent: "center" }}>
+                <Empty description="No hay datos disponibles" />
+              </div>
+            ) : (
+              <div style={{ width: "100%", height: "300px" }}>
+                <canvas ref={doughnutChartRef} width="100" height="10"></canvas>
+              </div>
+            )}
           </Spin>
         </Card>
       </Col>
@@ -443,11 +481,18 @@ const DashboardGraphs = ({ period }) => {
                 ),
                 rowExpandable: (record) => record.name !== "Not Expandable",
               }}
-              dataSource={books.map((book, index) => ({
-                ...book,
-                key: index,
-              }))} // Asignar una clave única para cada registro
+              dataSource={
+                books.length === 0
+                  ? null
+                  : books.map((book, index) => ({
+                      ...book,
+                      key: index,
+                    }))
+              } // Asignar una clave única para cada registro
               pagination={false}
+              locale={{
+                emptyText: <Empty description="No hay libros disponibles" />,
+              }}
             />
           </Spin>
         </Card>
