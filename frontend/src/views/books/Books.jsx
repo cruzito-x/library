@@ -237,6 +237,7 @@ const Books = () => {
       >
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={18}>
+            {isSuperAdmin ? (
             <Button
               type="primary"
               icon={<PlusCircleOutlined />}
@@ -245,6 +246,7 @@ const Books = () => {
             >
               Añadir nuevo
             </Button>
+            ) : null}
           </Col>
           <Col xs={24} sm={6}>
             <Search placeholder="Buscar por nombre de libro" onSearch={handleSearch} enterButton />

@@ -123,6 +123,7 @@ const Genres = () => {
       >
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={12} md={18} lg={18} xl={18}>
+            { isSuperAdmin ? (
             <Button
             type="primary"
             icon={<PlusCircleOutlined />}
@@ -130,6 +131,7 @@ const Genres = () => {
             >
               Añadir nuevo
             </Button>
+            ) : null}
           </Col>
           <Col xs={24} sm={12} md={6} lg={6} xl={6}>
             <Search placeholder="Buscar por género literario" onSearch={handleSearch} enterButton />

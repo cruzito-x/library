@@ -161,193 +161,245 @@ const Help = () => {
                         style={{ maxWidth: "80%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
                       />
                     </div>
-                    <br />
-                    <Collapse
-                      size="large"
-                      items={[
-                        {
-                          key: "1",
-                          label: "Registrar un nuevo libro",
-                          children: (
-                            <>
-                              <p>
-                                Para realizar el registro de un libro, debe dar
-                                clic sobre el botón
-                                <strong> Añadir nuevo </strong> que se encuentra
-                                en la parte superior del formulario:
-                              </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={addButton}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                              <p> Esto desplegará el siguiente modal: </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={saveBook}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "80%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                              <p>
-                                Este debe ser rellenado con los campos
-                                solicitados para proceder al registro de dicho
-                                libro, finalmente debe dar clic sobre el botón
-                                <strong> Guardar </strong>. Lo cual mostrará el
-                                siguiente mensaje en pantalla:
-                              </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={successBookSaved}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                              <p>
-                                Mostrando que se ha registrado el libro
-                                satisfactoriamente, junto con esto, se
-                                refrescará automáticamente la tabla de datos.
-                              </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={newBookInTable}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "80%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                            </>
-                          ),
-                        },
-                      ]}
-                    />
+                    <p>
+                      {" "}
+                      En este apartado podrás visualizar información general de
+                      los libros registrados y en stock que se encuentren bajo
+                      estado <strong>"activo"</strong>.{" "}
+                    </p>
+                    {isSuperAdmin && (
+                      <>
+                        <br />
+                        <Collapse
+                          size="large"
+                          items={[
+                            {
+                              key: "1",
+                              label: "Registrar un nuevo libro",
+                              children: (
+                                <>
+                                  <p>
+                                    Para realizar el registro de un libro, debe
+                                    dar clic sobre el botón
+                                    <strong> Añadir nuevo </strong> que se
+                                    encuentra en la parte superior del
+                                    formulario:
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={addButton}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <p> Esto desplegará el siguiente modal: </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={saveBook}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "80%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <p>
+                                    Este debe ser rellenado con los campos
+                                    solicitados para proceder al registro de
+                                    dicho libro, finalmente debe dar clic sobre
+                                    el botón
+                                    <strong> Guardar </strong>. Lo cual mostrará
+                                    el siguiente mensaje en pantalla:
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={successBookSaved}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <p>
+                                    Mostrando que se ha registrado el libro
+                                    satisfactoriamente, junto con esto, se
+                                    refrescará automáticamente la tabla de
+                                    datos.
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={newBookInTable}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "80%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                </>
+                              ),
+                            },
+                          ]}
+                        />
 
-                    <br />
-                    <Collapse
-                      size="large"
-                      items={[
-                        {
-                          key: "2",
-                          label: "Actualizar un libro",
-                          children: (
-                            <>
-                              <p>
-                                Para realizar la edición del registro de un
-                                libro, debe dar clic sobre el botón
-                                <strong> Editar </strong> correspondiente al
-                                registro que desea actualizar:
-                              </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={editButton}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                              <p> Esto desplegará el siguiente modal: </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={updateBook}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "80%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                              <p>
-                                Este debe ser rellenado con los campos
-                                solicitados para proceder a la actualización de
-                                dicho registro, finalmente debe dar clic sobre
-                                el botón <strong> Guardar cambios </strong>. Lo
-                                cual mostrará el siguiente mensaje en pantalla:
-                              </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={successBookUpdated}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                              <p>
-                                Mostrando que se ha actualizado el registro del
-                                libro satisfactoriamente, junto con esto, se
-                                refrescará automáticamente la tabla de datos.
-                              </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={refreshBooksTableAfterUpdate}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "80%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                            </>
-                          ),
-                        },
-                      ]}
-                    />
+                        <br />
+                        <Collapse
+                          size="large"
+                          items={[
+                            {
+                              key: "2",
+                              label: "Actualizar un libro",
+                              children: (
+                                <>
+                                  <p>
+                                    Para realizar la edición del registro de un
+                                    libro, debe dar clic sobre el botón
+                                    <strong> Editar </strong> correspondiente al
+                                    registro que desea actualizar:
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={editButton}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <p> Esto desplegará el siguiente modal: </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={updateBook}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "80%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <p>
+                                    Este debe ser rellenado con los campos
+                                    solicitados para proceder a la actualización
+                                    de dicho registro, finalmente debe dar clic
+                                    sobre el botón{" "}
+                                    <strong> Guardar cambios </strong>. Lo cual
+                                    mostrará el siguiente mensaje en pantalla:
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={successBookUpdated}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <p>
+                                    Mostrando que se ha actualizado el registro
+                                    del libro satisfactoriamente, junto con
+                                    esto, se refrescará automáticamente la tabla
+                                    de datos.
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={refreshBooksTableAfterUpdate}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "80%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                </>
+                              ),
+                            },
+                          ]}
+                        />
 
-                    <br />
-                    <Collapse
-                      size="large"
-                      items={[
-                        {
-                          key: "3",
-                          label: "Eliminar un libro",
-                          children: (
-                            <>
-                              <p>
-                                Para realizar la eliminación del registro de un
-                                libro, debe dar clic sobre el botón
-                                <strong> Eliminar </strong> correspondiente al
-                                registro que desea eliminar:
-                              </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={deleteButton}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                              <p>
-                                Esto desplegará el siguiente cuadro de
-                                confirmación:
-                              </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={popConfirmDelete}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                              <p>
-                                Si escoge la opción <strong>No</strong>, no
-                                ocurrirá nada, sin embargo, si decide escoger la
-                                opción <strong>Sí</strong>, esto desplegará la
-                                siguiente alerta:
-                              </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={successBookDeleted}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                              <p>
-                                Mostrando que se ha eliminado el registro
-                                satisfactoriamente, junto con esto, se
-                                refrescará automáticamente la tabla de datos.
-                              </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={refreshBooksTableAfterDelete}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "80%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                            </>
-                          ),
-                        },
-                      ]}
-                    />
+                        <br />
+                        <Collapse
+                          size="large"
+                          items={[
+                            {
+                              key: "3",
+                              label: "Eliminar un libro",
+                              children: (
+                                <>
+                                  <p>
+                                    Para realizar la eliminación del registro de
+                                    un libro, debe dar clic sobre el botón
+                                    <strong> Eliminar </strong> correspondiente
+                                    al registro que desea eliminar:
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={deleteButton}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <p>
+                                    Esto desplegará el siguiente cuadro de
+                                    confirmación:
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={popConfirmDelete}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <p>
+                                    Si escoge la opción <strong>No</strong>, no
+                                    ocurrirá nada, sin embargo, si decide
+                                    escoger la opción <strong>Sí</strong>, esto
+                                    desplegará la siguiente alerta:
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={successBookDeleted}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <p>
+                                    Mostrando que se ha eliminado el registro
+                                    satisfactoriamente, junto con esto, se
+                                    refrescará automáticamente la tabla de
+                                    datos.
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={refreshBooksTableAfterDelete}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "80%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                </>
+                              ),
+                            },
+                          ]}
+                        />
+                      </>
+                    )}
                   </>
                 ),
               },
@@ -894,212 +946,255 @@ const Help = () => {
                 label: "Géneros",
                 children: (
                   <>
-                    <>
-                      <div style={{ textAlign: "center" }}>
-                        <Image
-                          src={isSuperAdmin ? genres : adminGenres}
-                          preview={false} // Desactiva la previsualización si no es necesaria
-                          style={{ maxWidth: "80%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
+                    <div style={{ textAlign: "center" }}>
+                      <Image
+                        src={isSuperAdmin ? genres : adminGenres}
+                        preview={false} // Desactiva la previsualización si no es necesaria
+                        style={{ maxWidth: "80%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
+                      />
+                    </div>
+                    <p>
+                      En este apartado del sistema podremos visualizar los
+                      géneros literarios que se manejan para la clasificación de
+                      libros y cuantos pertenecen a cada uno de ellos.
+                    </p>
+
+                    {isSuperAdmin && (
+                      <>
+                        <Collapse
+                          size="large"
+                          items={[
+                            {
+                              key: "1",
+                              label: "Añadir un nuevo género",
+                              children: (
+                                <>
+                                  <p>
+                                    Para realizar la actualización de un género
+                                    literario, debe dar clic sobre el botón
+                                    <strong>Añadir </strong> que se encuentra en
+                                    la parte superior del formulario:
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={addButton}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <p> Esto desplegará el siguiente modal: </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={saveGenre}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <p>
+                                    Este debe ser rellenado con el campo
+                                    solicitado para proceder con el registro de
+                                    dicho género, finalmente debe dar clic sobre
+                                    el botón
+                                    <strong>Guardar</strong>. Lo cual mostrará
+                                    el siguiente mensaje:
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={successGenreSaved}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <p>
+                                    Mostrando que se ha registrado el género
+                                    satisfactoriamente, esto refrescará
+                                    automáticamente la tabla de datos.
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={newGenreInTable}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "80%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                </>
+                              ),
+                            },
+                          ]}
                         />
-                      </div>
-                      <p>
-                        En este apartado del sistema podremos visualizar los
-                        géneros literarios que se manejan para la clasificación
-                        de libros y cuantos pertenecen a cada uno de ellos.
-                      </p>
-                    </>
-                    <Collapse
-                      size="large"
-                      items={[
-                        {
-                          key: "1",
-                          label: "Añadir un nuevo género",
-                          children: (
-                            <>
-                              <p>
-                                Para realizar la actualización de un género
-                                literario, debe dar clic sobre el botón
-                                <strong>Añadir </strong> que se encuentra en la
-                                parte superior del formulario:
-                              </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={addButton}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                              <p> Esto desplegará el siguiente modal: </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={saveGenre}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                              <p>
-                                Este debe ser rellenado con el campo solicitado
-                                para proceder con el registro de dicho género,
-                                finalmente debe dar clic sobre el botón
-                                <strong>Guardar</strong>. Lo cual mostrará el
-                                siguiente mensaje:
-                              </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={successGenreSaved}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                              <p>
-                                Mostrando que se ha registrado el género
-                                satisfactoriamente, esto refrescará
-                                automáticamente la tabla de datos.
-                              </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={newGenreInTable}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "80%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                            </>
-                          ),
-                        },
-                      ]}
-                    />
 
-                    <br />
+                        <br />
 
-                    <Collapse
-                      size="large"
-                      items={[
-                        {
-                          key: "2",
-                          label: "Actualizar un género existente",
-                          children: (
-                            <>
-                              <p>
-                                Para realizar la actualización de un género
-                                literario, debe dar clic sobre el botón
-                                <strong>Editar</strong>:
-                              </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={editButton}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                              <p> Esto desplegará el siguiente modal: </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={updateGenre}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                              <p>
-                                Este debe ser rellenado con el campo solicitado
-                                para proceder con el registro de dicho género,
-                                finalmente debe dar clic sobre el botón
-                                <strong> Guardar cambios</strong>. Lo cual
-                                mostrará el siguiente mensaje:
-                              </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={successGenreUpdated}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                              <p>
-                                Mostrando que el género se ha actualizado
-                                satisfactoriamente, esto refrescará
-                                automáticamente la tabla de datos.
-                              </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={refreshGenresTableAfterUpdate}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                            </>
-                          ),
-                        },
-                      ]}
-                    />
+                        <Collapse
+                          size="large"
+                          items={[
+                            {
+                              key: "2",
+                              label: "Actualizar un género existente",
+                              children: (
+                                <>
+                                  <p>
+                                    Para realizar la actualización de un género
+                                    literario, debe dar clic sobre el botón
+                                    <strong>Editar</strong>:
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={editButton}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <p> Esto desplegará el siguiente modal: </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={updateGenre}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <p>
+                                    Este debe ser rellenado con el campo
+                                    solicitado para proceder con el registro de
+                                    dicho género, finalmente debe dar clic sobre
+                                    el botón
+                                    <strong> Guardar cambios</strong>. Lo cual
+                                    mostrará el siguiente mensaje:
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={successGenreUpdated}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <p>
+                                    Mostrando que el género se ha actualizado
+                                    satisfactoriamente, esto refrescará
+                                    automáticamente la tabla de datos.
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={refreshGenresTableAfterUpdate}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                </>
+                              ),
+                            },
+                          ]}
+                        />
 
-                    <br />
-                    <Collapse
-                      size="large"
-                      items={[
-                        {
-                          key: "3",
-                          label: "Eliminar un género existente",
-                          children: (
-                            <>
-                              <p>
-                                Para realizar la eliminación del registro de un
-                                género literario, debe dar clic sobre el botón
-                                <strong>Eliminar</strong>:
-                              </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={deleteButton}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                              <p>
-                                Esto desplegará el siguiente cuadro de
-                                confirmación:
-                              </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={popConfirmDelete}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                              <p>
-                                Este debe ser rellenado con el campo solicitado
-                                para proceder con el registro de dicho género,
-                                finalmente debe dar clic sobre el botón
-                                <strong>Guardar</strong>. Lo cual mostrará el
-                                siguiente mensaje:
-                              </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={successGenreDeleted}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                              <p>
-                                Mostrando que se ha registrado el género
-                                satisfactoriamente, esto refrescará
-                                automáticamente la tabla de datos.
-                              </p>
-                              <div style={{ textAlign: "center" }}>
-                                <Image
-                                  src={refreshGenresTableAfterDelete}
-                                  preview={false} // Desactiva la previsualización si no es necesaria
-                                  style={{ maxWidth: "100%", height: "auto" }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                />
-                              </div>
-                              <br />
-                              <Alert
-                                message="Importante"
-                                description="Si se elimina un género literario que ya contiene libros dentro de sí, todos los que pertenezcan a este ya no serán accesibles desde las vistas adyacentes a ellos."
-                                type="warning"
-                              />
-                            </>
-                          ),
-                        },
-                      ]}
-                    />
+                        <br />
+                        <Collapse
+                          size="large"
+                          items={[
+                            {
+                              key: "3",
+                              label: "Eliminar un género existente",
+                              children: (
+                                <>
+                                  <p>
+                                    Para realizar la eliminación del registro de
+                                    un género literario, debe dar clic sobre el
+                                    botón
+                                    <strong>Eliminar</strong>:
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={deleteButton}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <p>
+                                    Esto desplegará el siguiente cuadro de
+                                    confirmación:
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={popConfirmDelete}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <p>
+                                    Este debe ser rellenado con el campo
+                                    solicitado para proceder con el registro de
+                                    dicho género, finalmente debe dar clic sobre
+                                    el botón
+                                    <strong>Guardar</strong>. Lo cual mostrará
+                                    el siguiente mensaje:
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={successGenreDeleted}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <p>
+                                    Mostrando que se ha registrado el género
+                                    satisfactoriamente, esto refrescará
+                                    automáticamente la tabla de datos.
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={refreshGenresTableAfterDelete}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <br />
+                                  <Alert
+                                    message="Importante"
+                                    description="Si se elimina un género literario que ya contiene libros dentro de sí, todos los que pertenezcan a este ya no serán accesibles desde las vistas adyacentes a ellos."
+                                    type="warning"
+                                  />
+                                </>
+                              ),
+                            },
+                          ]}
+                        />
+                      </>
+                    )}
                   </>
                 ),
               },
@@ -1404,7 +1499,11 @@ const Help = () => {
                               label: "Visualizar detalles de venta",
                               children: (
                                 <>
-                                  <p> Al dar clic sobre un registro se desplegará el siguiente modal:</p>
+                                  <p>
+                                    {" "}
+                                    Al dar clic sobre un registro se desplegará
+                                    el siguiente modal:
+                                  </p>
                                   <div style={{ textAlign: "center" }}>
                                     <Image
                                       src={saleDetails}
@@ -1415,7 +1514,11 @@ const Help = () => {
                                       }} // Establece un ancho máximo y ajusta la altura automáticamente
                                     />
                                   </div>
-                                  <p> Donde podrás visualizar el detalle de la venta seleccionada. </p>
+                                  <p>
+                                    {" "}
+                                    Donde podrás visualizar el detalle de la
+                                    venta seleccionada.{" "}
+                                  </p>
                                 </>
                               ),
                             },

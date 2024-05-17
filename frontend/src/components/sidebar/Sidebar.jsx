@@ -111,8 +111,7 @@ const Sidebar = () => {
           </Routes>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
-          {/* cruzito's Design ©{new Date().getFullYear()} - Created by David Cruz */}
-          ©{new Date().getFullYear()}
+          &reg;PagePal {new Date().getFullYear()} - All rights reserved.
         </Footer>
       </Layout>
     </Layout>
