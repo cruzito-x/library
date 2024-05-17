@@ -7,7 +7,7 @@ exports.getBooks = (req, res) => {
     (error, results) => {
       if (error) {
         console.error("Error al obtener los libros:", error.message);
-        res.status(500).json({ message: "Error interno del servidor" });
+        res.status(500).json({ status: 500, message: "Error interno del servidor" });
         return;
       }
       res.status(200).json(results);
@@ -19,7 +19,7 @@ exports.getGenres = (req, res) => {
   db.query("select idGenero as value, nombreGenero as label from genero where deleted_at is null order by nombreGenero asc", (error, results) => {
     if (error) {
       console.error("Error al obtener los géneros:", error.message);
-      res.status(500).json({ message: "Error interno del servidor" });
+      res.status(500).json({ status: 500, message: "Error interno del servidor" });
       return;
     }
     res.status(200).json(results);
@@ -40,7 +40,7 @@ exports.saveBook = (req, res) => {
   } = req.body;
 
   if (!titulo || !autor || !isbn || !fechaPublicacion || !genero || !precio || !portada || !sinopsis || !existencia) {
-    return res.status(400).json({ message: "Por favor, complete los campos requeridos" });
+    return res.status(400).json({ status: 400, message: "Por favor, complete los campos requeridos" });
   }
 
   const idLibro = crypto.createHash("md5").update(new Date().toISOString()).digest("hex");
@@ -57,14 +57,14 @@ exports.saveBook = (req, res) => {
   db.beginTransaction((error) => {
     if (error) {
       console.error("Error al iniciar la transacción:", error.message);
-      return res.status(500).json({ message: "Error interno del servidor" });
+      return res.status(500).json({ status: 500, message: "Error interno del servidor" });
     }
 
     db.query(insertLibros, librosValues, (error, result) => {
       if (error) {
         console.error("Error al guardar el libro:", error.message);
         db.rollback(() => {
-          res.status(500).json({ message: "Error interno del servidor" });
+          res.status(500).json({ status: 500, message: "Error interno del servidor" });
         });
         return;
       }
@@ -73,7 +73,7 @@ exports.saveBook = (req, res) => {
         if (error) {
           console.error("Error al guardar el stock:", error.message);
           db.rollback(() => {
-            res.status(500).json({ message: "Error interno del servidor" });
+            res.status(500).json({ status: 500, message: "Error interno del servidor" });
           });
           return;
         }
@@ -82,11 +82,11 @@ exports.saveBook = (req, res) => {
           if (error) {
             console.error("Error al hacer commit de la transacción:", error.message);
             db.rollback(() => {
-              res.status(500).json({ message: "Error interno del servidor" });
+              res.status(500).json({ status: 500, message: "Error interno del servidor" });
             });
             return;
           }
-          res.status(200).json({ message: "Libro guardado exitosamente" });
+          res.status(200).json({ status: 200, message: "Libro guardado exitosamente" });
         });
       });
     });
@@ -101,10 +101,10 @@ exports.deleteBookUpdatedDeletedAt = (req, res) => {
   db.query(deleteBookQuery, values, (error, result) => {
     if (error) {
       console.error("Error al eliminar el libro:", error.message);
-      res.status(500).json({ message: "Error interno del servidor" });
+      res.status(500).json({ status: 500, message: "Error interno del servidor" });
       return;
     }
-    res.status(200).json({ message: "Libro eliminado exitosamente" });
+    res.status(200).json({ status: 200, message: "Libro eliminado exitosamente" });
   });
 };
 
@@ -137,18 +137,18 @@ exports.updateBook = (req, res) => {
   db.query(updateLibros, libroValues, (error, result) => {
     if (error) {
       console.error("Error al actualizar el libro:", error.message);
-      res.status(500).json({ message: "Error interno del servidor" });
+      res.status(500).json({ status: 500, message: "Error interno del servidor" });
       return;
     }
 
-    res.status(200).json({ message: "Libro actualizado exitosamente" });
+    res.status(200).json({ status: 200, message: "Libro actualizado exitosamente" });
   });
 };
 
 exports.upload = async (req, res) => {
   try {
     if (!req.files) {
-      res.status(400).json({ message: "No se subió ningún archivo" });
+      res.status(400).json({ status: 400, message: "No se subió ningún archivo de portada" });
     } else {
       const file = req.files.portada;
 
@@ -159,14 +159,14 @@ exports.upload = async (req, res) => {
 
       file.mv(`./uploads/${fileName}`, (error) => {
         if (error) {
-          res.status(500).json({ message: "Error interno del servidor" });
+          res.status(500).json({ status: 500, message: "Error interno del servidor" });
         } else {
-          res.status(200).json({ message: "Archivo subido exitosamente", data: { name: fileName, size: file.size, type: file.mimetype } });
+          res.status(200).json({ status: 200, message: "Archivo subido exitosamente", data: { name: fileName, size: file.size, type: file.mimetype } });
           console.log('Archivo subido exitosamente', fileName + ', ' + file.size + ', ' + file.mimetype);
         }
       });
     }
   } catch (error) {
-    res.status(500).json({ message: "Error interno del servidor" });
+    res.status(500).json({ status: 500, message: "Error interno del servidor" });
   }
 };

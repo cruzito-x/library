@@ -6,7 +6,7 @@ exports.getUsers = (req, res) => {
     "select idUsuario, nombreUsuario, rol, created_at, deleted_at from usuarios",
     (error, results) => {
       if (error) {
-        res.status(500).json({ message: "Error interno del servidor" });
+        res.status(500).json({ status: 500, message: "Error interno del servidor" });
         console.error("Error interno del servidor", error.message);
         return;
       }
@@ -23,7 +23,7 @@ exports.saveUser = (req, res) => {
   const rol = req.body.rol;
 
   if (!nombreUsuario || !password || !rol) {
-    return res.status(400).json({ message: "Por favor, complete los campos requeridos" });
+    return res.status(400).json({ status: 400, message: "Por favor, complete los campos requeridos" });
   }
 
   const insertUsuario = `insert into usuarios (idUsuario, nombreUsuario, password, rol, created_at) values (?, ?, ?, ?, curdate())`;
@@ -31,10 +31,10 @@ exports.saveUser = (req, res) => {
 
   db.query(insertUsuario, usuarioValues, (error, results) => {
     if (error) {
-      res.status(500).json({ message: "Error interno del servidor" });
+      res.status(500).json({ status: 500, message: "Error interno del servidor" });
       return;
     }
-    res.status(200).json({ message: "Usuario agregado exitosamente" });
+    res.status(200).json({ status: 200, message: "Usuario agregado exitosamente" });
   });
 };
 
@@ -46,10 +46,10 @@ exports.deleteUserUpdatedAt = (req, res) => {
   db.query(deleteUserQuery, values, (error, result) => {
     if (error) {
       console.error("Error al eliminar el usuario:", error.message);
-      res.status(500).json({ message: "Error interno del servidor" });
+      res.status(500).json({ status: 500, message: "Error interno del servidor" });
       return;
     }
-    res.status(200).json({ message: "Usuario eliminado exitosamente" });
+    res.status(200).json({ status: 200, message: "Usuario eliminado exitosamente" });
   });
 }
 
@@ -63,9 +63,9 @@ exports.updateUser = (req, res) => {
   db.query(updateUserQuery, usuarioValues, (error, result) => {
     if (error) {
       console.error("Error al actualizar el usuario:", error.message);
-      res.status(500).json({ message: "Error interno del servidor" });
+      res.status(500).json({ status: 500, message: "Error interno del servidor" });
       return;
     }
-    res.status(200).json({ message: "Usuario actualizado exitosamente" });
+    res.status(200).json({ status: 200, message: "Usuario actualizado exitosamente" });
   });
 }

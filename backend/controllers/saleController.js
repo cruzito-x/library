@@ -6,7 +6,7 @@ exports.getSales = (req, res) => {
     (error, results) => {
       if (error) {
         console.error("Error al obtener las ventas:", error.message);
-        res.status(500).json({ message: "Error interno del servidor" });
+        res.status(500).json({ status: 500, message: "Error interno del servidor" });
         return;
       }
       res.status(200).json(results);
@@ -19,7 +19,7 @@ exports.getSaleDetails = (req, res) => {
   db.query("select l.titulo, dv.cantidad, dv.precioUnitario, dv.descuento, dv.subtotal, u.nombreUsuario from detalles_venta dv inner join libros l on l.idLibro = dv.idLibro inner join usuarios u on u.idUsuario = dv.idUsuario where dv.idVenta = ?", [idVenta], (error, results) => {
     if (error) {
       console.error("Error al obtener los detalles de la venta:", error.message);
-      res.status(500).json({ message: "Error interno del servidor" });
+      res.status(500).json({ status: 500, message: "Error interno del servidor" });
       return;
     }
     res.status(200).json(results);
@@ -194,9 +194,7 @@ exports.getSalesReportData = (req, res) => {
       console.log(JSON.stringify(results));
     })
     .catch((error) => {
-      res.status(500).json({
-        error: "Error al obtener las ventas del periodo especificado",
-      });
+      res.status(500).json({status: 500, message: "Error al obtener las ventas del periodo especificado"});
       console.error(error.message);
     });
 };

@@ -6,7 +6,7 @@ exports.getGenresComparative = (req, res) => {
 
   db.query(selectSalesByGenre, [period], (error, results) => {
     if (error) {
-      res.status(500).json({ error: "Error al obtener los datos de ventas por género" });
+      res.status(500).json({ status: 500, error: "Error al obtener los datos de ventas por género" });
     } else {
       res.json(results);
     }
@@ -57,7 +57,7 @@ exports.getMonthSales = (req, res) => {
 
   db.query(selectSalesByPeriod, [period], (error, results) => {
     if (error) {
-      res.status(500).json({ error: "Error al obtener el resumen de ventas" });
+      res.status(500).json({ status: 500, message: "Error al obtener el resumen de ventas" });
       console.error(error);
     } else {
       res.json(results);
@@ -73,7 +73,7 @@ exports.getTopSellers = (req, res) => {
   db.query(selectTopSellers, [period], (error, results) => {
     if (error) {
       console.error("Error en la consulta SQL:", error.message);
-      res.status(500).json({ error: "Error al obtener los libros más vendidos" });
+      res.status(500).json({ status: 500, error: "Error al obtener los libros más vendidos" });
     } else {
       const topSellers = results.map((sellers) => ({
         titulo: sellers.titulo,
@@ -90,7 +90,7 @@ exports.getLastFiveBooks = (req, res) => {
     (error, results) => {
       if (error) {
         console.error("Error al obtener los libros:", error.message);
-        res.status(500).json({ message: "Error interno del servidor" });
+        res.status(500).json({ status: 500, message: "Error interno del servidor" });
         return;
       }
       res.status(200).json(results);

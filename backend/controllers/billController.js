@@ -6,7 +6,7 @@ exports.getBooks = (req, res) => {
   (error, results) => {
     if (error) {
         console.error("Error al obtener los libros:", error.message);
-        res.status(500).json({ message: "Error interno del servidor" });
+        res.status(500).json({ status: 500, message: "Error interno del servidor" });
         return;
       }
       res.status(200).json(results);
@@ -25,7 +25,7 @@ exports.saveBill = (req, res) => {
   db.beginTransaction(error => {
     if (error) {
       console.error('Error starting transaction: ', error.message);
-      res.status(500).json({ message: 'Error interno del servidor' });
+      res.status(500).json({ status: 500, message: 'Error interno del servidor' });
       return;
     }
 
@@ -34,7 +34,7 @@ exports.saveBill = (req, res) => {
       if (error) {
         console.error("Error al insertar cliente: ", error.message);
         return db.rollback(() => {
-          res.status(500).json({ message: "Error interno del servidor" });
+          res.status(500).json({ status: 500, message: "Error interno del servidor" });
         });
       }
 
@@ -43,7 +43,7 @@ exports.saveBill = (req, res) => {
         if (error) {
           console.error("Error al insertar venta: ", error.message);
           return db.rollback(() => {
-            res.status(500).json({ message: "Error interno del servidor" });
+            res.status(500).json({ status: 500, message: "Error interno del servidor" });
           });
         }
 
@@ -53,7 +53,7 @@ exports.saveBill = (req, res) => {
           if (error) {
             console.error("Error al insertar detalles de venta: ", error.message);
             return db.rollback(() => {
-              res.status(500).json({ message: "Error interno del servidor" });
+              res.status(500).json({ status: 500, message: "Error interno del servidor" });
             });
           }
 
@@ -62,7 +62,7 @@ exports.saveBill = (req, res) => {
             if (error) {
               console.error("Error al actualizar existencia: ", error.message);
               return db.rollback(() => {
-                res.status(500).json({ message: "Error interno del servidor" });
+                res.status(500).json({ status: 500, message: "Error interno del servidor" });
               });
             }
 
@@ -71,10 +71,10 @@ exports.saveBill = (req, res) => {
               if (error) {
                 console.error("Error committing transaction: ", error.message);
                 return db.rollback(() => {
-                  res.status(500).json({ message: "Error interno del servidor" });
+                  res.status(500).json({ status: 500, message: "Error interno del servidor" });
                 });
               }
-              res.status(200).json({ message: "Factura guardada exitosamente" });
+              res.status(200).json({ status: 200, message: "Factura guardada exitosamente" });
             });
           });
         });
