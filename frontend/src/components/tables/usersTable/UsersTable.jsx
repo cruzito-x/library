@@ -281,6 +281,7 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
           >
             <Input.Password
               placeholder="ej. 12345678"
+              maxLength={8}
               iconRender={(visible) =>
                 visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
               }
