@@ -16,8 +16,7 @@ exports.getUsers = (req, res) => {
 };
 
 exports.saveUser = (req, res) => {
-  const idUsuario = crypto.createHash("md5").update(new Date().toISOString()).digest("hex")
-;
+  const idUsuario = crypto.createHash("md5").update(new Date().toISOString()).digest("hex");
   const nombreUsuario = req.body.nombreUsuario; // Accede a los datos del formulario usando req.body
   const password = crypto.createHash("md5").update(req.body.password).digest("hex");
   const rol = req.body.rol;
@@ -55,7 +54,8 @@ exports.deleteUserUpdatedAt = (req, res) => {
 
 exports.updateUser = (req, res) => {
   const { idUsuario } = req.params;
-  const { nombreUsuario, password, rol } = req.body;
+  const { nombreUsuario, rol } = req.body;
+  const password = crypto.createHash("md5").update(req.body.password).digest("hex");
 
   const updateUserQuery = `update usuarios set nombreUsuario = ?, password = ?, rol = ? where idUsuario = ?`;
   const usuarioValues = [nombreUsuario, password, rol, idUsuario];
