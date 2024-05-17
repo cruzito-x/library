@@ -94,7 +94,7 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
           if (data.status === 200 || data.status === 304) {
             message.success(data.message);
           } else if (data.status === 400) {
-            message.error(data.message);
+            message.warning(data.message);
           } else if (data.status === 500) {
             message.error(data.message);
           } else {
@@ -128,7 +128,7 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
         if (data.status === 200 || data.status === 304) {
           message.success(data.message);
         } else if (data.status === 400) {
-          message.error(data.message);
+          message.warning(data.message);
         } else if (data.status === 500) {
           message.error(data.message);
         } else {
