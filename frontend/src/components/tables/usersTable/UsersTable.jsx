@@ -92,6 +92,7 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
           setModal1Open(false);
           setUsers(users.filter((user) => user.idUsuario !== editedUser.idUsuario)); // Actualizar la tabla después de la eliminación
           setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
+          form.resetFields(); // Limpiar formulario después de enviar
         })
         .catch((error) => {
           message.error(error.message);
