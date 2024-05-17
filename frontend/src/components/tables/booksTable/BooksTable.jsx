@@ -289,12 +289,6 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
               <Form.Item label="ISBN:" name="isbn">
                 <Input placeholder="978-8484050421" name="isbn" maxLength={14} />
               </Form.Item>
-              <Form.Item label="Stock:" name="existencia">
-                <Input
-                  name="existencia"
-                  disabled
-                />
-              </Form.Item>
               <Form.Item label="Descripción:" name="sinopsis">
                 <TextArea
                   rows={6}
