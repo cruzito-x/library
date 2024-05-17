@@ -102,6 +102,7 @@ const DashboardGraphs = ({ period }) => {
       data: lineData,
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         scales: {
           x: {
             title: {
@@ -139,6 +140,7 @@ const DashboardGraphs = ({ period }) => {
       data: barData,
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         scales: {
           x: {
             title: {
@@ -176,6 +178,7 @@ const DashboardGraphs = ({ period }) => {
       data: doughnutData,
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             position: "top",
@@ -389,7 +392,7 @@ const DashboardGraphs = ({ period }) => {
             <Title level={5} style={{ marginTop: "0" }}>
               Escala de ventas por género
             </Title>
-            <div>
+            <div style={{ width: "100%", height: "300px" }}>
               <canvas ref={lineChartRef} width="100" height="20"></canvas>
             </div>
           </Spin>
@@ -401,7 +404,7 @@ const DashboardGraphs = ({ period }) => {
             <Title level={5} style={{ marginTop: "0" }}>
               Resumen de ventas
             </Title>
-            <div>
+            <div style={{ width: "100%", height: "300px" }}>
               <canvas ref={barChartRef} width="100" height="38"></canvas>
             </div>
           </Spin>
@@ -413,7 +416,7 @@ const DashboardGraphs = ({ period }) => {
             <Title level={5} style={{ marginTop: "0" }}>
               Libros más vendidos
             </Title>
-            <div>
+            <div style={{ width: "100%", height: "300px" }}>
               <canvas ref={doughnutChartRef} width="100" height="10"></canvas>
             </div>
           </Spin>
