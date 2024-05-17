@@ -8,8 +8,8 @@ Este es un sistema de facturación desarrollado para una librería utilizando la
 
 ## Funcionalidades
 - Dashboard: permite visualizar de manera centralizada la información más importante referente a ventas, libros y ganancias obtenidas.
-- Gestión de libros: permite agregar, editar y eliminar productos.
-- Facturación: permite generar facturas para los clientes, seleccionando los productos que desean adquirir.
+- Gestión de libros: permite agregar, editar y eliminar libros.
+- Facturación: permite generar facturas para los clientes, seleccionando los libros que desean adquirir.
 
 ## Requisitos de Instalación
 Para ejecutar este sistema localmente, asegúrese de tener instalado lo siguiente:
