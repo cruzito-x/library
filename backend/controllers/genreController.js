@@ -22,6 +22,10 @@ exports.saveGenre = (req, res) => {
   const insertGenero = `insert into genero (idGenero, nombreGenero, created_at) values (?, ?, curdate())`;
   const generoValues = [idGenero, nombreGenero];
 
+  if (!nombreGenero) {
+    return res.status(400).json({ message: "Por favor, complete los campos requeridos" });
+  }
+
   db.query(selectGenero, nombreGenero, (error, results) => {  // Verificamos si el género ya existe
     if (error) {
       res.status(500).json({ message: "Error interno del servidor" });

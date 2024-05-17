@@ -22,6 +22,10 @@ exports.saveUser = (req, res) => {
   const password = crypto.createHash("md5").update(req.body.password).digest("hex");
   const rol = req.body.rol;
 
+  if (!nombreUsuario || !password || !rol) {
+    return res.status(400).json({ message: "Por favor, complete los campos requeridos" });
+  }
+
   const insertUsuario = `insert into usuarios (idUsuario, nombreUsuario, password, rol, created_at) values (?, ?, ?, ?, curdate())`;
   const usuarioValues = [idUsuario, nombreUsuario, password, rol];
 

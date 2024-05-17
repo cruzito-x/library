@@ -40,7 +40,7 @@ exports.saveBook = (req, res) => {
   } = req.body;
 
   if (!titulo || !autor || !isbn || !fechaPublicacion || !genero || !precio || !portada || !sinopsis || !existencia) {
-    return res.status(400).json({ message: "Todos los campos son obligatorios" });
+    return res.status(400).json({ message: "Por favor, complete los campos requeridos" });
   }
 
   const idLibro = crypto.createHash("md5").update(new Date().toISOString()).digest("hex");
