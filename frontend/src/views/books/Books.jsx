@@ -33,7 +33,6 @@ const Books = () => {
   const { TextArea } = Input;
   const [form] = Form.useForm();
   const [genres, setGenres] = useState([]);
-  const [defaultValue, setDefaultValue] = useState("");
   const [imageName, setImageName] = useState(null);
   const [booksData, setBooksData] = useState([]);
   const [refreshTable, setRefreshTable] = useState(false);
@@ -59,9 +58,7 @@ const Books = () => {
       });
   }, [refreshTable]);
 
-  const handleChange = (value) => {
-    console.log(value);
-  };
+  const handleChange = (value) => { };
 
   const handleUploadChange = (info) => {
     if (info.file.status === "done") {
@@ -80,9 +77,6 @@ const Books = () => {
       .then((response) => response.json())
       .then((data) => {
         setGenres(data);
-        if (data.length > 0) {
-          setDefaultValue(data[0].value);
-        }
       })
       .catch((error) => {
         console.error(error.message);
@@ -117,7 +111,7 @@ const Books = () => {
           </Form.Item>
           <Form.Item label="Género:" name="genero">
             <Select
-              defaultValue={defaultValue}
+              defaultValue="Seleccionar género"
               onChange={handleChange}
               options={genres.map((genre) => ({
                 value: genre.value,
