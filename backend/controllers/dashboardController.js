@@ -21,24 +21,46 @@ exports.getMonthSales = (req, res) => {
     selectSalesByPeriod = 'select created_at as fecha, sum(total) as total_venta from ventas where created_at between curdate() - interval ? day and curdate() group by created_at;';
   }
   if(period == 14) {
-    selectSalesByPeriod = 'select concat("Semana del ", date_format(fecha_inicio, "%d-%m-%Y"), " al ", date_format(fecha_fin, "%d-%m-%Y")) as fecha, sum(total) as total_venta from (select date_sub(created_at, interval weekday(fecha) day) as fecha_inicio, date_add(date_sub(created_at, interval weekday(fecha) day), interval 6 day) as fecha_fin, total from ventas where created_at between curdate() - interval ? day and curdate()) as fecha group by fecha_inicio, fecha_fin;';
+    selectSalesByPeriod = `select concat("Semana del ", DATE_FORMAT(fecha_inicio, "%d-%m-%Y"), " al ", DATE_FORMAT(fecha_fin, "%d-%m-%Y")) AS fecha, sum(total) as total_venta from (select date_sub(created_at, interval weekday(created_at) day) as fecha_inicio, date_add(date_sub(created_at, interval weekday(created_at) day), interval 6 day) as fecha_fin, total 
+    from ventas 
+    where created_at between curdate() - interval 14 day and curdate()) as fecha 
+    group by fecha_inicio, fecha_fin 
+    order by fecha_inicio desc 
+    limit 2;`;
   }
   if(period == 30) {
-    selectSalesByPeriod = 'select concat("Desde el ", date_format(min(fecha), "%d-%m-%Y"), " hasta el ", date_format(max(fecha), "%d-%m-%Y")) as fecha, sum(total) as total_venta from ventas where fecha between curdate() - interval ? day and curdate();';
+    selectSalesByPeriod = `select concat("Desde el ", date_format(min(fecha), "%d-%m-%Y"), " hasta el ", date_format(max(fecha), "%d-%m-%Y")) as fecha, sum(total) AS total_venta from ventas where fecha between curdate() - interval 1 month and curdate();`;
   }
-  if(period == 90 || period == 180 || period == 365) {
-    selectSalesByPeriod = 'select concat(monthname(fecha), " ", year(fecha)) as fecha, sum(total) as total_venta from ventas where fecha between curdate() - interval ? day and curdate() group by year(fecha), month(fecha) order by year(fecha), month(fecha);';
+  if(period == 90) {
+    selectSalesByPeriod = `select concat(monthname(fecha), " ", year(fecha)) as fecha, sum(total) as total_venta from ventas 
+      where fecha between curdate() - interval 3 month and curdate() 
+      group by year(fecha), month(fecha) 
+      order by year(fecha) desc, month(fecha) desc 
+      limit 3;`;
+  }
+  
+  if(period == 180) {
+    selectSalesByPeriod = `select concat(monthname(fecha), " ", year(fecha)) as fecha, sum(total) as total_venta 
+    from ventas where fecha between curdate() - interval 6 month and curdate() 
+      group by year(fecha), month(fecha) 
+      order by year(fecha) desc, month(fecha) desc 
+      limit 6;
+    `;
+  }
+  if(period == 365) {
+    selectSalesByPeriod = `select concat(monthname(fecha), " ", year(fecha)) as fecha, sum(total) as total_venta 
+      from ventas where fecha between curdate() - interval 12 month and curdate() 
+      group by year(fecha), month(fecha) 
+      order by year(fecha) desc, month(fecha) desc 
+      limit 12;`;
   }
 
   db.query(selectSalesByPeriod, [period], (error, results) => {
     if (error) {
-      res
-        .status(500)
-        .json({ error: "Error al obtener las ventas del mes actual" });
-        console.error(error);
+      res.status(500).json({ error: "Error al obtener el resumen de ventas" });
+      console.error(error);
     } else {
       res.json(results);
-      console.log(JSON.stringify(results));
     }
   });
 };
@@ -51,13 +73,11 @@ exports.getTopSellers = (req, res) => {
   db.query(selectTopSellers, [period], (error, results) => {
     if (error) {
       console.error("Error en la consulta SQL:", error.message);
-      res
-        .status(500)
-        .json({ error: "Error al obtener los libros más vendidos" });
+      res.status(500).json({ error: "Error al obtener los libros más vendidos" });
     } else {
-      const topSellers = results.map((row) => ({
-        titulo: row.titulo,
-        totalVendido: row.totalVendido,
+      const topSellers = results.map((sellers) => ({
+        titulo: sellers.titulo,
+        totalVendido: sellers.totalVendido,
       }));
       res.json(topSellers);
     }
