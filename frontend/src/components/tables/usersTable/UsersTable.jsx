@@ -57,7 +57,7 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
   const saveChanges = () => {
     form.validateFields().then((values) => {
       if (!values.nombreUsuario || !values.password || !values.rol) {
-        message.error("Todos los campos son obligatorios");
+        message.warning("Por favor, complete los campos requeridos");
         return;
       }
 

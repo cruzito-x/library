@@ -50,6 +50,11 @@ const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
 
   const saveChanges = () => {
     form.validateFields().then((values) => {
+      if (!values.nombreGenero) {
+        message.warning("Por favor, complete los campos requeridos");
+        return;
+      }
+
       fetch(
         `http://localhost:3001/genres/updateGenre/${editedGenre.idGenero}`,
         {
