@@ -91,8 +91,11 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
           return response.json();
         })
         .then((data) => {
-          if (data.status === 200) {
+          if (data.status === 200 || data.status === 304) {
             message.success(data.message);
+            setModal2Open(false);
+            setBooks(books.filter((book) => book.idLibro !== editedBook.idLibro)); // Actualizar la tabla después de la actualización
+            setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
           } else if (data.status === 400) {
             message.error(data.message);
           } else if (data.status === 500) {
@@ -100,10 +103,6 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
           } else {
             message.error(data.message);
           }
-
-          setModal2Open(false);
-          setBooks(books.filter((book) => book.idLibro !== editedBook.idLibro)); // Actualizar la tabla después de la eliminación
-          setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
         })
         .catch((error) => {
           message.error(error.message);
@@ -125,8 +124,10 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
         return response.json();
       })
       .then((data) => {
-        if (data.status === 200) {
+        if (data.status === 200 || data.status === 304) {
           message.success(data.message);
+          setBooks(books.filter((book) => book.idLibro !== record.idLibro)); // Actualizar la tabla después de la eliminación
+          setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
         } else if (data.status === 400) {
           message.error(data.message);
         } else if (data.status === 500) {
@@ -134,9 +135,6 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
         } else {
           message.error(data.message);
         }
-
-        setBooks(books.filter((book) => book.idLibro !== record.idLibro)); // Actualizar la tabla después de la eliminación
-        setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
       })
       .catch((error) => {
         message.error(error.message);

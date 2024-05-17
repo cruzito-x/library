@@ -78,8 +78,11 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
           return response.json();
         })
         .then((data) => {
-          if (data.status === 200) {
+          if (data.status === 200 || data.status === 304) {
             message.success(data.message);
+            setModal1Open(false);
+            setUsers(users.filter((user) => user.idUsuario !== editedUser.idUsuario)); // Actualizar la tabla después de la eliminación
+            setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
           } else if (data.status === 400) {
             message.error(data.message);
           } else if (data.status === 500) {
@@ -87,10 +90,6 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
           } else {
             message.error(data.message);
           }
-
-          setModal1Open(false);
-          setUsers(users.filter((user) => user.idUsuario !== editedUser.idUsuario)); // Actualizar la tabla después de la eliminación
-          setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
         })
         .catch((error) => {
           message.error(error.message);
@@ -112,8 +111,10 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
         return response.json();
       })
       .then((data) => {
-        if (data.status === 200) {
+        if (data.status === 200 || data.status === 304) {
           message.success(data.message);
+          setUsers(users.filter((user) => user.idUsuario !== record.idUsuario)); // Actualizar la tabla después de la eliminación
+          setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
         } else if (data.status === 400) {
           message.error(data.message);
         } else if (data.status === 500) {
@@ -121,9 +122,6 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
         } else {
           message.error(data.message);
         }
-        
-        setUsers(users.filter((user) => user.idUsuario !== record.idUsuario)); // Actualizar la tabla después de la eliminación
-        setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
       })
       .catch((error) => {
         message.error(error.message);

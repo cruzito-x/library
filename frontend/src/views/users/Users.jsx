@@ -113,7 +113,7 @@ const Users = () => {
         })
           .then((response) => response.json())
           .then((data) => {
-            if (data.status === 200) {
+            if (data.status === 200 || data.status === 304) {
               message.success(data.message);
               setRefreshTable(!refreshTable); // Actualiza la tabla
               form.resetFields(); // Limpiar formulario después de enviar
