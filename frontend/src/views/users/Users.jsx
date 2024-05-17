@@ -115,8 +115,6 @@ const Users = () => {
           .then((data) => {
             if (data.status === 200 || data.status === 304) {
               message.success(data.message);
-              setRefreshTable(!refreshTable); // Actualiza la tabla
-              form.resetFields(); // Limpiar formulario después de enviar
             } else if (data.status === 400) {
               message.error(data.message);
             } else if (data.status === 500) {
@@ -124,6 +122,9 @@ const Users = () => {
             } else {
               message.error(data.message);
             }
+
+            setRefreshTable(!refreshTable); // Actualiza la tabla
+            form.resetFields(); // Limpiar formulario después de enviar
           })
           .catch((error) => {
             message.error(error.message);

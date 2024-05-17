@@ -73,9 +73,6 @@ const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
         .then((data) => {
           if (data.status === 200 || data.status === 304) {
             message.success(data.message);
-            setModal1Open(false);
-            setGenres(genres.filter((genre) => genre.idGenero !== editedGenre.idGenero)); // Actualizar la tabla después de la actualización
-            setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
           } else if (data.status === 400) {
             message.error(data.message);
           } else if (data.status === 500) {
@@ -83,6 +80,10 @@ const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
           } else {
             message.error(data.message);
           }
+
+          setModal1Open(false);
+          setGenres(genres.filter((genre) => genre.idGenero !== editedGenre.idGenero)); // Actualizar la tabla después de la actualización
+          setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
         })
         .catch((error) => {
           message.error(error.message);
@@ -106,8 +107,6 @@ const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
       .then((data) => {
         if(data.status === 200 || data.status === 304) {
           message.success(data.message);
-          setGenres(genres.filter((genre) => genre.idGenero !== editedGenre.idGenero)); // Actualizar la tabla después de la eliminación
-          setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
         } else if (data.status === 400) {
           message.error(data.message);
         } else if (data.status === 500) {
@@ -115,6 +114,9 @@ const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
         } else {
           message.error(data.message);
         }
+
+        setGenres(genres.filter((genre) => genre.idGenero !== editedGenre.idGenero)); // Actualizar la tabla después de la eliminación
+        setRefreshTable((prev) => !prev); // Forzar una actualización de la tabla
       })
       .catch((error) => {
         message.error(error.message);

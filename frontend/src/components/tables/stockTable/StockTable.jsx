@@ -71,17 +71,7 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
         })
         .then((data) => {
           if (data.status === 200 || data.status === 304) {
-            if(data.status === 200) {
-              message.success(data.message);
-              setModal1Open(false);
-              setStock(stock.map(item => item.idLibro === editedStock.idLibro ? { ...item, ...values } : item));
-              setRefreshTable(prev => !prev);
-            } else {
-              message.success(data.message);
-              setModal1Open(false);
-              setStock(stock.map(item => item.idLibro === editedStock.idLibro ? { ...item, ...values } : item));
-              setRefreshTable(prev => !prev);
-            }
+            message.success(data.message);
           } else if (data.status === 400) {
             message.error(data.message);
           } else if (data.status === 500) {
@@ -89,6 +79,10 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
           } else {
             message.error(data.message);
           }
+
+          setModal1Open(false);
+          setStock(stock.map(item => item.idLibro === editedStock.idLibro ? { ...item, ...values } : item));
+          setRefreshTable(prev => !prev);
         })
         .catch((error) => {
           message.error(error.message);
@@ -112,8 +106,6 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
       .then((data) => {
         if (data.status === 200 || data.status === 304) {
           message.success(data.message);
-          setStock(stock.filter(item => item.idLibro !== record.idLibro));
-          setRefreshTable(prev => !prev);
         } else if (data.status === 400) {
           message.error(data.message);
         } else if (data.status === 500) {
@@ -121,6 +113,9 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
         } else {
           message.error(data.message);
         }
+
+        setStock(stock.filter(item => item.idLibro !== record.idLibro));
+        setRefreshTable(prev => !prev);
       })
       .catch((error) => {
         message.error(error.message);
@@ -140,7 +135,6 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
       .then((data) => {
         if(data.status !== 200 || data.status !== 304) {
           message.error(data.message);
-          setRefreshTable(prev => !prev);
         } else if (data.status === 400) {
           message.error(data.message);
         } else if (data.status === 500) {
@@ -148,6 +142,9 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
         } else {
           message.error(data.message);
         }
+
+        setStock(stock.filter(item => item.idLibro !== record.idLibro));
+        setRefreshTable(prev => !prev);
       })
       .catch((error) => {
         message.error(error.message);
