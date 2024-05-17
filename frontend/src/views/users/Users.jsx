@@ -83,7 +83,7 @@ const Users = () => {
           <Form.Item label="Rol" name="rol" rules={[{ required: true, message: 'Por favor, seleccione un rol para este usuario' }]} >
             <Select
               name="rol"
-              defaultValue="admin"
+              defaultValue="Seleccionar rol de usuario"
               onChange={handleChange}
               options={[
                 { value: "admin", label: "Administrador" },
