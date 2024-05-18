@@ -22,87 +22,10 @@ const DashboardGraphs = ({ period }) => {
     const barCtx = barChartRef.current.getContext("2d"); // Bar Chart
     const doughnutCtx = doughnutChartRef.current.getContext("2d"); // Rengoku's Chart
 
-    // Graphs data
-
-    const lineData = {
-      labels: [],
-      datasets: [
-        {
-          label: "Ganancias por género",
-          borderColor: "#8c8cff",
-          backgroundColor: "#8c8cff",
-          borderWidth: 2.5,
-        },
-      ],
-    };
-
-    const barData = {
-      labels: [],
-      datasets: [
-        {
-          label: "Total obtenido",
-          data: [],
-          backgroundColor: [
-            "#05b0ff",
-            "#3cba9f",
-            "#e74c3c",
-            "#f4d03f",
-            "#117baa",
-            "#9b59b6",
-            "#2ecc71",
-            "#e67e22",
-            "#1abc9c",
-            "#95a5a6",
-            "#007bff",
-            "#34495e",
-          ],
-          borderColor: [
-            "#05b0ff",
-            "#3cba9f",
-            "#e74c3c",
-            "#f4d03f",
-            "#117baa",
-            "#9b59b6",
-            "#2ecc71",
-            "#e67e22",
-            "#1abc9c",
-            "#95a5a6",
-            "#007bff",
-            "#34495e",
-          ],
-          borderWidth: 2.5,
-        },
-      ],
-    };
-
-    const doughnutData = {
-      labels: [],
-      datasets: [
-        {
-          label: ["Cantidad vendida"],
-          backgroundColor: [
-            "#ff6384",
-            "#36a2Eb",
-            "#ffce56",
-            "#59ac59",
-            "#6666ff",
-          ],
-          hoverBackgroundColor: [
-            "#ff6384",
-            "#36a2Eb",
-            "#ffce56",
-            "#59ac59",
-            "#6666ff",
-          ],
-        },
-      ],
-    };
-
     // Graphs configuration
 
     const lineConfig = {
       type: "line",
-      data: lineData,
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -140,7 +63,42 @@ const DashboardGraphs = ({ period }) => {
 
     const barConfig = {
       type: "bar",
-      data: barData,
+      data: {
+        datasets: [
+          {
+            label: "Total obtenido",
+            backgroundColor: [
+              "#05b0ff",
+              "#3cba9f",
+              "#e74c3c",
+              "#f4d03f",
+              "#117baa",
+              "#9b59b6",
+              "#2ecc71",
+              "#e67e22",
+              "#1abc9c",
+              "#95a5a6",
+              "#007bff",
+              "#34495e",
+            ],
+            borderColor: [
+              "#05b0ff",
+              "#3cba9f",
+              "#e74c3c",
+              "#f4d03f",
+              "#117baa",
+              "#9b59b6",
+              "#2ecc71",
+              "#e67e22",
+              "#1abc9c",
+              "#95a5a6",
+              "#007bff",
+              "#34495e",
+            ],
+            borderWidth: 2.5,
+          },
+        ],
+      },
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -178,7 +136,27 @@ const DashboardGraphs = ({ period }) => {
 
     const doughnutConfig = {
       type: "doughnut",
-      data: doughnutData,
+      data: {
+        datasets: [
+          {
+            label: ["Cantidad vendida"],
+            backgroundColor: [
+              "#ff6384",
+              "#36a2Eb",
+              "#ffce56",
+              "#59ac59",
+              "#6666ff",
+            ],
+            hoverBackgroundColor: [
+              "#ff6384",
+              "#36a2Eb",
+              "#ffce56",
+              "#59ac59",
+              "#6666ff",
+            ],
+          },
+        ],
+      },
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -247,9 +225,13 @@ const DashboardGraphs = ({ period }) => {
               {
                 label: "Ganancias por género",
                 data: sales,
-                borderColor: "#8c8cff",
-                backgroundColor: "#8c8cff",
+                borderColor: "rgba(140, 140, 255, 1)",
+                backgroundColor: "rgba(140, 140, 255, .5)",
                 borderWidth: 2.5,
+                fill: true,
+                pointStyle: "circle",
+                pointRadius: 7,
+                pointHoverRadius: 10
               },
             ],
           };
@@ -306,12 +288,12 @@ const DashboardGraphs = ({ period }) => {
           });
 
           const labels = formattedData.map((sale) => sale.fecha);
-          const dataValues = formattedData.map((sale) => sale.total_venta);
+          const values = formattedData.map((sale) => sale.total_venta);
 
           // Actualizar los datos del gráfico de barras
           if (barChartInstance.current !== null) {
             barChartInstance.current.data.labels = labels;
-            barChartInstance.current.data.datasets[0].data = dataValues;
+            barChartInstance.current.data.datasets[0].data = values;
             barChartInstance.current.update();
           }
         }
@@ -344,12 +326,12 @@ const DashboardGraphs = ({ period }) => {
         } else {
           setDoughnutDataEmpty(false);
           const labels = data.map((book) => book.titulo); // Títulos  de los datos obtenidos
-          const dataValues = data.map((book) => book.totalVendido); // Cantidades vendidas de los datos obtenidos
+          const values = data.map((book) => book.totalVendido); // Cantidades vendidas de los datos obtenidos
 
           // Actualizar datos del Rengoku's graph.
           if (doughnutChartInstance.current !== null) {
             doughnutChartInstance.current.data.labels = labels;
-            doughnutChartInstance.current.data.datasets[0].data = dataValues;
+            doughnutChartInstance.current.data.datasets[0].data = values;
             doughnutChartInstance.current.update();
           }
         }
