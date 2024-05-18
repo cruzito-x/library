@@ -256,7 +256,7 @@ const DashboardGraphs = ({ period }) => {
   // Obtener la lista de las ventas del mes
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:3001/dashboard/monthSales?period=${period}`)
+    fetch(`http://localhost:3001/dashboard/salesResume?period=${period}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener la lista de ventas del mes actual");

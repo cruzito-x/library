@@ -9,6 +9,7 @@ import {
   Popconfirm,
   Form,
   Modal,
+  Input,
   InputNumber,
   Empty,
   message,
@@ -249,6 +250,12 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
             ]}
           >
             <Form form={form}>
+              <Form.Item
+              label="Título:"
+              name="titulo"
+              >
+                <Input disabled/>
+              </Form.Item>
               <Form.Item
                 label="Existencia:"
                 name="stock"
