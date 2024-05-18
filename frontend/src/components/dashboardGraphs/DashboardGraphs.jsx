@@ -231,7 +231,8 @@ const DashboardGraphs = ({ period }) => {
                 fill: true,
                 pointStyle: "circle",
                 pointRadius: 7,
-                pointHoverRadius: 10
+                pointHoverRadius: 10,
+                tension: .8
               },
             ],
           };
