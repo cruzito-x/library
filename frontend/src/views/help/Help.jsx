@@ -211,7 +211,7 @@ const Help = () => {
                                     solicitados para proceder al registro de
                                     dicho libro, finalmente debe dar clic sobre
                                     el botón
-                                    <strong> Guardar </strong>. Lo cual mostrará
+                                    <strong> Guardar</strong>. Lo cual mostrará
                                     el siguiente mensaje en pantalla:
                                   </p>
                                   <div style={{ textAlign: "center" }}>
@@ -287,7 +287,7 @@ const Help = () => {
                                     solicitados para proceder a la actualización
                                     de dicho registro, finalmente debe dar clic
                                     sobre el botón{" "}
-                                    <strong> Guardar cambios </strong>. Lo cual
+                                    <strong> Guardar cambios</strong>. Lo cual
                                     mostrará el siguiente mensaje en pantalla:
                                   </p>
                                   <div style={{ textAlign: "center" }}>
@@ -462,10 +462,7 @@ const Help = () => {
                                   <h3> Paso 2. </h3>
                                   <p>
                                     Rellena los campos:
-                                    <strong>
-                                      cantidad y descuento (opcional)
-                                    </strong>
-                                    .
+                                    <strong> cantidad (obligatorio) y descuento (opcional)</strong>.
                                   </p>
                                   <div style={{ textAlign: "center" }}>
                                     <Image
@@ -482,7 +479,7 @@ const Help = () => {
                                   <h3> Paso 3. </h3>
                                   <p>
                                     Da clic en el botón
-                                    <strong>Añadir libro</strong>, esto cargará
+                                    <strong> Añadir libro</strong>, esto cargará
                                     el libro en la tabla para proceder con la
                                     facturación.
                                   </p>
@@ -501,9 +498,7 @@ const Help = () => {
                                   <h3> Paso 4. </h3>
                                   <p>
                                     Rellena los campos:
-                                    <strong>
-                                      nombre y apellido (obligatorio)
-                                    </strong>
+                                    <strong> nombre y apellido (obligatorio) </strong>
                                     y da clic en el botón <strong></strong>.
                                   </p>
                                   <div style={{ textAlign: "center" }}>
@@ -521,7 +516,7 @@ const Help = () => {
                                   <h3> Paso 5. </h3>
                                   <p>
                                     Haz clic sobre el botón
-                                    <strong>Generar factura</strong>:
+                                    <strong> Generar factura</strong>:
                                   </p>
                                   <div style={{ textAlign: "center" }}>
                                     <Image
@@ -790,7 +785,7 @@ const Help = () => {
                                   <p>
                                     Para realizar la edición de un usuario, debe
                                     dar clic sobre el botón
-                                    <strong>Editar</strong> correspondiente al
+                                    <strong> Editar</strong> correspondiente al
                                     registro que desea actualizar
                                   </p>
                                   <div style={{ textAlign: "center" }}>
@@ -819,7 +814,7 @@ const Help = () => {
                                     solicitados para proceder a la actualización
                                     de dicho registro, finalmente debe dar clic
                                     sobre el botón
-                                    <strong>Guardar cambios</strong>. Lo cual
+                                    <strong> Guardar cambios</strong>. Lo cual
                                     mostrará el siguiente mensaje en pantalla:
                                   </p>
                                   <div style={{ textAlign: "center" }}>
@@ -865,7 +860,7 @@ const Help = () => {
                                   <p>
                                     Para dar de baja a un usuario debes de dar
                                     clic sobre el botón
-                                    <strong>Eliminar</strong> del registro que
+                                    <strong> Eliminar</strong> del registro que
                                     deseas dar de baja.
                                   </p>
                                   <div style={{ textAlign: "center" }}>
@@ -909,8 +904,8 @@ const Help = () => {
                                   </div>
                                   <p>
                                     Mostrando el cambio de estado, de
-                                    <strong>Activo</strong> a
-                                    <strong>Inactivo:</strong>
+                                    <strong> Activo</strong> a
+                                    <strong> Inactivo:</strong>
                                   </p>
                                   <div style={{ textAlign: "center" }}>
                                     <Image
@@ -972,7 +967,7 @@ const Help = () => {
                                   <p>
                                     Para realizar la actualización de un género
                                     literario, debe dar clic sobre el botón
-                                    <strong>Añadir </strong> que se encuentra en
+                                    <strong> Añadir </strong> que se encuentra en
                                     la parte superior del formulario:
                                   </p>
                                   <div style={{ textAlign: "center" }}>
@@ -1001,7 +996,7 @@ const Help = () => {
                                     solicitado para proceder con el registro de
                                     dicho género, finalmente debe dar clic sobre
                                     el botón
-                                    <strong>Guardar</strong>. Lo cual mostrará
+                                    <strong> Guardar</strong>. Lo cual mostrará
                                     el siguiente mensaje:
                                   </p>
                                   <div style={{ textAlign: "center" }}>
@@ -1048,7 +1043,7 @@ const Help = () => {
                                   <p>
                                     Para realizar la actualización de un género
                                     literario, debe dar clic sobre el botón
-                                    <strong>Editar</strong>:
+                                    <strong> Editar</strong>:
                                   </p>
                                   <div style={{ textAlign: "center" }}>
                                     <Image
@@ -1123,7 +1118,7 @@ const Help = () => {
                                     Para realizar la eliminación del registro de
                                     un género literario, debe dar clic sobre el
                                     botón
-                                    <strong>Eliminar</strong>:
+                                    <strong> Eliminar</strong>:
                                   </p>
                                   <div style={{ textAlign: "center" }}>
                                     <Image
@@ -1150,12 +1145,10 @@ const Help = () => {
                                     />
                                   </div>
                                   <p>
-                                    Este debe ser rellenado con el campo
-                                    solicitado para proceder con el registro de
-                                    dicho género, finalmente debe dar clic sobre
-                                    el botón
-                                    <strong>Guardar</strong>. Lo cual mostrará
-                                    el siguiente mensaje:
+                                    Si escoge la opción <strong>No</strong>, no
+                                    ocurrirá nada, sin embargo, si decide
+                                    escoger la opción <strong>Sí</strong>, esto
+                                    desplegará la siguiente alerta:
                                   </p>
                                   <div style={{ textAlign: "center" }}>
                                     <Image
@@ -1223,9 +1216,7 @@ const Help = () => {
                       <p>
                         En este apartado del sistema podrás visualizar el stock
                         yacente de cada libro y sus respectivos estados
-                        <strong>
-                          (estado de unidades y estado de circulación)
-                        </strong>
+                        <strong> (estado de unidades y estado de circulación)</strong>
                         {isSuperAdmin
                           ? ", para los cuales se cuenta con los siguientes botones de acción:"
                           : "."}
@@ -1274,7 +1265,7 @@ const Help = () => {
                                   <p>
                                     Para realizar la actualización de stock de
                                     un libro, se deberá dar clic sobre el botón
-                                    <strong>Editar</strong>, el cual desplegará
+                                    <strong> Editar</strong>, el cual desplegará
                                     el siguiente modal:
                                   </p>
                                   <div style={{ textAlign: "center" }}>
@@ -1289,7 +1280,7 @@ const Help = () => {
                                   </div>
                                   <p>
                                     Al dar clic en el botón
-                                    <strong>Guardar cambios</strong> se
+                                    <strong> Guardar cambios</strong> se
                                     desplegará el siguiente mensaje:
                                   </p>
                                   <div style={{ textAlign: "center" }}>
@@ -1323,7 +1314,7 @@ const Help = () => {
                                   <p>
                                     Para realizar el retiro de stock de un
                                     libro, debe dar clic sobre el botón
-                                    <strong>Eliminar</strong> correspondiente al
+                                    <strong> Eliminar</strong> correspondiente al
                                     registro que desea eliminar
                                   </p>
                                   <div style={{ textAlign: "center" }}>
@@ -1386,7 +1377,7 @@ const Help = () => {
                                     libro, este ya no se mostrará en las vistas
                                     en las que la información de libros se
                                     muestra
-                                    <strong>(Libros y Facturas)</strong>.
+                                    <strong> (Libros y Facturas)</strong>.
                                   </p>
                                 </>
                               ),
@@ -1405,7 +1396,7 @@ const Help = () => {
                                   <p>
                                     Para realizar la activación de stock de un
                                     libro, debe dar clic sobre el botón
-                                    <strong>Activar</strong> correspondiente al
+                                    <strong> Activar</strong> correspondiente al
                                     registro que desea activar
                                   </p>
                                   <div style={{ textAlign: "center" }}>
@@ -1448,7 +1439,7 @@ const Help = () => {
                                     Ahora el libro podrá ser accedido desde las
                                     vistas relacionadas a este
                                     correspondientemente
-                                    <strong>(Libros y Facturas)</strong>.
+                                    <strong> (Libros y Facturas)</strong>.
                                   </p>
                                 </>
                               ),
