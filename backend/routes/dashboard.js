@@ -3,7 +3,7 @@ const router = express.Router();
 const dashboardController = require("../controllers/dashboardController");
 
 router.get("/", dashboardController.getGenresComparative);
-router.get("/monthSales", dashboardController.getMonthSales);
+router.get("/salesResume", dashboardController.getSalesResume);
 router.get("/topSellers", dashboardController.getTopSellers);
 router.get("/latest", dashboardController.getLastFiveBooks);
 
