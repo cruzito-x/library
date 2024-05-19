@@ -27,38 +27,38 @@ exports.getSaleDetails = (req, res) => {
 }
 
 exports.getSalesReportData = (req, res) => {
-  const period = parseInt(req.query.period) || 6;
+  const period = parseInt(req.query.period) || 7;
   let selectSalesByPeriod = [];
 
-  if (period == 6) {
+  if (period == 7) {
     selectSalesByPeriod.push(
-      "select l.titulo, count(dv.idLibro) as ventas from detalles_venta dv join libros l on dv.idLibro = l.idLibro join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 6 day) group by dv.idLibro order by ventas desc limit 5;"
+      "select l.titulo, count(dv.idLibro) as ventas from detalles_venta dv join libros l on dv.idLibro = l.idLibro join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 7 day) group by dv.idLibro order by ventas desc limit 5;"
     ); // Obtener los 5 libros más vendidos en los últimos 7 días.
 
     selectSalesByPeriod.push(
-      'select sum(dv.cantidad) as total_libros_vendidos, concat("semana del ", date_sub(curdate(), interval 6 day), " al ", curdate()) as week from detalles_venta dv join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 6 day);'
+      'select sum(dv.cantidad) as total_libros_vendidos, concat("semana del ", date_sub(curdate(), interval 7 day), " al ", curdate()) as week from detalles_venta dv join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 7 day);'
     ); // Obtener semana de reporte y total de libros vendidos.
 
     selectSalesByPeriod.push(
-      "select g.nombreGenero, count(dv.idLibro) as ventas from detalles_venta dv join libros l on dv.idLibro = l.idLibro join genero g on l.genero = g.idGenero join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 6 day) group by l.genero order by ventas desc limit 5;"
+      "select g.nombreGenero, count(dv.idLibro) as ventas from detalles_venta dv join libros l on dv.idLibro = l.idLibro join genero g on l.genero = g.idGenero join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 7 day) group by l.genero order by ventas desc limit 5;"
     ); // Obtener los géneros más populares en los últimos 7 días.
 
     selectSalesByPeriod.push(
-      "select sum(dv.subtotal) as total_ganancias from detalles_venta dv join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 6 day);"
+      "select sum(dv.subtotal) as total_ganancias from detalles_venta dv join ventas v on dv.idVenta = v.idVenta where v.fecha >= date_sub(curdate(), interval 7 day);"
     ); // Obtener el total de ganancias en los últimos 7 días.
 
     selectSalesByPeriod.push(
-      "select titulo, precio from libros where created_at >= date_sub(now(), interval 6 day) and deleted_at is null order by created_at desc limit 10;"
+      "select titulo, precio from libros where created_at >= date_sub(now(), interval 7 day) and deleted_at is null order by created_at desc limit 10;"
     ); // Obtener la lista de los 10 registros más recientes de libros
 
-    selectSalesByPeriod.push(`select sum(case when created_at = date_sub(curdate(), interval 6 day) then total else 0 end) as ventas_hace_7_dias, 
+    selectSalesByPeriod.push(`select sum(case when created_at = date_sub(curdate(), interval 7 day) then total else 0 end) as ventas_hace_7_dias, 
     sum(case when created_at = curdate() then total else 0 end) as ventas_hoy,
-    concat(case when sum(case when created_at = curdate() then total else 0 end) > sum(case when created_at = date_sub(curdate(), interval 6 day)
+    concat(case when sum(case when created_at = curdate() then total else 0 end) > sum(case when created_at = date_sub(curdate(), interval 7 day)
     then total else 0 end) then "incremento del " else "decremento del " end,
-    case when sum(case when created_at = date_sub(curdate(), interval 6 day) then total else 0 end) = 0 then sum(case when created_at = curdate() then total else 0 end) else
-    round(abs(((sum(case when created_at = curdate() then total else 0 end) - sum(case when created_at = date_sub(curdate(), interval 6 day)
-    then total else 0 end)) / sum(case when created_at = date_sub(curdate(), interval 6 day)
-    then total else 0 end)) * 100)) end,"%") as porcentaje_incremento_decremento from ventas where created_at >= date_sub(curdate(), interval 6 day) and created_at <= curdate();`);
+    case when sum(case when created_at = date_sub(curdate(), interval 7 day) then total else 0 end) = 0 then sum(case when created_at = curdate() then total else 0 end) else
+    round(abs(((sum(case when created_at = curdate() then total else 0 end) - sum(case when created_at = date_sub(curdate(), interval 7 day)
+    then total else 0 end)) / sum(case when created_at = date_sub(curdate(), interval 7 day)
+    then total else 0 end)) * 100)) end,"%") as porcentaje_incremento_decremento from ventas where created_at >= date_sub(curdate(), interval 7 day) and created_at <= curdate();`);
   }
   if (period == 14) {
     selectSalesByPeriod.push(

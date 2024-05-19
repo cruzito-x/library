@@ -303,7 +303,7 @@ const DashboardGraphs = ({ period }) => {
       })
       .catch((error) => {
         console.error(
-          "Error al obtener la lista de ventas del mes actual:",
+          "Error al obtener la lista de ventas del mes actual: ",
           error
         );
         setLoading(false);
