@@ -92,6 +92,12 @@ const Bills = () => {
   };
 
   const handleAddBook = () => {
+    const formValues = form.getFieldsValue(); // Obtener los valores del formulario
+    if (!formValues.nombre || !formValues.apellido) {
+      message.warning("Por favor, complete los campos requeridos");
+      return;
+    }
+
     form.validateFields().then((values) => {
       const selectedBook = books.find((book) => book.value === values.libro);
 
