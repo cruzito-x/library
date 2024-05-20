@@ -64,7 +64,7 @@ const Bills = () => {
       selectedBooks,
       nombre,
       apellido,
-      idUsuario
+      idUsuario,
     };
 
     fetch("http://localhost:3001/bills/save", {
@@ -94,6 +94,14 @@ const Bills = () => {
   const handleAddBook = () => {
     form.validateFields().then((values) => {
       const selectedBook = books.find((book) => book.value === values.libro);
+
+      if (selectedBook.existencia < values.cantidad) {
+        message.warning(
+          `Sólo hay ${selectedBook.existencia} libros disponibles.`
+        );
+        return;
+      }
+
       const subtotal = (values.cantidad * values.precioUnitario).toFixed(2);
       const descuento =
         values.descuento > 0 && values.descuento < 10
@@ -101,18 +109,53 @@ const Bills = () => {
           : values.descuento > 9 && values.descuento < 90
           ? (subtotal * ("0." + values.descuento)).toFixed(2)
           : 0;
-      const total = subtotal - descuento;
-      const newBook = {
-        ...selectedBook,
-        cantidad: values.cantidad,
-        precioUnitario: values.precioUnitario,
-        subtotal,
-        descuento,
-        total,
-      };
-      setSelectedBooks([...selectedBooks, newBook]);
+      const total = (subtotal - descuento).toFixed(2);
 
-      // Resetear los valores del formulario
+      const existingBook = selectedBooks.find(
+        (book) => book.value === values.libro
+      );
+
+      if (existingBook) {
+        const updatedBooks = selectedBooks.map((book) => {
+          if (book.value === values.libro) {
+            const newCantidad = book.cantidad + values.cantidad;
+            if (newCantidad > selectedBook.existencia) {
+              message.warning(
+                `Sólo hay ${selectedBook.existencia} libros disponibles.`
+              );
+              return book;
+            }
+            const newSubtotal = (newCantidad * book.precioUnitario).toFixed(2);
+            const newDescuento =
+              values.descuento > 0 && values.descuento < 10
+                ? (newSubtotal * ("0.0" + values.descuento)).toFixed(2)
+                : values.descuento > 9 && values.descuento < 90
+                ? (newSubtotal * ("0." + values.descuento)).toFixed(2)
+                : 0;
+            const newTotal = (newSubtotal - newDescuento).toFixed(2);
+            return {
+              ...book,
+              cantidad: newCantidad,
+              subtotal: newSubtotal,
+              descuento: newDescuento,
+              total: newTotal,
+            };
+          }
+          return book;
+        });
+        setSelectedBooks(updatedBooks);
+      } else {
+        const newBook = {
+          ...selectedBook,
+          cantidad: values.cantidad,
+          precioUnitario: values.precioUnitario,
+          subtotal,
+          descuento,
+          total,
+        };
+        setSelectedBooks([...selectedBooks, newBook]);
+      }
+
       form.setFieldsValue({
         libro: books[0]?.value,
         cantidad: 1,
@@ -120,6 +163,30 @@ const Bills = () => {
         descuento: 0,
       });
     });
+  };
+
+  const handleReduceBook = (value) => {
+    const updatedBooks = selectedBooks
+      .map((book) => {
+        if (book.value === value) {
+          const newCantidad = book.cantidad - 1;
+          if (newCantidad < 1) {
+            return null;
+          }
+          const newSubtotal = (newCantidad * book.precioUnitario).toFixed(2);
+          const newDescuento = book.descuento;
+          const newTotal = (newSubtotal - newDescuento).toFixed(2);
+          return {
+            ...book,
+            cantidad: newCantidad,
+            subtotal: newSubtotal,
+            total: newTotal,
+          };
+        }
+        return book;
+      })
+      .filter((book) => book !== null);
+    setSelectedBooks(updatedBooks);
   };
 
   const getTotalSubTotal = () => {
@@ -133,10 +200,12 @@ const Bills = () => {
   };
 
   const getTotalAmount = () => {
-    return selectedBooks.reduce(
-      (acumuladorTotal, book) => acumuladorTotal + book.total,
-      0
-    );
+    return selectedBooks
+      .reduce(
+        (acumuladorTotal, book) => acumuladorTotal + parseFloat(book.total),
+        0
+      )
+      .toFixed(2);
   };
 
   const getTotalDiscount = () => {
@@ -198,7 +267,11 @@ const Bills = () => {
 
     // Agregar la tabla centrada
     const tableData = [];
-    let totalPagar = 0;
+    const totalPagar = selectedBooks.reduce(
+      (acumuladorTotal, book) => acumuladorTotal + parseFloat(book.total),
+      0
+    );
+    const totalPagarNumber = parseFloat(totalPagar);
 
     selectedBooks.forEach((book, index) => {
       const rowData = [
@@ -208,7 +281,6 @@ const Bills = () => {
         { content: `$${book.total}`, styles: { halign: "center" } },
       ];
       tableData.push(rowData);
-      totalPagar += book.total;
     });
     doc.autoTable({
       head: [
@@ -273,7 +345,7 @@ const Bills = () => {
       doc.autoTable.previous.finalY + 25
     );
     doc.text(
-      `$${totalPagar.toFixed(2)}`,
+      `$${totalPagarNumber.toFixed(2)}`,
       doc.internal.pageSize.getWidth() - 15,
       doc.autoTable.previous.finalY + 25,
       { align: "right" }
@@ -299,14 +371,6 @@ const Bills = () => {
     return number;
   }
 
-  const totalRow = [
-    {
-      label: "Total a pagar:",
-      total: `${totalAmount.toFixed(2)}`,
-      key: "totalPagar",
-    },
-  ];
-
   const columns = [
     {
       title: "Libro",
@@ -322,91 +386,135 @@ const Bills = () => {
       title: "Precio Unitario",
       dataIndex: "precioUnitario",
       key: "precioUnitario",
-      render(text) {
-        return `${text !== undefined ? "$" + text : ""}`;
-      },
+      render: (precioUnitario) => `$${Number(precioUnitario).toFixed(2)}`,
     },
     {
       title: "Subtotal",
       dataIndex: "subtotal",
       key: "subtotal",
-      render(text) {
-        return `${text !== undefined ? "$" + text : ""}`;
-      },
+      render: (subtotal) => `$${Number(subtotal).toFixed(2)}`,
     },
     {
       title: "Descuento",
       dataIndex: "descuento",
       key: "descuento",
-      render(text) {
-        return `${text !== undefined ? "$" + text : ""}`;
-      },
+      render: (descuento) => `$${Number(descuento).toFixed(2)}`,
     },
     {
       title: "Total",
       dataIndex: "total",
       key: "total",
-      render(text) {
-        return `${text !== undefined ? "$" + text : ""}`;
-      },
+      render: (total) => `$${Number(total).toFixed(2)}`,
+    },
+    {
+      title: "Acciones",
+      key: "acciones",
+      render: (_, record) => (
+        <Button onClick={() => handleReduceBook(record.value)}>Restar</Button>
+      ),
     },
   ];
-
-  const columnsWithTotal = [...columns, totalRow];
 
   return (
     <Content style={{ margin: "0 16px" }}>
       <Breadcrumb style={{ margin: "50px 0 16px 0" }}>
-        <Breadcrumb.Item>
-          <UserOutlined /> {localStorage.getItem("username")}
-        </Breadcrumb.Item>
+        <Breadcrumb.Item> <UserOutlined/> {localStorage.getItem("username")} </Breadcrumb.Item>
         <Breadcrumb.Item> Facturar </Breadcrumb.Item>
       </Breadcrumb>
       <div
         style={{
           padding: 24,
-          paddingTop: 3,
-          minHeight: "86vh",
+          minHeight: '86vh',
           background: colorBgContainer,
           borderRadius: borderRadiusLG,
         }}
       >
-        <Title level={3} style={{ marginBottom: "25px" }}>
-          Datos de libro
-        </Title>
-        <Form form={form}>
+        <Title level={3}>Registrar Venta</Title>
+        <Form layout="vertical" form={form}>
           <Row gutter={[16, 16]}>
-            <Col xs={24} sm={12}>
-              <Form.Item label="Libro:" name="libro">
+          <Col span={8}>
+              <Form.Item
+                label="Nombre"
+                name="nombre"
+                rules={[
+                  { required: true, message: "Por favor ingrese el nombre" },
+                ]}
+              >
+                <Input prefix={<UserOutlined />} placeholder="Nombre" />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item
+                label="Apellido"
+                name="apellido"
+                rules={[
+                  { required: true, message: "Por favor ingrese el apellido" },
+                ]}
+              >
+                <Input prefix={<UserOutlined />} placeholder="Apellido" />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={8}>
+              <Form.Item
+                label="Libros"
+                name="libro"
+                rules={[
+                  { required: true, message: "Por favor seleccione un libro" },
+                ]}
+              >
                 <Select
-                  onChange={handleChange}
-                  onSelect={handleBookSelect}
-                  options={books.map((book) => ({
-                    value: book.value,
-                    label: book.label + " - " + book.autor,
-                  }))}
+                  showSearch
+                  placeholder="Seleccione un libro"
+                  optionFilterProp="children"
+                  onChange={handleBookSelect}
+                  onSearch={handleChange}
+                  options={books}
                 />
               </Form.Item>
             </Col>
-            <Col xs={24} sm={12}>
-              <Form.Item label="Cantidad" name="cantidad">
+            <Col span={8}>
+              <Form.Item
+                label="Cantidad"
+                name="cantidad"
+                rules={[
+                  { required: true, message: "Por favor ingrese la cantidad" },
+                ]}
+              >
                 <InputNumber
                   min={1}
-                  max={10}
                   defaultValue={1}
                   style={{ width: "100%" }}
                 />
               </Form.Item>
             </Col>
-            <Col xs={24} sm={12}>
-              <Form.Item label="Precio unitario:" name="precioUnitario">
-                <Input prefix={"$"} disabled defaultValue={books.precio} />
+            <Col span={8}>
+              <Form.Item label="Precio Unitario" name="precioUnitario">
+                <Input
+                  prefix="$"
+                  disabled
+                  style={{ backgroundColor: "#f5f5f5", color: "black" }}
+                />
               </Form.Item>
             </Col>
-            <Col xs={24} sm={12}>
-              <Form.Item label="Descuento:" name="descuento">
+          </Row>
+          <Row gutter={16}>
+            <Col span={8}>
+              <Form.Item
+                label="Descuento (%)"
+                name="descuento"
+                initialValue={0}
+                rules={[
+                  {
+                    type: "number",
+                    min: 0,
+                    max: 90,
+                    message: "Ingrese un descuento válido (0-90)",
+                  },
+                ]}
+              >
                 <InputNumber
-                  prefix={"%"}
                   min={0}
                   max={90}
                   defaultValue={0}
@@ -414,47 +522,51 @@ const Bills = () => {
                 />
               </Form.Item>
             </Col>
-            <Col span={24}>
-              <Button type="primary" onClick={handleAddBook}>
-                Añadir libro
-              </Button>
+            <Col span={8}>
+              <Form.Item>
+                <Checkbox name="sinDescuento">Sin descuento</Checkbox>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item>
+                <Button
+                  type="primary"
+                  onClick={handleAddBook}
+                  style={{ marginTop: "29px", width: "100%" }}
+                >
+                  Agregar Libro
+                </Button>
+              </Form.Item>
             </Col>
           </Row>
         </Form>
         <Divider />
-        <Title level={3} style={{ marginBottom: "25px" }}>
-          Datos de cliente
-        </Title>
-        <Form form={form}>
-          <Row gutter={[16, 16]}>
-            <Col xs={24} sm={12}>
-              <Form.Item label="Nombre" name="nombre">
-                <Input placeholder="Nombre de cliente" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} sm={12}>
-              <Form.Item label="Apellido" name="apellido">
-                <Input placeholder="Apellido de cliente" />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={24}>
-              <Form.Item label="Método de pago:" name="metodoPago">
-                <Checkbox checked={true}>Efectivo</Checkbox>
-              </Form.Item>
-            </Col>
-          </Row>
-        </Form>
         <Table
-          scroll={{ x: "max-content" }}
-          columns={columnsWithTotal}
-          dataSource={selectedBooks.concat(totalRow)}
+          dataSource={selectedBooks}
+          columns={columns}
           pagination={false}
+          summary={(pageData) => {
+            return (
+              <Table.Summary.Row>
+                <Table.Summary.Cell index={0}>Total</Table.Summary.Cell>
+                <Table.Summary.Cell index={1} />
+                <Table.Summary.Cell index={2} />
+                <Table.Summary.Cell index={3}>
+                  ${totalSubTotal}
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={4}>
+                  ${totalDiscount}
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={5}>
+                  ${totalAmount}
+                </Table.Summary.Cell>
+              </Table.Summary.Row>
+            );
+          }}
         />
-        <br />
+        <Divider />
         <Button type="primary" onClick={handleSaveBill}>
-          <PrinterOutlined /> Generar factura
+          Guardar Factura
         </Button>
       </div>
     </Content>
