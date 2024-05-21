@@ -14,7 +14,6 @@ import Stock from '../../views/extras/Stock';
 import Sales from '../../views/extras/Sales';
 import Help from '../../views/help/Help';
 import NotFound from '../results/NotFound';
-import ToggleThemeButton from '../toggleThemeButton/ToggleThemeButton';
 import './Sidebar.css';
 
 const { Sider, Content, Footer } = Layout;
@@ -89,7 +88,6 @@ const Sidebar = () => {
         <Routes>
           <Route path='/*' element={<MenuList darkTheme={darkTheme} collapsed={collapsed} setCollapsed={setCollapsed} />} />
         </Routes>
-        <ToggleThemeButton darkTheme={darkTheme} toggleTheme={toggleTheme} />
       </Sider>
       <Layout style={layoutStyle}>
         <LayoutHeader />

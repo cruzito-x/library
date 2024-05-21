@@ -26,12 +26,11 @@ const Bills = () => {
   const [form] = Form.useForm();
   const [selectedBooks, setSelectedBooks] = useState([]);
   const { Title } = Typography;
+  const [precioUnitario, setPrecioUnitario] = useState(0);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-
-  const handleChange = (value) => {};
 
   useEffect(() => {
     fetch("http://localhost:3001/bills/books")
@@ -44,12 +43,19 @@ const Bills = () => {
             precioUnitario: data[0].precio,
             cantidad: 1,
           });
+          setPrecioUnitario(data[0].precio);
         }
       })
       .catch((error) => {
         console.error(error.message);
       });
   }, [form]);
+  
+  const handleChange = (value) => {
+    const selectedBook = books.find((book) => book.value === value);
+    form.setFieldsValue({ precioUnitario: selectedBook.precio });
+    setPrecioUnitario(selectedBook.precio);
+  };
 
   const handleSaveBill = () => {
     const { nombre, apellido } = form.getFieldsValue(["nombre", "apellido"]);
@@ -452,7 +458,7 @@ const Bills = () => {
           <Row gutter={16}>
             <Col xs={24} sm={12} md={8}>
               <Form.Item label="Libros" name="libro" rules={[{ required: true, message: "Por favor seleccione un libro" }]}>
-                <Select options={books} />
+                <Select options={books} onChange={handleChange}/>
               </Form.Item>
             </Col>
             <Col xs={24} sm={12} md={8}>

@@ -68,33 +68,33 @@ const DashboardGraphs = ({ period }) => {
           {
             label: "Total obtenido",
             backgroundColor: [
-              "#05b0ff",
-              "#3cba9f",
-              "#e74c3c",
-              "#f4d03f",
-              "#117baa",
-              "#9b59b6",
-              "#2ecc71",
-              "#e67e22",
-              "#1abc9c",
-              "#95a5a6",
-              "#007bff",
-              "#34495e",
-            ],
-            borderColor: [
-              "#05b0ff",
-              "#3cba9f",
-              "#e74c3c",
-              "#f4d03f",
-              "#117baa",
-              "#9b59b6",
-              "#2ecc71",
-              "#e67e22",
-              "#1abc9c",
-              "#95a5a6",
-              "#007bff",
-              "#34495e",
-            ],
+              "#ff9f6d",
+              "#ff6b6b",
+              "#77dd77",
+              "#6495ed",
+              "#ff85ff",
+              "#b19cd9",
+              "#d4a9a9",
+              "#ffd700",
+              "#87ceeb",
+              "#ffb347",
+              "#b39eb5",
+              "#cd853f"
+          ],
+          borderColor: [
+              "#ff9f6d",
+              "#ff6b6b",
+              "#77dd77",
+              "#6495ed",
+              "#ff85ff",
+              "#b19cd9",
+              "#d4a9a9",
+              "#ffd700",
+              "#87ceeb",
+              "#ffb347",
+              "#b39eb5",
+              "#cd853f"
+          ],
             borderWidth: 2.5,
           },
         ],
@@ -475,7 +475,7 @@ const DashboardGraphs = ({ period }) => {
           locale={{
             emptyText: <Empty description="No hay libros disponibles" />,
           }}
-          style={{ overflowX: 'auto' }} // Añadir scroll horizontal si la tabla excede el tamaño de la pantalla
+          style={{ overflowX: 'auto' }}
           />
           </Spin>
         </Card>
