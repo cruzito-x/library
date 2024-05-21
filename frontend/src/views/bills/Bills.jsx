@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { UserOutlined, PrinterOutlined } from "@ant-design/icons";
+import { UserOutlined, MinusOutlined, PrinterOutlined } from "@ant-design/icons";
 import {
   Breadcrumb,
   Form,
@@ -416,7 +416,7 @@ const Bills = () => {
       title: "Acciones",
       key: "acciones",
       render: (_, record) => (
-        <Button onClick={() => handleReduceBook(record.value)}>Restar</Button>
+        <Button type="primary" danger onClick={() => handleReduceBook(record.value)}> <MinusOutlined /> </Button>
       ),
     },
   ];
@@ -424,8 +424,8 @@ const Bills = () => {
   return (
     <Content style={{ margin: "0 16px" }}>
       <Breadcrumb style={{ margin: "50px 0 16px 0" }}>
-        <Breadcrumb.Item> <UserOutlined/> {localStorage.getItem("username")} </Breadcrumb.Item>
-        <Breadcrumb.Item> Facturar </Breadcrumb.Item>
+        <Breadcrumb.Item><UserOutlined/> {localStorage.getItem("username")}</Breadcrumb.Item>
+        <Breadcrumb.Item>Facturar</Breadcrumb.Item>
       </Breadcrumb>
       <div
         style={{
@@ -438,108 +438,48 @@ const Bills = () => {
         <Title level={3}>Registrar Venta</Title>
         <Form layout="vertical" form={form}>
           <Row gutter={[16, 16]}>
-          <Col span={8}>
-              <Form.Item
-                label="Nombre"
-                name="nombre"
-                rules={[
-                  { required: true, message: "Por favor ingrese el nombre" },
-                ]}
-              >
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item label="Nombre" name="nombre" rules={[{ required: true, message: "Por favor ingrese el nombre" }]}>
                 <Input prefix={<UserOutlined />} placeholder="Nombre" />
               </Form.Item>
             </Col>
-            <Col span={8}>
-              <Form.Item
-                label="Apellido"
-                name="apellido"
-                rules={[
-                  { required: true, message: "Por favor ingrese el apellido" },
-                ]}
-              >
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item label="Apellido" name="apellido" rules={[{ required: true, message: "Por favor ingrese el apellido" }]}>
                 <Input prefix={<UserOutlined />} placeholder="Apellido" />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
-            <Col span={8}>
-              <Form.Item
-                label="Libros"
-                name="libro"
-                rules={[
-                  { required: true, message: "Por favor seleccione un libro" },
-                ]}
-              >
-                <Select
-                  showSearch
-                  placeholder="Seleccione un libro"
-                  optionFilterProp="children"
-                  onChange={handleBookSelect}
-                  onSearch={handleChange}
-                  options={books}
-                />
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item label="Libros" name="libro" rules={[{ required: true, message: "Por favor seleccione un libro" }]}>
+                <Select options={books} />
               </Form.Item>
             </Col>
-            <Col span={8}>
-              <Form.Item
-                label="Cantidad"
-                name="cantidad"
-                rules={[
-                  { required: true, message: "Por favor ingrese la cantidad" },
-                ]}
-              >
-                <InputNumber
-                  min={1}
-                  defaultValue={1}
-                  style={{ width: "100%" }}
-                />
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item label="Cantidad" name="cantidad" rules={[{ required: true, message: "Por favor ingrese la cantidad" }]}>
+                <InputNumber min={1} defaultValue={1} style={{ width: "100%" }} />
               </Form.Item>
             </Col>
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8}>
               <Form.Item label="Precio Unitario" name="precioUnitario">
-                <Input
-                  prefix="$"
-                  disabled
-                  style={{ backgroundColor: "#f5f5f5", color: "black" }}
-                />
+                <Input prefix="$" disabled style={{ backgroundColor: "#f5f5f5", color: "black" }} />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
-            <Col span={8}>
-              <Form.Item
-                label="Descuento (%)"
-                name="descuento"
-                initialValue={0}
-                rules={[
-                  {
-                    type: "number",
-                    min: 0,
-                    max: 90,
-                    message: "Ingrese un descuento válido (0-90)",
-                  },
-                ]}
-              >
-                <InputNumber
-                  min={0}
-                  max={90}
-                  defaultValue={0}
-                  style={{ width: "100%" }}
-                />
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item label="Descuento (%)" name="descuento" initialValue={0} rules={[{ type: "number", min: 0, max: 90, message: "Ingrese un descuento válido (0-90)" }]}>
+                <InputNumber min={0} max={90} defaultValue={0} style={{ width: "100%" }} />
               </Form.Item>
             </Col>
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8}>
               <Form.Item>
                 <Checkbox name="sinDescuento">Sin descuento</Checkbox>
               </Form.Item>
             </Col>
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8}>
               <Form.Item>
-                <Button
-                  type="primary"
-                  onClick={handleAddBook}
-                  style={{ marginTop: "29px", width: "100%" }}
-                >
+                <Button type="primary" onClick={handleAddBook} style={{ marginTop: "29px", width: "100%" }}>
                   Agregar Libro
                 </Button>
               </Form.Item>
@@ -551,7 +491,8 @@ const Bills = () => {
           dataSource={selectedBooks}
           columns={columns}
           pagination={false}
-          summary={(pageData) => {
+          scroll={{ x: "max-content" }}
+          summary={() => {
             return (
               <Table.Summary.Row>
                 <Table.Summary.Cell index={0}>Total</Table.Summary.Cell>
@@ -572,7 +513,7 @@ const Bills = () => {
         />
         <Divider />
         <Button type="primary" onClick={handleSaveBill}>
-          Guardar Factura
+          <PrinterOutlined/> Generar Factura
         </Button>
       </div>
     </Content>

@@ -449,34 +449,34 @@ const DashboardGraphs = ({ period }) => {
             Añadido recientemente
           </Title>
           <Spin spinning={loading} size="large" tip="Cargando...">
-            <Table
-              scroll={{ x: "max-content" }}
-              columns={columns}
-              expandable={{
-                expandedRowRender: (record) => (
-                  <p
-                    style={{
-                      margin: 0,
-                    }}
-                  >
-                    {record.sinopsis}
-                  </p>
-                ),
-                rowExpandable: (record) => record.name !== "Not Expandable",
-              }}
-              dataSource={
-                books.length === 0
-                  ? null
-                  : books.map((book, index) => ({
-                      ...book,
-                      key: index,
-                    }))
-              } // Asignar una clave única para cada registro
-              pagination={false}
-              locale={{
-                emptyText: <Empty description="No hay libros disponibles" />,
-              }}
-            />
+          <Table
+          columns={columns}
+          expandable={{
+            expandedRowRender: (record) => (
+            <p
+            style={{
+              margin: 0,
+            }}
+            >
+              {record.sinopsis}
+            </p>
+            ),
+            rowExpandable: (record) => record.name !== "Not Expandable",
+          }}
+          dataSource={
+            books.length === 0
+            ? null
+            : books.map((book, index) => ({
+              ...book,
+              key: index,
+            }))
+          } // Asignar una clave única para cada registro
+          pagination={false}
+          locale={{
+            emptyText: <Empty description="No hay libros disponibles" />,
+          }}
+          style={{ overflowX: 'auto' }} // Añadir scroll horizontal si la tabla excede el tamaño de la pantalla
+          />
           </Spin>
         </Card>
       </Col>
