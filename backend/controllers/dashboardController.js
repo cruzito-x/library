@@ -35,7 +35,7 @@ exports.getSalesResume = (req, res) => {
     selectSalesByPeriod = `select concat(monthname(fecha), " ", year(fecha)) as fecha, sum(total) as total_venta from ventas 
       where fecha between curdate() - interval ? day and curdate() 
       group by year(fecha), month(fecha) 
-      order by year(fecha) desc, month(fecha) desc 
+      order by year(fecha) asc, month(fecha) asc 
       limit 3;`;
   }
   
@@ -43,14 +43,14 @@ exports.getSalesResume = (req, res) => {
     selectSalesByPeriod = `select concat(monthname(fecha), " ", year(fecha)) as fecha, sum(total) as total_venta from ventas
       where fecha between curdate() - interval ? day and curdate() 
       group by year(fecha), month(fecha) 
-      order by year(fecha) desc, month(fecha) desc 
+      order by year(fecha) asc, month(fecha) asc 
       limit 6;`;
   }
   if(period == 365) {
     selectSalesByPeriod = `select concat(monthname(fecha), " ", year(fecha)) as fecha, sum(total) as total_venta from ventas
       where fecha between curdate() - interval ? day and curdate() 
       group by year(fecha), month(fecha) 
-      order by year(fecha) desc, month(fecha) desc 
+      order by year(fecha) asc, month(fecha) asc 
       limit 12;`;
   }
 
