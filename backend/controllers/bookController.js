@@ -95,7 +95,7 @@ exports.saveBook = (req, res) => {
 
 exports.deleteBookUpdatedDeletedAt = (req, res) => {
   const { idLibro } = req.params;
-  const deleteBookQuery = `update libros l, existencias e set l.deleted_at = now(), e.deleted_at = now() where l.idLibro = ? and e.idLibro = ?`;
+  const deleteBookQuery = `update libros l, existencias e set l.deleted_at = curdate(), e.deleted_at = curdate() where l.idLibro = ? and e.idLibro = ?`;
   const values = [idLibro, idLibro];
 
   db.query(deleteBookQuery, values, (error, result) => {

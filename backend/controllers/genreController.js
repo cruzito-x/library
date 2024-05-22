@@ -48,7 +48,7 @@ exports.saveGenre = (req, res) => {
 
 exports.deleteGenreUpdatedDeletedAt = (req, res) => {
   const { idGenero } = req.params;
-  const deleteGenreQuery = `update genero set deleted_at = now() where idGenero = ?`;
+  const deleteGenreQuery = `update genero set deleted_at = curdate() where idGenero = ?`;
   const generoValues = [idGenero, idGenero];
 
   db.query(deleteGenreQuery, generoValues, (error, result) => {

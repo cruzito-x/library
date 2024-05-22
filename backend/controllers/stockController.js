@@ -15,7 +15,7 @@ exports.getStock = (req, res) => {
 exports.deleteStockUpdatedDeletedAt = (req, res) => {
   const { idLibro } = req.params;
 
-  db.query("update existencias set deleted_at = now() where idLibro = ?;", [idLibro], (error, results) => {
+  db.query("update existencias set deleted_at = curdate() where idLibro = ?;", [idLibro], (error, results) => {
     if (error) {
       console.error("Error al retirar el libro del stock:", error.message);
       res.status(500).json({ status: 500, message: "Error interno del servidor" });
