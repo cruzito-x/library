@@ -441,21 +441,9 @@ const Bills = () => {
           borderRadius: borderRadiusLG,
         }}
       >
-        <Title level={3}>Registrar Venta</Title>
+        <Title level={3}>Registrar venta</Title>
         <Form layout="vertical" form={form}>
           <Row gutter={[16, 16]}>
-            <Col xs={24} sm={12} md={8}>
-              <Form.Item label="Nombre" name="nombre" rules={[{ required: true, message: "Por favor ingrese el nombre" }]}>
-                <Input prefix={<UserOutlined />} placeholder="Nombre" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} sm={12} md={8}>
-              <Form.Item label="Apellido" name="apellido" rules={[{ required: true, message: "Por favor ingrese el apellido" }]}>
-                <Input prefix={<UserOutlined />} placeholder="Apellido" />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
             <Col xs={24} sm={12} md={8}>
               <Form.Item label="Libros" name="libro" rules={[{ required: true, message: "Por favor seleccione un libro" }]}>
                 <Select options={books} onChange={handleChange}/>
@@ -467,22 +455,29 @@ const Bills = () => {
               </Form.Item>
             </Col>
             <Col xs={24} sm={12} md={8}>
-              <Form.Item label="Precio Unitario" name="precioUnitario">
-                <Input prefix="$" disabled style={{ backgroundColor: "#f5f5f5", color: "black" }} />
+              <Form.Item label="Nombre" name="nombre" rules={[{ required: true, message: "Por favor ingrese el nombre" }]}>
+                <Input prefix={<UserOutlined />} placeholder="Nombre" />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item label="Precio Unitario" name="precioUnitario">
+                <Input prefix="$" disabled style={{ backgroundColor: "#f5f5f5", color: "black" }} />
+              </Form.Item>
+            </Col>
             <Col xs={24} sm={12} md={8}>
               <Form.Item label="Descuento (%)" name="descuento" initialValue={0} rules={[{ type: "number", min: 0, max: 90, message: "Ingrese un descuento válido (0-90)" }]}>
                 <InputNumber min={0} max={90} defaultValue={0} style={{ width: "100%" }} />
               </Form.Item>
             </Col>
             <Col xs={24} sm={12} md={8}>
-              <Form.Item>
-                <Checkbox name="sinDescuento">Sin descuento</Checkbox>
+              <Form.Item label="Apellido" name="apellido" rules={[{ required: true, message: "Por favor ingrese el apellido" }]}>
+                <Input prefix={<UserOutlined />} placeholder="Apellido" />
               </Form.Item>
             </Col>
+          </Row>
+          <Row gutter={16}>
             <Col xs={24} sm={12} md={8}>
               <Form.Item>
                 <Button type="primary" onClick={handleAddBook} style={{ marginTop: "29px", width: "100%" }}>
@@ -501,7 +496,7 @@ const Bills = () => {
           summary={() => {
             return (
               <Table.Summary.Row>
-                <Table.Summary.Cell index={0}>Total</Table.Summary.Cell>
+                <Table.Summary.Cell index={0}>Total a pagar</Table.Summary.Cell>
                 <Table.Summary.Cell index={1} />
                 <Table.Summary.Cell index={2} />
                 <Table.Summary.Cell index={3}>
