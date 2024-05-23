@@ -60,7 +60,7 @@ const Login = () => {
         >
           <img
             src={"logo512.png"}
-            style={{ width: "75px", height: "75px", borderRadius: "50%" }}
+            style={{ width: "150px", height: "75px", borderRadius: "50%" }}
             alt="Product photo"
           />
         </div>
