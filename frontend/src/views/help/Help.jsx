@@ -124,20 +124,55 @@ const Help = () => {
                   el sistema, tales como:
                 </p>
                 <ul>
-                  <li>
-                    <strong>1.</strong> Tendencia de ventas por género.
-                  </li>
-                  <li>
-                    <strong>2.</strong> Ventas diarias registradas en el mes
-                    actual.
-                  </li>
-                  <li>
-                    <strong>3.</strong> Adiciones recientes.
-                  </li>
-                  <li>
-                    <strong>4.</strong> Los libros más vendidos de todo nuestro
-                    inventario.
-                  </li>
+                  {isSuperAdmin ? (
+                    <>
+                      <li>
+                        <strong>1.</strong> Cantidad total de libros como la
+                        cantidad de libros añadidos recientemente.
+                      </li>
+                      <li>
+                        <strong>2.</strong> Cantidad total de unidades vendidas
+                        como la cantidad de unidades vendidas recientemente.
+                      </li>
+                      <li>
+                        <strong>3.</strong> Total de ganancias como total de
+                        ganancias recientes.
+                      </li>
+                      <li>
+                        <strong>4.</strong> Total de facturas emitidas como
+                        total de facturas emitidas recientemente.
+                      </li>
+                      <li>
+                        <strong>5.</strong> Tendencia de ventas por género.
+                      </li>
+                      <li>
+                        <strong>6.</strong> Totales de venta.
+                      </li>
+                      <li>
+                        <strong>7.</strong> Los libros más vendidos de todo
+                        nuestro inventario.
+                      </li>
+                      <li>
+                        <strong>8.</strong> Últimos 5 libros añadidos.
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li>
+                        <strong>1.</strong> Tendencia de ventas por género.
+                      </li>
+                      <li>
+                        <strong>2.</strong> Totales de venta.
+                      </li>
+                      <li>
+                        <strong>3.</strong> Los libros más vendidos de todo
+                        nuestro inventario.
+                      </li>
+                      <li>
+                        <strong>4.</strong> Últimos 5 libros añadidos.
+                      </li>
+                    </>
+                  )}
                 </ul>
               </Col>
             </Row>
@@ -462,7 +497,12 @@ const Help = () => {
                                   <h3> Paso 2. </h3>
                                   <p>
                                     Rellena los campos:
-                                    <strong> cantidad (obligatorio) y descuento (opcional)</strong>.
+                                    <strong>
+                                      {" "}
+                                      cantidad (obligatorio) y descuento
+                                      (opcional)
+                                    </strong>
+                                    .
                                   </p>
                                   <div style={{ textAlign: "center" }}>
                                     <Image
@@ -498,7 +538,10 @@ const Help = () => {
                                   <h3> Paso 4. </h3>
                                   <p>
                                     Rellena los campos:
-                                    <strong> nombre y apellido (obligatorio) </strong>
+                                    <strong>
+                                      {" "}
+                                      nombre y apellido (obligatorio){" "}
+                                    </strong>
                                     y da clic en el botón <strong></strong>.
                                   </p>
                                   <div style={{ textAlign: "center" }}>
@@ -967,8 +1010,8 @@ const Help = () => {
                                   <p>
                                     Para realizar la actualización de un género
                                     literario, debe dar clic sobre el botón
-                                    <strong> Añadir </strong> que se encuentra en
-                                    la parte superior del formulario:
+                                    <strong> Añadir </strong> que se encuentra
+                                    en la parte superior del formulario:
                                   </p>
                                   <div style={{ textAlign: "center" }}>
                                     <Image
@@ -1216,7 +1259,10 @@ const Help = () => {
                       <p>
                         En este apartado del sistema podrás visualizar el stock
                         yacente de cada libro y sus respectivos estados
-                        <strong> (estado de unidades y estado de circulación)</strong>
+                        <strong>
+                          {" "}
+                          (estado de unidades y estado de circulación)
+                        </strong>
                         {isSuperAdmin
                           ? ", para los cuales se cuenta con los siguientes botones de acción:"
                           : "."}
@@ -1314,8 +1360,8 @@ const Help = () => {
                                   <p>
                                     Para realizar el retiro de stock de un
                                     libro, debe dar clic sobre el botón
-                                    <strong> Eliminar</strong> correspondiente al
-                                    registro que desea eliminar
+                                    <strong> Eliminar</strong> correspondiente
+                                    al registro que desea eliminar
                                   </p>
                                   <div style={{ textAlign: "center" }}>
                                     <Image
