@@ -12,6 +12,13 @@ const DashboardGraphs = ({ period }) => {
   const [lineDataEmpty, setLineDataEmpty] = useState(false);
   const [barDataEmpty, setBarDataEmpty] = useState(false);
   const [doughnutDataEmpty, setDoughnutDataEmpty] = useState(false);
+  const [totalBooks, setTotalBooks] = useState(0);
+  const [totalRevenue, setTotalRevenue] = useState(0);
+  const [totalSales, setTotalSales] = useState(0);
+  const [totalInvoices, setTotalInvoices] = useState(0);
+
+  // Supongamos que el rol de superadmin está representado por "superadmin"
+  const isSuperAdmin = localStorage.getItem("rol") === "superadmin";
 
   let lineChartInstance = useRef(null);
   let barChartInstance = useRef(null);
@@ -79,9 +86,9 @@ const DashboardGraphs = ({ period }) => {
               "#ffb3e6",
               "#ffd966",
               "#84dcc6",
-              "#ffc9de"
-          ],
-          borderColor: [
+              "#ffc9de",
+            ],
+            borderColor: [
               "#ff9aa8",
               "#a3cfff",
               "#ffe8a6",
@@ -93,8 +100,8 @@ const DashboardGraphs = ({ period }) => {
               "#ffb3e6",
               "#ffd966",
               "#84dcc6",
-              "#ffc9de"
-          ],
+              "#ffc9de",
+            ],
             borderWidth: 2.5,
           },
         ],
@@ -145,15 +152,15 @@ const DashboardGraphs = ({ period }) => {
               "#a3cfff",
               "#ffe8a6",
               "#8AD6D6",
-              "#9999ff"
+              "#9999ff",
             ],
             hoverBackgroundColor: [
               "#ff6384",
               "#36a2Eb",
               "#ffce56",
               "#4bc0c0",
-              "#6666ff"
-            ]
+              "#6666ff",
+            ],
           },
         ],
       },
@@ -201,6 +208,61 @@ const DashboardGraphs = ({ period }) => {
     };
   }, []);
 
+  useEffect(() => {
+    setLoading(true);
+    // Obtener datos de total de libros
+    fetch(`http://localhost:3001/dashboard/totalBooks?period=${period}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setTotalBooks(data.totalBooks);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error al obtener el total de libros:", error);
+        setLoading(false);
+        message.error("Error al obtener el total de libros");
+      });
+
+    // Obtener datos de total de ganancias
+    fetch(`http://localhost:3001/dashboard/totalRevenue?period=${period}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setTotalRevenue(data.totalRevenue);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error al obtener el total de ganancias:", error);
+        setLoading(false);
+        message.error("Error al obtener el total de ganancias");
+      });
+
+    // Obtener datos de total de libros vendidos
+    fetch(`http://localhost:3001/dashboard/totalSales?period=${period}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setTotalSales(data.totalSales);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error al obtener el total de libros vendidos:", error);
+        setLoading(false);
+        message.error("Error al obtener el total de libros vendidos");
+      });
+
+    // Obtener datos de total de facturas emitidas
+    fetch(`http://localhost:3001/dashboard/totalInvoices?period=${period}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setTotalInvoices(data.totalInvoices);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error al obtener el total de facturas emitidas:", error);
+        setLoading(false);
+        message.error("Error al obtener el total de facturas emitidas");
+      });
+  }, [period]);
+
   // Obtener datos de ventas por género
   useEffect(() => {
     setLoading(true);
@@ -225,14 +287,14 @@ const DashboardGraphs = ({ period }) => {
               {
                 label: "Ganancias por género",
                 data: sales,
-                borderColor: "rgba(140, 140, 255, 1)",
-                backgroundColor: "rgba(140, 140, 255, .5)",
+                borderColor: "rgba(54, 162, 235, 1)",
+                backgroundColor: "rgba(54, 162, 235, .5)",
                 borderWidth: 2.5,
                 fill: true,
                 pointStyle: "circle",
                 pointRadius: 7,
                 pointHoverRadius: 10,
-                tension: .8
+                tension: 0.8,
               },
             ],
           };
@@ -389,6 +451,58 @@ const DashboardGraphs = ({ period }) => {
 
   return (
     <Row gutter={16}>
+      {isSuperAdmin && (
+        <>
+          <Col xs={24} sm={24} md={24} lg={6} xl={6}>
+            <Card style={{ marginTop: "20px", backgroundColor: "#FF9AA8" }}>
+              <Spin spinning={loading} size="large" tip="Cargando...">
+                <Title level={5} style={{ marginTop: "0" }}>
+                  Total de libros
+                </Title>
+                <div style={{ fontSize: "28px" }}>
+                  {loading ? <Spin size="small" /> : totalBooks}
+                </div>
+              </Spin>
+            </Card>
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={6} xl={6}>
+            <Card style={{ marginTop: "20px", backgroundColor: "#A3CFFF" }}>
+              <Spin spinning={loading} size="large" tip="Cargando...">
+                <Title level={5} style={{ marginTop: "0" }}>
+                  Total de unidades vendidas
+                </Title>
+                <div style={{ fontSize: "28px" }}>
+                  {loading ? <Spin size="small" /> : totalSales}
+                </div>
+              </Spin>
+            </Card>
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={6} xl={6}>
+            <Card style={{ marginTop: "20px", backgroundColor: "#FFE8A6" }}>
+              <Spin spinning={loading} size="large" tip="Cargando...">
+                <Title level={5} style={{ marginTop: "0" }}>
+                  Total de ganancias
+                </Title>
+                <div style={{ fontSize: "28px" }}>
+                  {loading ? <Spin size="small" /> : `$${totalRevenue}`}
+                </div>
+              </Spin>
+            </Card>
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={6} xl={6}>
+            <Card style={{ marginTop: "20px", backgroundColor: "#8AD6D6" }}>
+              <Spin spinning={loading} size="large" tip="Cargando...">
+                <Title level={5} style={{ marginTop: "0" }}>
+                  Total de facturas emitidas
+                </Title>
+                <div style={{ fontSize: "28px" }}>
+                  {loading ? <Spin size="small" /> : totalInvoices}
+                </div>
+              </Spin>
+            </Card>
+          </Col>
+        </>
+      )}
       <Col xs={24} sm={24} md={24} lg={24} xl={24}>
         <Card style={{ marginTop: "20px" }}>
           <Spin spinning={loading} size="large" tip="Cargando...">
@@ -396,7 +510,13 @@ const DashboardGraphs = ({ period }) => {
               Escala de ventas por género
             </Title>
             {lineDataEmpty ? (
-              <div style={{ width: "100%", height: "300px", alignContent: "center" }}>
+              <div
+                style={{
+                  width: "100%",
+                  height: "300px",
+                  alignContent: "center",
+                }}
+              >
                 <Empty description="No hay datos disponibles" />
               </div>
             ) : (
@@ -414,7 +534,13 @@ const DashboardGraphs = ({ period }) => {
               Resumen de ventas
             </Title>
             {barDataEmpty ? (
-              <div style={{ width: "100%", height: "300px", alignContent: "center" }}>
+              <div
+                style={{
+                  width: "100%",
+                  height: "300px",
+                  alignContent: "center",
+                }}
+              >
                 <Empty description="No hay datos disponibles" />
               </div>
             ) : (
@@ -432,7 +558,13 @@ const DashboardGraphs = ({ period }) => {
               Libros más vendidos
             </Title>
             {doughnutDataEmpty ? (
-              <div style={{ width: "100%", height: "300px", alignContent: "center" }}>
+              <div
+                style={{
+                  width: "100%",
+                  height: "300px",
+                  alignContent: "center",
+                }}
+              >
                 <Empty description="No hay datos disponibles" />
               </div>
             ) : (
@@ -449,34 +581,34 @@ const DashboardGraphs = ({ period }) => {
             Añadido recientemente
           </Title>
           <Spin spinning={loading} size="large" tip="Cargando...">
-          <Table
-          columns={columns}
-          expandable={{
-            expandedRowRender: (record) => (
-            <p
-            style={{
-              margin: 0,
-            }}
-            >
-              {record.sinopsis}
-            </p>
-            ),
-            rowExpandable: (record) => record.name !== "Not Expandable",
-          }}
-          dataSource={
-            books.length === 0
-            ? null
-            : books.map((book, index) => ({
-              ...book,
-              key: index,
-            }))
-          } // Asignar una clave única para cada registro
-          pagination={false}
-          locale={{
-            emptyText: <Empty description="No hay libros disponibles" />,
-          }}
-          style={{ overflowX: 'auto' }}
-          />
+            <Table
+              columns={columns}
+              expandable={{
+                expandedRowRender: (record) => (
+                  <p
+                    style={{
+                      margin: 0,
+                    }}
+                  >
+                    {record.sinopsis}
+                  </p>
+                ),
+                rowExpandable: (record) => record.name !== "Not Expandable",
+              }}
+              dataSource={
+                books.length === 0
+                  ? null
+                  : books.map((book, index) => ({
+                      ...book,
+                      key: index,
+                    }))
+              } // Asignar una clave única para cada registro
+              pagination={false}
+              locale={{
+                emptyText: <Empty description="No hay libros disponibles" />,
+              }}
+              style={{ overflowX: "auto" }}
+            />
           </Spin>
         </Card>
       </Col>
