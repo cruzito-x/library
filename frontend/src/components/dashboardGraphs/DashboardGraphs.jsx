@@ -3,23 +3,26 @@ import Chart from "chart.js/auto";
 import { Card, Spin, Typography, Row, Col, Table, Empty, message } from "antd";
 
 const DashboardGraphs = ({ period }) => {
-  const { Title } = Typography;
-  const lineChartRef = useRef(null);
-  const barChartRef = useRef(null);
-  const doughnutChartRef = useRef(null);
+  const [totalBooks, setTotalBooks] = useState(0);
+  const [recentBooks, setRecentBooks] = useState(0);
+  const [totalSales, setTotalSales] = useState(0);
+  const [recentSales, setRecentSales] = useState(0);
+  const [totalRevenue, setTotalRevenue] = useState(0);
+  const [recentRevenue, setRecentRevenue] = useState(0);
+  const [totalInvoices, setTotalInvoices] = useState(0);
+  const [recentInvoices, setRecentInvoices] = useState(0);
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [lineDataEmpty, setLineDataEmpty] = useState(false);
   const [barDataEmpty, setBarDataEmpty] = useState(false);
   const [doughnutDataEmpty, setDoughnutDataEmpty] = useState(false);
-  const [totalBooks, setTotalBooks] = useState(0);
-  const [totalRevenue, setTotalRevenue] = useState(0);
-  const [totalSales, setTotalSales] = useState(0);
-  const [totalInvoices, setTotalInvoices] = useState(0);
+  const lineChartRef = useRef(null);
+  const barChartRef = useRef(null);
+  const doughnutChartRef = useRef(null);
 
   // Supongamos que el rol de superadmin está representado por "superadmin"
   const isSuperAdmin = localStorage.getItem("rol") === "superadmin";
-
+  const { Title } = Typography;
   let lineChartInstance = useRef(null);
   let barChartInstance = useRef(null);
   let doughnutChartInstance = useRef(null);
@@ -214,7 +217,8 @@ const DashboardGraphs = ({ period }) => {
     fetch(`http://localhost:3001/dashboard/totalBooks?period=${period}`)
       .then((response) => response.json())
       .then((data) => {
-        setTotalBooks(data.totalBooks);
+        setTotalBooks(data[0].totalBooks);
+        setRecentBooks(data[0].recentBooks);
         setLoading(false);
       })
       .catch((error) => {
@@ -227,7 +231,9 @@ const DashboardGraphs = ({ period }) => {
     fetch(`http://localhost:3001/dashboard/totalRevenue?period=${period}`)
       .then((response) => response.json())
       .then((data) => {
-        setTotalRevenue(data.totalRevenue);
+        console.log(data);
+        setTotalRevenue(data[0].totalRevenue);
+        setRecentRevenue(data[0].recentRevenue);
         setLoading(false);
       })
       .catch((error) => {
@@ -240,7 +246,8 @@ const DashboardGraphs = ({ period }) => {
     fetch(`http://localhost:3001/dashboard/totalSales?period=${period}`)
       .then((response) => response.json())
       .then((data) => {
-        setTotalSales(data.totalSales);
+        setTotalSales(data[0].totalSales);
+        setRecentSales(data[0].recentSales);
         setLoading(false);
       })
       .catch((error) => {
@@ -253,7 +260,8 @@ const DashboardGraphs = ({ period }) => {
     fetch(`http://localhost:3001/dashboard/totalInvoices?period=${period}`)
       .then((response) => response.json())
       .then((data) => {
-        setTotalInvoices(data.totalInvoices);
+        setTotalInvoices(data[0].totalInvoices);
+        setRecentInvoices(data[0].recentInvoices);
         setLoading(false);
       })
       .catch((error) => {
@@ -454,49 +462,122 @@ const DashboardGraphs = ({ period }) => {
       {isSuperAdmin && (
         <>
           <Col xs={24} sm={24} md={24} lg={6} xl={6}>
-            <Card style={{ marginTop: "20px", backgroundColor: "#FF9AA8" }}>
-              <Spin spinning={loading} size="large" tip="Cargando...">
+            <Card
+              style={{
+                marginTop: "20px",
+                backgroundColor: "#FF9AA8",
+                textAlign: "center",
+              }}
+              actions={[
                 <Title level={5} style={{ marginTop: "0" }}>
-                  Total de libros
-                </Title>
+                  Recientes
+                </Title>,
+                <Title level={5} style={{ marginTop: "0" }}>
+                  {recentBooks}
+                </Title>,
+              ]}
+            >
+              <Spin spinning={loading} size="large" tip="Cargando...">
                 <div style={{ fontSize: "28px" }}>
-                  {loading ? <Spin size="small" /> : totalBooks}
+                  <Title level={5} style={{ marginTop: "0" }}>
+                    Total de libros
+                  </Title>
+
+                  {loading ? (
+                    <Spin size="small" />
+                  ) : (
+                    <strong>{totalBooks}</strong>
+                  )}
                 </div>
               </Spin>
             </Card>
           </Col>
           <Col xs={24} sm={24} md={24} lg={6} xl={6}>
-            <Card style={{ marginTop: "20px", backgroundColor: "#A3CFFF" }}>
+            <Card
+              style={{
+                marginTop: "20px",
+                backgroundColor: "#A3CFFF",
+                textAlign: "center",
+              }}
+              actions={[
+                <Title level={5} style={{ marginTop: "0" }}>
+                  Recientes
+                </Title>,
+                <Title level={5} style={{ marginTop: "0" }}>
+                  {recentSales}
+                </Title>,
+              ]}
+            >
               <Spin spinning={loading} size="large" tip="Cargando...">
                 <Title level={5} style={{ marginTop: "0" }}>
-                  Total de unidades vendidas
+                  Unidades vendidas
                 </Title>
                 <div style={{ fontSize: "28px" }}>
-                  {loading ? <Spin size="small" /> : totalSales}
+                  {loading ? (
+                    <Spin size="small" />
+                  ) : (
+                    <strong> {totalSales} </strong>
+                  )}
                 </div>
               </Spin>
             </Card>
           </Col>
           <Col xs={24} sm={24} md={24} lg={6} xl={6}>
-            <Card style={{ marginTop: "20px", backgroundColor: "#FFE8A6" }}>
+            <Card
+              style={{
+                marginTop: "20px",
+                backgroundColor: "#FFE8A6",
+                textAlign: "center",
+              }}
+              actions={[
+                <Title level={5} style={{ marginTop: "0" }}>
+                  Recientes
+                </Title>,
+                <Title level={5} style={{ marginTop: "0" }}>
+                  ${recentRevenue}
+                </Title>,
+              ]}
+            >
               <Spin spinning={loading} size="large" tip="Cargando...">
                 <Title level={5} style={{ marginTop: "0" }}>
                   Total de ganancias
                 </Title>
                 <div style={{ fontSize: "28px" }}>
-                  {loading ? <Spin size="small" /> : `$${totalRevenue}`}
+                  {loading ? (
+                    <Spin size="small" />
+                  ) : (
+                    <strong>${totalRevenue}</strong>
+                  )}
                 </div>
               </Spin>
             </Card>
           </Col>
           <Col xs={24} sm={24} md={24} lg={6} xl={6}>
-            <Card style={{ marginTop: "20px", backgroundColor: "#8AD6D6" }}>
-              <Spin spinning={loading} size="large" tip="Cargando...">
+            <Card
+              style={{
+                marginTop: "20px",
+                backgroundColor: "#8AD6D6",
+                textAlign: "center",
+              }}
+              actions={[
                 <Title level={5} style={{ marginTop: "0" }}>
-                  Total de facturas emitidas
-                </Title>
+                  Recientes
+                </Title>,
+                <Title level={5} style={{ marginTop: "0" }}>
+                  {recentInvoices}
+                </Title>,
+              ]}
+            >
+              <Spin spinning={loading} size="large" tip="Cargando...">
                 <div style={{ fontSize: "28px" }}>
-                  {loading ? <Spin size="small" /> : totalInvoices}
+                  <Title level={5} style={{ marginTop: "0" }}>
+                    Total de facturas emitidas
+                  </Title>
+                  {loading ? (
+                    <Spin size="small" />
+                  ) : (
+                    <strong>{totalInvoices}</strong>
+                  )}
                 </div>
               </Spin>
             </Card>
