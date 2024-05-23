@@ -1,5 +1,50 @@
 const db = require("../config/db");
 
+exports.getTotalBooks = (req, res) => {
+  db.query("select count(*) as totalBooks from libros", (error, results) => {
+    if (error) {
+      console.error("Error al obtener el total de libros:", error.message);
+      res.status(500).json({ status: 500, error: "Error al obtener el total de libros" });
+    } else {
+      res.json({ totalBooks: results[0].totalBooks });
+    }
+  });
+};
+
+exports.getTotalRevenue = (req, res) => {
+  db.query("select sum(total) as totalRevenue from ventas", (error, results) => {
+    if (error) {
+      console.error("Error al obtener el total de ganancias:", error.message);
+      res.status(500).json({ status: 500, error: "Error al obtener el total de ganancias" });
+    } else {
+      res.json({ totalRevenue: results[0].totalRevenue });
+    }
+  });
+};
+
+exports.getTotalSales = (req, res) => {
+  db.query("select sum(cantidad) as totalSales from detalles_venta", (error, results) => {
+    if (error) {
+      console.error("Error al obtener el total de libros vendidos:", error.message);
+      res.status(500).json({ status: 500, error: "Error al obtener el total de libros vendidos" });
+    } else {
+      res.json({ totalSales: results[0].totalSales });
+    }
+  });
+};
+
+// Total de facturas emitidas
+exports.getTotalInvoices = (req, res) => {
+  db.query("select count(*) as totalInvoices from ventas", (error, results) => {
+    if (error) {
+      console.error("Error al obtener el total de facturas emitidas:", error.message);
+      res.status(500).json({ status: 500, error: "Error al obtener el total de facturas emitidas" });
+    } else {
+      res.json({ totalInvoices: results[0].totalInvoices });
+    }
+  });
+};
+
 exports.getGenresComparative = (req, res) => {
   const period = req.query.period || 7; // Valor predeterminado: últimos 7 días
   const selectSalesByGenre = "select g.nombreGenero as Genero, sum(dv.subtotal) as VentasTotales from ventas v inner join detalles_venta dv on v.idVenta = dv.idVenta inner join libros l on dv.idLibro = l.idLibro inner join genero g on l.genero = g.idGenero where v.estado = 'completado' and (g.deleted_at is null and v.deleted_at is null and dv.deleted_at is null) and v.fecha >= now() - interval ? day group by g.nombreGenero  order by VentasTotales asc;";
