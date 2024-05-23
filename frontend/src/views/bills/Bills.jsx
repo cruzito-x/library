@@ -242,9 +242,9 @@ const Bills = () => {
     doc.addImage(
       logo,
       "PNG",
-      doc.internal.pageSize.getWidth() - 37,
-      15,
-      27,
+      doc.internal.pageSize.getWidth() - 52,
+      12,
+      50,
       27
     );
     doc.setTextColor("#001529");

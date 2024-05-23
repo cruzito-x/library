@@ -18,7 +18,7 @@ const ReportTemplate = ({ reportData, period }) => {
       });
 
       // Agregar la imagen del logo centrada debajo del título
-      const imgWidth = 40;
+      const imgWidth = 90;
       const imgHeight = 40;
       const imgX = (doc.internal.pageSize.getWidth() - imgWidth) / 2;
       doc.addImage("/logo512.png", "PNG", imgX, 20, imgWidth, imgHeight);
