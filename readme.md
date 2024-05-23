@@ -30,20 +30,35 @@ cd library
 
 Instala las dependencias del frontend y del backend:
 ### Front-end
-```
+```javascript
 cd frontend
 ```
-```
+```javascript
 npm install
+```
+```javascript
+npm run start
 ```
 ### Back-end
-```
+```javascript
 cd backend
 ```
-```
+```javascript
 npm install
+```
+```javascript
+node app.js
 ```
 
 Configura la base de datos MySQL:
 - Crea una nueva base de datos MySQL.
 - Importa el archivo database.sql proporcionado en la carpeta data para crear la estructura de la base de datos.
+
+Al momento de importar la base de datos a tu gestor de MySQl, deberás ejecutar las siguientes instrucciones:
+
+```sql
+set global sql_mode = '';
+```
+```sql
+set global lc_time_names = 'es_ES';
+```
