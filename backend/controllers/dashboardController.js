@@ -1,46 +1,56 @@
 const db = require("../config/db");
 
 exports.getTotalBooks = (req, res) => {
-  db.query("select count(*) as totalBooks from libros", (error, results) => {
+  const period = req.query.period || 7;
+  const selectTotalBooks = "select(select count(*) from libros where deleted_at is null) as totalBooks, (select count(*) from libros where deleted_at is null and created_at >= date_sub(curdate(), interval ? day)) as recentBooks";
+
+  db.query(selectTotalBooks, [period], (error, results) => {
     if (error) {
       console.error("Error al obtener el total de libros:", error.message);
       res.status(500).json({ status: 500, error: "Error al obtener el total de libros" });
     } else {
-      res.json({ totalBooks: results[0].totalBooks });
+      res.json(results);
     }
   });
 };
 
 exports.getTotalRevenue = (req, res) => {
-  db.query("select sum(total) as totalRevenue from ventas", (error, results) => {
+  const period = req.query.period || 7;
+  const selectTotalRevenue = "select(select sum(total) from ventas where deleted_at is null) as totalRevenue, (select sum(total) as totalRevenue from ventas where deleted_at is null and created_at >= date_sub(curdate(), interval ? day) ) as recentRevenue";
+  
+  db.query(selectTotalRevenue, [period], (error, results) => {
     if (error) {
       console.error("Error al obtener el total de ganancias:", error.message);
       res.status(500).json({ status: 500, error: "Error al obtener el total de ganancias" });
     } else {
-      res.json({ totalRevenue: results[0].totalRevenue });
+      res.json(results);
     }
   });
 };
 
 exports.getTotalSales = (req, res) => {
-  db.query("select sum(cantidad) as totalSales from detalles_venta", (error, results) => {
+  const period = req.query.period || 7;
+  const selectTotalSales = "select(select sum(cantidad) from detalles_venta) as totalSales, (select sum(cantidad) as totalSales from detalles_venta where created_at >= date_sub(curdate(), interval? day)) as recentSales";
+
+  db.query(selectTotalSales, [period], (error, results) => {
     if (error) {
       console.error("Error al obtener el total de libros vendidos:", error.message);
       res.status(500).json({ status: 500, error: "Error al obtener el total de libros vendidos" });
     } else {
-      res.json({ totalSales: results[0].totalSales });
+      res.json(results);
     }
   });
 };
 
-// Total de facturas emitidas
 exports.getTotalInvoices = (req, res) => {
-  db.query("select count(*) as totalInvoices from ventas", (error, results) => {
+  const period = req.query.period || 7; // Valor predeterminado: últimos 7 días
+  const selectTotalInvoices = "select(select count(*) from ventas where deleted_at is null) as totalInvoices, (select count(*) as totalInvoices from ventas where deleted_at is null and created_at >= date_sub(curdate(), interval? day) ) as recentInvoices";
+  db.query(selectTotalInvoices, [period], (error, results) => {
     if (error) {
       console.error("Error al obtener el total de facturas emitidas:", error.message);
       res.status(500).json({ status: 500, error: "Error al obtener el total de facturas emitidas" });
     } else {
-      res.json({ totalInvoices: results[0].totalInvoices });
+      res.json(results);
     }
   });
 };
