@@ -245,7 +245,7 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
                 Cancelar
               </Button>,
               <Button key="submit" type="primary" onClick={saveChanges}>
-                Guardar Cambios
+                Guardar cambios
               </Button>,
             ]}
           >

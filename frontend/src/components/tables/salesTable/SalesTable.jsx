@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
+import { InfoCircleOutlined } from '@ant-design/icons';
 import {
   Row,
   Col,
@@ -131,13 +132,18 @@ const SalesTable = ({ salesData, refreshTable, setRefreshTable }) => {
         </Col>
         <Col xs={24} sm={24} md={24} lg={8} xl={8}>
           <Modal
-            title="Detalles de venta"
+            title={
+              <>
+                <InfoCircleOutlined style={{ color: '#1890ff', marginRight: '10px' }} />
+                Detalles de venta
+              </>
+            }
             open={modal1Open}
             onCancel={() => setModal1Open(false)}
             footer={[
-              <Button key="back" primary onClick={() => setModal1Open(false)}>
+              <Button key="back" type="primary" onClick={() => setModal1Open(false)}>
                 Cerrar
-              </Button>,
+              </Button>
             ]}
           >
             {selectedRowData && (

@@ -56,8 +56,12 @@ const Users = () => {
   const showAddModal = () => {
     confirm({
       width: "35%",
-      title: "Añadir nuevo usuario",
-      icon: <PlusCircleFilled />,
+      title: 
+        <>
+          <PlusCircleOutlined style={{ color: '#1890ff', marginRight: '10px' }} />
+          Añadir nuevo usuario
+        </>,
+      icon: null,
       style: { top: "5%" },
       content: (
         <Form

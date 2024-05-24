@@ -51,8 +51,12 @@ const Genres = () => {
   const showAddModal = () => {
     confirm({
       width: "35%",
-      title: "Añadir género literario",
-      icon: <PlusCircleFilled />,
+      title: 
+        <>
+          <PlusCircleOutlined style={{ color: '#1890ff', marginRight: '10px' }} />
+          Añadir nuevo género literario
+        </>,
+      icon: null,
       style: { top: "5%" },
       content: (
         <Form

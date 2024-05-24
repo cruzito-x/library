@@ -86,8 +86,12 @@ const Books = () => {
   const showAddModal = () => {
     confirm({
       width: "35%",
-      title: "Añadir libro",
-      icon: <PlusCircleFilled />,
+      title: 
+        <>
+          <PlusCircleOutlined style={{ color: '#1890ff', marginRight: '10px' }} />
+          Añadir nuevo libro
+        </>,
+      icon: null,
       style: { top: "5%" },
       content: (
         <Form

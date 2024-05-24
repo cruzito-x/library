@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
+  EditOutlined,
   SmileOutlined,
   FrownOutlined,
   EyeTwoTone,
@@ -253,7 +254,12 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
       </Row>
 
       <Modal
-        title="Editar usuario"
+        title={
+          <>
+            <EditOutlined style={{ color: '#fbac14', marginRight: '10px' }} />
+            Editar información de usuario
+          </>
+        }
         open={modal1Open}
         onCancel={() => setModal1Open(false)}
         footer={[
@@ -261,7 +267,7 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
             Cancelar
           </Button>,
           <Button key="submit" type="primary" onClick={saveChanges}>
-            Guardar Cambios
+            Guardar cambios
           </Button>,
         ]}
       >

@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from "react";
+import { InfoCircleOutlined, EditOutlined  } from '@ant-design/icons';
 import {
   Tag,
   Button,
@@ -224,11 +225,16 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
           <Col xs={24} sm={24} md={24} lg={8} xl={8}>
 
           <Modal
-            title="Detalles del libro"
+            title={
+              <>
+                <InfoCircleOutlined style={{ color: '#1890ff', marginRight: '10px' }} />
+                Detalles del libro
+              </>
+            }
             open={modal1Open}
             onCancel={() => setModal1Open(false)}
             footer={[
-              <Button key="back" primary onClick={() => setModal1Open(false)}>
+              <Button key="back" type="primary" onClick={() => setModal1Open(false)}>
                 Cerrar
               </Button>
             ]}
@@ -270,7 +276,12 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
           </Modal>
 
           <Modal
-            title="Editar Libro"
+            title={
+              <>
+                <EditOutlined style={{ color: '#fbac14', marginRight: '10px' }} />
+                Editar información de libro
+              </>
+            }
             open={modal2Open}
             onCancel={() => setModal2Open(false)}
             footer={[
@@ -278,7 +289,7 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
                 Cancelar
               </Button>,
               <Button key="submit" type="primary" onClick={saveChanges}>
-                Guardar Cambios
+                Guardar cambios
               </Button>
             ]}
           >
