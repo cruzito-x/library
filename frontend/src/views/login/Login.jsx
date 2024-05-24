@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Card, Form, Input, Button, message } from "antd";
+import { Card, Form, Input, Button, message, Image } from "antd";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -58,8 +58,9 @@ const Login = () => {
             marginBottom: "15px",
           }}
         >
-          <img
-            src={"logo512.png"}
+          <Image
+            src={"logo.png"}
+            preview={false}
             style={{ width: "150px", height: "75px", borderRadius: "50%" }}
             alt="Product photo"
           />
