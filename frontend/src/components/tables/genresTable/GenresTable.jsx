@@ -51,7 +51,7 @@ const GenresTable = ({ genresData, refreshTable, setRefreshTable }) => {
   }, [refreshTable]);
 
   const handleGenreClick = (idGenero) => {
-    fetch(`http://localhost:3001/genres/${idGenero}/libros`)
+    fetch(`http://localhost:3001/genres/booksByGenre/${idGenero}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener los libros del género");

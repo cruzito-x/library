@@ -13,6 +13,20 @@ exports.getGenres = (req, res) => {
   });
 }
 
+exports.getBooksByGenre = (req, res) => {
+  const { idGenero } = req.params;
+  const query = "select l.titulo, l.autor, l.precio from libros l where l.genero = ? and l.deleted_at is null";
+  db.query(query, [idGenero], (error, results) => {
+    if (error) {
+      console.error("Error al obtener los libros del género:", error.message);
+      res.status(500).json({ status: 500, message: "Error interno del servidor" });
+      return;
+    }
+    res.status(200).json(results);
+  });
+};
+
+
 exports.saveGenre = (req, res) => {
   const idGenero = crypto.createHash("md5").update(new Date().toISOString()).digest("hex");
 
