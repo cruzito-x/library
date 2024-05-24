@@ -54,6 +54,7 @@ import successGenreUpdated from "../../assets/images/superadmin/genres/successGe
 import successGenreDeleted from "../../assets/images/superadmin/genres/successGenreDeleted.png";
 import refreshGenresTableAfterUpdate from "../../assets/images/superadmin/genres/refreshGenresTableAfterUpdate.png";
 import refreshGenresTableAfterDelete from "../../assets/images/superadmin/genres/refreshGenresTableAfterDelete.png";
+import genreDetailsBooks from "../../assets/images/superadmin/genres/genreDetailsBooks.png";
 import users from "../../assets/images/superadmin/users/users.png";
 import saveUser from "../../assets/images/superadmin/users/saveUser.png";
 import successUserSaved from "../../assets/images/superadmin/users/successUserSaved.png";
@@ -1284,6 +1285,43 @@ const Help = () => {
                                     description="Si se elimina un género literario que ya contiene libros dentro de sí, todos los que pertenezcan a este ya no serán accesibles desde las vistas adyacentes a ellos."
                                     type="warning"
                                   />
+                                </>
+                              ),
+                            },
+                          ]}
+                        />
+
+                        <br />
+                        <Collapse
+                          size="large"
+                          items={[
+                            {
+                              key: "4",
+                              label: "Visualizar detalle de un género",
+                              children: (
+                                <>
+                                  <p>
+                                    {" "}
+                                    Al dar clic sobre un género se desplegará el
+                                    siguiente modal:
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={genreDetailsBooks}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "80%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <p>
+                                    {" "}
+                                    Donde podrás visualizar el detalle del
+                                    género seleccionado, donde podrás visualizar
+                                    que libros pertencen a dicho género, tanto
+                                    su nombre, autor y precio unitario.{" "}
+                                  </p>
                                 </>
                               ),
                             },

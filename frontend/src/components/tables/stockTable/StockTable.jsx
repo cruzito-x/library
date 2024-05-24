@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { EditOutlined } from "@ant-design/icons";
 import {
   Row,
   Col,
@@ -237,7 +238,12 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
           </Spin>
 
           <Modal
-            title="Editar existencias"
+            title={
+              <>
+                <EditOutlined style={{ color: '#fabc14', marginRight: '10px' }} />
+                Editar existencias de libro
+              </>
+            }
             open={modal1Open}
             onCancel={() => setModal1Open(false)}
             footer={[
