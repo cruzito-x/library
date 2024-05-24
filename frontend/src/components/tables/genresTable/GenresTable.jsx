@@ -288,7 +288,9 @@ const GenresTable = ({ genresData, refreshTable, setRefreshTable }) => {
               ]}
               dataSource={books}
               pagination={true}
-              rowKey="id"
+              locale={{
+                emptyText: <Empty description="No hay libros disponibles para este género" />,
+              }}
             />
           </Modal>
         </Col>
