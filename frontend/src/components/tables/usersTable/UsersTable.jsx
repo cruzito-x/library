@@ -16,6 +16,7 @@ import {
   Form,
   Input,
   Select,
+  Tag,
   Empty,
   message,
 } from "antd";
@@ -150,17 +151,21 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
       render: (text) => {
         if (text == null) {
           return (
-            <span>
+            <>
               {" "}
-              <SmileOutlined style={{ color: "#20c997" }} /> Activo{" "}
-            </span>
+              <Tag bordered={false} color="success">
+                 <SmileOutlined/> Activo
+              </Tag>
+            </>
           );
         } else {
           return (
-            <span>
+            <>
               {" "}
-              <FrownOutlined style={{ color: "#ff4d4f" }} /> Inactivo{" "}
-            </span>
+              <Tag bordered={false} color="error">
+                <FrownOutlined style={{ color: "#ff4d4f" }} /> Inactivo
+              </Tag>
+            </>
           );
         }
       },
@@ -208,7 +213,7 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
         <>
           <Button
             type="primary"
-            style={{ marginRight: "20px", backgroundColor: "#20c997" }}
+            style={{ marginRight: "20px", backgroundColor: "#fbac14" }}
             onClick={() => handleEdit(record)}
           >
             Editar
@@ -267,7 +272,7 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
             rules={[
               {
                 required: true,
-                message: "Por favor, ingrese un nombre de usuario",
+                message: "Por favor, introduzca un nombre de usuario",
               },
             ]}
           >
@@ -280,7 +285,7 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
             rules={[
               {
                 required: true,
-                message: "Por favor, ingrese una contraseña",
+                message: "Por favor, introduzca una contraseña",
               },
             ]}
           >

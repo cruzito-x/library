@@ -165,7 +165,7 @@ const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
         <>
           <Button
             type="primary"
-            style={{ marginRight: "20px", backgroundColor: "#20c997" }}
+            style={{ marginRight: "20px", backgroundColor: "#fbac14" }}
             onClick={() => handleEdit(record)}
           >
             Editar

@@ -77,7 +77,7 @@ const Login = () => {
             name="username"
             rules={[
               {
-                message: "Por favor ingrese su usuario",
+                message: "Por favor introduzca su usuario",
               },
             ]}
           >
@@ -87,7 +87,7 @@ const Login = () => {
           <Form.Item
             label="Contraseña:"
             name="password"
-            rules={[{ message: "Por favor ingrese su contraseña" }]}
+            rules={[{ message: "Por favor introduzca su contraseña" }]}
           >
             <Input.Password
               placeholder="Contraseña"

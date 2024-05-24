@@ -173,7 +173,7 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
       render: (text, record) => (
         <>
           <Button type="primary"
-            style={{ marginRight: "20px", backgroundColor: "#20c997" }}
+            style={{ marginRight: "20px", backgroundColor: "#fbac14" }}
             onClick={() => handleEdit(record)}
           >
             Editar

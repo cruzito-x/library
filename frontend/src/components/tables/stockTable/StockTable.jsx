@@ -136,7 +136,7 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
       })
       .then((data) => {
         if(data.status !== 200 || data.status !== 304) {
-          message.error(data.message);
+          message.success(data.message);
         } else if (data.status === 400) {
           message.warning(data.message);
         } else if (data.status === 500) {
@@ -203,7 +203,7 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
          <>
            <Button
              type="primary"
-             style={{ marginRight: "20px", backgroundColor: "#20c997" }}
+             style={{ marginRight: "20px", backgroundColor: "#fbac14" }}
              onClick={() => handleEdit(record)}
            >
              Editar
@@ -262,7 +262,7 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
                 rules={[
                   {
                     required: true,
-                    message: "Por favor, ingrese la cantidad de existencia",
+                    message: "Por favor, introduzca la cantidad de existencia",
                   },
                 ]}
               >

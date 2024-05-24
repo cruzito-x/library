@@ -65,7 +65,7 @@ import successUserDeleted from "../../assets/images/superadmin/users/successUser
 import refreshUsersTableAfterDelete from "../../assets/images/superadmin/users/refreshUsersTableAfterDelete.png";
 import stock from "../../assets/images/superadmin/stock/stock.png";
 import adminStock from "../../assets/images/admin/stock/stock.png";
-import editStock from "../../assets/images/superadmin/stock/editStock.png";
+import updateStock from "../../assets/images/superadmin/stock/updateStock.png";
 import successStockUpdated from "../../assets/images/superadmin/stock/successStockUpdated.png";
 import popConfirmDeleteStock from "../../assets/images/buttons/popConfirmDeleteStock.png";
 import successStockDeleted from "../../assets/images/superadmin/stock/successStockDeleted.png";
@@ -1376,7 +1376,7 @@ const Help = () => {
                                   </p>
                                   <div style={{ textAlign: "center" }}>
                                     <Image
-                                      src={editStock}
+                                      src={updateStock}
                                       preview={false} // Desactiva la previsualización si no es necesaria
                                       style={{
                                         maxWidth: "100%",

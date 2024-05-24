@@ -153,29 +153,34 @@ const Bills = () => {
 
   const handleIncreaseBook = (value) => {
     const updatedBooks = selectedBooks.map((book) => {
-      if (book.value === value) {
-        const newCantidad = book.cantidad + 1;
-        const selectedBook = books.find((b) => b.value === value);
-        if (newCantidad > selectedBook.existencia) {
-          message.warning(
-            `Sólo hay ${selectedBook.existencia} libros disponibles.`
-          );
-          return book;
+        if (book.value === value) {
+            const newCantidad = book.cantidad + 1;
+            const selectedBook = books.find((b) => b.value === value);
+            if (newCantidad > selectedBook.existencia) {
+                message.warning(
+                    `Sólo hay ${selectedBook.existencia} libros disponibles.`
+                );
+                return book;
+            }
+            if (newCantidad > 10) { // Limitar a un máximo de 10 unidades
+                message.warning("No se pueden añadir más de 10 unidades.");
+                return book;
+            }
+            const newSubtotal = (newCantidad * book.precioUnitario).toFixed(2);
+            const newDescuento = book.descuento;
+            const newTotal = (newSubtotal - newDescuento).toFixed(2);
+            return {
+                ...book,
+                cantidad: newCantidad,
+                subtotal: newSubtotal,
+                total: newTotal,
+            };
         }
-        const newSubtotal = (newCantidad * book.precioUnitario).toFixed(2);
-        const newDescuento = book.descuento;
-        const newTotal = (newSubtotal - newDescuento).toFixed(2);
-        return {
-          ...book,
-          cantidad: newCantidad,
-          subtotal: newSubtotal,
-          total: newTotal,
-        };
-      }
-      return book;
+        return book;
     });
     setSelectedBooks(updatedBooks);
   };
+
 
   const handleReduceBook = (value) => {
     const updatedBooks = selectedBooks
@@ -485,12 +490,12 @@ const Bills = () => {
               </Form.Item>
             </Col>
             <Col xs={24} sm={12} md={8}>
-              <Form.Item label="Cantidad" name="cantidad" rules={[{ required: true, message: "Por favor ingrese la cantidad" }]}>
-                <InputNumber min={1} defaultValue={1} style={{ width: "100%" }} />
+              <Form.Item label="Cantidad" name="cantidad" rules={[{ required: true, message: "Por favor introduzca la cantidad" }]}>
+                <InputNumber min={1} max={10} placeholder="Introduzca una cantidad entre 1 y 10" defaultValue={1} style={{ width: "100%" }} />
               </Form.Item>
             </Col>
             <Col xs={24} sm={12} md={8}>
-              <Form.Item label="Nombre" name="nombre" rules={[{ required: true, message: "Por favor ingrese el nombre" }]}>
+              <Form.Item label="Nombre" name="nombre" rules={[{ required: true, message: "Por favor introduzca el nombre" }]}>
                 <Input prefix={<UserOutlined />} placeholder="Nombre" />
               </Form.Item>
             </Col>
@@ -507,7 +512,7 @@ const Bills = () => {
               </Form.Item>
             </Col>
             <Col xs={24} sm={12} md={8}>
-              <Form.Item label="Apellido" name="apellido" rules={[{ required: true, message: "Por favor ingrese el apellido" }]}>
+              <Form.Item label="Apellido" name="apellido" rules={[{ required: true, message: "Por favor introduzca el apellido" }]}>
                 <Input prefix={<UserOutlined />} placeholder="Apellido" />
               </Form.Item>
             </Col>

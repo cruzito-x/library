@@ -67,10 +67,10 @@ const Users = () => {
             layout: "vertical",
           }}
         >
-          <Form.Item label="Usuario:" name="nombreUsuario" rules={[{ required: true, message: 'Por favor, ingrese un nombre de usuario' }]} >
+          <Form.Item label="Usuario:" name="nombreUsuario" rules={[{ required: true, message: 'Por favor, introduzca un nombre de usuario' }]} >
             <Input placeholder="ej. David Cruz" name="nombreUsuario" />
           </Form.Item>
-          <Form.Item label="Contraseña:" name="password" rules={[{ required: true, message: 'Por favor, ingrese una contraseña' }]} >
+          <Form.Item label="Contraseña:" name="password" rules={[{ required: true, message: 'Por favor, introduzca una contraseña' }]} >
             <Input.Password
               placeholder="ej. 12345678"
               maxLength={8}
