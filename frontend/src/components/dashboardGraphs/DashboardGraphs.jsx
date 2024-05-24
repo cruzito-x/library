@@ -227,21 +227,6 @@ const DashboardGraphs = ({ period }) => {
         message.error("Error al obtener el total de libros");
       });
 
-    // Obtener datos de total de ganancias
-    fetch(`http://localhost:3001/dashboard/totalRevenue?period=${period}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setTotalRevenue(data[0].totalRevenue);
-        setRecentRevenue(data[0].recentRevenue);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error al obtener el total de ganancias:", error);
-        setLoading(false);
-        message.error("Error al obtener el total de ganancias");
-      });
-
     // Obtener datos de total de libros vendidos
     fetch(`http://localhost:3001/dashboard/totalSales?period=${period}`)
       .then((response) => response.json())
@@ -251,9 +236,21 @@ const DashboardGraphs = ({ period }) => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error al obtener el total de libros vendidos:", error);
         setLoading(false);
         message.error("Error al obtener el total de libros vendidos");
+      });
+
+    // Obtener datos de total de ganancias
+    fetch(`http://localhost:3001/dashboard/totalRevenue?period=${period}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setTotalRevenue(data[0].totalRevenue);
+        setRecentRevenue(data[0].recentRevenue);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+        message.error("Error al obtener el total de ganancias");
       });
 
     // Obtener datos de total de facturas emitidas
@@ -265,7 +262,6 @@ const DashboardGraphs = ({ period }) => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error al obtener el total de facturas emitidas:", error);
         setLoading(false);
         message.error("Error al obtener el total de facturas emitidas");
       });
@@ -323,13 +319,13 @@ const DashboardGraphs = ({ period }) => {
       });
   }, [period]);
 
-  // Obtener la lista de las ventas del mes
+  // Obtener la lista de las ventas
   useEffect(() => {
     setLoading(true);
     fetch(`http://localhost:3001/dashboard/salesResume?period=${period}`)
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Error al obtener la lista de ventas del mes actual");
+          throw new Error("Error al obtener la lista de ventas");
         }
         return response.json();
       })
@@ -465,7 +461,7 @@ const DashboardGraphs = ({ period }) => {
             <Card
               style={{
                 marginTop: "20px",
-                backgroundColor: "#FF9AA8",
+                backgroundColor: "#ff9aa8",
                 textAlign: "center",
               }}
               actions={[
@@ -496,7 +492,7 @@ const DashboardGraphs = ({ period }) => {
             <Card
               style={{
                 marginTop: "20px",
-                backgroundColor: "#A3CFFF",
+                backgroundColor: "#a3cfff",
                 textAlign: "center",
               }}
               actions={[
@@ -526,7 +522,7 @@ const DashboardGraphs = ({ period }) => {
             <Card
               style={{
                 marginTop: "20px",
-                backgroundColor: "#FFE8A6",
+                backgroundColor: "#ffe8a6",
                 textAlign: "center",
               }}
               actions={[
@@ -556,7 +552,7 @@ const DashboardGraphs = ({ period }) => {
             <Card
               style={{
                 marginTop: "20px",
-                backgroundColor: "#8AD6D6",
+                backgroundColor: "#8ad6d6",
                 textAlign: "center",
               }}
               actions={[
