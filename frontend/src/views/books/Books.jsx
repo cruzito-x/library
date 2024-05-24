@@ -97,19 +97,19 @@ const Books = () => {
             layout: "vertical",
           }}
         >
-          <Form.Item label="Libro:" name="titulo">
+          <Form.Item label="Libro:" name="titulo" rules={[{required: true, message: "Introduzca el nombre del libro" }]}>
             <Input placeholder="ej. Jícaras tristes" name="titulo" />
           </Form.Item>
-          <Form.Item label="Autor:" name="autor">
+          <Form.Item label="Autor:" name="autor" rules={[{required: true, message: "Introduzca el nombre del autor" }]}>
             <Input placeholder="ej. Alfredo Espino" name="autor" />
           </Form.Item>
-          <Form.Item label="Año de publicación:" name="fechaPublicacion">
-            <Input placeholder="ej. 2024" name="fechaPublicacion" maxLength={4} />
+          <Form.Item label="Año de publicación:" name="fechaPublicacion" rules={[{required: true, message: "Introduzca una fecha entre 1901 y 2024" }]}>
+            <InputNumber min={1901} max={2024} placeholder="Introduzca un año entre 1901 y 2024" name="fechaPublicacion" maxLength={4} style={{ width: '100%'}} />
           </Form.Item>
-          <Form.Item label="Precio:" name="precio">
+          <Form.Item label="Precio:" name="precio" rules={[{required: true, message: "Introduzca el precio unitario del libro" }]}>
             <Input prefix="$" placeholder="0.00" name="precio" />
           </Form.Item>
-          <Form.Item label="Género:" name="genero">
+          <Form.Item label="Género:" name="genero" rules={[{required: true, message: "Seleccione un género literario" }]}>
             <Select
               defaultValue="Seleccionar género"
               onChange={handleChange}
@@ -119,13 +119,13 @@ const Books = () => {
               }))}
             />
           </Form.Item>
-          <Form.Item label="ISBN:" name="isbn">
+          <Form.Item label="ISBN:" name="isbn" rules={[{required: true, message: "Introduzca un ISBN" }]}>
             <Input placeholder="978-8484050421" name="isbn" maxLength={14} />
           </Form.Item>
-          <Form.Item label="Ingreso:" name="existencia">
-            <InputNumber min={1} max={500} defaultValue={1} name="existencia" style={{ width: "100%" }} />
+          <Form.Item label="Ingreso:" name="existencia" rules={[{required: true, message: "Introduzca una cantidad entre 1 y 500" }]}>
+            <InputNumber min={1} max={500} placeholder="Introduzca una cantidad entre 1 y 500" name="existencia" style={{ width: "100%" }} />
           </Form.Item>
-          <Form.Item label="Descripción:" name="sinopsis">
+          <Form.Item label="Descripción:" name="sinopsis" rules={[{required: true, message: "Introduzca una descripción" }]}>
             <TextArea
               rows={6}
               placeholder="Descripción del libro"
@@ -135,7 +135,7 @@ const Books = () => {
               style={{ height: 120, resize: "none" }}
             />
           </Form.Item>
-          <Form.Item label="Portada:" name="portada">
+          <Form.Item label="Portada:" name="portada" rules={[{required: true, message: "Seleccione una imágen para portada" }]}>
             <Space
               direction="vertical"
               style={{

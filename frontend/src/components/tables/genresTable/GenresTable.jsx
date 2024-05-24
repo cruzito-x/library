@@ -214,7 +214,7 @@ const GenresTable = ({genresData, refreshTable, setRefreshTable }) => {
             ]}
           >
             <Form form={form}>
-              <Form.Item label="Género:" name="nombreGenero">
+              <Form.Item label="Género:" name="nombreGenero" rules={[{ required: true, message: "Introduzca un nuevo nombre de género" }]}>
                 <Input placeholder="ej. Terror" name="nombreGenero" />
               </Form.Item>
             </Form>

@@ -10,12 +10,12 @@ const NotFound = () => {
         status="404"
         title="404"
         subTitle="Lo sentimos, la página deseada no existe."
-        style={{ marginTop: "10%" }}
+        style={{ marginTop: "9.8%" }}
       />
 
       <Footer style={{ backgroundColor: '#ffffff', marginTop: '11%', textAlign: "center" }}>
         {/* cruzito's Design ©{new Date().getFullYear()} - Created by David Cruz */}
-        ©{new Date().getFullYear()}
+        &copy;PagePal {new Date().getFullYear()} - All rights reserved.
       </Footer>
     </>
   );

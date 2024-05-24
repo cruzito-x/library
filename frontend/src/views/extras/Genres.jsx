@@ -62,7 +62,7 @@ const Genres = () => {
             layout: "vertical",
           }}
         >
-          <Form.Item label="Género:" name="nombreGenero">
+          <Form.Item label="Género:" name="nombreGenero" rules={[{required: true, message: "Introduzca un nombre para el género" }]} >
             <Input placeholder="ej. Terror" name="nombreGenero" />
           </Form.Item>
         </Form>

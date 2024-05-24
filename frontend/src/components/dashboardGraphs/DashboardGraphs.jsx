@@ -470,7 +470,7 @@ const DashboardGraphs = ({ period }) => {
               }}
               actions={[
                 <Title level={5} style={{ marginTop: "0" }}>
-                  Recientes
+                  Actividad reciente
                 </Title>,
                 <Title level={5} style={{ marginTop: "0" }}>
                   {recentBooks}
@@ -501,7 +501,7 @@ const DashboardGraphs = ({ period }) => {
               }}
               actions={[
                 <Title level={5} style={{ marginTop: "0" }}>
-                  Recientes
+                  Actividad reciente
                 </Title>,
                 <Title level={5} style={{ marginTop: "0" }}>
                   {recentSales}
@@ -531,7 +531,7 @@ const DashboardGraphs = ({ period }) => {
               }}
               actions={[
                 <Title level={5} style={{ marginTop: "0" }}>
-                  Recientes
+                  Actividad reciente
                 </Title>,
                 <Title level={5} style={{ marginTop: "0" }}>
                   ${recentRevenue}
@@ -561,7 +561,7 @@ const DashboardGraphs = ({ period }) => {
               }}
               actions={[
                 <Title level={5} style={{ marginTop: "0" }}>
-                  Recientes
+                  Actividad reciente
                 </Title>,
                 <Title level={5} style={{ marginTop: "0" }}>
                   {recentInvoices}

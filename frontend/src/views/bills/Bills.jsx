@@ -467,7 +467,7 @@ const Bills = () => {
               </Form.Item>
             </Col>
             <Col xs={24} sm={12} md={8}>
-              <Form.Item label="Descuento (%)" name="descuento" initialValue={0} rules={[{ type: "number", min: 0, max: 90, message: "Ingrese un descuento válido (0-90)" }]}>
+              <Form.Item label="Descuento (%)" name="descuento" initialValue={0} rules={[{ type: "number", min: 0, max: 90, message: "Introduzca un descuento válido (0-90)" }]}>
                 <InputNumber min={0} max={90} defaultValue={0} style={{ width: "100%" }} />
               </Form.Item>
             </Col>

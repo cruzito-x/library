@@ -109,7 +109,7 @@ const Sidebar = () => {
           </Routes>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
-          &reg;PagePal {new Date().getFullYear()} - All rights reserved.
+          &copy;PagePal {new Date().getFullYear()} - All rights reserved.
         </Footer>
       </Layout>
     </Layout>

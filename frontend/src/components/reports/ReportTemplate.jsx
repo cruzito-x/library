@@ -82,7 +82,7 @@ const ReportTemplate = ({ reportData, period }) => {
         } en comparación a ${
           period == 7
             ? "la semana anterior"
-            : period == 7
+            : period == 14
             ? "las 2 semanas anteriores"
             : period == 30
             ? "el mes anterior"
@@ -144,7 +144,7 @@ const ReportTemplate = ({ reportData, period }) => {
       ]);
       doc.autoTable({
         startY: posYGeneros + 10,
-        head: [["#", "Género", "Ventas"]],
+        head: [["#", "Género", "Unidades vendidas"]],
         body: generosData,
       });
 
@@ -152,20 +152,33 @@ const ReportTemplate = ({ reportData, period }) => {
       doc.setFontSize(16);
       const posYTitulos = doc.autoTable.previous.finalY + 20;
       doc.text("Títulos más vendidos:", 10, posYTitulos);
-      const titulosData = reportData[0].map((item, index) => [
-        index + 1,
-        item.titulo,
-        item.ventas,
-      ]); // Debes definir cómo obtener estos datos de reportData
-      doc.autoTable({
-        startY: posYTitulos + 10,
-        head: [["#", "Título", "Ventas"]],
-        body: titulosData,
-      });
+      if (reportData[0].length > 0) {
+        const titulosData = reportData[0].map((item, index) => [
+          index + 1,
+          item.titulo,
+          item.ventas,
+        ]);
+        doc.autoTable({
+          startY: posYTitulos + 10,
+          head: [["#", "Título", "Unidades vendidas"]],
+          body: titulosData,
+        });
+      } else {
+        doc.text("No hay datos para mostrar", 10, posYTitulos + 10, {
+          maxWidth: 190,
+        });
+      }
 
       // Títulos Más Vendidos
       doc.setFontSize(16);
-      const posYRecientes = doc.autoTable.previous.finalY + 20;
+      let posYRecientes;
+
+      if (reportData[4].length > 0) {
+        posYRecientes = doc.autoTable.previous.finalY + 20;
+      } else {
+        posYRecientes = doc.autoTable.previous.finalY + 50;
+      }
+      
       let message;
 
       switch (period) {
@@ -191,7 +204,7 @@ const ReportTemplate = ({ reportData, period }) => {
       doc.text(message, 10, posYRecientes);
       doc.setFontSize(12);
       if (reportData[4].length > 0) {
-        if (reportData[4].length > 15) {
+        if (reportData[4].length > 100) {
           doc.text(
             `${
               period == 7
@@ -243,7 +256,7 @@ const ReportTemplate = ({ reportData, period }) => {
         });
       } else {
         doc.text("No hay datos para mostrar", 10, posYRecientes + 10, {
-          maxWidth: 190
+          maxWidth: 190,
         });
       }
 
@@ -251,7 +264,7 @@ const ReportTemplate = ({ reportData, period }) => {
       doc.setFontSize(16);
       let posYDesafios;
 
-      if(reportData[4].length > 0) {
+      if (reportData[4].length > 0) {
         posYDesafios = doc.autoTable.previous.finalY + 20;
       } else {
         posYDesafios = doc.autoTable.previous.finalY + 50;

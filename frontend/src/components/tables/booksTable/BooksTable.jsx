@@ -11,6 +11,7 @@ import {
   Spin,
   Form,
   Input,
+  InputNumber,
   Select,
   Empty,
   message,
@@ -289,7 +290,7 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
                 <Input placeholder="ej. Alfredo Espino" name="autor" />
               </Form.Item>
               <Form.Item label="Año de publicación:" name="fechaPublicacion">
-                <Input placeholder="ej. 2024" name="fechaPublicacion" maxLength={4} />
+                <InputNumber min={1901} max={2024} placeholder="Introduzca un año entre 1901 y 2024" name="fechaPublicacion" maxLength={4} style={{ width: "100%" }}/>
               </Form.Item>
               <Form.Item label="Precio:" name="precio">
                 <Input prefix="$" placeholder="0.00" name="precio" />
