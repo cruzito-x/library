@@ -2,7 +2,7 @@ const db = require("../config/db");
 
 exports.getTotalBooks = (req, res) => {
   const period = req.query.period || 7;
-  const selectTotalBooks = "select(select sum(e.existencia) from libros l inner join existencias e on e.idLibro = l.idLibro where (l.deleted_at is null and e.deleted_at is null)) as totalBooks, (select sum(e.existencia) from libros l inner join existencias e on e.idLibro = l.idLibro where (l.deleted_at is null and e.deleted_at is null) and l.created_at >= date_sub(curdate(), interval ? day)) as recentBooks";
+  const selectTotalBooks = 'select(select sum(e.existencia) from libros l inner join existencias e on e.idLibro = l.idLibro where (l.deleted_at is null and e.deleted_at is null)) as totalBooks, (select sum(e.existencia) from libros l inner join existencias e on e.idLibro = l.idLibro where (l.deleted_at is null and e.deleted_at is null) and l.created_at >= date_sub(curdate(), interval ? day)) as recentBooks';
 
   db.query(selectTotalBooks, [period], (error, results) => {
     if (error) {
@@ -14,23 +14,9 @@ exports.getTotalBooks = (req, res) => {
   });
 };
 
-exports.getTotalRevenue = (req, res) => {
-  const period = req.query.period || 7;
-  const selectTotalRevenue = "select(select sum(total) from ventas where deleted_at is null) as totalRevenue, (select sum(total) as totalRevenue from ventas where deleted_at is null and created_at >= date_sub(curdate(), interval ? day) ) as recentRevenue";
-  
-  db.query(selectTotalRevenue, [period], (error, results) => {
-    if (error) {
-      console.error("Error al obtener el total de ganancias:", error.message);
-      res.status(500).json({ status: 500, error: "Error al obtener el total de ganancias" });
-    } else {
-      res.json(results);
-    }
-  });
-};
-
 exports.getTotalSales = (req, res) => {
   const period = req.query.period || 7;
-  const selectTotalSales = "select(select sum(cantidad) from detalles_venta) as totalSales, (select sum(cantidad) as totalSales from detalles_venta where created_at >= date_sub(curdate(), interval? day)) as recentSales";
+  const selectTotalSales = 'select(select sum(cantidad) from detalles_venta) as totalSales, (select sum(cantidad) as totalSales from detalles_venta where created_at >= date_sub(curdate(), interval? day)) as recentSales';
 
   db.query(selectTotalSales, [period], (error, results) => {
     if (error) {
@@ -42,9 +28,23 @@ exports.getTotalSales = (req, res) => {
   });
 };
 
+exports.getTotalRevenue = (req, res) => {
+  const period = req.query.period || 7;
+  const selectTotalRevenue = 'select(select sum(total) from ventas where deleted_at is null) as totalRevenue, (select sum(total) as totalRevenue from ventas where deleted_at is null and created_at >= date_sub(curdate(), interval ? day) ) as recentRevenue';
+  
+  db.query(selectTotalRevenue, [period], (error, results) => {
+    if (error) {
+      console.error("Error al obtener el total de ganancias:", error.message);
+      res.status(500).json({ status: 500, error: "Error al obtener el total de ganancias" });
+    } else {
+      res.json(results);
+    }
+  });
+};
+
 exports.getTotalInvoices = (req, res) => {
   const period = req.query.period || 7; // Valor predeterminado: últimos 7 días
-  const selectTotalInvoices = "select(select count(*) from ventas where deleted_at is null) as totalInvoices, (select count(*) as totalInvoices from ventas where deleted_at is null and created_at >= date_sub(curdate(), interval? day) ) as recentInvoices";
+  const selectTotalInvoices = 'select(select count(*) from ventas where deleted_at is null) as totalInvoices, (select count(*) as totalInvoices from ventas where deleted_at is null and created_at >= date_sub(curdate(), interval? day) ) as recentInvoices';
   db.query(selectTotalInvoices, [period], (error, results) => {
     if (error) {
       console.error("Error al obtener el total de facturas emitidas:", error.message);
@@ -56,8 +56,8 @@ exports.getTotalInvoices = (req, res) => {
 };
 
 exports.getGenresComparative = (req, res) => {
-  const period = req.query.period || 7; // Valor predeterminado: últimos 7 días
-  const selectSalesByGenre = "select g.nombreGenero as Genero, sum(dv.subtotal) as VentasTotales from ventas v inner join detalles_venta dv on v.idVenta = dv.idVenta inner join libros l on dv.idLibro = l.idLibro inner join genero g on l.genero = g.idGenero where v.estado = 'completado' and (g.deleted_at is null and v.deleted_at is null and dv.deleted_at is null) and v.fecha >= now() - interval ? day group by g.nombreGenero  order by VentasTotales asc;";
+  const period = req.query.period || 7;
+  const selectSalesByGenre = 'select g.nombreGenero as genre, sum(dv.subtotal - dv.descuento) as totalSales from ventas v inner join detalles_venta dv on v.idVenta = dv.idVenta inner join libros l on dv.idLibro = l.idLibro inner join genero g on l.genero = g.idGenero where v.estado = "completado" and (g.deleted_at is null and v.deleted_at is null and dv.deleted_at is null) and v.fecha >= now() - interval ? day group by g.nombreGenero order by totalSales asc;';
 
   db.query(selectSalesByGenre, [period], (error, results) => {
     if (error) {
