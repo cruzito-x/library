@@ -35,7 +35,7 @@ const Sales = () => {
   };
 
   const filteredSalesData = salesData.filter((item) =>
-    item.cliente && item.cliente.toLowerCase().includes(searchTerm.toLowerCase())
+    item.nombreUsuario && item.nombreUsuario.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -59,7 +59,7 @@ const Sales = () => {
           <Col xs={24} sm={12} md={18} lg={18} xl={18}> </Col>
           <Col xs={24} sm={12} md={6} lg={6} xl={6}>
             <Search
-              placeholder="Buscar por nombre de cliente"
+              placeholder="Buscar por nombre de usuario"
               onSearch={handleSearch}
               enterButton
             />

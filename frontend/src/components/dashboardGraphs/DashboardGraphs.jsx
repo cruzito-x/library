@@ -282,8 +282,8 @@ const DashboardGraphs = ({ period }) => {
         return response.json();
       })
       .then((data) => {
-        const genres = data.map((item) => item.Genero); // Obtener nombres de género
-        const sales = data.map((item) => item.VentasTotales); // Obtener ventas totales
+        const genres = data.map((item) => item.genre);
+        const sales = data.map((item) => item.totalSales);
 
         if (sales.length === 0) {
           setLineDataEmpty(true);
@@ -302,7 +302,7 @@ const DashboardGraphs = ({ period }) => {
                 pointStyle: "circle",
                 pointRadius: 7,
                 pointHoverRadius: 10,
-                tension: 0.8,
+                tension: 0.8
               },
             ],
           };
