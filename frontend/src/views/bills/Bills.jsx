@@ -238,7 +238,7 @@ const Bills = () => {
 
     // Agregar el logo y el título "Factura"
     const logo = new Image();
-    logo.src = "logo512.png";
+    logo.src = "logo.png";
     doc.addImage(
       logo,
       "PNG",

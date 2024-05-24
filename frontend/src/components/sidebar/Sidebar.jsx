@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, theme } from 'antd';
+import { Image, Layout, theme } from 'antd';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Logo from '../logo/Logo';
 import LayoutHeader from '../layoutHeader/LayoutHeader';
