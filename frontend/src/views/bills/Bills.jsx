@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { UserOutlined, MinusOutlined, PrinterOutlined } from "@ant-design/icons";
+import { UserOutlined, PlusOutlined, MinusOutlined, DeleteOutlined, PrinterOutlined } from "@ant-design/icons";
 import {
   Breadcrumb,
   Form,
@@ -13,7 +13,7 @@ import {
   Col,
   Table,
   InputNumber,
-  Checkbox,
+  Popconfirm,
   theme,
   message,
 } from "antd";
@@ -98,7 +98,7 @@ const Bills = () => {
   };
 
   const handleAddBook = () => {
-    const formValues = form.getFieldsValue(); // Obtener los valores del formulario
+    const formValues = form.getFieldsValue();
     if (!formValues.nombre || !formValues.apellido) {
       message.warning("Por favor, complete los campos requeridos");
       return;
@@ -114,6 +114,15 @@ const Bills = () => {
         return;
       }
 
+      const existingBook = selectedBooks.find(
+        (book) => book.value === values.libro
+      );
+
+      if (existingBook) {
+        message.warning("El libro ya está en la lista.");
+        return;
+      }
+
       const subtotal = (values.cantidad * values.precioUnitario).toFixed(2);
       const descuento =
         values.descuento > 0 && values.descuento < 10
@@ -123,50 +132,15 @@ const Bills = () => {
           : 0;
       const total = (subtotal - descuento).toFixed(2);
 
-      const existingBook = selectedBooks.find(
-        (book) => book.value === values.libro
-      );
-
-      if (existingBook) {
-        const updatedBooks = selectedBooks.map((book) => {
-          if (book.value === values.libro) {
-            const newCantidad = book.cantidad + values.cantidad;
-            if (newCantidad > selectedBook.existencia) {
-              message.warning(
-                `Sólo hay ${selectedBook.existencia} libros disponibles.`
-              );
-              return book;
-            }
-            const newSubtotal = (newCantidad * book.precioUnitario).toFixed(2);
-            const newDescuento =
-              values.descuento > 0 && values.descuento < 10
-                ? (newSubtotal * ("0.0" + values.descuento)).toFixed(2)
-                : values.descuento > 9 && values.descuento < 90
-                ? (newSubtotal * ("0." + values.descuento)).toFixed(2)
-                : 0;
-            const newTotal = (newSubtotal - newDescuento).toFixed(2);
-            return {
-              ...book,
-              cantidad: newCantidad,
-              subtotal: newSubtotal,
-              descuento: newDescuento,
-              total: newTotal,
-            };
-          }
-          return book;
-        });
-        setSelectedBooks(updatedBooks);
-      } else {
-        const newBook = {
-          ...selectedBook,
-          cantidad: values.cantidad,
-          precioUnitario: values.precioUnitario,
-          subtotal,
-          descuento,
-          total,
-        };
-        setSelectedBooks([...selectedBooks, newBook]);
-      }
+      const newBook = {
+        ...selectedBook,
+        cantidad: values.cantidad,
+        precioUnitario: values.precioUnitario,
+        subtotal,
+        descuento,
+        total,
+      };
+      setSelectedBooks([...selectedBooks, newBook]);
 
       form.setFieldsValue({
         libro: books[0]?.value,
@@ -175,6 +149,32 @@ const Bills = () => {
         descuento: 0,
       });
     });
+  };
+
+  const handleIncreaseBook = (value) => {
+    const updatedBooks = selectedBooks.map((book) => {
+      if (book.value === value) {
+        const newCantidad = book.cantidad + 1;
+        const selectedBook = books.find((b) => b.value === value);
+        if (newCantidad > selectedBook.existencia) {
+          message.warning(
+            `Sólo hay ${selectedBook.existencia} libros disponibles.`
+          );
+          return book;
+        }
+        const newSubtotal = (newCantidad * book.precioUnitario).toFixed(2);
+        const newDescuento = book.descuento;
+        const newTotal = (newSubtotal - newDescuento).toFixed(2);
+        return {
+          ...book,
+          cantidad: newCantidad,
+          subtotal: newSubtotal,
+          total: newTotal,
+        };
+      }
+      return book;
+    });
+    setSelectedBooks(updatedBooks);
   };
 
   const handleReduceBook = (value) => {
@@ -198,6 +198,11 @@ const Bills = () => {
         return book;
       })
       .filter((book) => book !== null);
+    setSelectedBooks(updatedBooks);
+  };
+
+  const handleRemoveBook = (value) => {
+    const updatedBooks = selectedBooks.filter((book) => book.value !== value);
     setSelectedBooks(updatedBooks);
   };
 
@@ -422,7 +427,37 @@ const Bills = () => {
       title: "Acciones",
       key: "acciones",
       render: (_, record) => (
-        <Button type="primary" danger onClick={() => handleReduceBook(record.value)}> <MinusOutlined /> </Button>
+        <div>
+          <Button
+            type="primary"
+            onClick={() => handleIncreaseBook(record.value)}
+          >
+            <PlusOutlined />
+          </Button>
+          <Button
+            type="primary"
+            danger
+            onClick={() => handleReduceBook(record.value)}
+            style={{marginRight: "10px", marginLeft: "10px", backgroundColor: "#fbac14"}}
+          >
+            <MinusOutlined />
+          </Button>
+          <Popconfirm
+            title="Eliminar registro"
+            description="¿Está seguro de eliminar este registro?"
+            onConfirm={() => handleRemoveBook(record.value)}
+            onCancel={() => {}}
+            okText="Sí"
+            cancelText="No"
+          >
+            <Button
+            type="primary"
+            danger
+            >
+              <DeleteOutlined />
+            </Button>
+          </Popconfirm>
+        </div>
       ),
     },
   ];

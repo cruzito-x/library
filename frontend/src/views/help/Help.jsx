@@ -34,6 +34,7 @@ import adminBills from "../../assets/images/admin/bills/bills.png";
 import selectBook from "../../assets/images/superadmin/bills/selectBook.png";
 import fillBillFields from "../../assets/images/superadmin/bills/fillBillFields.png";
 import addBookToFill from "../../assets/images/superadmin/bills/addBookToFill.png";
+import popConfirmDeleteBookOfBill from "../../assets/images/buttons/popConfirmDeleteBookOfBill.png";
 import fillBillClientFields from "../../assets/images/superadmin/bills/fillBillClientFields.png";
 import generateBill from "../../assets/images/buttons/generateBill.png";
 import successBillSaved from "../../assets/images/superadmin/bills/successBillSaved.png";
@@ -518,25 +519,6 @@ const Help = () => {
                                 <li>
                                   <h3> Paso 3. </h3>
                                   <p>
-                                    Da clic en el botón
-                                    <strong> Añadir libro</strong>, esto cargará
-                                    el libro en la tabla para proceder con la
-                                    facturación.
-                                  </p>
-                                  <div style={{ textAlign: "center" }}>
-                                    <Image
-                                      src={addBookToFill}
-                                      preview={false} // Desactiva la previsualización si no es necesaria
-                                      style={{
-                                        maxWidth: "100%",
-                                        height: "auto",
-                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                    />
-                                  </div>
-                                </li>
-                                <li>
-                                  <h3> Paso 4. </h3>
-                                  <p>
                                     Rellena los campos:
                                     <strong>
                                       {" "}
@@ -553,6 +535,79 @@ const Help = () => {
                                         height: "auto",
                                       }} // Establece un ancho máximo y ajusta la altura automáticamente
                                     />
+                                  </div>
+                                </li>
+                                <li>
+                                  <h3> Paso 4. </h3>
+                                  <p>
+                                    Da clic en el botón
+                                    <strong> Añadir libro</strong>, esto cargará
+                                    el libro en la tabla para proceder con la
+                                    facturación.
+                                  </p>
+                                  <div style={{ textAlign: "center" }}>
+                                    <Image
+                                      src={addBookToFill}
+                                      preview={false} // Desactiva la previsualización si no es necesaria
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                    />
+                                  </div>
+                                  <br />
+                                  <Alert
+                                    message={
+                                      <>
+                                        {" "}
+                                        <strong>Importante</strong>{" "}
+                                      </>
+                                    }
+                                    description={
+                                      <>
+                                        <p>
+                                          Si desea aumentar la cantidad de
+                                          libros a un libro ya existente en la
+                                          tabla, debe dar clic en el botón con
+                                          el signo <strong>+</strong>, en caso
+                                          de desear restar cantidad a un libro
+                                          ya existente en la tabla, de clic en
+                                          el botón con el signo{" "}
+                                          <strong>-</strong> y en caso de desear
+                                          eliminar el libro de la tabla, de clic
+                                          en el botón con el signo de{" "}
+                                          <strong>cesto de basura</strong>.
+                                        </p>
+                                      </>
+                                    }
+                                    type="warning"
+                                  />{" "}
+                                  <br />
+                                  <div>
+                                    <p>
+                                      {" "}
+                                      En caso de hacer clic sobre el botón
+                                      eliminar, se desplegará el siguiente
+                                      cuadro de confirmación:{" "}
+                                    </p>
+                                    <div style={{ textAlign: "center" }}>
+                                      <Image
+                                        src={popConfirmDeleteBookOfBill}
+                                        preview={false} // Desactiva la previsualización si no es necesaria
+                                        style={{
+                                          maxWidth: "100%",
+                                          height: "auto",
+                                        }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                      />
+                                    </div>
+                                    <p>
+                                      {" "}
+                                      Si escoge la opción <strong>No</strong>,
+                                      no ocurrirá nada, sin embargo, si decide
+                                      escoger la opción <strong>Sí</strong>,
+                                      esto removerá el libro de la tabla de
+                                      libros a facturar.{" "}
+                                    </p>
                                   </div>
                                 </li>
                                 <li>
@@ -1220,7 +1275,12 @@ const Help = () => {
                                   </div>
                                   <br />
                                   <Alert
-                                    message="Importante"
+                                    message={
+                                      <>
+                                        {" "}
+                                        <strong>Importante</strong>{" "}
+                                      </>
+                                    }
                                     description="Si se elimina un género literario que ya contiene libros dentro de sí, todos los que pertenezcan a este ya no serán accesibles desde las vistas adyacentes a ellos."
                                     type="warning"
                                   />
