@@ -8,8 +8,10 @@ const BillInvoicePDF = ({
   selectedBooks,
   totalSubTotal,
   totalDiscount,
+  handleSaveBill
 }) => {
   const generatePDF = () => {
+    handleSaveBill();
     const doc = new jsPDF();
 
     // Añadir logo y título

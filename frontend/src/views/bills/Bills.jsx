@@ -446,6 +446,7 @@ const Bills = () => {
           selectedBooks={selectedBooks}
           totalSubTotal={totalSubTotal}
           totalDiscount={totalDiscount}
+          handleSaveBill={handleSaveBill}
         />
       </div>
     </Content>
