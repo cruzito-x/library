@@ -23,7 +23,7 @@ exports.saveBill = (req, res) => {
   const insertSale = "insert into ventas (idVenta, fecha, total, estado, created_at) values (?, now(), ?, 'completado', curdate());";
   const insertClient = "insert into clientes (idCliente, nombre, apellido, metodoPago, created_at) values (?, ?, ?, ?, curdate());";
   const updateStock = "update existencias as ex inner join detalles_venta as dv on ex.idLibro = dv.idLibro set ex.existencia = ex.existencia - dv.cantidad where dv.idVenta = ?;";
-  const valuesSaleDetails = selectedBooks.map(book => [idVenta, idVenta, idCliente, book.value, idUsuario, book.cantidad, book.precioUnitario, book.subtotal, book.descuento, new Date()]);
+  const saleDetailsValues = selectedBooks.map(book => [idVenta, idVenta, idCliente, book.value, idUsuario, book.cantidad, book.precioUnitario, book.subtotal, book.descuento, new Date()]);
   const insertSaleDetails = "insert into detalles_venta (idDetalleVenta, idVenta, idCliente, idLibro, idUsuario, cantidad, precioUnitario, subtotal, descuento, created_at) values ?;";
 
   db.beginTransaction(error => {
@@ -49,7 +49,7 @@ exports.saveBill = (req, res) => {
           });
         }
 
-        db.query(insertSaleDetails, [valuesSaleDetails], (error, result) => {
+        db.query(insertSaleDetails, [saleDetailsValues], (error, result) => {
           if (error) {
             console.error("Error al insertar detalles de venta: ", error.message);
             return db.rollback(() => {

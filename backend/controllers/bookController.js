@@ -122,7 +122,6 @@ exports.updateBook = (req, res) => {
   } = req.body;
 
   const updateBooks = "update libros set titulo = ?, autor = ?, isbn = ?, fechaPublicacion = ?, genero = ?, precio = ?, sinopsis = ? where idLibro = ?;";
-
   const bookValues = [
     titulo,
     autor,
