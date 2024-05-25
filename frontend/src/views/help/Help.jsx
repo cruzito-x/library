@@ -1130,7 +1130,6 @@ const Help = () => {
                         />
 
                         <br />
-
                         <Collapse
                           size="large"
                           items={[
