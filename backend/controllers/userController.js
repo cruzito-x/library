@@ -2,9 +2,9 @@ const db = require("../config/db");
 const crypto = require("crypto");
 
 exports.getUsers = (req, res) => {
-  db.query(
-    "select idUsuario, nombreUsuario, rol, created_at, deleted_at from usuarios",
-    (error, results) => {
+  const selectUsers = "select idUsuario, nombreUsuario, rol, created_at, deleted_at from usuarios;";
+
+  db.query(selectUsers, (error, results) => {
       if (error) {
         res.status(500).json({ status: 500, message: "Error interno del servidor" });
         console.error("Error interno del servidor", error.message);
@@ -17,18 +17,18 @@ exports.getUsers = (req, res) => {
 
 exports.saveUser = (req, res) => {
   const idUsuario = crypto.createHash("md5").update(new Date().toISOString()).digest("hex");
-  const nombreUsuario = req.body.nombreUsuario; // Accede a los datos del formulario usando req.body
+  const username = req.body.nombreUsuario;
   const password = crypto.createHash("md5").update(req.body.password).digest("hex");
   const rol = req.body.rol;
 
-  if (!nombreUsuario || !password || !rol) {
+  if (!username || !password || !rol) {
     return res.status(400).json({ status: 400, message: "Por favor, complete los campos requeridos" });
   }
 
-  const insertUsuario = `insert into usuarios (idUsuario, nombreUsuario, password, rol, created_at) values (?, ?, ?, ?, curdate())`;
-  const usuarioValues = [idUsuario, nombreUsuario, password, rol];
+  const insertUser = "insert into usuarios (idUsuario, nombreUsuario, password, rol, created_at) values (?, ?, ?, ?, curdate());";
+  const userValues = [idUsuario, username, password, rol];
 
-  db.query(insertUsuario, usuarioValues, (error, results) => {
+  db.query(insertUser, userValues, (error, results) => {
     if (error) {
       res.status(500).json({ status: 500, message: "Error interno del servidor" });
       return;
@@ -39,10 +39,10 @@ exports.saveUser = (req, res) => {
 
 exports.deleteUserUpdatedAt = (req, res) => {
   const { idUsuario } = req.params;
-  const deleteUserQuery = `update usuarios set deleted_at = now() where idUsuario = ?`;
-  const values = [idUsuario];
+  const deleteUser = "update usuarios set deleted_at = curdate() where idUsuario = ?;";
+  const userValues = [idUsuario];
 
-  db.query(deleteUserQuery, values, (error, result) => {
+  db.query(deleteUser, userValues, (error, result) => {
     if (error) {
       console.error("Error al eliminar el usuario:", error.message);
       res.status(500).json({ status: 500, message: "Error interno del servidor" });
@@ -57,10 +57,10 @@ exports.updateUser = (req, res) => {
   const { nombreUsuario, rol } = req.body;
   const password = crypto.createHash("md5").update(req.body.password).digest("hex");
 
-  const updateUserQuery = `update usuarios set nombreUsuario = ?, password = ?, rol = ? where idUsuario = ?`;
-  const usuarioValues = [nombreUsuario, password, rol, idUsuario];
+  const updateUser = "update usuarios set nombreUsuario = ?, password = ?, rol = ? where idUsuario = ?;";
+  const userValues = [nombreUsuario, password, rol, idUsuario];
 
-  db.query(updateUserQuery, usuarioValues, (error, result) => {
+  db.query(updateUser, userValues, (error, result) => {
     if (error) {
       console.error("Error al actualizar el usuario:", error.message);
       res.status(500).json({ status: 500, message: "Error interno del servidor" });

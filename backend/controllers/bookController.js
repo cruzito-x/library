@@ -2,9 +2,9 @@ const db = require("../config/db");
 const crypto = require("crypto");
 
 exports.getBooks = (req, res) => {
-  db.query(
-    "select *, e.existencia as existencia, g.nombreGenero as genero from libros l inner join existencias e on e.idLibro = l.idLibro inner join genero g on g.idGenero = l.genero where (l.deleted_at is null and e.deleted_at is null and g.deleted_at is null) and e.existencia != 0",
-    (error, results) => {
+  const selectBooks = "select *, e.existencia as existencia, g.nombreGenero as genero from libros l inner join existencias e on e.idLibro = l.idLibro inner join genero g on g.idGenero = l.genero where (l.deleted_at is null and e.deleted_at is null and g.deleted_at is null) and e.existencia != 0;";
+
+  db.query(selectBooks, (error, results) => {
       if (error) {
         console.error("Error al obtener los libros:", error.message);
         res.status(500).json({ status: 500, message: "Error interno del servidor" });
@@ -16,7 +16,9 @@ exports.getBooks = (req, res) => {
 };
 
 exports.getGenres = (req, res) => {
-  db.query("select idGenero as value, nombreGenero as label from genero where deleted_at is null order by nombreGenero asc", (error, results) => {
+  const selectGenres = "select idGenero as value, nombreGenero as label from genero where deleted_at is null order by nombreGenero asc;";
+
+  db.query(selectGenres, (error, results) => {
     if (error) {
       console.error("Error al obtener los géneros:", error.message);
       res.status(500).json({ status: 500, message: "Error interno del servidor" });
@@ -44,15 +46,14 @@ exports.saveBook = (req, res) => {
   }
 
   const idLibro = crypto.createHash("md5").update(new Date().toISOString()).digest("hex");
+  const insertBooks = 'insert into libros (idLibro, titulo, autor, isbn, fechaPublicacion, genero, precio, portada, sinopsis, created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, curdate());';
+  const insertStock = 'insert into existencias (idLibro, existencia, created_at) values (?, ?, curdate());';
 
-  const insertLibros = 'insert into libros (idLibro, titulo, autor, isbn, fechaPublicacion, genero, precio, portada, sinopsis, created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, curdate())';
-  const insertExistencias = 'insert into existencias (idLibro, existencia, created_at) values (?, ?, curdate())';
-
-  const librosValues = [
+  const bookValues = [
     idLibro, titulo, autor, isbn, fechaPublicacion, genero, precio, portada, sinopsis
   ];
 
-  const existenciasValues = [idLibro, existencia];
+  const stockValues = [idLibro, existencia];
 
   db.beginTransaction((error) => {
     if (error) {
@@ -60,7 +61,7 @@ exports.saveBook = (req, res) => {
       return res.status(500).json({ status: 500, message: "Error interno del servidor" });
     }
 
-    db.query(insertLibros, librosValues, (error, result) => {
+    db.query(insertBooks, bookValues, (error, result) => {
       if (error) {
         console.error("Error al guardar el libro:", error.message);
         db.rollback(() => {
@@ -69,7 +70,7 @@ exports.saveBook = (req, res) => {
         return;
       }
 
-      db.query(insertExistencias, existenciasValues, (error, result) => {
+      db.query(insertStock, stockValues, (error, result) => {
         if (error) {
           console.error("Error al guardar el stock:", error.message);
           db.rollback(() => {
@@ -95,10 +96,10 @@ exports.saveBook = (req, res) => {
 
 exports.deleteBookUpdatedDeletedAt = (req, res) => {
   const { idLibro } = req.params;
-  const deleteBookQuery = `update libros l, existencias e set l.deleted_at = curdate(), e.deleted_at = curdate() where l.idLibro = ? and e.idLibro = ?`;
-  const values = [idLibro, idLibro];
+  const deleteBook = 'update libros l, existencias e set l.deleted_at = curdate(), e.deleted_at = curdate() where l.idLibro = ? and e.idLibro = ?;';
+  const dobleIdLibro = [idLibro, idLibro];
 
-  db.query(deleteBookQuery, values, (error, result) => {
+  db.query(deleteBook, dobleIdLibro, (error, result) => {
     if (error) {
       console.error("Error al eliminar el libro:", error.message);
       res.status(500).json({ status: 500, message: "Error interno del servidor" });
@@ -120,9 +121,9 @@ exports.updateBook = (req, res) => {
     sinopsis
   } = req.body;
 
-  const updateLibros = `update libros set titulo = ?, autor = ?, isbn = ?, fechaPublicacion = ?, genero = ?, precio = ?, sinopsis = ? where idLibro = ?`;
+  const updateBooks = "update libros set titulo = ?, autor = ?, isbn = ?, fechaPublicacion = ?, genero = ?, precio = ?, sinopsis = ? where idLibro = ?;";
 
-  const libroValues = [
+  const bookValues = [
     titulo,
     autor,
     isbn,
@@ -134,7 +135,7 @@ exports.updateBook = (req, res) => {
   ];
   
   // Actualizar en la tabla libros
-  db.query(updateLibros, libroValues, (error, result) => {
+  db.query(updateBooks, bookValues, (error, result) => {
     if (error) {
       console.error("Error al actualizar el libro:", error.message);
       res.status(500).json({ status: 500, message: "Error interno del servidor" });

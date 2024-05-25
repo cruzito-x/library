@@ -2,7 +2,9 @@ const db = require("../config/db");
 const crypto = require("crypto");
 
 exports.getGenres = (req, res) => {
-  db.query("select g.idGenero, g.nombreGenero, g.created_at as 'created at', count(l.id) as 'cantidad' from genero g left join libros l on g.idGenero = l.genero and l.deleted_at is null where g.deleted_at is null group by g.idGenero, g.nombreGenero, g.created_at order by g.nombreGenero asc", (error, results) => {
+  const selectGenres = "select g.idGenero, g.nombreGenero, g.created_at as 'created at', count(l.id) as 'cantidad' from genero g left join libros l on g.idGenero = l.genero and l.deleted_at is null where g.deleted_at is null group by g.idGenero, g.nombreGenero, g.created_at order by g.nombreGenero asc;";
+
+  db.query(selectGenres, (error, results) => {
     if (error) {
       console.error("Error al obtener los géneros:", error.message);
       res.status(500).json({ status: 500, message: "Error interno del servidor" });
@@ -15,8 +17,9 @@ exports.getGenres = (req, res) => {
 
 exports.getBooksByGenre = (req, res) => {
   const { idGenero } = req.params;
-  const query = "select l.titulo, l.autor, l.precio from libros l where l.genero = ? and l.deleted_at is null";
-  db.query(query, [idGenero], (error, results) => {
+  const selectBookByGenre = "select l.titulo, l.autor, l.precio from libros l where l.genero = ? and l.deleted_at is null;";
+
+  db.query(selectBookByGenre, [idGenero], (error, results) => {
     if (error) {
       console.error("Error al obtener los libros del género:", error.message);
       res.status(500).json({ status: 500, message: "Error interno del servidor" });
@@ -26,13 +29,11 @@ exports.getBooksByGenre = (req, res) => {
   });
 };
 
-
 exports.saveGenre = (req, res) => {
   const idGenero = crypto.createHash("md5").update(new Date().toISOString()).digest("hex");
-
   const { nombreGenero } = req.body;
-  const selectGenero = `select * from genero where nombreGenero = ?`;
-  const insertGenero = `insert into genero (idGenero, nombreGenero, created_at) values (?, ?, curdate())`;
+  const selectGenero = "select * from genero where nombreGenero = ?;";
+  const insertGenero = "insert into genero (idGenero, nombreGenero, created_at) values (?, ?, curdate());";
   const generoValues = [idGenero, nombreGenero];
 
   if (!nombreGenero) {
@@ -62,7 +63,7 @@ exports.saveGenre = (req, res) => {
 
 exports.deleteGenreUpdatedDeletedAt = (req, res) => {
   const { idGenero } = req.params;
-  const deleteGenreQuery = `update genero set deleted_at = curdate() where idGenero = ?`;
+  const deleteGenreQuery = "update genero set deleted_at = curdate() where idGenero = ?;";
   const generoValues = [idGenero, idGenero];
 
   db.query(deleteGenreQuery, generoValues, (error, result) => {
@@ -78,8 +79,8 @@ exports.deleteGenreUpdatedDeletedAt = (req, res) => {
 exports.updateGenre = (req, res) => {
   const { idGenero } = req.params;
   const { nombreGenero } = req.body;
-  const selectGenero = `select * from genero where nombreGenero = ?`;
-  const updateGenero = `update genero set nombreGenero = ? where idGenero = ?`;
+  const selectGenero = "select * from genero where nombreGenero = ?;";
+  const updateGenero = "update genero set nombreGenero = ? where idGenero = ?;";
   const generoValues = [nombreGenero, idGenero];
 
   db.query(selectGenero, [nombreGenero], (error, results) => { // Verificamos si el nuevo nombre del género ya existe

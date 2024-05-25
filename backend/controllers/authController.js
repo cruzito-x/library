@@ -4,9 +4,9 @@ const crypto = require("crypto");
 exports.login = (req, res) => {
   const { username, password } = req.body;
   const hashedPassword = crypto.createHash('md5').update(password).digest('hex');
+  const selectUser = 'select * from usuarios where nombreUsuario = ? and password = ? and deleted_at is null;';
 
-  const query = `select * from usuarios where nombreUsuario = ? and password = ? and deleted_at is null`;
-  db.query(query, [username, hashedPassword], (error, results) => {
+  db.query(selectUser, [username, hashedPassword], (error, results) => {
     if (error) {
       res.status(500).json({ status: 500, message: "Error interno del servidor" });
       return;

@@ -1,7 +1,9 @@
 const db = require("../config/db");
 
 exports.getStock = (req, res) => {
-  db.query("select e.idLibro, l.titulo, e.existencia as stock, e.deleted_at from libros l inner join existencias e on e.idLibro = l.idLibro order by e.existencia desc;", (error, results) => {
+  const selectStock = "select e.idLibro, l.titulo, e.existencia as stock, e.deleted_at from libros l inner join existencias e on e.idLibro = l.idLibro order by e.existencia desc;";
+
+  db.query(selectStock, (error, results) => {
     if (error) {
       console.error("Error al obtener el stock:", error.message);
       res.status(500).json({ status: 500, message: "Error interno del servidor" });
@@ -14,8 +16,9 @@ exports.getStock = (req, res) => {
 
 exports.deleteStockUpdatedDeletedAt = (req, res) => {
   const { idLibro } = req.params;
+  const updateStockDeletedAt = "update existencias set deleted_at = curdate() where idLibro = ?;";
 
-  db.query("update existencias set deleted_at = curdate() where idLibro = ?;", [idLibro], (error, results) => {
+  db.query(updateStockDeletedAt, [idLibro], (error, results) => {
     if (error) {
       console.error("Error al retirar el libro del stock:", error.message);
       res.status(500).json({ status: 500, message: "Error interno del servidor" });
@@ -29,8 +32,9 @@ exports.deleteStockUpdatedDeletedAt = (req, res) => {
 exports.updateStock = (req, res) => {
   const { idLibro } = req.params;
   const { stock } = req.body;
+  const updateStock = "update existencias set existencia = ? where idLibro = ?;";
 
-  db.query("update existencias set existencia = ? where idLibro = ?;", [stock, idLibro], (error, results) => {
+  db.query(updateStock, [stock, idLibro], (error, results) => {
     if (error) {
       console.error("Error al actualizar el stock:", error.message);
       res.status(500).json({ status: 500, message: "Error interno del servidor" });
@@ -43,6 +47,8 @@ exports.updateStock = (req, res) => {
 
 exports.activateStock = (req, res) => {
   const { idLibro } = req.params;
+  const updateBooksToStock = "update libros set deleted_at = null where idLibro = ?;";
+  const updateStock = "update existencias set deleted_at = null where idLibro = ?;";
 
   db.beginTransaction((error) => {
     if (error) {
@@ -52,7 +58,7 @@ exports.activateStock = (req, res) => {
     }
 
     // Actualización de la tabla 'libros'
-    db.query("update libros set deleted_at = null where idLibro = ?;", [idLibro], (error, results) => {
+    db.query(updateBooksToStock, [idLibro], (error, results) => {
       if (error) {
         return db.rollback(() => {
           res.status(500).json({ status: 500, message: "Error interno del servidor" });
@@ -61,7 +67,7 @@ exports.activateStock = (req, res) => {
       }
 
       // Actualización de la tabla 'existencias'
-      db.query("update existencias set deleted_at = null where idLibro = ?;", [idLibro], (error, results) => {
+      db.query(updateStock, [idLibro], (error, results) => {
         if (error) {
           return db.rollback(() => {
             res.status(500).json({ status: 500, message: "Error interno del servidor" });
