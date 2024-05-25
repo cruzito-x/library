@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Image, Layout, theme } from 'antd';
+import { Layout, theme } from 'antd';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Logo from '../logo/Logo';
 import LayoutHeader from '../layoutHeader/LayoutHeader';
@@ -76,7 +76,7 @@ const Sidebar = () => {
 
   return (
     <Layout hasSider>
-      <Sider theme={darkTheme ? 'dark' : 'light'} collapsed={collapsed} collapsible trigger={null} className='sidebar' style={{
+      <Sider collapsed={collapsed} collapsible trigger={null} className='sidebar' style={{
         overflow: 'auto',
         height: '100vh',
         position: 'fixed',

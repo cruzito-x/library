@@ -14,7 +14,6 @@ const NotFound = () => {
       />
 
       <Footer style={{ backgroundColor: '#ffffff', marginTop: '11%', textAlign: "center" }}>
-        {/* cruzito's Design ©{new Date().getFullYear()} - Created by David Cruz */}
         &copy;PagePal {new Date().getFullYear()} - All rights reserved.
       </Footer>
     </>

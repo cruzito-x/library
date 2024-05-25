@@ -283,11 +283,16 @@ const ReportTemplate = ({ reportData, period }) => {
       let formattedNow =
         now.getFullYear().toString() +
         pad(now.getMonth() + 1) +
-        pad(now.getDate()) +
-        pad(now.getHours()) +
-        pad(now.getMinutes()) +
-        pad(now.getSeconds());
-
+        pad(now.getDate());
+      const reportPeriods = {
+        7: "Reporte_Semanal",
+        14: "Reporte_Bisemanal",
+        30: "Reporte_Mensual",
+        180: "Reporte_Semestral",
+        365: "Reporte_Anual"
+      };
+      let reportName = reportPeriods[period];
+      
       window.location.href = "/dashboard";
 
       let pageCount = doc.internal.getNumberOfPages(); //Total Page Number
@@ -303,7 +308,7 @@ const ReportTemplate = ({ reportData, period }) => {
       }
 
       // Guardar o mostrar el documento PDF
-      doc.save("Reporte_" + formattedNow + ".pdf"); // Para guardar el PDF
+      doc.save(reportName+ "_"+formattedNow+".pdf");
     }
   }, [reportData]);
 

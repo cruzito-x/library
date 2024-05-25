@@ -1290,45 +1290,44 @@ const Help = () => {
                             },
                           ]}
                         />
-
-                        <br />
-                        <Collapse
-                          size="large"
-                          items={[
-                            {
-                              key: "4",
-                              label: "Visualizar detalle de un género",
-                              children: (
-                                <>
-                                  <p>
-                                    {" "}
-                                    Al dar clic sobre un género se desplegará el
-                                    siguiente modal:
-                                  </p>
-                                  <div style={{ textAlign: "center" }}>
-                                    <Image
-                                      src={genreDetailsBooks}
-                                      preview={false} // Desactiva la previsualización si no es necesaria
-                                      style={{
-                                        maxWidth: "80%",
-                                        height: "auto",
-                                      }} // Establece un ancho máximo y ajusta la altura automáticamente
-                                    />
-                                  </div>
-                                  <p>
-                                    {" "}
-                                    Donde podrás visualizar el detalle del
-                                    género seleccionado, donde podrás visualizar
-                                    que libros pertencen a dicho género, tanto
-                                    su nombre, autor y precio unitario.{" "}
-                                  </p>
-                                </>
-                              ),
-                            },
-                          ]}
-                        />
                       </>
                     )}
+                    <br />
+                    <Collapse
+                      size="large"
+                      items={[
+                        {
+                          key: "4",
+                          label: "Visualizar detalle de un género",
+                          children: (
+                            <>
+                              <p>
+                                {" "}
+                                Al dar clic sobre un género se desplegará el
+                                siguiente modal:
+                              </p>
+                              <div style={{ textAlign: "center" }}>
+                                <Image
+                                  src={genreDetailsBooks}
+                                  preview={false} // Desactiva la previsualización si no es necesaria
+                                  style={{
+                                    maxWidth: "80%",
+                                    height: "auto",
+                                  }} // Establece un ancho máximo y ajusta la altura automáticamente
+                                />
+                              </div>
+                              <p>
+                                {" "}
+                                Donde podrás visualizar el detalle del género
+                                seleccionado, donde podrás visualizar que libros
+                                pertencen a dicho género, tanto su nombre, autor
+                                y precio unitario.{" "}
+                              </p>
+                            </>
+                          ),
+                        },
+                      ]}
+                    />
                   </>
                 ),
               },
