@@ -2,7 +2,7 @@ const db = require("../config/db");
 
 exports.getTotalBooks = (req, res) => {
   const period = req.query.period || 7;
-  const selectTotalBooks = 'select(select sum(e.existencia) from libros l inner join existencias e on e.idLibro = l.idLibro where (l.deleted_at is null and e.deleted_at is null)) as totalBooks, (select sum(e.existencia + dv.cantidad) from libros l inner join existencias e on e.idLibro = l.idLibro inner join detalles_venta dv on dv.idLibro = l.idLibro where (l.deleted_at is null and e.deleted_at is null) and l.created_at >= date_sub(curdate(), interval ? day)) as recentBooks;';
+  const selectTotalBooks = 'select(select sum(e.existencia) from libros l inner join existencias e on e.idLibro = l.idLibro where (l.deleted_at is null and e.deleted_at is null)) as totalBooks, (select sum(e.existencia) from libros l inner join existencias e on e.idLibro = l.idLibro where (l.deleted_at is null and e.deleted_at is null) and l.created_at >= date_sub(curdate(), interval ? day)) as recentBooks;';
 
   db.query(selectTotalBooks, [period], (error, results) => {
     if (error) {
