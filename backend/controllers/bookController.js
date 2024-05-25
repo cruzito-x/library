@@ -133,7 +133,6 @@ exports.updateBook = (req, res) => {
     idLibro
   ];
   
-  // Actualizar en la tabla libros
   db.query(updateBooks, bookValues, (error, result) => {
     if (error) {
       console.error("Error al actualizar el libro:", error.message);
