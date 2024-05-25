@@ -97,7 +97,7 @@ const BillInvoicePDF = ({
       doc.autoTable.previous.finalY + 5
     );
 
-    // Add payment method and totals
+    // Añadir método de pago usado
     doc.text("Método de pago", 15, doc.autoTable.previous.finalY + 15);
     doc.setFont("Helvetica");
     doc.text("Efectivo", 15, doc.autoTable.previous.finalY + 20);
