@@ -14,8 +14,9 @@ import {
   Table,
   InputNumber,
   Popconfirm,
+  Empty,
   theme,
-  message,
+  message
 } from "antd";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -550,6 +551,9 @@ const Bills = () => {
                 </Table.Summary.Cell>
               </Table.Summary.Row>
             );
+          }}
+          locale={{
+            emptyText: <Empty description="No hay datos para facturar" />
           }}
         />
         <Divider />
