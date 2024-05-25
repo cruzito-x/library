@@ -102,7 +102,7 @@ const Help = () => {
         }}
       >
         <Title level={3} style={{ marginTop: "-3px" }}>
-          <QuestionCircleOutlined /> Ayuda
+          <QuestionCircleOutlined style={{ color: "#1890ff" }} /> Ayuda
         </Title>
         <>
           {/* Dashboard card */}

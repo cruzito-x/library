@@ -466,7 +466,7 @@ const DashboardGraphs = ({ period }) => {
               }}
               actions={[
                 <Title level={5} style={{ marginTop: "0" }}>
-                  Actividad reciente
+                  Recientes
                 </Title>,
                 <Title level={5} style={{ marginTop: "0" }}>
                   {recentBooks}
@@ -476,7 +476,7 @@ const DashboardGraphs = ({ period }) => {
               <Spin spinning={loading} size="large" tip="Cargando...">
                 <div style={{ fontSize: "28px" }}>
                   <Title level={5} style={{ marginTop: "0" }}>
-                    Total de libros
+                    Total de unidades
                   </Title>
 
                   {loading ? (
@@ -497,7 +497,7 @@ const DashboardGraphs = ({ period }) => {
               }}
               actions={[
                 <Title level={5} style={{ marginTop: "0" }}>
-                  Actividad reciente
+                  Recientes
                 </Title>,
                 <Title level={5} style={{ marginTop: "0" }}>
                   {recentSales}
@@ -506,7 +506,7 @@ const DashboardGraphs = ({ period }) => {
             >
               <Spin spinning={loading} size="large" tip="Cargando...">
                 <Title level={5} style={{ marginTop: "0" }}>
-                  Unidades vendidas
+                  Total de unidades vendidas
                 </Title>
                 <div style={{ fontSize: "28px" }}>
                   {loading ? (
@@ -527,7 +527,7 @@ const DashboardGraphs = ({ period }) => {
               }}
               actions={[
                 <Title level={5} style={{ marginTop: "0" }}>
-                  Actividad reciente
+                  Recientes
                 </Title>,
                 <Title level={5} style={{ marginTop: "0" }}>
                   ${recentRevenue}
@@ -557,7 +557,7 @@ const DashboardGraphs = ({ period }) => {
               }}
               actions={[
                 <Title level={5} style={{ marginTop: "0" }}>
-                  Actividad reciente
+                  Recientes
                 </Title>,
                 <Title level={5} style={{ marginTop: "0" }}>
                   {recentInvoices}
