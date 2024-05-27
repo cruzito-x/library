@@ -118,12 +118,7 @@ const Bills = () => {
       }
 
       const subtotal = (values.cantidad * values.precioUnitario).toFixed(2);
-      const descuento =
-        values.descuento > 0 && values.descuento < 10
-          ? (subtotal * ("0.0" + values.descuento)).toFixed(2)
-          : values.descuento > 9 && values.descuento < 90
-          ? (subtotal * ("0." + values.descuento)).toFixed(2)
-          : 0;
+      const descuento = (values.descuento / 100) * subtotal;
       const total = (subtotal - descuento).toFixed(2);
 
       const newBook = {
@@ -161,12 +156,13 @@ const Bills = () => {
           return book;
         }
         const newSubtotal = (newCantidad * book.precioUnitario).toFixed(2);
-        const newDescuento = book.descuento;
+        const newDescuento = ((book.descuento / book.cantidad) * newCantidad).toFixed(2);
         const newTotal = (newSubtotal - newDescuento).toFixed(2);
         return {
           ...book,
           cantidad: newCantidad,
           subtotal: newSubtotal,
+          descuento: newDescuento,
           total: newTotal,
         };
       }
@@ -184,12 +180,13 @@ const Bills = () => {
             return null;
           }
           const newSubtotal = (newCantidad * book.precioUnitario).toFixed(2);
-          const newDescuento = book.descuento;
+          const newDescuento = ((book.descuento / book.cantidad) * newCantidad).toFixed(2);
           const newTotal = (newSubtotal - newDescuento).toFixed(2);
           return {
             ...book,
             cantidad: newCantidad,
             subtotal: newSubtotal,
+            descuento: newDescuento,
             total: newTotal,
           };
         }
