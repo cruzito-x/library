@@ -16,7 +16,7 @@ exports.getTotalBooks = (req, res) => {
 
 exports.getTotalSales = (req, res) => {
   const period = req.query.period || 7;
-  const selectTotalSales = 'select(select sum(cantidad) from detalles_venta) as totalSales, (select sum(cantidad) as totalSales from detalles_venta where created_at >= date_sub(curdate(), interval? day)) as recentSales;';
+  const selectTotalSales = 'select(select sum(cantidad) from detalles_venta inner join ventas v) as totalSales, (select sum(cantidad) as totalSales from detalles_venta where created_at >= date_sub(curdate(), interval ? day)) as recentSales;';
 
   db.query(selectTotalSales, [period], (error, results) => {
     if (error) {
@@ -30,7 +30,7 @@ exports.getTotalSales = (req, res) => {
 
 exports.getTotalRevenue = (req, res) => {
   const period = req.query.period || 7;
-  const selectTotalRevenue = 'select(select sum(total) from ventas where deleted_at is null) as totalRevenue, (select sum(total) as totalRevenue from ventas where deleted_at is null and created_at >= date_sub(curdate(), interval ? day) ) as recentRevenue;';
+  const selectTotalRevenue = 'select(select sum(total) from ventas where deleted_at is null) as totalRevenue, (select sum(total) as totalRevenue from ventas where deleted_at is null and created_at >= date_sub(curdate(), interval ? day)) as recentRevenue;';
   
   db.query(selectTotalRevenue, [period], (error, results) => {
     if (error) {
@@ -44,7 +44,7 @@ exports.getTotalRevenue = (req, res) => {
 
 exports.getTotalInvoices = (req, res) => {
   const period = req.query.period || 7;
-  const selectTotalInvoices = 'select(select count(*) from ventas where deleted_at is null) as totalInvoices, (select count(*) as totalInvoices from ventas where deleted_at is null and created_at >= date_sub(curdate(), interval? day) ) as recentInvoices;';
+  const selectTotalInvoices = 'select(select count(*) from ventas where deleted_at is null) as totalInvoices, (select count(*) as totalInvoices from ventas where deleted_at is null and created_at >= date_sub(curdate(), interval ? day)) as recentInvoices;';
 
   db.query(selectTotalInvoices, [period], (error, results) => {
     if (error) {
