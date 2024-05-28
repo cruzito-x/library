@@ -9,6 +9,7 @@ const helmet = require("helmet");
 
 const app = express();
 const port = 3001;
+const ip = "192.168.0.3";
 
 const logsFolder = path.join(__dirname, "./logs"); // Ruta de la carpeta de logs
 
@@ -61,6 +62,6 @@ console.error = function(message) {
 };
 
 // Levantar el servidor
-app.listen(port, () => {
-  console.log(`Servidor Express escuchando en el puerto ${port}`);
+app.listen(port, ip, () => {
+  console.log(`Servidor Express escuchando en ${"http://", ip, ":", port}`);
 });
