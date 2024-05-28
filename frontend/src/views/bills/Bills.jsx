@@ -19,6 +19,7 @@ import {
   message
 } from "antd";
 import BillInvoicePDF from "../../components/billInvoicePDF/BillInvoicePDF";
+import PayPalButton from "../../components/paypalButtons/PayPalButton";
 
 const Bills = () => {
   const { Content } = Layout;
@@ -407,6 +408,9 @@ const Bills = () => {
                 </Button>
               </Form.Item>
             </Col>
+            <Col xs={24} sm={12} md={4}>
+              <PayPalButton totalAmount={totalAmount} />
+            </Col>
           </Row>
         </Form>
         <Divider />
@@ -437,7 +441,7 @@ const Bills = () => {
             emptyText: <Empty description="No hay datos para facturar" />
           }}
         />
-        <Divider />
+        <br />
         <BillInvoicePDF
           data={form.getFieldsValue(["nombre", "apellido"])}
           selectedBooks={selectedBooks}
