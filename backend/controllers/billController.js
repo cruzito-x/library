@@ -1,5 +1,7 @@
 const db = require("../config/db");
+const paypal = require('@paypal/checkout-server-sdk');
 const crypto = require("crypto");
+const { clientId, clientSecret } = require('../config/paypal');
 
 exports.getBooks = (req, res) => {
   const selectBooks = "select l.idLibro as value, l.titulo as label, l.autor, l.precio from libros l inner join existencias e on e.idLibro = l.idLibro inner join genero g on g.idGenero = l.genero where (l.deleted_at is null and e.deleted_at is null and g.deleted_at is null) and e.existencia > 0;";
@@ -79,4 +81,43 @@ exports.saveBill = (req, res) => {
       });
     });
   });
+};
+
+const environment = new paypal.core.LiveEnvironment(clientId, clientSecret);
+const client = new paypal.core.PayPalHttpClient(environment);
+
+exports.createOrder = async (req, res) => {
+  const request = new paypal.orders.OrdersCreateRequest();
+  request.prefer("return=representation");
+  request.requestBody({
+    intent: 'CAPTURE',
+    purchase_units: [{
+      amount: {
+        currency_code: 'USD',
+        value: '10.00' // Aquí debes poner el total de la compra
+      }
+    }]
+  });
+
+  try {
+    const response = await client.execute(request);
+    res.json({ orderId: response.result.id });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+exports.captureOrder = async (req, res) => {
+  const orderId = req.body.orderId;
+  const request = new paypal.orders.OrdersCaptureRequest(orderId);
+  request.requestBody({});
+
+  try {
+    const response = await client.execute(request);
+    res.json(response.result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 };
