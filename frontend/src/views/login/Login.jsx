@@ -12,7 +12,7 @@ const Login = () => {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:3001/auth/login", {
+      const response = await fetch("http://192.168.0.3:3001/auth/login", {
         method: "post",
         headers: {
           "Content-Type": "application/json",

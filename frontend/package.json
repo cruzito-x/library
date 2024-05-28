@@ -29,11 +29,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env HOST=0.0.0.0 PORT=3000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://192.168.0.3:3001:3000",
   "eslintConfig": {
     "extends": [
       "react-app",

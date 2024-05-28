@@ -214,7 +214,7 @@ const DashboardGraphs = ({ period }) => {
   useEffect(() => {
     setLoading(true);
     // Obtener datos de total de libros
-    fetch(`http://localhost:3001/dashboard/totalBooks?period=${period}`)
+    fetch(`http://192.168.0.3:3001/dashboard/totalBooks?period=${period}`)
       .then((response) => response.json())
       .then((data) => {
         setTotalBooks(data[0].totalBooks);
@@ -228,7 +228,7 @@ const DashboardGraphs = ({ period }) => {
       });
 
     // Obtener datos de total de libros vendidos
-    fetch(`http://localhost:3001/dashboard/totalSales?period=${period}`)
+    fetch(`http://192.168.0.3:3001/dashboard/totalSales?period=${period}`)
       .then((response) => response.json())
       .then((data) => {
         setTotalSales(data[0].totalSales);
@@ -241,7 +241,7 @@ const DashboardGraphs = ({ period }) => {
       });
 
     // Obtener datos de total de ganancias
-    fetch(`http://localhost:3001/dashboard/totalRevenue?period=${period}`)
+    fetch(`http://192.168.0.3:3001/dashboard/totalRevenue?period=${period}`)
       .then((response) => response.json())
       .then((data) => {
         setTotalRevenue(data[0].totalRevenue);
@@ -254,7 +254,7 @@ const DashboardGraphs = ({ period }) => {
       });
 
     // Obtener datos de total de facturas emitidas
-    fetch(`http://localhost:3001/dashboard/totalInvoices?period=${period}`)
+    fetch(`http://192.168.0.3:3001/dashboard/totalInvoices?period=${period}`)
       .then((response) => response.json())
       .then((data) => {
         setTotalInvoices(data[0].totalInvoices);
@@ -270,7 +270,7 @@ const DashboardGraphs = ({ period }) => {
   // Obtener datos de ventas por género
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:3001/dashboard?period=${period}`)
+    fetch(`http://192.168.0.3:3001/dashboard?period=${period}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener los datos de ventas por género");
@@ -322,7 +322,7 @@ const DashboardGraphs = ({ period }) => {
   // Obtener la lista de las ventas
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:3001/dashboard/salesResume?period=${period}`)
+    fetch(`http://192.168.0.3:3001/dashboard/salesResume?period=${period}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener la lista de ventas");
@@ -380,7 +380,7 @@ const DashboardGraphs = ({ period }) => {
   // Obtener la lista de los libros más vendidos.
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:3001/dashboard/topSellers?period=${period}`)
+    fetch(`http://192.168.0.3:3001/dashboard/topSellers?period=${period}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener la lista de libros más vendidos");
@@ -417,7 +417,7 @@ const DashboardGraphs = ({ period }) => {
 
   // Obtener la lista de los últimos libros añadidos a stock.
   useEffect(() => {
-    fetch("http://localhost:3001/dashboard/latest")
+    fetch("http://192.168.0.3:3001/dashboard/latest")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener la lista de libros");

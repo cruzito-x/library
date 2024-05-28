@@ -40,7 +40,7 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
   const handleChange = (value) => {};
 
   useEffect(() => {
-    fetch("http://localhost:3001/users/")
+    fetch("http://192.168.0.3:3001/users/")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener la lista de usuarios");
@@ -63,7 +63,7 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
         return;
       }
 
-      fetch(`http://localhost:3001/users/updateUser/${editedUser.idUsuario}`, {
+      fetch(`http://192.168.0.3:3001/users/updateUser/${editedUser.idUsuario}`, {
         method: "put",
         headers: {
           "Content-Type": "application/json",
@@ -104,7 +104,7 @@ const UsersTable = ({ usersData, refreshTable, setRefreshTable }) => {
 
   const confirmDelete = (record) => {
     fetch(
-      `http://localhost:3001/users/deleteUserUpdatedDeletedAt/${record.idUsuario}`,
+      `http://192.168.0.3:3001/users/deleteUserUpdatedDeletedAt/${record.idUsuario}`,
       {
         method: "delete",
       }
