@@ -1,7 +1,6 @@
 import { React, useState, useEffect } from "react";
 import {
   PlusCircleOutlined,
-  PlusCircleFilled,
   UserOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
@@ -28,7 +27,6 @@ const Books = () => {
   const { Content } = Layout;
   const { Search } = Input;
   const [searchTerm, setSearchTerm] = useState("");
-  const [size, setSize] = useState("medium");
   const { confirm } = Modal;
   const { TextArea } = Input;
   const [form] = Form.useForm();
@@ -242,7 +240,7 @@ const Books = () => {
             <Button
               type="primary"
               icon={<PlusCircleOutlined />}
-              size={size}
+              size={"medium"}
               onClick={showAddModal}
             >
               Añadir nuevo

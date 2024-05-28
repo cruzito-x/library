@@ -14,15 +14,15 @@ const ReportTemplate = ({ reportData, period }) => {
       doc.setFontSize(20);
       doc.text(
         `${
-          period == 7
+          period === 7
             ? "Informe de ventas semanal"
-            : period == 14
+            : period === 14
             ? "Informe de ventas de los últimos 14 días"
-            : period == 30
+            : period === 30
             ? "Informe de ventas mensual"
-            : period == 180
+            : period === 180
             ? "Informe de ventas de los últimos 6 meses"
-            : period == 365
+            : period === 365
             ? "Informe de ventas anual"
             : ""
         }`,
@@ -52,25 +52,25 @@ const ReportTemplate = ({ reportData, period }) => {
       doc.setFontSize(12);
       doc.text(
         `${
-          period == 7
+          period === 7
             ? "Durante la"
-            : period == 14
+            : period === 14
             ? "Durante las"
-            : period == 30
+            : period === 30
             ? "Durante el"
-            : period == 180
+            : period === 180
             ? "Durante los meses"
-            : period == 365
+            : period === 365
             ? "Durante el año"
             : ""
         } ${
-          period == 7 || period == 14
+          period === 7 || period === 14
             ? reportData[1][0].week
-            : period == 30
+            : period === 30
             ? reportData[1][0].month
-            : period == 180
+            : period === 180
             ? reportData[1][0].semester
-            : period == 365
+            : period === 365
             ? reportData[1][0].year
             : ""
         }, hemos observado un desempeño notable en las ventas de libros. Se ha registrado un ${
@@ -80,15 +80,15 @@ const ReportTemplate = ({ reportData, period }) => {
             ? "0% de incremento o decremento"
             : reportData[5][0].porcentaje_incremento_decremento
         } en comparación a ${
-          period == 7
+          period === 7
             ? "la semana anterior"
-            : period == 14
+            : period === 14
             ? "las 2 semanas anteriores"
-            : period == 30
+            : period === 30
             ? "el mes anterior"
-            : period == 180
+            : period === 180
             ? "los últimos 6 meses"
-            : period == 365
+            : period === 365
             ? "el último año"
             : ""
         }, lo que indica una tendencia ${
@@ -112,15 +112,15 @@ const ReportTemplate = ({ reportData, period }) => {
       doc.setFontSize(12);
       doc.text(
         `${
-          period == 7
+          period === 7
             ? "Durante esta semana"
-            : period == 14
+            : period === 14
             ? "Durante estas últimas 2 semanas"
-            : period == 30
+            : period === 30
             ? "Durante este mes"
-            : period == 180
+            : period === 180
             ? "Durante estos últimos 6 meses"
-            : period == 365
+            : period === 365
             ? "Durante este último año"
             : ""
         }, hemos vendido un total de ${
@@ -207,15 +207,15 @@ const ReportTemplate = ({ reportData, period }) => {
         if (reportData[4].length > 100) {
           doc.text(
             `${
-              period == 7
+              period === 7
                 ? "En esta semana"
-                : period == 14
+                : period === 14
                 ? "En estas últimas 2 semanas"
-                : period == 30
+                : period === 30
                 ? "En este mes"
-                : period == 180
+                : period === 180
                 ? "En estos últimos 6 meses"
-                : period == 365
+                : period === 365
                 ? "En este último año"
                 : ""
             } se adjuntaron múltiples registros nuevos a la base de datos, adyacente a esto, se presentan las últimas adiciones:`,
@@ -226,15 +226,15 @@ const ReportTemplate = ({ reportData, period }) => {
         } else {
           doc.text(
             `${
-              period == 7
+              period === 7
                 ? "En esta semana"
-                : period == 14
+                : period === 14
                 ? "En estas últimas 2 semanas"
-                : period == 30
+                : period === 30
                 ? "En este mes"
-                : period == 180
+                : period === 180
                 ? "En estos últimos 6 meses"
-                : period == 365
+                : period === 365
                 ? "En este último año"
                 : ""
             } no se adquirio mucha mercadería, por lo cual no se añadieron muchos registros nuevos a la base de datos, adyacente a esto, se presentan las últimas adiciones`,

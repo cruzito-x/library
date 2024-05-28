@@ -1,7 +1,6 @@
 import { React, useState, useEffect } from "react";
 import {
   PlusCircleOutlined,
-  PlusCircleFilled,
   UserOutlined
 } from "@ant-design/icons";
 import {
