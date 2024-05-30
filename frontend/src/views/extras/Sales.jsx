@@ -15,7 +15,7 @@ const Sales = () => {
   } = theme.useToken();
 
   useEffect(() => {
-    fetch("http://192.168.0.3:3001/sales")
+    fetch("http://192.168.0.6:3001/sales")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener las ventas");

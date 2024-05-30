@@ -33,7 +33,7 @@ const GenresTable = ({ genresData, refreshTable, setRefreshTable }) => {
   };
 
   useEffect(() => {
-    fetch("http://192.168.0.3:3001/genres/")
+    fetch("http://192.168.0.6:3001/genres/")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener la lista de géneros");
@@ -51,7 +51,7 @@ const GenresTable = ({ genresData, refreshTable, setRefreshTable }) => {
   }, [refreshTable]);
 
   const handleGenreClick = (idGenero) => {
-    fetch(`http://192.168.0.3:3001/genres/booksByGenre/${idGenero}`)
+    fetch(`http://192.168.0.6:3001/genres/booksByGenre/${idGenero}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener los libros del género");
@@ -75,7 +75,7 @@ const GenresTable = ({ genresData, refreshTable, setRefreshTable }) => {
       }
 
       fetch(
-        `http://192.168.0.3:3001/genres/updateGenre/${editedGenre.idGenero}`,
+        `http://192.168.0.6:3001/genres/updateGenre/${editedGenre.idGenero}`,
         {
           method: "put",
           headers: {
@@ -118,7 +118,7 @@ const GenresTable = ({ genresData, refreshTable, setRefreshTable }) => {
 
   const confirmDelete = (record) => {
     fetch(
-      `http://192.168.0.3:3001/genres/deleteGenreUpdatedDeletedAt/${record.idGenero}`,
+      `http://192.168.0.6:3001/genres/deleteGenreUpdatedDeletedAt/${record.idGenero}`,
       {
         method: "delete",
       }

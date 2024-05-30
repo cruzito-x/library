@@ -1,4 +1,5 @@
 import React from "react";
+import { message } from "antd";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const PayPalButton = ({ totalAmount }) => {
@@ -7,7 +8,7 @@ const PayPalButton = ({ totalAmount }) => {
       purchase_units: [
         {
           amount: {
-            value: totalAmount, // Valor total de la compra
+            value: totalAmount, // Valor total de la compra, retornado desde bills
           },
         },
       ],
@@ -16,7 +17,7 @@ const PayPalButton = ({ totalAmount }) => {
 
   const onApprove = (data, actions) => {
     return actions.order.capture().then(function (details) {
-      alert("Transaction completed by " + details.payer.name.given_name);
+      message.success("Transacción realizada con éxito por: " + details.payer.name.given_name);
     });
   };
 
