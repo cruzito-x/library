@@ -12,7 +12,7 @@ const Login = () => {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const response = await fetch("http://192.168.0.6:3001/auth/login", {
+      const response = await fetch("http://192.168.0.5:3001/auth/login", {
         method: "post",
         headers: {
           "Content-Type": "application/json",
@@ -59,9 +59,9 @@ const Login = () => {
           }}
         >
           <Image
-            src={"logo.png"}
+            src={"logo192.png"}
             preview={false}
-            style={{ width: "150px", height: "75px", borderRadius: "50%" }}
+            style={{ width: "75px", height: "75px", borderRadius: "50%" }}
             alt="Product photo"
           />
         </div>

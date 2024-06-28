@@ -41,7 +41,7 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
   };
 
   useEffect(() => {
-    fetch("http://192.168.0.6:3001/books/genres")
+    fetch("http://192.168.0.5:3001/books/genres")
       .then((response) => response.json())
       .then((data) => {
         setGenres(data);
@@ -61,7 +61,7 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
   };
 
   useEffect(() => {
-    fetch("http://192.168.0.6:3001/books/")
+    fetch("http://192.168.0.5:3001/books/")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener la lista de libros");
@@ -80,7 +80,7 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
 
   const saveChanges = () => {
     form.validateFields().then((values) => {
-      fetch(`http://192.168.0.6:3001/books/updateBook/${editedBook.idLibro}`, {
+      fetch(`http://192.168.0.5:3001/books/updateBook/${editedBook.idLibro}`, {
         method: "put",
         headers: {
           "Content-Type": "application/json",
@@ -116,7 +116,7 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
 
   const confirmDelete = (record) => {
     fetch(
-      `http://192.168.0.6:3001/books/deleteBookUpdatedDeletedAt/${record.idLibro}`,
+      `http://192.168.0.5:3001/books/deleteBookUpdatedDeletedAt/${record.idLibro}`,
       {
         method: "delete",
       }
@@ -249,7 +249,7 @@ const BooksTable = ( { booksData, refreshTable, setRefreshTable } ) => {
                   }}
                 >
                   <Image
-                    src={selectedRowData.portada === null ? "logo512.png" : `http://192.168.0.6:3001${selectedRowData.portada}`}
+                    src={selectedRowData.portada === null ? "logo512.png" : `http://192.168.0.5:3001${selectedRowData.portada}`}
                     style={{ width: "300px", height: "350px" }}
                     alt="Book photo"
                     preview={false}

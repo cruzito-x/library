@@ -34,7 +34,7 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://192.168.0.6:3001/stock")
+    fetch("http://192.168.0.5:3001/stock")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener stock");
@@ -54,7 +54,7 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
 
   const saveChanges = () => {
     form.validateFields().then((values) => {
-      fetch(`http://192.168.0.6:3001/stock/updateStock/${editedStock.idLibro}`, {
+      fetch(`http://192.168.0.5:3001/stock/updateStock/${editedStock.idLibro}`, {
         method: "put",
         headers: {
           "Content-Type": "application/json",
@@ -95,7 +95,7 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
 
   const confirmDelete = (record) => {
     fetch(
-      `http://192.168.0.6:3001/stock/deleteStockUpdatedDeletedAt/${record.idLibro}`,
+      `http://192.168.0.5:3001/stock/deleteStockUpdatedDeletedAt/${record.idLibro}`,
       {
         method: "delete",
       }
@@ -126,7 +126,7 @@ const StockTable = ({ stockData, refreshTable, setRefreshTable }) => {
   };
 
   const activateStock = (record) => {
-    fetch(`http://192.168.0.6:3001/stock/activateStock/${record.idLibro}`, {
+    fetch(`http://192.168.0.5:3001/stock/activateStock/${record.idLibro}`, {
       method: "put",
     })
       .then((response) => {

@@ -37,7 +37,7 @@ const ReportTemplate = ({ reportData, period }) => {
       const imgWidth = 90;
       const imgHeight = 40;
       const imgX = (doc.internal.pageSize.getWidth() - imgWidth) / 2;
-      doc.addImage("/logo.png", "PNG", imgX, 20, imgWidth, imgHeight);
+      doc.addImage("/logo192.png", "PNG", imgX, 20, imgWidth, imgHeight);
 
       // Añadir espacio considerable
       doc.setFontSize(12);

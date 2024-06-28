@@ -32,7 +32,7 @@ const Genres = () => {
   } = theme.useToken();
 
   useEffect(() => {
-    fetch("http://192.168.0.6:3001/genres")
+    fetch("http://192.168.0.5:3001/genres")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener la lista de géneros");
@@ -82,7 +82,7 @@ const Genres = () => {
           return;
         }
 
-        fetch("http://192.168.0.6:3001/genres/save", {
+        fetch("http://192.168.0.5:3001/genres/save", {
           method: "post",
           body: formData,
         })

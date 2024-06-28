@@ -41,7 +41,7 @@ const Books = () => {
   } = theme.useToken();
 
   useEffect(() => {
-    fetch("http://192.168.0.6:3001/books")
+    fetch("http://192.168.0.5:3001/books")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener libros");
@@ -71,7 +71,7 @@ const Books = () => {
   };
 
   useEffect(() => {
-    fetch("http://192.168.0.6:3001/books/genres")
+    fetch("http://192.168.0.5:3001/books/genres")
       .then((response) => response.json())
       .then((data) => {
         setGenres(data);
@@ -147,7 +147,7 @@ const Books = () => {
             >
               <Upload
                 name="portada"
-                action={ "http://192.168.0.6:3001/books/images/upload" }
+                action={ "http://192.168.0.5:3001/books/images/upload" }
                 listType="picture"
                 accept=".png, .jpg, .jpeg"
                 maxCount={1}
@@ -183,7 +183,7 @@ const Books = () => {
         formData.append("existencia", formValues.existencia);
         formData.append("sinopsis", formValues.sinopsis);
   
-        fetch("http://192.168.0.6:3001/books/save", {
+        fetch("http://192.168.0.5:3001/books/save", {
           method: "post",
           body: formData,
         })

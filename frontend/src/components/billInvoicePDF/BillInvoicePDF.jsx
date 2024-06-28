@@ -16,7 +16,7 @@ const BillInvoicePDF = ({
 
     // Añadir logo y título
     const logo = new Image();
-    logo.src = "logo.png";
+    logo.src = "logo192.png";
     doc.addImage(
       logo,
       "PNG",

@@ -34,7 +34,7 @@ const Bills = () => {
   } = theme.useToken();
 
   useEffect(() => {
-    fetch("http://192.168.0.6:3001/bills/books")
+    fetch("http://192.168.0.5:3001/bills/books")
       .then((response) => response.json())
       .then((data) => {
         setBooks(data);
@@ -74,7 +74,7 @@ const Bills = () => {
       idUsuario,
     };
 
-    fetch("http://192.168.0.6:3001/bills/save", {
+    fetch("http://192.168.0.5:3001/bills/save", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
