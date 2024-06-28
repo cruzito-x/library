@@ -9,7 +9,7 @@ const helmet = require("helmet");
 
 const app = express();
 const port = 3001;
-const ip = "192.168.0.6";
+const ip = "192.168.0.5";
 
 const logsFolder = path.join(__dirname, "./logs"); // Ruta de la carpeta de logs
 
