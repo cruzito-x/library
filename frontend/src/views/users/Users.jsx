@@ -36,7 +36,7 @@ const Users = () => {
   const handleChange = (value) => { };
 
   useEffect(() => {
-    fetch("http://192.168.0.5:3001/users")
+    fetch("http://127.0.0.1:3001/users")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener la lista de usuarios");
@@ -110,7 +110,7 @@ const Users = () => {
           return;
         }
 
-        fetch("http://192.168.0.5:3001/users/save", {
+        fetch("http://127.0.0.1:3001/users/save", {
           method: "post",
           body: formData,
         })

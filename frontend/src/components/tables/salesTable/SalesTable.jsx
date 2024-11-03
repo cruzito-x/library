@@ -33,7 +33,7 @@ const SalesTable = ({ salesData, refreshTable, setRefreshTable }) => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://192.168.0.5:3001/sales")
+    fetch("http://127.0.0.1:3001/sales")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener las ventas");
@@ -53,7 +53,7 @@ const SalesTable = ({ salesData, refreshTable, setRefreshTable }) => {
 
   useEffect(() => {
     if (idVenta !== null) {
-      fetch(`http://192.168.0.5:3001/sales/getDetails?idVenta=${idVenta}`)
+      fetch(`http://127.0.0.1:3001/sales/getDetails?idVenta=${idVenta}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Error al obtener el detalle de venta");

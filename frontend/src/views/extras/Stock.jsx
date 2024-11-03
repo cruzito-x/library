@@ -15,7 +15,7 @@ const Stock = () => {
   } = theme.useToken();
 
   useEffect(() => {
-    fetch("http://192.168.0.5:3001/stock")
+    fetch("http://127.0.0.1:3001/stock")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener stock");
