@@ -1,4 +1,0 @@
-module.exports = {
-  clientId: 'AXoXH_PItZDaL2A7EIEz4j7UlxOZEmIQQDJXtjN-J7dQvi8CRVqLA1J7FtSPewrsYXaX53NwJVe2SPfL',
-  clientSecret: 'AXoXH_PItZDaL2A7EIEz4j7UlxOZEmIQQDJXtjN-J7dQvi8CRVqLA1J7FtSPewrsYXaX53NwJVe2SPfL'
-};
